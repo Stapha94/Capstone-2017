@@ -5,12 +5,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo logo"><img src="../../assets/img/MarshallWhite.png" height="40" width=""></a>
+        <a href="/" class="brand-logo logo"><img src="../../assets/img/MarshallWhite.png" height="40" width=""></a>
 
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#">Settings</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="login">Logout</a></li>
         </ul>
     </div>
 </nav>

@@ -1,3 +1,69 @@
+/** LANDING PAGE STYLES **/
+
+.landing-nav a:hover,a:active,a:visited,a::selection {
+    text-decoration: none;
+    color: white;
+    text-underline: none;
+}
+
+.jumbo {
+    background: url(../assets/img/Hero_Background.png) center ;
+    height: 750px;
+}
+
+.content {
+    padding: 250px 100px 50px;
+    color: white;
+}
+
+.content .btn {
+    background: white;
+    color: #222222;
+}
+
+.jumbo hr {
+    width: 5%;
+    color: white;
+    text-decoration: none;
+    border-color: white;
+}
+
+/* Blurbs */
+
+.blurbs {
+    background: #eee;
+    text-align: center;
+    height: 200px;
+}
+
+/**** ADMIN LOGIN ****/
+
+.login-cont {
+    text-align: center;
+    width: 40%;
+    padding: 50px 50px 50px;
+    margin: 150px auto;
+    background: white;
+}
+
+.background {
+    background: #eee;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.admin-btn {
+    width: 100%;
+    height: 50px;
+    background: #00B140;
+}
+
+.admin-btn:hover {
+    background: rgba(0,177,64,.8);
+}
+/** ADMIN/TEMPLATE STYLES **/
+
 #link {
     color: #00B140;
 }
