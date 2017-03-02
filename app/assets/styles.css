@@ -1,0 +1,91 @@
+#link {
+    color: #00B140;
+}
+
+.nav-wrapper {
+    background: #00B140;
+}
+
+.nav-icon {
+    float: left;
+    height: 25px;
+    display: inline-block;
+    margin: 15px;
+}
+
+#bar {
+    color: white;
+    background: #222223;
+    transform: translateX(0px) translateY(64px);
+    width: 200px;
+}
+
+#bar li a {
+    color: white;
+    margin: 15px -15px;
+}
+
+.waves-effect:hover {
+    background: green;
+}
+
+.page-title {
+    padding: 5px 15px;
+}
+
+.logo {
+    margin: 10px 35px;
+}
+
+.wrap {
+    margin: auto;
+    width: 80%;
+    margin-left: 220px;
+}
+
+.side-nav a:hover {background-color: #00B140}
+
+@media only screen and (max-width: 1200px) {
+    .wrap {
+        width: 78%;
+    }
+}
+
+@media only screen and (max-width: 995px) {
+    .wrap {
+        margin-left: 150px;
+        width: 80%;
+    }
+
+    #bar {
+        max-width: 150px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .wrap {
+        margin: 0;
+        width: 100%;
+        padding: 0;
+    }
+    
+    #bar {
+        display: none;
+    }
+}
+
+/*<aside>
+<ul class="side-nav" id="bar" style=" background: #222224; transform: translateX(0px); transform: translateY(64px);">
+    <li><div class="userView">
+            <div class="background">
+            </div>
+            <a href="#!name"><span class="white-text name">John Doe</span></a>
+            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+        </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+</ul>
+</aside>*/
