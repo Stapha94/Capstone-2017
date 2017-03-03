@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="app">
+<head>
+    <!-- jQuery -->
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="../../node_modules/materialize-css/dist/css/materialize.min.css" />
+    <!-- Materialize JavaScript -->
+    <script src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <!-- Materialize Fonts -->
+    <link rel="stylesheet" href="../../node_modules/materialize-css/dist/fonts/roboto" />
+    <!-- Our stylesheet -->
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- AngularJS -->
+    <script src="../../node_modules/angular/angular.js"></script>
+    <!-- Angular UI Bootstrap -->
+    <script src="../../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <!-- Angular UI Router -->
+    <script src="../../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
+    <!-- Load app files here -->
+    <script src="src/app.js"></script>
+    <script src="src/app-states.js"></script>
+    
+    <!-- Make sure to load controllers here -->
+    <script src="src/landing/landing-controller.js"></script>
+    <script src="src/admin-login/admin-login-controller.js"></script>
+    <script src="src/admin-dashboard/admin-dashboard-controller.js"></script>
+
+    <div ui-view></div>
+</body>
+</html>
