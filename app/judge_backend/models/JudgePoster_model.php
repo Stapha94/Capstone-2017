@@ -1,5 +1,5 @@
 <?php
-class Award_model extends CI_Model {
+class JudgePoster_model extends CI_Model {
 
         public function __construct()
         {
