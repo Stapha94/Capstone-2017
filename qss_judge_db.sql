@@ -64,23 +64,14 @@ CREATE TABLE judge (
     PRIMARY KEY (judge_id)
 );
 
-CREATE TABLE award (
-    award_id        INT(11)     NOT NULL        AUTO_INCREMENT,
-    description     VARCHAR(255)    NOT NULL,
-
-    PRIMARY KEY (award_id)
-);
-
 CREATE TABLE poster (
     poster_id       INT(11)     NOT NULL        AUTO_INCREMENT,
     category        VARCHAR(20) NOT NULL,
     title           VARCHAR(100) NOT NULL,
-    award_id        INT(11),
+    award           VARCHAR(50),
     presenter_id    INT(11)     NOT NULL,
 
     FOREIGN KEY (presenter_id) REFERENCES presenter(presenter_id),
-
-    FOREIGN KEY (award_id) REFERENCES award(award_id),
 
     PRIMARY KEY (poster_id)
 );

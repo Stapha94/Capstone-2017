@@ -1,0 +1,16 @@
+{
+  "name": "Judge",
+  "version": "0.0.1",
+  "description": "QSS Judge Evalution Application",
+  "author": {
+    "name": "Gabe Hoverman, Mark Adkins, and Paul Fox"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.6.2",
+    "angular-ui-bootstrap": "2.5.0",
+    "angular-ui-router": "0.2.17",
+    "jquery": "3.1.1",
+    "materialize-css": "0.98.0"
+  }
+}
