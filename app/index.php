@@ -1,4 +1,12 @@
 <?php
+// Allow from any origin
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header('Access-Control-Max-Age: 86400');    // cache for 1 day
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') 
+{
+	http_response_code(200);
+}
 /**
  * CodeIgniter
  *
