@@ -3,27 +3,33 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="Presenter Name" id="presenterName" ng-model="presenter.presenterName" type="text" class="validate" required>
-                    <label for="presenterName">Presenter Name *:</label>
+                    <input placeholder="First Name" id="presenterFirstName" ng-model="presenter.presenterFirstName" type="text" class="validate" required>
+                    <label for="presenterFirstName">First Name: </label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Presenter Email" id="email" ng-model="presenter.email" type="email" class="validate" required>
-                    <label for="email">Presenter Email *:</label>
+                    <input placeholder="Last Name" id="presenterLastName" ng-model="presenter.presenterLastName" type="text" class="validate" required>
+                    <label for="presenterLastName">Last Name: </label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
-                    <input placeholder="Institution" id="institution" ng-model="presenter.institution" type="text" class="validate" required>
-                    <label for="institution">Institution *:</label>
-                </div>
-                <div class="input-field col s6">
-                    <input placeholder="Role" id="role" ng-model="presenter.role" type="text" class="validate" required>
-                    <label for="email">Presenter Email *:</label>
+                <div class="input-field col s12">
+                    <input placeholder="Email" id="presenterEmail" ng-model="presenter.presenterEmail" type="email" class="validate" required>
+                    <label for="presenterEmail">Email: </label>
                 </div>
             </div>
             <div class="row">
-                <div ng-click="create()" class="btn waves-effect waves-light" type="submit">Submit</button>
+                <div class="input-field col s12">
+                    <input placeholder="Confirm Email" id="presenterEmailConfirm" ng-model="presenter.presenterEmail" type="email" class="validate" required>
+                    <label for="presenterEmailConfirm">Confirm Email: </label>
+                </div>
             </div>
+            <div class="row">
+                <div ui-sref="register-confirmation" class="btn waves-effect waves-light" type="submit">Submit</div>
+            </div>
+            <!-- This was temporarily removed until the controller is ready
+            <div class="row">
+                <div on-click="create()" class="btn waves-effect waves-light" type="submit">Submit</div>
+            </div>-->
         </form>
     </div>
 </div>
