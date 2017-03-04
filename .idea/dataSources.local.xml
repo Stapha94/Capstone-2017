@@ -2,6 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="MySQL - @localhost" uuid="177d0b7e-f4dd-432c-ba68-552bfcef1a38">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <secret-storage>master_key</secret-storage>
       <first-sync>true</first-sync>
     </data-source>
