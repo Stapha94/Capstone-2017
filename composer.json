@@ -1,3 +1,4 @@
 {
-    //This isn't really a composer file. I'm just tricking Heroku.
+    "description": "The QSS Judging application",
+	"name": "qss-judge"
 }
