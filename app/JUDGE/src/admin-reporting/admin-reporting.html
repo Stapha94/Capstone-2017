@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporting</title>
+</head>
+<body>
+    <div class="wrap">
+        <h5 class="page-title">Reporting</h5>
+        <table class="bordered highlight">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Project Title</th>
+                    <th>Key Participant</th>
+                    <th>Score</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-target="{{ project.id }}" ng-repeat="project in data">
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.project }}</td>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.score }}</td>
+                    <td>{{ project.category }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script>
+            $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
+            });
+        </script>
+        <!-- Modal Structure -->
+        <div id="{{ project.id }}" class="modal modal-fixed-footer" ng-repeat="project in data">
+            <div class="modal-content">
+                <h4>{{ project.id + " " + project.project }}</h4>
+                <p>Judge score information</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Mail Grades</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -7,7 +7,7 @@
 }
 
 .jumbo {
-    background: url(../assets/img/Hero_Background.png) center ;
+    background: url(img/Hero_Background.png) center ;
     height: 750px;
 }
 
@@ -140,18 +140,12 @@
     }
 }
 
-/*<aside>
-<ul class="side-nav" id="bar" style=" background: #222224; transform: translateX(0px); transform: translateY(64px);">
-    <li><div class="userView">
-            <div class="background">
-            </div>
-            <a href="#!name"><span class="white-text name">John Doe</span></a>
-            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-</ul>
-</aside>*/
+/*** ADMIN PAGE STYLES **/
+
+
+/** ADMIN.JUDGES **/
+
+.tab {
+    color: #00B140;
+}
+

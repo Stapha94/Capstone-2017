@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-<link rel = "stylesheet" type = "text/css" href = "../../assets/styles.css">
+<link rel = "stylesheet" type = "text/css" href = "../../JUDGE/assets/styles.css">
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 
 <nav>
     <div class="nav-wrapper landing-nav">
-        <a href="#" class="brand-logo logo"><img src="../../assets/img/MarshallWhite.png" height="40" width=""></a>
+        <a href="#" class="brand-logo logo"><img src="../../JUDGE/assets/img/MarshallWhite.png" height="40" width=""></a>
 
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
