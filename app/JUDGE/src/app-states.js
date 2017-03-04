@@ -6,6 +6,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'landingController',
             controllerAs: 'ctrl'
         })
+        //admin related states
         .state('login', {
             url: '/login',
             templateUrl: 'src/admin-login/admin-login.html',
@@ -26,6 +27,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                     controllerAs: 'ctrl'
                 }
             }
+        })
+        // registration related states
+        .state('register', {
+            url: '/register',
+            templateUrl: 'src/registration/register.html',
+            controller: 'registrationController',
+            controllerAs: 'ctrl'
         })
     
     // default to landing page
