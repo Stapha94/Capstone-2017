@@ -313,7 +313,7 @@
       <updated>1488232366016</updated>
       <workItem from="1488669963340" duration="2225000" />
       <workItem from="1488672486555" duration="158000" />
-      <workItem from="1488672777756" duration="335000" />
+      <workItem from="1488672777756" duration="682000" />
     </task>
     <task id="LOCAL-00001" summary="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
       <created>1488415210104</created>
@@ -333,7 +333,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2718000" />
+    <option name="totallyTimeSpent" value="3065000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
