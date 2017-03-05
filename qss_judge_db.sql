@@ -32,7 +32,8 @@ CREATE TABLE abstract (
 
 CREATE TABLE presenter (
     presenter_id    INT(11) NOT NULL    AUTO_INCREMENT,
-    presenter_name  VARCHAR(255)    NOT NULL,
+    first_name      VARCHAR(255)    NOT NULL,
+    last_name       VARCHAR(255)    NOT NULL,
     email           VARCHAR(255)    NOT NULL,
     institution     VARCHAR(50)     NOT NULL,
     role            VARCHAR(50)     NOT NULL,
@@ -57,7 +58,8 @@ CREATE TABLE key_participant (
 
 CREATE TABLE judge (
     judge_id    INT(11)     NOT NULL    AUTO_INCREMENT,
-    judge_name  VARCHAR(255)    NOT NULL,
+    first_name  VARCHAR(255)    NOT NULL,
+    last_name   VARCHAR(255)    NOT NULL,
     category    VARCHAR(50)     NOT NULL,
     is_active   TINYINT(1)      NOT NULL,
 
@@ -133,3 +135,41 @@ CREATE TABLE report (
 
     PRIMARY KEY (report_id)
 );
+
+INSERT INTO admin (email, password)
+VALUES ('admin@test.com', SHA2('password', 256));
+
+INSERT INTO settings (pin)
+VALUES (SHA2('1234', 256));
+
+INSERT INTO abstract (title, objective, methods, results, conclusion)
+VALUES ('Test title', 'Test objective', 'Test methods', 'Test results', 'Test conclusion');
+
+INSERT INTO presenter (first_name, last_name, email, institution, role,  abstract_id, is_registered)
+VALUES ('Mark', 'Adkins', 'test@test.com', 'MUSOM', 'Medical Student', 1, 1);
+
+INSERT INTO poster (category, title, award, presenter_id)
+VALUES ('MUSOM', 'Test title', NULL, 1);
+
+INSERT INTO judge (first_name, last_name, category, is_active)
+VALUES ('Paul', 'Fox', 'MUSOM', 1);
+
+INSERT INTO judge_poster (judge_id, poster_id)
+VALUES (1, 1);
+
+INSERT INTO form (poster_id, judge_id, total)
+VALUES (1, 1, 50);
+
+INSERT INTO question (description)
+VALUES ('Display is free of spelling and/or grammatical errors'),
+        ('Titles and heading fonts are clear and effective'),
+        ('The content includes a problem statement- including topic relevance'),
+        ('The content contains the team members/unit'),
+        ('The content contains a discussion of impacts/benefits of effort'),
+        ('The content includes a description of the data collection plan'),
+        ('Contains a graphical summary of data- if available'),
+        ('Contains further improvement(s) implemented and effectiveness'),
+        ('Contains next step for further improvements'),
+        ('Innovation of improvement effort');        
+
+
