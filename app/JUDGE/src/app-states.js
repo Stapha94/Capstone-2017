@@ -56,6 +56,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         })
+        .state('judge.form', {
+            url: '/form/:id',
+            views: {
+                'judge': {
+                    templateUrl: 'src/judge-form/judge-form.html',
+                    controller: 'judgeFormController',
+                    controllerAs: 'ctrl'
+                }
+            }
+        })
     
     // default to landing page
     $urlRouterProvider.otherwise('/home');

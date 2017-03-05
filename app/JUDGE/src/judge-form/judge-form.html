@@ -1,0 +1,49 @@
+<div class="container">
+
+    <form>
+
+        <table class="bordered highlight responsive-table">
+            <thead>
+                <tr>
+                    <th data-field="question">Question</th>
+                    <th data-field="poor">Poor</th>
+                    <th data-field="adequate">Adequate</th>
+                    <th data-field="fair">Fair</th><!-- we'll probably put an ng-if here later depending on the judge -->
+                    <th data-field="good">Good</th>
+                    <th data-field="excellent">Excellent</th>
+                    <th data-field="totals">TOTALS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="question in questions">
+                <td>{{question.description}}</td>
+                <td>
+                    <input ng-model="question.score" type="radio" id="poor" value="1" required />
+                    <label for="poor"></label>
+                </td>
+                <td>
+                    <input ng-model="question.score" type="radio" id="adequate" value="2" required />
+                    <label for="adequate"></label>
+                </td>
+                <td>
+                    <input ng-model="question.score" type="radio" id="fair" value="3" required />
+                    <label for="fair"></label>
+                </td>
+                <td>
+                    <input ng-model="question.score" type="radio" id="good" value="4" required />
+                    <label for="good"></label>
+                </td>
+                <td>
+                    <input ng-model="question.score" type="radio" id="excellent" value="5" required />
+                    <label for="excellent"></label>
+                </td>
+                <td>{{question.score}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button ng-click="ctrl.submit()" class="btn admin-btn">Submit</button>
+
+    </form>
+</div>
