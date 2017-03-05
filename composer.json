@@ -1,4 +1,9 @@
 {
-    "description": "The QSS Judging application",
-	"name": "qss-judge"
+  "description": "QSS Judge Application",
+  "name": "qss-judge",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.6.23"
+  }
 }
