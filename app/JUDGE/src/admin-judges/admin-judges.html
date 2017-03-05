@@ -20,12 +20,109 @@
                 <ul class="tabs">
                     <li class="tab col s3"><a href="#test1">Marshall</a></li>
                     <li class="tab col s3"><a class="active" href="#test2">JCE</a></li>
-                    <li class="tab col s3 "><a href="#test3">Inactive</a></li>
+                    <li class="tab col s3"><a href="#test3">Inactive</a></li>
+                    <li class="tab col s3"><button data-target="add-judge" class="btn green">Add Judge</button></li>
                 </ul>
             </div>
-            <div id="test1" class="col s12">Marshall Judges</div>
-            <div id="test2" class="col s12">JCE Judges</div>
-            <div id="test3" class="col s12">Inactive Judges</div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
+            });
+
+            $(document).ready(function() {
+                $('select').material_select();
+            });
+        </script>
+        <!-- Modal Structure -->
+        <div id="add-judge" class="modal modal-fixed-footer" ng-repeat="project in data">
+            <div class="modal-content">
+                <h5>Add Judge</h5>
+                <div class="input-field col s12">
+                    <form>
+                    <input placeholder="Full Name">
+                    <input class="validate" placeholder="Email">
+
+                        <select title="Category">
+                            <option value="category">Category</option>
+                            <option value="marshall">Marshall</option>
+                            <option value="JCE">JCE</option>
+                            <option value="other">Other</option>
+                        </select>
+                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                            <label for="filled-in-box">Active</label>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
+            </div>
+        </div>
+
+        <div id="test1" class="col s12">
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Judge Name</th>
+                <th>Category</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="project in data | filter:{category:'Marshall'} | filter:{active:true}">
+                <td>{{ project.id }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.category }}</td>
+                <td><a>Deactivate</a></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <!- TABLE TWO -!>
+
+        <div id="test2" class="col s12">
+            <table class="bordered highlight">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Judge Name</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="project in data | filter: {category:'JCE'} | filter:{active:true}">
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.category }}</td>
+                    <td><a>Deactivate</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="test3" class="col s12">
+            <table class="bordered highlight">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Judge Name</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="project in data | filter:{active:false}">
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.category }}</td>
+                    <td><a>Activate</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>

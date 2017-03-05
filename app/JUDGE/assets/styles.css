@@ -42,15 +42,15 @@
     text-align: center;
     width: 40%;
     padding: 50px 50px 50px;
-    margin: 150px auto;
+    margin: auto;
     background: white;
 }
 
 .background {
-    background: #eee;
-    height: 100%;
+    background: #ECECEC;
+    height: 1000px;
     width: 100%;
-    padding: 0;
+    padding: 150px 50px;
 }
 
 .admin-btn {
@@ -70,6 +70,7 @@
 
 .nav-wrapper {
     background: #00B140;
+
 }
 
 .nav-icon {
@@ -145,7 +146,32 @@
 
 /** ADMIN.JUDGES **/
 
-.tab {
+.tabs .tab a, .tabs .tab a.active{
+    color: rgba(0,0,0,.87);
+}
+
+.tabs .tab a:hover {
     color: #00B140;
 }
 
+.tabs .indicator {
+    background: #00B140;
+}
+
+td a, td a:hover {
+    color: #00B140;
+    cursor: pointer;
+}
+
+.green {
+    background: #00B140;
+    color: white;
+}
+
+.green:hover {
+    rgba(0,177,64,.8)
+}
+
+.full_name::after, .full_name .active::after {
+    content: "Full Name"
+}
