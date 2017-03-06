@@ -35,6 +35,30 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'registrationController',
             controllerAs: 'ctrl'
         })
+        .state('register-confirmation', {
+            url: '/register-confirmation',
+            templateUrl: 'src/registration/register-confirmation.html',
+            controller: 'registrationController',
+            controllerAs: 'ctrl'
+        })
+        .state('register-institution', {
+            url: '/register-institution',
+            templateUrl: 'src/registration/register-institution.html',
+            controller: 'registrationController',
+            controllerAs: 'ctrl'
+        })
+        .state('register-info', {
+            url: '/register-info',
+            templateUrl: 'src/registration/register-info.html',
+            controller: 'registrationController',
+            controllerAs: 'ctrl'
+        })
+        .state('register-finish', {
+            url: '/register-finish',
+            templateUrl: 'src/registration/register-finish.html',
+            controller: 'registrationController',
+            controllerAs: 'ctrl'
+        })
     
     // default to landing page
     $urlRouterProvider.otherwise('/home');

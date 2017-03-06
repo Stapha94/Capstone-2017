@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3d1efa-d60d-46d0-9030-c0f3c47af5b9" name="Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-info.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-poster.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-institution.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/app-states.js" afterPath="$PROJECT_DIR$/JUDGE/src/app-states.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-info.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-info.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-institution.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-institution.html" />
     </list>
     <list id="1782461e-7c2f-496a-b3de-84aceb207c44" name="Rejected commit: Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard." />
     <ignored path="Capstone-2017.iws" />
@@ -93,7 +93,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register-info.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="register-info.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-info.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
@@ -103,7 +103,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-states.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app-states.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="731">
@@ -395,7 +395,7 @@
       <option name="presentableId" value="Default" />
       <updated>1488232366016</updated>
       <workItem from="1488666103980" duration="4198000" />
-      <workItem from="1488764056127" duration="3631000" />
+      <workItem from="1488764056127" duration="3770000" />
     </task>
     <task id="LOCAL-00001" summary="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
       <created>1488415210104</created>
@@ -415,7 +415,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7829000" />
+    <option name="totallyTimeSpent" value="7968000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -734,14 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="59" column="32" lean-forward="true" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -778,6 +770,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="59" column="32" lean-forward="true" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
           <folding />
         </state>
       </provider>
