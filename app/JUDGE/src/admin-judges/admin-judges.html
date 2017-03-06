@@ -13,6 +13,7 @@
                 $('ul.tabs').tabs();
             });
 
+
         </script>
 
         <div class="row">
@@ -35,6 +36,7 @@
             $(document).ready(function() {
                 $('select').material_select();
             });
+
         </script>
         <!-- Modal Structure -->
         <div id="add-judge" class="modal modal-fixed-footer" ng-repeat="project in data">
@@ -42,10 +44,10 @@
                 <h5>Add Judge</h5>
                 <div class="input-field col s12">
                     <form>
-                    <input placeholder="Full Name">
-                    <input class="validate" placeholder="Email">
+                    <input id="name" placeholder="Full Name">
+                    <input id="email" class="validate" placeholder="Email">
 
-                        <select title="Category">
+                        <select id="category" title="Category">
                             <option value="category">Category</option>
                             <option value="marshall">Marshall</option>
                             <option value="JCE">JCE</option>
@@ -57,7 +59,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
+                <a onclick="AddJudge()"class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
             </div>
         </div>
 
@@ -73,10 +75,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="project in data | filter:{category:'Marshall'} | filter:{active:true}">
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.category }}</td>
-                <td><a>Deactivate</a></td>
+                <td data-target="{{ project.id }}">{{ project.id }}</td>
+                <td data-target="{{ project.id }}">{{ project.name }}</td>
+                <td data-target="{{ project.id }}">{{ project.category }}</td>
+                <td><a onclick="deactivate(project)">Deactivate</a></td>
             </tr>
             </tbody>
         </table>
@@ -95,7 +97,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="project in data | filter: {category:'JCE'} | filter:{active:true}">
+                <tr data-target="{{ project.id }}" ng-repeat="project in data | filter: {category:'JCE'} | filter:{active:true}">
                     <td>{{ project.id }}</td>
                     <td>{{ project.name }}</td>
                     <td>{{ project.category }}</td>
@@ -115,7 +117,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="project in data | filter:{active:false}">
+                <tr data-target="{{ project.id }}" ng-repeat="project in data | filter:{active:false}">
                     <td>{{ project.id }}</td>
                     <td>{{ project.name }}</td>
                     <td>{{ project.category }}</td>
@@ -123,6 +125,22 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <script>
+            $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
+            });
+        </script>
+        <!-- Modal Structure -->
+        <div id="{{ project.id }}" class="modal modal-fixed-footer" ng-repeat="project in data">
+            <div class="modal-content">
+                <h4>{{ project.id + " " + project.project }}</h4>
+                <p>Judge score information</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green ">Mail Grades</a>
+            </div>
         </div>
 
     </div>
