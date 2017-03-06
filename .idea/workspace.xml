@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3d1efa-d60d-46d0-9030-c0f3c47af5b9" name="Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-poster.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-info.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-poster.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-institution.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/app-states.js" afterPath="$PROJECT_DIR$/JUDGE/src/app-states.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" />
     </list>
     <list id="1782461e-7c2f-496a-b3de-84aceb207c44" name="Rejected commit: Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard." />
     <ignored path="Capstone-2017.iws" />
@@ -35,47 +37,67 @@
       </PATH_ELEMENT>
     </PATH>
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="register.html" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="374">
+                    <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Capstone-2017" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="10" lean-forward="true" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="register-confirmation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+            <state relative-caret-position="102">
+              <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register-poster.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-poster.html">
+      <file leaf-file-name="register-controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            <state relative-caret-position="221">
+              <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="landing.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JUDGE/src/landing/landing.html">
+      <file leaf-file-name="register-institution.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-institution.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="55" lean-forward="true" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+            <state relative-caret-position="578">
+              <caret line="34" column="25" lean-forward="false" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register-info.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-info.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -85,7 +107,17 @@
         <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="731">
-              <caret line="47" column="32" lean-forward="true" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+              <caret line="59" column="32" lean-forward="true" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register-finish.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-finish.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="79" lean-forward="true" selection-start-line="7" selection-start-column="79" selection-end-line="7" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -143,10 +175,14 @@
         <option value="$PROJECT_DIR$/app/judge_backend/views/admin_dash.php" />
         <option value="$PROJECT_DIR$/JUDGE/src/registration/register2.html" />
         <option value="$PROJECT_DIR$/JUDGE/src/registration/register-2.html" />
-        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
-        <option value="$PROJECT_DIR$/JUDGE/src/app-states.js" />
         <option value="$PROJECT_DIR$/JUDGE/src/registration/register-poster.html" />
+        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
+        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" />
+        <option value="$PROJECT_DIR$/JUDGE/src/app-states.js" />
+        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" />
         <option value="$PROJECT_DIR$/JUDGE/src/registration/register.html" />
+        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-institution.html" />
+        <option value="$PROJECT_DIR$/JUDGE/src/registration/register-info.html" />
       </list>
     </option>
   </component>
@@ -184,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -254,6 +289,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -262,7 +298,6 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="FullScreen" value="true" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -359,7 +394,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1488232366016</updated>
-      <workItem from="1488666103980" duration="3579000" />
+      <workItem from="1488666103980" duration="4198000" />
+      <workItem from="1488764056127" duration="3631000" />
     </task>
     <task id="LOCAL-00001" summary="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
       <created>1488415210104</created>
@@ -379,7 +415,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3579000" />
+    <option name="totallyTimeSpent" value="7829000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -452,8 +488,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/img/Gray.png" />
-    <entry file="file://$PROJECT_DIR$/app/assets/img/MarshallWhite.png" />
     <entry file="file://$PROJECT_DIR$/app/assets/img/ic_settings_white_48dp_2x.png" />
     <entry file="file://$PROJECT_DIR$/app/assets/img/ic_assignment_white_48dp_2x.png" />
     <entry file="file://$PROJECT_DIR$/app/assets/img/ic_dashboard_white_48dp_2x.png" />
@@ -498,7 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="116" column="40" lean-forward="false" selection-start-line="116" selection-start-column="40" selection-end-line="116" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -615,7 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -626,7 +658,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="773">
           <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -634,7 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -642,7 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
           <caret line="75" column="23" lean-forward="false" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,15 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="326" column="29" lean-forward="false" selection-start-line="326" selection-start-column="29" selection-end-line="326" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -674,7 +693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -682,7 +700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -690,7 +707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -705,7 +721,15 @@
     <entry file="file://$PROJECT_DIR$/JUDGE/src/landing/landing.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" column="55" lean-forward="true" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+          <caret line="7" column="55" lean-forward="false" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -713,31 +737,47 @@
     <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
-          <caret line="47" column="32" lean-forward="true" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-poster.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <caret line="59" column="32" lean-forward="true" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="10" lean-forward="true" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+        <state relative-caret-position="374">
+          <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-institution.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="25" lean-forward="false" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-finish.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="79" lean-forward="true" selection-start-line="7" selection-start-column="79" selection-end-line="7" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
           <folding />
         </state>
       </provider>
