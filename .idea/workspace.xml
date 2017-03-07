@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3d1efa-d60d-46d0-9030-c0f3c47af5b9" name="Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" afterPath="$PROJECT_DIR$/JUDGE/src/registration/register-finish.html" />
@@ -62,7 +61,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="register-confirmation.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="register-confirmation.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -72,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register-controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="register-controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+            <state relative-caret-position="119">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -395,7 +394,7 @@
       <updated>1488232366016</updated>
       <workItem from="1488666103980" duration="4198000" />
       <workItem from="1488764056127" duration="3917000" />
-      <workItem from="1488848295002" duration="3364000" />
+      <workItem from="1488848295002" duration="3655000" />
     </task>
     <task id="LOCAL-00001" summary="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
       <created>1488415210104</created>
@@ -415,7 +414,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11479000" />
+    <option name="totallyTimeSpent" value="11770000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -725,14 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-finish.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="79" lean-forward="false" selection-start-line="7" selection-start-column="79" selection-end-line="7" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JUDGE/src/app-states.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
@@ -749,10 +740,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="67" lean-forward="false" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="67" />
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -773,10 +764,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-controller.js">
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-finish.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+        <state relative-caret-position="119">
+          <caret line="7" column="79" lean-forward="false" selection-start-line="7" selection-start-column="79" selection-end-line="7" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JUDGE/src/registration/register-confirmation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="67" lean-forward="false" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="67" />
           <folding />
         </state>
       </provider>
