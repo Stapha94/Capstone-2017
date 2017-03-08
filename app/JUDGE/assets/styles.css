@@ -7,7 +7,7 @@
 }
 
 .jumbo {
-    background: url(../assets/img/Hero_Background.png) center ;
+    background: url(img/Hero_Background.png) center ;
     height: 750px;
 }
 
@@ -42,15 +42,15 @@
     text-align: center;
     width: 40%;
     padding: 50px 50px 50px;
-    margin: 150px auto;
+    margin: auto;
     background: white;
 }
 
 .background {
-    background: #eee;
-    height: 100%;
+    background: #ECECEC;
+    height: 1000px;
     width: 100%;
-    padding: 0;
+    padding: 150px 50px;
 }
 
 .admin-btn {
@@ -70,6 +70,7 @@
 
 .nav-wrapper {
     background: #00B140;
+
 }
 
 .nav-icon {
@@ -140,18 +141,37 @@
     }
 }
 
-/*<aside>
-<ul class="side-nav" id="bar" style=" background: #222224; transform: translateX(0px); transform: translateY(64px);">
-    <li><div class="userView">
-            <div class="background">
-            </div>
-            <a href="#!name"><span class="white-text name">John Doe</span></a>
-            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-</ul>
-</aside>*/
+/*** ADMIN PAGE STYLES **/
+
+
+/** ADMIN.JUDGES **/
+
+.tabs .tab a, .tabs .tab a.active{
+    color: rgba(0,0,0,.87);
+}
+
+.tabs .tab a:hover {
+    color: #00B140;
+}
+
+.tabs .indicator {
+    background: #00B140;
+}
+
+td a, td a:hover {
+    color: #00B140;
+    cursor: pointer;
+}
+
+.green {
+    background: #00B140;
+    color: white;
+}
+
+.green:hover {
+    rgba(0,177,64,.8)
+}
+
+.full_name::after, .full_name .active::after {
+    content: "Full Name"
+}
