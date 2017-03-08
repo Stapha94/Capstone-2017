@@ -1,9 +1,7 @@
-app.factory('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
+app.service('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
     function($window, $log, $http, $q, CONFIG) {
-        var service = {};
-
         // This gets all presenters and links to get_all_presenters in the backend
-        service.getPresenters = function() {
+        this.getPresenters = function() {
             var deferred = $q.defer();
 
             var url = CONFIG.DBURL + 'presenters';
@@ -18,7 +16,7 @@ app.factory('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
             return deferred.promise;
         }
 
-        service.create = function(presenter) {
+        this.create = function(presenter) {
             var deferred = $q.defer();
 
             var url = CONFIG.DBURL + 'presenter/create';
@@ -27,14 +25,10 @@ app.factory('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
                 deferred.resolve(response.data);
             })
             .catch(function(error) {
-                var htmlError = angular.element(error.data);
-                $window.alert(htmlError);
                 deferred.reject(error);
             });
 
             return deferred.promise;
         }
-
-        return service;
     }
 ])

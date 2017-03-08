@@ -12,11 +12,14 @@ CREATE TABLE admin (
     PRIMARY KEY (admin_id)
 );
 
-CREATE TABLE settings (
-    settings_id    INT(11)  NOT NULL    AUTO_INCREMENT,
+CREATE TABLE summit (
+    summit_id       INT(11)     NOT NULL    AUTO_INCREMENT,
+    summit_start    DATETIME()  NOT NULL,
+    summit_end      DATETIME()  NOT NULL,
+    registration_deadline       DATETIME(),
     pin       INT(4) NOT NULL,
 
-    PRIMARY KEY (settings_id)
+    PRIMARY KEY (summit_id)
 );
 
 CREATE TABLE abstract (
@@ -38,6 +41,7 @@ CREATE TABLE presenter (
     institution     VARCHAR(50)     NOT NULL,
     role            VARCHAR(50)     NOT NULL,
     abstract_id     INT(11)         NOT NULL,
+    submission_date DATETIME()      NOT NULL,
     is_registered   TINYINT(1)      NOT NULL,
 
     FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
@@ -48,7 +52,8 @@ CREATE TABLE presenter (
 CREATE TABLE key_participant (
     key_participant_id      INT(11)     NOT NULL        AUTO_INCREMENT,
     presenter_id            INT(11)     NOT NULL,
-    name                    VARCHAR(255)    NOT NULL,
+    first_name              VARCHAR(255)    NOT NULL,
+    last_name               VARCHAR(255)    NOT NULL,
     department              VARCHAR(255)    NOT NULL,
 
     FOREIGN KEY (presenter_id) REFERENCES presenter(presenter_id) ON DELETE CASCADE,
@@ -72,6 +77,7 @@ CREATE TABLE poster (
     title           VARCHAR(100) NOT NULL,
     award           VARCHAR(50),
     presenter_id    INT(11)     NOT NULL,
+    summit_id       INT(11)     NOT NULL,
 
     FOREIGN KEY (presenter_id) REFERENCES presenter(presenter_id),
 
@@ -125,9 +131,12 @@ CREATE TABLE form_question (
 -- Reporting tables
 CREATE TABLE report (
     report_id       INT(11)     NOT NULL        AUTO_INCREMENT,
+    summit_id       INT(11)     NOT NULL,
     presenter_id    INT(11)     NOT NULL,
     poster_id       INT(11)     NOT NULL,
     score           INT(3)      NOT NULL,
+
+    FOREIGN KEY (summit_id) REFERENCES summit(summit_id),
 
     FOREIGN KEY (presenter_id) REFERENCES presenter(presenter_id),
 
@@ -139,14 +148,11 @@ CREATE TABLE report (
 INSERT INTO admin (email, password)
 VALUES ('admin@test.com', SHA2('password', 256));
 
-INSERT INTO settings (pin)
-VALUES (SHA2('1234', 256));
-
 INSERT INTO abstract (title, objective, methods, results, conclusion)
 VALUES ('Test title', 'Test objective', 'Test methods', 'Test results', 'Test conclusion');
 
 INSERT INTO presenter (first_name, last_name, email, institution, role,  abstract_id, is_registered)
-VALUES ('Mark', 'Adkins', 'test@test.com', 'MUSOM', 'Medical Student', 1, 1);
+VALUES ('Mark', 'Adkins', 'test@test.com', 'MUSOM', 'Medical Student', 1, 1, NOW());
 
 INSERT INTO poster (category, title, award, presenter_id)
 VALUES ('MUSOM', 'Test title', NULL, 1);
