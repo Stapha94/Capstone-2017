@@ -6,11 +6,15 @@
     foreach($presenters as $key=>$value) {
         if($output != '') {$output  .= ',';}
         $output .= ' { "presenterId": '   .  $value->presenter_id .  ', ';
-        $output .= '"presenterName": "'   .  $value->presenter_name .  '", ';
+        $output .= '"firstName": "'   .  $value->first_name .  '", ';
+        $output .= '"lastName": "'   .  $value->last_name .  '", ';
+        $output .= '"suffix": "'   .  $value->suffix .  '", ';
         $output .= '"email": "'   .  $value->email .  '", ';
-        $output .= '"institution": "'   .  $value->institution .  '", ';
-        $output .= '"role": "'   .  $value->role .  '", ';
+        $output .= '"institutionId": '   .  $value->institution_id .  ', ';
+        $output .= '"roleId": '   .  $value->role_id .  ', ';
         $output .= '"abstractId": '   .  $value->abstract_id .  ', ';
+        $output .= '"abstractId": '   .  $value->abstract_id .  ', ';
+        $output .= '"submissionDate": '   .  $value->submission_date .  ', ';
         $output .= '"isRegistered": '   .  $value->is_registered . ' } ';
 }
 $output = '{"presenters": [ '.$output.' ] }';

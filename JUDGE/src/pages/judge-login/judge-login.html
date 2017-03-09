@@ -5,22 +5,19 @@
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Pin" id="pin" type="password" class="validate" required>
+                        <input placeholder="Pin" id="pin" type="password" ng-model="pin" class="validate" required>
+                        <label for="pin">PIN</label>
+                    </div>
+                </div>
+                <div class="row" ng-if="ctrl.isPinCorrect(pin)">
+                    <div class="input-field col s12">
+                        <input placeholder="Username" id="username" type="text" ng-model="username" class="validate" required>
                         <label for="pin">PIN</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
-                        <a class='dropdown-button btn' href='#' data-activates='judgeIds'>Judges</a>
-
-                        <ul id='judgeIds' class='dropdown-content'>
-                            <li ng-repeat="judge in judges"><a href="#!">{{judge.judgeId}}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col s6">
-                        <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
+                        <button ng-click="ctrl.login(username, pin)" class="btn admin-btn">Login</button>
                     </div>
                     <div class="col s6">
                         <button ui-sref="home" class="btn cancel-btn">Cancel</button>

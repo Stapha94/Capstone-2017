@@ -1,12 +1,13 @@
-app.service('authorizationService', ['$http', '$log', '$q', 
-    function($http, $log, $q) {
+app.service('authorizationService', ['$http', '$log', '$q', '$window', 'CONFIG',
+    function($http, $log, $q, $window, CONFIG) {
         
         this.getCurrentUser = function() {
             return this.currentUser;
         };
 
         this.setCurrentUser = function(user) {
-            this.currentUser = user;
+            $window.localStorage.setItem('currentUser', user);
+            this.currentUser = $window.localStorage.getItem('currentUser');
         };
 
         this.judgeLogin = function(username, pin) {
@@ -22,6 +23,20 @@ app.service('authorizationService', ['$http', '$log', '$q',
                 .catch(function(error) {
                     $log.error('Login for user ' + username + ' failed!');
                     setCurrentUser(null);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        }
+
+        this.checkPin = function(pin) {
+            var deferred = $q.defer();
+
+            var url = CONFIG.DBURL + 'judge-login/check-pin';
+            $http.post(url, {pin: pin})
+                .then(function(response) {
+                    deferred.resolve(response)
+                })
+                .catch(function(error) {
                     deferred.reject(error);
                 });
             return deferred.promise;

@@ -18,11 +18,14 @@ class Presenter extends CI_Controller {
       $postdata = file_get_contents('php://input');
       $request = json_decode($postdata);
       $data = [
-          'presenter_name'   => $request->presenterName,
+          'first_name'       => $request->firstName,
+          'last_name'        => $request->lastName,
+          'suffix'           => $request->suffix,
           'email'            => $request->email,
-          'institution'      => $request->institution,
-          'role'             => $request->role,
+          'institution_id'   => $request->institutionId,
+          'role_id'          => $request->roleId,
           'abstract_id'      => $request->abstractId,
+          'submission_date'  => $request->submissionDate,
           'is_registered'    => $request->isRegistered                                             
         ];
       $this->Presenter_model->create_presenter($data);

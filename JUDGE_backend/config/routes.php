@@ -60,6 +60,9 @@ $route['presenter/create'] = 'presenter/create';
 //Question routes
 $route['questions'] = 'question';
 
+//Login routes
+$route['judge-login/check-pin'] = 'login/check_pin';
+
 //Migration
 $route['migrate'] = 'migrate';
 

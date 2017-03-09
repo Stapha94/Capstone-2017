@@ -46,5 +46,32 @@ class Login extends CI_Controller {
 
         $this->load->view('logout'); 
     }
+
+    public function check_pin() {
+            $this->load->database();
+            $this->load->model('Judge_model');
+            $postdata = file_get_contents('php://input');
+            $request = json_decode($postdata);
+
+            $pin = $request->pin;
+            $date = date('Y-m-d H:i:s');
+
+            $this->db->select('pin');
+            $this->db->from('summit');
+            $this->db->where('summit_start <', $date);
+            $this->db->where('summit_end >', $date);
+            $this->db->where('pin = SHA2(' . $pin . ', 256)');
+            $this->db->limit(1);
+
+            $query = $this->db->get();
+            if($query->num_rows() === 1)
+            {
+                $data['correct'] = TRUE;
+            } else {
+                $data['correct'] = FALSE;
+            }
+
+            $this->load->view('pin', $data);
+        }   
     
 }
