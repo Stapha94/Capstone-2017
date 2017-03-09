@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+</head>
+<body>
+    <div class="wrap">
+        <script>
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
+        </script>
+        <h5 class="page-title">Settings</h5>
+        <div>
+            <form>
+
+                <div class="row">
+                    <div class="col-3">
+                        <input placeholder="Full Name" type="text"/>
+                    </div>
+                    <div class="col-3">
+                        <input  placeholder="Email" type="text"/>
+                    </div>
+                    <div class="col">
+                        <input placeholder="Date" type="date" class="datepicker">
+                    </div>
+                    <div>
+                        <input placeholder="Judge Pin">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

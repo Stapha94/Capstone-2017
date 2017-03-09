@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="First Name" id="presenterFirstName" ng-model="presenter.presenterFirstName" type="text" class="validate" required>
+                    <label for="presenterFirstName">First Name: </label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="Last Name" id="presenterLastName" ng-model="presenter.presenterLastName" type="text" class="validate" required>
+                    <label for="presenterLastName">Last Name: </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Email" id="presenterEmail" ng-model="presenter.presenterEmail" type="email" class="validate" required>
+                    <label for="presenterEmail">Email: </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Confirm Email" id="presenterEmailConfirm" ng-model="presenter.presenterEmail" type="email" class="validate" required>
+                    <label for="presenterEmailConfirm">Confirm Email: </label>
+                </div>
+            </div>
+            <div class="row">
+                <div ui-sref="register-confirmation" class="btn waves-effect waves-light" type="submit">Submit</div>
+            </div>
+            <!-- This was temporarily removed until the controller is ready
+            <div class="row">
+                <div on-click="create()" class="btn waves-effect waves-light" type="submit">Submit</div>
+            </div>-->
+        </form>
+    </div>
+</div>
