@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3d1efa-d60d-46d0-9030-c0f3c47af5b9" name="Default" comment="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/pages/registration/register-institution.html" afterPath="$PROJECT_DIR$/JUDGE/src/pages/registration/register-institution.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JUDGE/src/pages/registration/register.html" afterPath="$PROJECT_DIR$/JUDGE/src/pages/registration/register.html" />
     </list>
@@ -55,8 +54,8 @@
       <file leaf-file-name="register-institution.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JUDGE/src/pages/registration/register-institution.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="94" column="92" lean-forward="true" selection-start-line="94" selection-start-column="92" selection-end-line="94" selection-end-column="92" />
+            <state relative-caret-position="425">
+              <caret line="49" column="73" lean-forward="false" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -424,7 +423,7 @@
       <workItem from="1489020992624" duration="56000" />
       <workItem from="1489021079033" duration="170000" />
       <workItem from="1489022080810" duration="553000" />
-      <workItem from="1489023586281" duration="2218000" />
+      <workItem from="1489023586281" duration="2725000" />
     </task>
     <task id="LOCAL-00001" summary="Added in Admin Dashboard page and Assets required for template. Changed index.php to be configured to judge_backend so our routing should work, and added a controller for Admin Dashboard.">
       <created>1488415210104</created>
@@ -444,7 +443,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14838000" />
+    <option name="totallyTimeSpent" value="15345000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -652,8 +651,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/JUDGE/src/pages/registration/register-institution.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="94" column="92" lean-forward="true" selection-start-line="94" selection-start-column="92" selection-end-line="94" selection-end-column="92" />
+        <state relative-caret-position="425">
+          <caret line="49" column="73" lean-forward="false" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="73" />
           <folding />
         </state>
       </provider>
