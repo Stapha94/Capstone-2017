@@ -2,6 +2,11 @@
     $(document).ready(function() {
         $('select').material_select();
     });
+
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
 </script>
 
 <div class="container">
@@ -57,7 +62,49 @@
                  </div>
             </div>
             <div class="row">
-                <div onclick="" class="btn waves-effect waves-light">Add Presenter</div>
+                <button data-target="modal1" class="btn waves-effect waves-light">Add Presenter</button>
+            </div>
+            <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input placeholder="First Name" id="keyParticipantFName" ng-model="presenter.keyParticipantFName" type="text" class="validate" required>
+                            <label for="keyParticipantFName">First Name:</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Last Name" id="keyParticipantLName" ng-model="presenter.keyParticipantLName" type="text" class="validate" required>
+                            <label for="keyParticipantLName">Last Name:</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Department" id="keyParticipantDepartment" ng-model="presenter.keyParticipantDepartment" type="text" class="validate" required>
+                            <label for="keyParticipantDepartment">Department</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select id="keyParticipantInstitution" ng-model="presenter.keyParticipantInstitution" required>
+                                <option value="" disabled selected>Choose Your Institution</option>
+                                <option value="MUSOM">Marshall University School of Medicine</option>
+                                <option value="MUSOP">Marshall University School of Pharmacy</option>
+                                <option value="MUSON">Marshall University School of Nursing</option>
+                                <option value="CHH">Cabell Huntington Hospital</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="keyParticipantRole" ng-model="presenter.keyParticipantRole" required>
+                                <option value="" disabled selected>Choose Your Role</option>
+                                <option value="FM">Faculty Member</option>
+                                <option value="CHHE">Cabell Huntington Hospital Employee</option>
+                                <option value="R">Resident or Fellow</option>
+                                <option value="M">Medical Student</option>
+                                <option value="P">Pharmacy Student</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</a>
+                </div>
             </div>
             <br>
             <br>
