@@ -1,7 +1,8 @@
-app.service('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
+app.factory('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
     function($window, $log, $http, $q, CONFIG) {
+        var service = {};
         // This gets all presenters and links to get_all_presenters in the backend
-        this.getPresenters = function() {
+        service.getPresenters = function() {
             var deferred = $q.defer();
 
             var url = CONFIG.DBURL + 'presenters';
@@ -16,7 +17,7 @@ app.service('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
             return deferred.promise;
         }
 
-        this.create = function(presenter) {
+        service.create = function(presenter) {
             var deferred = $q.defer();
 
             var url = CONFIG.DBURL + 'presenter/create';
@@ -30,5 +31,7 @@ app.service('presenterService', ['$window', '$log', '$http', '$q', 'CONFIG',
 
             return deferred.promise;
         }
+
+        return service;
     }
 ])

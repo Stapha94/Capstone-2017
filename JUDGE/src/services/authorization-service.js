@@ -40,7 +40,7 @@ app.factory('authorizationService', ['$http', '$log', '$q', '$window', 'CONFIG',
         service.checkPin = function(pin) {
             var deferred = $q.defer();
 
-            var url = CONFIG.DBURL + 'authorize/check_pin';
+            var url = CONFIG.DBURL + 'authorize/check-pin';
             $http.post(url, {pin: pin})
                 .then(function(response) {
                     if(response.data.data) {
