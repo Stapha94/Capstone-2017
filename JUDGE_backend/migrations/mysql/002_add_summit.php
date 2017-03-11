@@ -11,7 +11,12 @@ class Migration_Add_summit extends CI_Migration {
                             summit_start    DATETIME  NOT NULL,
                             summit_end      DATETIME  NOT NULL,
                             registration_deadline       DATETIME,
+                            created_by_admin_id INT(11) NOT NULL,
                             pin       INT(4) NOT NULL,
+                            
+                            FOREIGN KEY (created_by_admin_id) REFERENCES admin(admin_id),
+                            
+                            UNIQUE KEY (summit_start, summit_end),
 
                             PRIMARY KEY (summit_id)
                         );";
