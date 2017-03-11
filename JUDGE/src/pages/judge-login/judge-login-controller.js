@@ -1,40 +1,45 @@
-app.controller('judgeLoginController', ['$scope', '$state', 'authorizationService',
-    function($scope, $state, authorizationService) {
-        $scope.pin = '';
-        var currentRequest = false;
-        var correct = false;
-        // login stuff goes here
+app.controller('judgeLoginController', ['$scope', '$state', 'authorizationService', 'judgeService',
+    function($scope, $state, authorizationService, judgeService) {
+        var ctrl = this; //This is ugly, but it lets us use ctrl variables inside .then statements
+        this.correct = false;
+        this.pin = '';
+        this.username = '';
+        this.judges = {};
+        judgeService.get()
+            .then(function(judges) {
+                ctrl.judges = judges;
+            })
+            .catch(function(error) {
+                ctrl.error = true;
+                ctrl.errorMessage = 'Server error!';
+            })
+
         this.login = function(username, pin) {
-            if(correct === true) {
-                authorizationService.judgeLogin(username, pin)
+            if(this.correct === true) {
+                authorizationService.judgeLogin(this.username, this.pin)
                 .then(function(response) {
-                    $state.go('judge.dashboard', {judgeId: username});
+                    $state.go('judge', {id: ctrl.username});
                 })
                 .catch(function(error) {
                     return error;
                 });
-            } else {
-                //show an error
             }
-
         }
 
-        this.isPinCorrect = function(pin) {
-            if($scope.pin.length === 4 && currentRequest === false && correct === false) {
-                currentRequest = true;
+        this.checkPin = function(pin) {
+            if(this.pin == null) {
+                this.pin = '';
+            } else if(this.pin.length === 4) {
                 authorizationService.checkPin(pin)
                 .then(function(response) {
-                    correct = true;
-                    currentRequest = false;
-                    return response;
+                    ctrl.correct = true;
                 })
                 .catch(function(reject) {
-                    correct = false;
-                    currentRequest = false;
-                    return reject;
+                    ctrl.error = true;
+                    ctrl.errorMessage = reject.message;
                 })
             }
-            return correct;
+            this.error = false; // For the notification directive
         }
     }
 ]);

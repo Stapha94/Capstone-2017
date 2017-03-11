@@ -2,22 +2,22 @@
     <div class="login-cont">
         <div class="row">
             <h4>Login</h4>
+            <notification ng-if="ctrl.error" message="ctrl.errorMessage" type="'error'"></notification>
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12">
-                        <input placeholder="Pin" id="pin" type="password" ng-model="pin" class="validate" required>
+                    <div ng-if="!ctrl.correct" class="input-field col s12">
+                        <input placeholder="Pin" id="pin" type="password" ng-model="ctrl.pin" class="validate" required>
                         <label for="pin">PIN</label>
                     </div>
-                </div>
-                <div class="row" ng-if="ctrl.isPinCorrect(pin)">
-                    <div class="input-field col s12">
-                        <input placeholder="Username" id="username" type="text" ng-model="username" class="validate" required>
-                        <label for="pin">PIN</label>
+                    <div ng-if="ctrl.correct" class="input-field col s12">
+                        <input placeholder="Username" id="username" type="text" ng-model="ctrl.username" required>
+                        <label for="username">Username</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <button ng-click="ctrl.login(username, pin)" class="btn admin-btn">Login</button>
+                        <button ng-if="ctrl.correct" ng-click="ctrl.login(ctrl.username, ctrl.pin)" class="btn admin-btn">Login</button>
+                        <button ng-if="!ctrl.correct" ng-click="ctrl.checkPin(ctrl.pin)" class="btn admin-btn">Check</button>
                     </div>
                     <div class="col s6">
                         <button ui-sref="home" class="btn cancel-btn">Cancel</button>
