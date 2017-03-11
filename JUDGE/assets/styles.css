@@ -185,3 +185,8 @@ td a, td a:hover {
 .cancel-btn:hover {
     background: rgba(255,100,120,.8);
 }
+
+/** Toast styles **/
+.toast.error {
+    background-color: #f44336;
+}
