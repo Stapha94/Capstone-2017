@@ -108,11 +108,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('judge', {
-            url: '/judge',
-            templateUrl: 'src/pages/judge-dashboard/judge-nav.html',
+            url: '/judge/:id',
+            templateUrl: 'src/pages/judge-nav/judge-nav.html',
+            controller: 'judgeNavController',
+            controllerAs: 'ctrl'
         })
         .state('judge.dashboard', {
-            url: ':id/dashboard',
+            url: '/dashboard',
             views: {
                 'judge': {
                     templateUrl: 'src/pages/judge-dashboard/judge-dashboard.html',
