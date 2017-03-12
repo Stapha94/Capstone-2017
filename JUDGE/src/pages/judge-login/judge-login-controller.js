@@ -1,45 +1,54 @@
-app.controller('judgeLoginController', ['$scope', '$state', 'authorizationService', 'judgeService',
-    function($scope, $state, authorizationService, judgeService) {
-        var ctrl = this; //This is ugly, but it lets us use ctrl variables inside .then statements
+class JudgeLoginController {
+
+    constructor($scope, $state, authorizationService, judgeService, notificationService) {
         this.correct = false;
         this.pin = '';
         this.username = '';
-        this.judges = {};
-        judgeService.get()
-            .then(function(judges) {
-                ctrl.judges = judges;
-            })
-            .catch(function(error) {
-                ctrl.error = true;
-                ctrl.errorMessage = 'Server error!';
-            })
+        this.notificationService = notificationService;
+        this.authorizationService = authorizationService;
+        this.judgeService = judgeService;
+        this.$state = $state;
+        this.loadJudges();
+    }
 
-        this.login = function(username, pin) {
-            if(this.correct === true) {
-                authorizationService.judgeLogin(this.username, this.pin)
-                .then(function(response) {
-                    $state.go('judge', {id: ctrl.username});
+    loadJudges() {
+        this.judgeService.get()
+            .then((data) => {
+                if(data == null) {
+                    data = {};
+                }
+                this.judges = data;
+            })
+            .catch((error) => {
+                notificationService.error('Server error!');
+            });
+    }
+
+    login(username, pin) {
+        this.authorizationService.judgeLogin(this.username, this.pin)
+            .then((response) => {
+                this.$state.go('judge', {id: this.username});
+            })
+            .catch((error) => {
+                return error;
+            });
+    }
+
+    checkPin(pin) {
+        if(this.pin == null) {
+            this.pin = '';
+        } else if(this.pin.length === 4) {
+            this.authorizationService.checkPin(this.pin)
+                .then((response) => {
+                    this.correct = true;
                 })
-                .catch(function(error) {
-                    return error;
+                .catch((reject) => {
+                    this.notificationService.error('Incorrect pin!');
                 });
-            }
-        }
-
-        this.checkPin = function(pin) {
-            if(this.pin == null) {
-                this.pin = '';
-            } else if(this.pin.length === 4) {
-                authorizationService.checkPin(pin)
-                .then(function(response) {
-                    ctrl.correct = true;
-                })
-                .catch(function(reject) {
-                    ctrl.error = true;
-                    ctrl.errorMessage = reject.message;
-                })
-            }
-            this.error = false; // For the notification directive
         }
     }
-]);
+
+}
+
+JudgeLoginController.$inject = ['$scope', '$state', 'authorizationService', 'judgeService', 'notificationService'];
+app.controller('judgeLoginController', JudgeLoginController);

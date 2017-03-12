@@ -58,6 +58,7 @@ $route['presenters'] ='presenter';
 $route['presenter/create'] = 'presenter/create';
 
 // Judge Routes
+$route['judges'] = 'judge';
 $route['judge/:num'] = 'judge/get/$1';
 
 //Question routes

@@ -2,7 +2,6 @@
     <div class="login-cont">
         <div class="row">
             <h4>Login</h4>
-            <notification ng-if="ctrl.error" message="ctrl.errorMessage" type="'error'"></notification>
             <form class="col s12">
                 <div class="row">
                     <div ng-if="!ctrl.correct" class="input-field col s12">
@@ -10,8 +9,11 @@
                         <label for="pin">PIN</label>
                     </div>
                     <div ng-if="ctrl.correct" class="input-field col s12">
-                        <input placeholder="Username" id="username" type="text" ng-model="ctrl.username" required>
-                        <label for="username">Username</label>
+                        <select ng-model="ctrl.username" material-select>
+                            <option value="" disabled selected>Choose your name</option>
+                            <option ng-repeat="judge in ctrl.judges" value="{{judge.judgeId}}">{{judge.firstName + ' ' + judge.lastName}}</option>
+                        </select>
+                        <label>Judge Select</label>
                     </div>
                 </div>
                 <div class="row">

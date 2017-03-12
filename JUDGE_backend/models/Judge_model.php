@@ -13,6 +13,15 @@ class Judge_model extends CI_Model {
                 parent::__construct();
         }
 
+        public function get_all_judges()
+        {
+                $query = $this->db->get('judge');
+
+                $result = $query->result();
+
+                return $result;
+        }
+
         public function get_judge($id) {
                 $query = $this->db->get_where('judge', array('judge_id' => $id));
 
