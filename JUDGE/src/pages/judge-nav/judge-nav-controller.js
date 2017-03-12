@@ -1,12 +1,18 @@
-app.controller('judgeNavController', ['$stateParams', '$state', 'judgeService', 'authorizationService',
-    function($stateParams, $state, judgeService, authorizationService) {
-        var ctrl = this;
+class JudgeNavController {
 
-        judgeService.get($stateParams.id)
+    constructor($stateParams, $state, judgeService, authorizationService) {
+        this.authorizationService = authorizationService;
+        judgeService.getById($stateParams.id)
             .then(function(judge) {
-                ctrl.judge = judge;
+                this.judge = judge;
             });
-        this.logout = 
         $state.go('judge.dashboard');
     }
-]);
+
+    logout() {
+        // Logout;
+    }
+}
+
+JudgeNavController.$inject = ['$stateParams', '$state', 'judgeService', 'authorizationService'];
+app.controller('judgeNavController', JudgeNavController);
