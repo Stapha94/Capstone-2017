@@ -521,3 +521,13 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+|-----------------------------------------------------------------------------
+| Secret Key for Auth Tokens
+|-----------------------------------------------------------------------------
+|
+| This simply sets a secret key for authentication to the API service.
+|
+ */
+$config['secret_key'] = base64_encode(openssl_random_pseudo_bytes(64));
