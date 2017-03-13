@@ -1,8 +1,9 @@
 class LandingController {
-    constructor($scope) {
-        // Something will go here...
+    constructor($scope, localStorageService) {
+        // Putting this here to test login
+        localStorageService.clear();
     }
 }
 
-LandingController.$inject = ['$scope'];
+LandingController.$inject = ['$scope', 'localStorageService'];
 app.controller('landingController', LandingController);

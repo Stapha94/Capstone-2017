@@ -2,15 +2,23 @@ class JudgeNavController {
 
     constructor($stateParams, $state, judgeService, authorizationService) {
         this.authorizationService = authorizationService;
-        judgeService.getById($stateParams.id)
-            .then(function(judge) {
-                this.judge = judge;
-            });
+        this.judgeService = judgeService;
+        this.judgeId = $stateParams.id;
+        this.loaded = false;
         $state.go('judge.dashboard');
+        this.getJudge();
+    }
+
+    getJudge() {
+        this.judgeService.getById(this.judgeId)
+            .then((judge) => {
+                this.judge = judge;
+                this.loaded = true;
+        });
     }
 
     logout() {
-        // Logout;
+        this.authorizationService.logout();
     }
 }
 

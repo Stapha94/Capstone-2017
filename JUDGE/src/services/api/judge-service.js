@@ -37,6 +37,21 @@ class JudgeService {
         return deferred.promise;
     }
 
+    // Gets only the usernames
+    getUsernames() {
+        var deferred = this.$q.defer();
+
+        var url = this.baseUrl + 'judge/usernames';
+        this.$http.get(url)
+            .then((response) => {
+                deferred.resolve(response.data.judges);
+            })
+            .catch((error) => {
+                deferred.reject('Server error!');
+            })
+        return deferred.promise;
+    }
+
 }
 
 JudgeService.$inject = ['$log', '$http', '$q', 'CONFIG'];

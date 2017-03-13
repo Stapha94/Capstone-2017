@@ -3,7 +3,7 @@ class JudgeLoginController {
     constructor($scope, $state, authorizationService, judgeService, notificationService) {
         this.correct = false;
         this.pin = '';
-        this.username = '';
+        this.user = {};
         this.notificationService = notificationService;
         this.authorizationService = authorizationService;
         this.judgeService = judgeService;
@@ -12,7 +12,7 @@ class JudgeLoginController {
     }
 
     loadJudges() {
-        this.judgeService.get()
+        this.judgeService.getUsernames()
             .then((data) => {
                 if(data == null) {
                     data = {};
@@ -20,21 +20,22 @@ class JudgeLoginController {
                 this.judges = data;
             })
             .catch((error) => {
-                notificationService.error('Server error!');
+                this.notificationService.error(error);
             });
     }
 
-    login(username, pin) {
-        this.authorizationService.judgeLogin(this.username, this.pin)
+    login() {
+        var judge = angular.fromJson(this.user);
+        this.authorizationService.judgeLogin(judge, this.pin)
             .then((response) => {
-                this.$state.go('judge', {id: this.username});
+                this.$state.go('judge', {id: judge.judgeId});
             })
             .catch((error) => {
                 return error;
             });
     }
 
-    checkPin(pin) {
+    checkPin() {
         if(this.pin == null) {
             this.pin = '';
         } else if(this.pin.length === 4) {

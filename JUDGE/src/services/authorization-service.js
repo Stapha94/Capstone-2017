@@ -1,83 +1,98 @@
-// use factories instead of services due to the way Promises work. We can't use 'this' in them.
-app.factory('authorizationService', ['$http', '$log', '$q', '$window', 'CONFIG',
-    function($http, $log, $q, $window, CONFIG) {
+class AuthorizationService {
 
-        var service = {};        
-
-        service.getCurrentUser = function() {
-            return service.currentUser;
-        };
-
-        service.setCurrentUser = function(user) {
-            $window.localStorage.setItem('currentUser', user);
-            service.currentUser = $window.localStorage.getItem('currentUser');
-        };
-
-        service.judgeLogin = function(username, pin) {
-            var deferred = $q.defer();
-
-            var url = CONFIG.DBURL + 'authorize/judge-login';
-            $http.post(url, {judgeId: username, pin: pin})
-                .then(function(response) {
-                    if(response.data.data) {
-                        $log.info('Login for user ' + username + ' successful!');
-                        service.setCurrentUser(response.data.data.judge);
-                        deferred.resolve(response)
-                    } else if(response.data.error) {
-                        $log.error('Login for user ' + username + ' failed!');
-                        service.setCurrentUser(null);
-                        deferred.reject(response.data.error);
-                    }
-                })
-                .catch(function(error) {
-                    $log.error('Login for user ' + username + ' failed!');
-                    service.setCurrentUser(null);
-                    deferred.reject(error);
-                });
-            return deferred.promise;
-        }
-
-        service.checkPin = function(pin) {
-            var deferred = $q.defer();
-
-            var url = CONFIG.DBURL + 'authorize/check-pin';
-            $http.post(url, {pin: pin})
-                .then(function(response) {
-                    if(response.data.data) {
-                        deferred.resolve(response.data.data);
-                    } else if(response.data.error) {
-                        deferred.reject(response.data.error);
-                    }
-                })
-                .catch(function(error) {
-                    deferred.reject(error);
-                });
-            return deferred.promise;
-        }
-
-        service.logout = function() {
-            var deferred = $q.defer();
-
-            var url = CONFIG.DBURL + 'authorize/logout';
-            $http.post(url)
-            .then(function(response) {
-                if(response.data.success) {
-                    service.setCurrentUser(null);
-                    deferred.resolve('Logout successful!');
-                } else if(response.data.error) {
-                    deferred.reject('Could not logout!');
-                }
-            })
-            .catch(function(error) {
-                deferred.reject(error);
-            })
-        }
-
-        service.isJudge = function(user) {
-            return user.authorization === 2;
-        }
-
-        return service
-
+    constructor($http, $log, $q, localStorageService, CONFIG) {
+        this.$http = $http;
+        this.$log = $log;
+        this.$q = $q;
+        this.localStorageService = localStorageService;
+        this.baseUrl = CONFIG.DBURL;
+        this.currentUser = this.localStorageService.get('currentUser');
+        this.authToken = this.localStorageService.get('authToken');
     }
-])
+
+    get currentUser() {
+        return this.localStorageService.get('currentUser');
+    }
+
+    set currentUser(data) {
+        this.localStorageService.set('currentUser', data);
+    }
+
+    get authToken() {
+        return this.localStorageService.get('authToken');
+    }
+
+    set authToken(token) {
+        this.localStorageService.set('authToken', token);
+        this._authToken = token;
+        if(token) {
+            this.$http.defaults.headers.common.Authorization = 'Bearer' + token;
+        } else {
+            this.$http.defaults.headers.common.Authorization = null;
+        }
+    }
+
+    judgeLogin(user, pin) {
+        var deferred = this.$q.defer();
+
+        var url = this.baseUrl + 'authorize/judge-login';
+        this.$http.post(url, {judgeId: user.judgeId, userName: user.userName, pin: pin})
+            .then((response) => {
+                this.$log.info('Login for user ' + user.userName + ' successful!');
+                this.currentUser = response.data.auth.judge;
+                this.authToken = response.data.auth.token.jwt;
+                deferred.resolve(response);
+            })
+            .catch((error) => {
+                this.$log.error('Login for user ' + user.userName + ' failed!');
+                this.currentUser = null;
+                this.authToken = null;
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    }
+
+    checkPin(pin) {
+            var deferred = this.$q.defer();
+
+            var url = this.baseUrl + 'authorize/check-pin';
+            this.$http.post(url, {pin: pin})
+                .then((response) => {
+                    deferred.resolve(response.data.success.correct);
+                })
+                .catch((response) => {
+                    deferred.reject(response.error.message);
+                });
+            return deferred.promise;
+    }
+
+    logout() {
+        this.currentUser = null;
+        this.authToken = null;
+        this.localStorageService.clear();
+    }
+
+    isAdmin() {
+        if(this.currentUser !== null) {
+            return currentUser.userType === 'Admin';
+        }
+        return false;
+    }
+
+    isJudge() {
+        if(this.currentUser !== null) {
+            return currentUser.userType === 'Judge';
+        }
+        return false;
+    }
+
+    isLoggedIn() {
+        return this.currentUser !== null || this.authToken !== null;
+    }
+
+
+
+}
+
+AuthorizationService.$inject = ['$http', '$log', '$q', 'localStorageService', 'CONFIG'];
+app.factory('authorizationService', AuthorizationService);

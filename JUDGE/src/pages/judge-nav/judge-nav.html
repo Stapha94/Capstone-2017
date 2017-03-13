@@ -4,7 +4,7 @@
             <a ui-sref="home" class="brand-logo logo"><img src="assets/img/MarshallWhite.png" height="40" width=""></a>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a ui-sref="judge.dashboard">{{user.firstName + ' ' + user.lastName}}
+                <li><a ng-if="ctrl.judge != null" ui-sref="judge.dashboard">{{ctrl.judge.firstName + ' ' + ctrl.judge.lastName}}
                 <li><a ng-click="ctrl.logout()">Logout</a></li>
             </ul>
         </div>
