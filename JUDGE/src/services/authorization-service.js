@@ -1,8 +1,9 @@
 class AuthorizationService {
 
-    constructor($http, $log, $q, localStorageService, CONFIG) {
+    constructor($http, $log, $state, $q, localStorageService, CONFIG) {
         this.$http = $http;
         this.$log = $log;
+        this.$state = $state;
         this.$q = $q;
         this.localStorageService = localStorageService;
         this.baseUrl = CONFIG.DBURL;
@@ -67,6 +68,16 @@ class AuthorizationService {
     }
 
     logout() {
+        if(this.isJudge()) {
+            this.clearToken();
+            this.$state.go('judge-login');
+        } else if(this.isAdmin()) {
+            this.clearToken();
+            this.$state.go('login');
+        }
+    }
+
+    clearToken() {
         this.currentUser = null;
         this.authToken = null;
         this.localStorageService.clear();
@@ -74,14 +85,14 @@ class AuthorizationService {
 
     isAdmin() {
         if(this.currentUser !== null) {
-            return currentUser.userType === 'Admin';
+            return this.currentUser.userType === 'Admin';
         }
         return false;
     }
 
     isJudge() {
         if(this.currentUser !== null) {
-            return currentUser.userType === 'Judge';
+            return this.currentUser.userType === 'Judge';
         }
         return false;
     }
@@ -94,5 +105,5 @@ class AuthorizationService {
 
 }
 
-AuthorizationService.$inject = ['$http', '$log', '$q', 'localStorageService', 'CONFIG'];
+AuthorizationService.$inject = ['$http', '$log', '$state', '$q', 'localStorageService', 'CONFIG'];
 app.factory('authorizationService', AuthorizationService);
