@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Presenter extends CI_Controller {
   public function index()
   {
-      $this->load->database();
       $this->load->model('Presenter_model');
       $data['presenters'] = $this->Presenter_model->get_all_presenters();
       
@@ -13,7 +12,6 @@ class Presenter extends CI_Controller {
   }
 
   public function create() {
-      $this->load->database();
       $this->load->model('Presenter_model');
       $postdata = file_get_contents('php://input');
       $request = json_decode($postdata);

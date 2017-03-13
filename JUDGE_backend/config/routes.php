@@ -60,14 +60,15 @@ $route['presenter/create'] = 'presenter/create';
 // Judge Routes
 $route['judges'] = 'judge';
 $route['judge/:num'] = 'judge/get/$1';
+$route['judge/usernames'] = 'judge/get_user_names';
 
 //Question routes
 $route['questions'] = 'question';
 
 //Login routes
-$route['authorize/check-pin'] = 'authorize/check_pin';
-$route['authorize/judge-login'] = 'authorize/judge_login';
-$route['authorize/logout'] = 'authorize/logout';
+$route['authorize/check-pin'] = 'login/check_pin';
+$route['authorize/judge-login'] = 'login/judge_login';
+$route['authorize/logout'] = 'login/logout';
 
 //Migration
 $route['migrate'] = 'migrate';

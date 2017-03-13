@@ -3,11 +3,17 @@
     header("Content-Type: application/json; charset=UTF-8");
 
     $output = '';
-    if($correct === TRUE) {
-        $output = '{"data": {"judge": "' . $session['user'] . '", "authorization": ' . $session['userLevel'] .  ' } }';
+    if($status === 401) {
+        header($message);
+        $data['status'] = $status;
+        $this->view('unauthorized', $data);
     } else {
-        $output = '{"error": {"code": 404, "message": "Incorrect Login" } }';
+        $output = ' { "auth": ';
+        $output .= '{ "judge": ';
+        $output .= '{ "id": ' . $judge['id'] . ', ';
+        $output .= '"userName": "' . $judge['user_name'] . '", ';
+        $output .= '"userType": "' . $judge['type'] . '" }, ';
+        $output .=  '"token": ' . $token . ' } } ';
+        echo($output);
     }
-
-echo($output);
 ?>

@@ -4,9 +4,10 @@
 
     $output = '';
     if($correct === TRUE) {
-        $output = "{\"data\": {\"correct\": \"true\" } }";
+        $output = '{ "success": { "correct": "true" } }';
     } else {
-        $output = "{\"error\": {\"code\": 404, \"message\": \"Incorrect PIN\" } }";
+        header('HTTP/1.0 401 Unauthorized');
+        $output = ' ( "error": { "message": "Incorrect pin!" } }';
     }
 
 echo($output);

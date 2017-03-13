@@ -93,4 +93,15 @@ class CI_Controller {
 		return self::$instance;
 	}
 
+    protected function authenticate($method) {
+        if($this->input->server('REQUEST_METHOD') === $method) {
+            return true;
+        } else {
+            $data['error_header'] = 'HTTP/1.0 405 Method Not Allowed';
+            $data['status'] = 405;
+            $this->load->view('unauthorized', $data);
+        }
+        return false;
+    }
+
 }
