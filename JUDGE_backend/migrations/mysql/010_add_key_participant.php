@@ -9,9 +9,9 @@ class Migration_Add_key_participant extends CI_Migration {
                 $sql = "CREATE TABLE key_participant (
                             key_participant_id      INT(11)     NOT NULL        AUTO_INCREMENT,
                             presenter_id            INT(11)     NOT NULL,
-                            first_name              VARCHAR(255)    NOT NULL,
-                            last_name               VARCHAR(255)    NOT NULL,
-                            department              VARCHAR(255)    NOT NULL,
+                            first_name              VARCHAR(50)    NOT NULL,
+                            last_name               VARCHAR(50)    NOT NULL,
+                            department              VARCHAR(100)    NOT NULL,
                             institution_id          INT(11)         NOT NULL,
                             role_id                 INT(11)         NOT NULL,
 

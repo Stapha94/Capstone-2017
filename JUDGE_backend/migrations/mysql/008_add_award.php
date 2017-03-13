@@ -2,16 +2,16 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_category extends CI_Migration {
+class Migration_Add_award extends CI_Migration {
 
         public function up()
         {
-                $sql = "CREATE TABLE category (
-                            category_id  INT(11) NOT NULL    AUTO_INCREMENT,
-                            title           VARCHAR(255)    NOT NULL,
+                $sql = "CREATE TABLE award (
+                            award_id  INT(11) NOT NULL    AUTO_INCREMENT,
+                            title           VARCHAR(50)    NOT NULL,
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
 
-                            PRIMARY KEY (category_id)
+                            PRIMARY KEY (award_id)
                         );";
 
                 $this->db->query($sql);
@@ -19,7 +19,7 @@ class Migration_Add_category extends CI_Migration {
 
         public function down()
         {
-                $sql = "DROP TABLE category;";
+                $sql = "DROP TABLE award;";
                 $this->db->query($sql);
         }
 }

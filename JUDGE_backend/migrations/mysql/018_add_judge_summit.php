@@ -6,7 +6,7 @@ class Migration_Add_judge_summit extends CI_Migration {
 
     public function up()
     {
-        $sql = "CREATE TABLE judge (
+        $sql = "CREATE TABLE judge_summit (
                             judge_id    INT(11)         NOT NULL,
                             summit_id   INT(11)         NOT NULL,
                             

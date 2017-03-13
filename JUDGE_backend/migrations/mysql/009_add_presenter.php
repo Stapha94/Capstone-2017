@@ -8,17 +8,17 @@ class Migration_Add_presenter extends CI_Migration {
         {
                 $sql = "CREATE TABLE presenter (
                             presenter_id    INT(11) NOT NULL    AUTO_INCREMENT,
-                            first_name      VARCHAR(255)    NOT NULL,
-                            last_name       VARCHAR(255)    NOT NULL,
+                            first_name      VARCHAR(50)    NOT NULL,
+                            last_name       VARCHAR(50)    NOT NULL,
                             suffix          VARCHAR(10),
-                            email           VARCHAR(255)    NOT NULL,
+                            email           VARCHAR(50)    NOT NULL,
                             institution_id  INT(11)         NOT NULL,
                             role_id         INT(11)         NOT NULL,
                             abstract_id     INT(11)         NOT NULL,
                             submission_date DATETIME        NOT NULL,
                             is_registered   TINYINT(1)      NOT NULL,
 
-                            FOREIGN KEY (institution_id) REFERENCES presenter(presenter_id),
+                            FOREIGN KEY (institution_id) REFERENCES institution(institution_id),
 
                             FOREIGN KEY (role_id) REFERENCES role(role_id),
 

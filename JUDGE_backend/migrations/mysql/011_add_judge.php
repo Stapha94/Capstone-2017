@@ -8,10 +8,13 @@ class Migration_Add_judge extends CI_Migration {
         {
                 $sql = "CREATE TABLE judge (
                             judge_id    INT(11)     NOT NULL    AUTO_INCREMENT,
-                            first_name  VARCHAR(255)    NOT NULL,
-                            last_name   VARCHAR(255)    NOT NULL,
-                            category    VARCHAR(50)     NOT NULL,
+                            user_name   VARCHAR(50)     NOT NULL,
+                            first_name  VARCHAR(50)    NOT NULL,
+                            last_name   VARCHAR(50)    NOT NULL,
+                            judge_category_id    INT(11)     NOT NULL,
                             is_active   TINYINT(1)      NOT NULL,
+
+                            FOREIGN KEY (judge_category_id) REFERENCES judge_category(judge_category_id),
 
                             PRIMARY KEY (judge_id)
                         );";

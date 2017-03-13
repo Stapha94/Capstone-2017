@@ -9,7 +9,7 @@ class Migration_Add_admin extends CI_Migration {
                 $sql = "CREATE TABLE admin (
                 admin_id    INT(11)  NOT NULL    AUTO_INCREMENT,
                 email       VARCHAR(50) NOT NULL,
-                password    VARCHAR(255)    NOT NULL,
+                password    VARCHAR(50)    NOT NULL,
 
                 PRIMARY KEY (admin_id)
                 );";

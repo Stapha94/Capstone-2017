@@ -9,10 +9,10 @@ class Migration_Add_abstract extends CI_Migration {
                 $sql = "CREATE TABLE abstract (
                             abstract_id     INT(11)     NOT NULL        AUTO_INCREMENT,
                             title           VARCHAR(255)    NOT NULL,
-                            objective       VARCHAR(255)    NOT NULL,
-                            methods         VARCHAR(255)    NOT NULL,
-                            results         VARCHAR(255)    NOT NULL,
-                            conclusion      VARCHAR(255)    NOT NULL,
+                            objective       TEXT    NOT NULL,
+                            methods         TEXT    NOT NULL,
+                            results         TEXT    NOT NULL,
+                            conclusion      TEXT    NOT NULL,
 
                             PRIMARY KEY (abstract_id)
                         );";
