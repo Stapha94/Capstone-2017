@@ -1,31 +1,30 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once ('JUDGE_backend/libraries/REST_Controller.php');
 
+use Restserver\Libraries\REST_Controller;
 
-class Judge extends CI_Controller {
+class Judge extends REST_Controller {
 
-    public function index()
+    public function index_get($id = NULL)
     {
-        $this->load->model('Judge_model');
-        $data['judges'] = $this->Judge_model->get_all_judges();
+        $authHeader = getHeader('Authorization');
+        if($authHeader) {
+            $judges = $this->Judge->get();
 
-        $this->load->view('judges', $data);
+            $this->response(prepare_for_frontend($judges));
+        } else {
+            $judges = $this->Judge->get_user_names();
+
+            $this->response(prepare_for_frontend($judges));
+        }
     }
 
-    public function get_user_names()
+    public function index_post()
     {
-        $this->load->model('Judge_model');
-        $data['judges'] = $this->Judge_model->get_usernames();
+        $data['judges'] = $this->Judge->get_usernames();
 
         $this->load->view('judge_usernames', $data);
-    }
-
-    public function get($id)
-    {
-        $this->load->model('Judge_model');
-        $data['judge'] = $this->Judge_model->get_judge($id);
-
-        $this->load->view('judge', $data);
     }
 
 }

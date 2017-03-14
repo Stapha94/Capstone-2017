@@ -1,67 +1,53 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require('Authorize.php');
+require_once ('JUDGE_backend/libraries/REST_Controller.php');
+use Restserver\Libraries\REST_Controller;
 
-class Login extends Authorize {
+class Login extends REST_Controller {
 
-    public function judge_login() {
-        if($this->authenticate('POST')) {
-            $this->load->model('Judge_model');
-            $post_data = file_get_contents('php://input');
-            $request = json_decode($post_data);
+    public function index_get() {
+        $this->response([]);
+    }
 
-            $judge_id = $request->judgeId;
-            $user_name = $request->userName;
-            $pin = $request->pin;
+    public function judge_post() {
+        $this->load->library('authorize');
+        $post_data = file_get_contents('php://input');
+        $request = json_decode($post_data);
 
-            $matches = $this->Judge_model->check_judge($judge_id, $pin);
+        $judge_id = $request->judgeId;
+        $user_name = $request->userName;
+        $pin = $request->pin;
 
-            if (count($matches) === 1) {
-                $judge = array(
-                    'id' => $judge_id,
-                    'user_name' => $user_name,
-                    'type' => 'Judge'
-                );
-                $auth_token = $this->create_auth_token($judge);
-                $data['token'] = $auth_token;
-                $data['judge'] = $judge;
-                $data['status'] = 200;
-                $this->load->view('judge_login', $data);
-            } else {
-                $data = get_error(401);
-            }
+        $matches = $this->Judge->check_judge($judge_id, $pin);
+
+        if (count($matches) === 1) {
+            $judge = array(
+                'id' => $judge_id,
+                'user_name' => $user_name,
+                'type' => 'Judge'
+            );
+            $auth_token = $this->authorize->get_auth_token($judge);
+            $data['token'] = json_decode($auth_token);
+            $data['judge'] = prepare_for_frontend(array($judge))[0];
+            $data['status'] = 200;
+            $this->response($data);
+        } else {
+            $this->response([], 401);
         }
     }
 
-    public function logout() {
-        $session = array(
-            'user' => '',
-            'logged_in' => FALSE,
-            'userLevel' => 0
-        );
+    public function check_pin_post() {
+        $post_data = file_get_contents('php://input');
+        $request = json_decode($post_data);
 
-        $this->session->set_userdata($session);
+        $pin = $request->pin;
+        $date = date('Y-m-d H:i:s');
 
-        $this->load->view('logout');
-    }
-
-    public function check_pin() {
-        if($this->authenticate('POST')) {
-            $this->load->model('Summit_model');
-            $post_data = file_get_contents('php://input');
-            $request = json_decode($post_data);
-
-            $pin = $request->pin;
-            $date = date('Y-m-d H:i:s');
-
-            $matches = $this->Summit_model->check_pin($pin, $date);
-            if (count($matches) === 1) {
-                $data['correct'] = TRUE;
-            } else {
-                $data['correct'] = FALSE;
-            }
-
-            $this->load->view('pin', $data);
+        $matches = $this->Summit->check_pin($pin, $date);
+        if (count($matches) === 1) {
+            $this->response([], 200);
+        } else {
+            $this->response([], 401);
         }
     }
 

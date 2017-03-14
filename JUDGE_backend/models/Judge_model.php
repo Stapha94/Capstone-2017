@@ -13,35 +13,26 @@ class Judge_model extends CI_Model {
                 parent::__construct();
         }
 
-        public function get_all_judges()
+        public function get($id = NULL)
         {
+                $this->db->select('judge_id, user_name, first_name, last_name, judge_category.title AS category, is_active');
+                $this->db->join('judge_category', 'judge.judge_category_id = judge_category.judge_category_id');
+                if($id) {
+                        $this->db->where('judge_id', $id);
+                }
+                $query = $this->db->get('judge');
+                $result = $query->result();
+                return $result;
+        }
+
+        public function get_user_names()
+        {
+                $this->db->select('judge_id, user_name');
+                $this->db->where('is_active', 1);
+
                 $query = $this->db->get('judge');
 
                 $result = $query->result();
-
-                return $result;
-        }
-
-        public function get_usernames()
-        {
-                $query = $this->db->select('judge_id, user_name')
-                                ->from('judge')
-                                ->where('is_active', 1)
-                                ->get();
-
-                $result = $query->result();
-                return $result;
-        }
-
-        public function get_judge($id) {
-                $query = $this->db->select('judge_id, user_name, first_name, last_name, title, is_active')
-                                ->from('judge')
-                                ->join('judge_category', 'judge.judge_category_id = judge_category.judge_category_id')
-                                ->where('judge_id', $id)
-                                ->get();
-
-                $result = $query->result();
-
                 return $result;
         }
 

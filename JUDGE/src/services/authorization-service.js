@@ -36,12 +36,12 @@ class AuthorizationService {
     judgeLogin(user, pin) {
         var deferred = this.$q.defer();
 
-        var url = this.baseUrl + 'authorize/judge-login';
+        var url = this.baseUrl + 'authorize/judge';
         this.$http.post(url, {judgeId: user.judgeId, userName: user.userName, pin: pin})
             .then((response) => {
                 this.$log.info('Login for user ' + user.userName + ' successful!');
-                this.currentUser = response.data.auth.judge;
-                this.authToken = response.data.auth.token.jwt;
+                this.currentUser = response.data.judge;
+                this.authToken = response.data.token.jwt;
                 deferred.resolve(response);
             })
             .catch((error) => {
@@ -59,19 +59,19 @@ class AuthorizationService {
             var url = this.baseUrl + 'authorize/check-pin';
             this.$http.post(url, {pin: pin})
                 .then((response) => {
-                    deferred.resolve(response.data.success.correct);
+                    deferred.resolve(response);
                 })
                 .catch((response) => {
-                    deferred.reject(response.error.message);
+                    deferred.reject(response);
                 });
             return deferred.promise;
     }
 
     logout() {
-        if(this.isJudge()) {
+        if(this.isJudge) {
             this.clearToken();
             this.$state.go('judge-login');
-        } else if(this.isAdmin()) {
+        } else if(this.isAdmin) {
             this.clearToken();
             this.$state.go('login');
         }
@@ -80,24 +80,23 @@ class AuthorizationService {
     clearToken() {
         this.currentUser = null;
         this.authToken = null;
-        this.localStorageService.clear();
     }
 
-    isAdmin() {
+    get isAdmin() {
         if(this.currentUser !== null) {
-            return this.currentUser.userType === 'Admin';
+            return this.currentUser.type === 'Admin';
         }
         return false;
     }
 
-    isJudge() {
+    get isJudge() {
         if(this.currentUser !== null) {
-            return this.currentUser.userType === 'Judge';
+            return this.currentUser.type === 'Judge';
         }
         return false;
     }
 
-    isLoggedIn() {
+    get isLoggedIn() {
         return this.currentUser !== null || this.authToken !== null;
     }
 

@@ -13,7 +13,7 @@ class JudgeService {
         var url = this.baseUrl + 'judges';
         this.$http.get(url)
             .then(function(response) {
-                deferred.resolve(response.data.judges);
+                deferred.resolve(response.data);
             })
             .catch(function(error) {
                 deferred.reject(error);
@@ -28,7 +28,7 @@ class JudgeService {
         var url = this.baseUrl + 'judge/get/' + id;
         this.$http.get(url)
             .then(function(response) {
-                deferred.resolve(response.data.judge);
+                deferred.resolve(response.data);
             })
             .catch(function(error) {
                 deferred.reject(error);
@@ -44,7 +44,7 @@ class JudgeService {
         var url = this.baseUrl + 'judge/usernames';
         this.$http.get(url)
             .then((response) => {
-                deferred.resolve(response.data.judges);
+                deferred.resolve(response.data);
             })
             .catch((error) => {
                 deferred.reject('Server error!');

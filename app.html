@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="app">
+<head>
+    <!-- jQuery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Lodash -->
+    <script src="node_modules/lodash/lodash.min.js"></script>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css" />
+    <!-- Materialize JavaScript -->
+    <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <!-- Our stylesheet -->
+    <link rel="stylesheet" href="judge/assets/styles.css">
+</head>
+<body>
+    <!-- AngularJS -->
+    <script src="node_modules/angular/angular.js"></script>
+    <!-- Angular UI Bootstrap -->
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <!-- Angular UI Router -->
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
+    <!-- Load app files here -->
+    <script src="JUDGE/src/app.js"></script>
+    <script src="JUDGE/src/app-states.js"></script>
+
+    <!-- Load api files here -->
+    <script src="judge/src/services/api/poster-service.js"></script>
+    <script src="JUDGE/src/services/api/presenter-service.js"></script>
+    <script src="JUDGE/src/services/api/question-service.js"></script>
+    <script src="JUDGE/src/services/api/judge-service.js"></script>
+
+    <!-- Load other services here -->
+    <script src="JUDGE/src/config/authorization-interceptor.js"></script>
+    <script src="JUDGE/src/config/route-interceptor.js"></script>
+    <script src="JUDGE/src/services/authorization-service.js"></script>
+    <script src="JUDGE/src/services/notification-service.js"></script>
+    <script src="JUDGE/src/services/local-storage-service.js"></script>
+
+    <!-- Load directives here -->
+    <script src="JUDGE/src/directives/material/select-directive.js"></script>
+
+    <!-- Make sure to load controllers here -->
+    <script src="JUDGE/src/pages/landing/landing-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-login/admin-login-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-dashboard/admin-dashboard-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-judges/admin-judges-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-participants/admin-participants-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-reporting/admin-reporting-controller.js"></script>
+    <script src="JUDGE/src/pages/admin-settings/admin-settings-controller.js"></script>
+    <script src="JUDGE/src/pages/registration/register-controller.js"></script>
+    <script src="JUDGE/src/pages/judge-login/judge-login-controller.js"></script>
+    <script src="JUDGE/src/pages/judge-nav/judge-nav-controller.js"></script>
+    <script src="JUDGE/src/pages/judge-dashboard/judge-dashboard-controller.js"></script>
+    <script src="JUDGE/src/pages/judge-form/judge-form-controller.js"></script>
+
+    <div ui-view></div>
+</body>
+</html>

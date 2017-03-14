@@ -1,6 +1,6 @@
 class JudgeLoginController {
 
-    constructor($scope, $state, authorizationService, judgeService, notificationService) {
+    constructor($scope, $state, authorizationService, judgeService, notificationService, judges) {
         this.correct = false;
         this.pin = '';
         this.user = {};
@@ -8,20 +8,7 @@ class JudgeLoginController {
         this.authorizationService = authorizationService;
         this.judgeService = judgeService;
         this.$state = $state;
-        this.loadJudges();
-    }
-
-    loadJudges() {
-        this.judgeService.getUsernames()
-            .then((data) => {
-                if(data == null) {
-                    data = {};
-                }
-                this.judges = data;
-            })
-            .catch((error) => {
-                this.notificationService.error(error);
-            });
+        this.judges = judges;
     }
 
     login() {
@@ -51,5 +38,5 @@ class JudgeLoginController {
 
 }
 
-JudgeLoginController.$inject = ['$scope', '$state', 'authorizationService', 'judgeService', 'notificationService'];
+JudgeLoginController.$inject = ['$scope', '$state', 'authorizationService', 'judgeService', 'notificationService', 'judges'];
 app.controller('judgeLoginController', JudgeLoginController);

@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$autoload['libraries'] = array('database','session');
+$autoload['libraries'] = array('database', 'session');
 
 $autoload['helper'] = array('url');
 
@@ -93,7 +93,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('http');
+$autoload['helper'] = array('data', 'string_conversion', 'header');
 
 /*
 | -------------------------------------------------------------------
@@ -136,4 +136,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('Judge_model' => 'Judge', 'Summit_model' => 'Summit');

@@ -57,17 +57,20 @@ $route['translate_uri_dashes'] = FALSE;
 $route['presenters'] ='presenter';
 $route['presenter/create'] = 'presenter/create';
 
+//Poster Routes
+$route['judge_posters/(:num)'] = 'poster/get_judge_posters/$1';
+
 // Judge Routes
 $route['judges'] = 'judge';
-$route['judge/:num'] = 'judge/get/$1';
-$route['judge/usernames'] = 'judge/get_user_names';
+$route['judge/(:num)'] = 'judge/$1';
+$route['judge/usernames'] = 'judge';
 
 //Question routes
 $route['questions'] = 'question';
 
 //Login routes
 $route['authorize/check-pin'] = 'login/check_pin';
-$route['authorize/judge-login'] = 'login/judge_login';
+$route['authorize/judge'] = 'login/judge';
 $route['authorize/logout'] = 'login/logout';
 
 //Migration

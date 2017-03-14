@@ -5,6 +5,10 @@
   "author": {
     "name": "Gabe Hoverman, Mark Adkins, and Paul Fox"
   },
+  "repository": {
+    "type": "Github",
+    "url": "https://github.com/Stapha94/Capstone-2017.git"
+  },
   "license": "MIT",
   "dependencies": {
     "angular": "1.6.2",
@@ -12,6 +16,7 @@
     "angular-ui-router": "0.4.2",
     "express": "4.15.0",
     "jquery": "3.1.1",
+    "lodash": "4.17.4",
     "materialize-css": "0.98.0"
   }
 }

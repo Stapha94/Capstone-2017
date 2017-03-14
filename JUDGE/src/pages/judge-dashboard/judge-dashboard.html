@@ -1,4 +1,4 @@
- <table class="bordered highlight responsive-table">
+ <table class="bordered highlight">
     <thead>
         <tr>
             <th data-field="posterId">Poster ID</th>
@@ -11,10 +11,10 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="poster in posters">
+        <tr ng-repeat="poster in ctrl.posters">
         <td>{{poster.posterId}}</td>
-        <td>{{poster.presenterFirstName}}</td>
-        <td>{{poster.presenterLastName}}</td>
+        <td>{{poster.firstName}}</td>
+        <td>{{poster.lastName}}</td>
         <td>{{poster.category}}</td>
         <td>{{poster.score}}</td>
         <td ui-sref="#">Judge Poster</td>

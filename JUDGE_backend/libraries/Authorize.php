@@ -1,18 +1,26 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct access allowed');
+require_once('system/core/Security.php');
+use Firebase\JWT\JWT;
 
-class Authorize extends CI_Controller {
+class Authorize {
 
-    // Based on tutorial found here: https://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
+    public function get_auth_token($data = null)
+    {
+        if($data) {
+            return $this->create_auth_token($data);
+        }
+        return 'Method to decode here.';
+    }
 
-    protected function create_auth_token($data) {
+    private function create_auth_token($data) {
 
         // Create the token values
         $token_id = base64_encode(openssl_random_pseudo_bytes(32)); //mcrypt_create_iv has been deprecated
         $issued_at = time();
         $not_before = $issued_at + 10;
         $expire = $not_before + 60;
-        $server_name = $this->config->item('base_url');
+        $server_name = config_item('base_url');
 
         //Create the token
         $token = array(
@@ -29,9 +37,9 @@ class Authorize extends CI_Controller {
         );
 
         // Create and encode JWT
-        $secret_key = base64_decode($this->config->item('secret_key'));
+        $secret_key = base64_decode(config_item('secret_key'));
 
-        $jwt = \Firebase\JWT\JWT::encode(
+        $jwt = JWT::encode(
             $token,
             $secret_key,
             'HS256'
