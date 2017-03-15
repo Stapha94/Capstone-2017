@@ -19,7 +19,7 @@ class Migration_Add_summit extends CI_Migration {
                             UNIQUE KEY (summit_start, summit_end),
 
                             PRIMARY KEY (summit_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

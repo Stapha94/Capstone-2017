@@ -18,7 +18,7 @@ class Migration_Add_form extends CI_Migration {
                             FOREIGN KEY (judge_id) REFERENCES judge(judge_id),
 
                             PRIMARY KEY (form_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

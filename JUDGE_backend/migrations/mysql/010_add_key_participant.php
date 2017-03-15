@@ -22,7 +22,7 @@ class Migration_Add_key_participant extends CI_Migration {
                             FOREIGN KEY (role_id) REFERENCES role(role_id),
 
                             PRIMARY KEY (key_participant_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

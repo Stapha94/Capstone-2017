@@ -15,7 +15,7 @@ class Migration_Add_abstract extends CI_Migration {
                             conclusion      TEXT    NOT NULL,
 
                             PRIMARY KEY (abstract_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

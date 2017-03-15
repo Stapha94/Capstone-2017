@@ -12,7 +12,7 @@ class Migration_Add_judge_category extends CI_Migration {
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
 
                             PRIMARY KEY (judge_category_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

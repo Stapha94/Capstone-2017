@@ -16,7 +16,7 @@ class Migration_Add_form_question extends CI_Migration {
                             FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,
 
                             PRIMARY KEY (form_id, question_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

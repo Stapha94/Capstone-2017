@@ -11,7 +11,7 @@ class Migration_Add_question_section extends CI_Migration {
                             title   VARCHAR(100)                   NOT NULL,
 
                             PRIMARY KEY (question_section_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
         $this->db->query($sql);
     }

@@ -26,7 +26,7 @@ class Migration_Add_poster extends CI_Migration {
                             FOREIGN KEY (summit_id) REFERENCES summit(summit_id),
 
                             PRIMARY KEY (poster_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

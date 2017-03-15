@@ -15,7 +15,7 @@ class Migration_Add_judge_poster extends CI_Migration {
                             FOREIGN KEY (judge_id) REFERENCES judge(judge_id),
 
                             PRIMARY KEY (poster_id, judge_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }

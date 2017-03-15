@@ -15,7 +15,7 @@ class Migration_Add_judge_summit extends CI_Migration {
                             FOREIGN KEY (summit_id) REFERENCES summit(summit_id),
 
                             PRIMARY KEY (judge_id, summit_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
         $this->db->query($sql);
     }

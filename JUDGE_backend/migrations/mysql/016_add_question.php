@@ -14,7 +14,7 @@ class Migration_Add_question extends CI_Migration {
                             FOREIGN KEY (question_section_id) REFERENCES question_section(question_section_id),
 
                             PRIMARY KEY (question_id)
-                        );";
+                        ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
         }
