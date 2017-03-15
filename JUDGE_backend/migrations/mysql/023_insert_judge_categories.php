@@ -15,8 +15,12 @@ class Migration_Insert_judge_categories extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM judge_category
-                WHERE title = 'Marshall', OR
+                WHERE title = 'Marshall' OR
                       title = 'Cabell';";
 
         $this->db->query($sql);

@@ -22,13 +22,13 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);                        
 
-        $sql = "INSERT INTO presenter (first_name, last_name, email, institution_id, role_id,  abstract_id, is_registered, submission_date)
-                VALUES ('Mark', 'Adkins', 'test@test.com', 1, 1, 1, 1, NOW());";
+        $sql = "INSERT INTO presenter (first_name, last_name, email, institution_id, role_id, is_registered)
+                VALUES ('Mark', 'Adkins', 'test@test.com', 1, 1, 1);";
 
         $this->db->query($sql);
 
-        $sql = "INSERT INTO poster (poster_category_id, title, award_id, summit_id, presenter_id)
-                VALUES (1, 'Test title', NULL, 1, 1);";
+        $sql = "INSERT INTO poster (poster_category_id, award_id, abstract_id, summit_id, presenter_id, submission_date)
+                VALUES (1, NULL, 1, 1, 1, NOW());";
 
         $this->db->query($sql);
 
@@ -55,6 +55,10 @@ class Migration_Add_test_data extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM admin
                 WHERE email = 'admin@test.com' AND password = SHA2('password', 256);";
 
@@ -66,17 +70,17 @@ class Migration_Add_test_data extends CI_Migration {
         $this->db->query($sql);
 
         $sql = "DELETE FROM abstract
-                WHERE title = 'Test title' AND objective = 'Test objective' AND methods = 'Test methods' AND results = 'Test results' AND conclusion = 'Test conclusion');";
+                WHERE title = 'Test title' AND objective = 'Test objective' AND methods = 'Test methods' AND results = 'Test results' AND conclusion = 'Test conclusion';";
 
         $this->db->query($sql);                        
 
         $sql = "DELETE FROM presenter
-                WHERE first_name = 'Mark' AND last_name = 'Adkins' AND email = 'test@test.com' AND institution_id = 1 AND role_id = 1 AND abstract_id = 1 AND is_registered = 1;";
+                WHERE first_name = 'Mark' AND last_name = 'Adkins' AND email = 'test@test.com' AND institution_id = 1 AND role_id = 1 AND is_registered = 1;";
 
         $this->db->query($sql);
 
         $sql = "DELETE FROM poster
-                WHERE poster_category_id = 1 AND title = 'Test title' AND award IS NULL AND presenter_id = 1;";
+                WHERE poster_category_id = 1 AND abstract_id = 1 AND award_id IS NULL AND presenter_id = 1;";
 
         $this->db->query($sql);
 

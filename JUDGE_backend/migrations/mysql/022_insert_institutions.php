@@ -17,6 +17,10 @@ class Migration_Insert_institutions extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM institution
                 WHERE title = 'MUSOM' OR
                       title = 'CHH'   OR

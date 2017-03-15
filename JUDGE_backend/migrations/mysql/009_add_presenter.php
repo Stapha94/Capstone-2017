@@ -14,15 +14,11 @@ class Migration_Add_presenter extends CI_Migration {
                             email           VARCHAR(50)    NOT NULL,
                             institution_id  INT(11)         NOT NULL,
                             role_id         INT(11)         NOT NULL,
-                            abstract_id     INT(11)         NOT NULL,
-                            submission_date DATETIME        NOT NULL,
                             is_registered   TINYINT(1)      NOT NULL,
 
                             FOREIGN KEY (institution_id) REFERENCES institution(institution_id),
 
                             FOREIGN KEY (role_id) REFERENCES role(role_id),
-
-                            FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
 
                             PRIMARY KEY (presenter_id)
                         );";

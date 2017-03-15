@@ -74,7 +74,11 @@ $route['authorize/judge'] = 'login/judge';
 $route['authorize/logout'] = 'login/logout';
 
 //Migration
-$route['migrate'] = 'migrate';
+$route['migrate'] = 'migrate/recycle';
+$route['migrate/(:num)'] = 'migrate/recycle/$1';
+$route['migrate/up'] = 'migrate/up';
+$route['migrate/down'] = 'migrate/down';
+$route['migrate/down/(:num)'] = 'migrate/down/$1';
 
 //Redirects to error page if any invalid page is called
 $route['(:any)'] = 'error';

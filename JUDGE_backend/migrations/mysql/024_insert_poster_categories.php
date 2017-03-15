@@ -17,10 +17,14 @@ class Migration_Insert_poster_categories extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM poster_category
-                WHERE title = 'CHH', OR
-                      title = 'RESIDENT', OR
-                      title = 'STUDENT', OR
+                WHERE title = 'CHH' OR
+                      title = 'RESIDENT' OR
+                      title = 'STUDENT' OR
                       title = 'OTHER';";
 
         $this->db->query($sql);

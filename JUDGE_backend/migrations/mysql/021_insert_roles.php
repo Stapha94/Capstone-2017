@@ -18,6 +18,10 @@ class Migration_Insert_roles extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM role
                 WHERE title = 'Faculty Member' OR
                       title = 'CHH Employee'   OR

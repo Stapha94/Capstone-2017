@@ -15,8 +15,12 @@ class Migration_Insert_question_sections extends CI_Migration {
 
     public function down()
     {
+        $sql = "set FOREIGN_KEY_CHECKS = 0;";
+
+        $this->db->query($sql);
+
         $sql = "DELETE FROM question_section
-                WHERE title = 'Layout and structure', OR
+                WHERE title = 'Layout and structure' OR
                       title = 'PDSA - Plan Do Study Act';";
 
         $this->db->query($sql);
