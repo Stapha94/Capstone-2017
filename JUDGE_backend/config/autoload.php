@@ -136,4 +136,7 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Judge_model' => 'Judge', 'Summit_model' => 'Summit');
+$autoload['model'] = array('Judge_model' => 'Judge',
+                        'Summit_model' => 'Summit',
+                        'Poster_model' => 'Poster',
+						 'Judge_poster_model' => 'Judge_poster');

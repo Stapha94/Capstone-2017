@@ -58,12 +58,17 @@ $route['presenters'] ='presenter';
 $route['presenter/create'] = 'presenter/create';
 
 //Poster Routes
-$route['judge_posters/(:num)'] = 'poster/get_judge_posters/$1';
+$route['posters/(:num)'] = 'poster/get_judge_posters/$1';
 
 // Judge Routes
 $route['judges'] = 'judge';
 $route['judge/(:num)'] = 'judge/$1';
 $route['judge/usernames'] = 'judge';
+
+// JudgePoster Routes
+$route['judge_posters'] = 'judge_poster';
+$route['judge_posters/judge/(:num)'] = 'judge_poster/$1';
+$route['judge_posters/judge/(:num)/poster/(:num)'] = 'judge_poster/$1/$2';
 
 //Question routes
 $route['questions'] = 'question';

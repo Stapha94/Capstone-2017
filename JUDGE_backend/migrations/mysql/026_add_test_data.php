@@ -28,7 +28,7 @@ class Migration_Add_test_data extends CI_Migration {
         $this->db->query($sql);
 
         $sql = "INSERT INTO poster (poster_category_id, award_id, abstract_id, summit_id, presenter_id, submission_date)
-                VALUES (1, NULL, 1, 1, 1, NOW());";
+                VALUES (1, 0, 1, 1, 1, NOW());";
 
         $this->db->query($sql);
 
@@ -80,7 +80,7 @@ class Migration_Add_test_data extends CI_Migration {
         $this->db->query($sql);
 
         $sql = "DELETE FROM poster
-                WHERE poster_category_id = 1 AND abstract_id = 1 AND award_id IS NULL AND presenter_id = 1;";
+                WHERE poster_category_id = 1 AND abstract_id = 1 AND award_id = 0 AND presenter_id = 1;";
 
         $this->db->query($sql);
 

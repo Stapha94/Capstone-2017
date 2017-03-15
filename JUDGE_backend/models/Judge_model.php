@@ -2,39 +2,46 @@
 class Judge_model extends CI_Model {
 
         private $judge_id;
-        private $summit_id;
+        private $user_name;
         private $first_name;
         private $last_name;
-        private $category;
+        private $judge_category_id;
         private $is_active;
 
-        public function __construct()
-        {
-                parent::__construct();
-        }
+	public function __construct()
+	{
+		$this->name = 'judge';
+		parent::__construct();
+	}
 
-        public function get($id = NULL)
-        {
-                $this->db->select('judge_id, user_name, first_name, last_name, judge_category.title AS category, is_active');
-                $this->db->join('judge_category', 'judge.judge_category_id = judge_category.judge_category_id');
-                if($id) {
-                        $this->db->where('judge_id', $id);
-                }
-                $query = $this->db->get('judge');
-                $result = $query->result();
-                return $result;
-        }
+	public function get($id = NULL)
+	{
+		// Load foreign tables
+		$joins = $this->joins();
 
-        public function get_user_names()
-        {
-                $this->db->select('judge_id, user_name');
-                $this->db->where('is_active', 1);
+		// All the select fields
 
-                $query = $this->db->get('judge');
+		$this->db->select("{$this->name}_id,
+			user_name,
+			first_name,
+			last_name,
+			{$joins['jc']}.title AS category,
+			is_active");
 
-                $result = $query->result();
-                return $result;
-        }
+		// Put any joins here
+
+        // The format for joins is table1.column = table2.column;
+		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$this->name}.{$joins['jc']}_id");
+
+		// Where clauses here...must be conditionally based. I'll work on that later
+
+		if($id) {
+			$this->db->where("{$this->name}_id", $id);
+		}
+		$query = $this->db->get($this->name);
+		$result = $query->result();
+		return $result;
+	}
 
         public function check_judge($id, $pin) {
                 $query = $this->db->select('judge.judge_id, pin')
@@ -50,6 +57,13 @@ class Judge_model extends CI_Model {
 
                 return $result;
         }
+
+	public function joins() {
+		$joins = array(
+			'jc' => 'judge_category'
+		);
+		return $joins;
+	}
 
 }
 ?>

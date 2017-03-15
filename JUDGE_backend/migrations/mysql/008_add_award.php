@@ -7,7 +7,7 @@ class Migration_Add_award extends CI_Migration {
         public function up()
         {
                 $sql = "CREATE TABLE award (
-                            award_id  INT(11) NOT NULL    AUTO_INCREMENT,
+                            award_id  INT(11) NOT NULL,
                             title           VARCHAR(50)    NOT NULL,
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
 

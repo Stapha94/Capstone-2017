@@ -1,23 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once ('JUDGE_backend/libraries/REST_Controller.php');
 
+use Restserver\Libraries\REST_Controller;
 
-class Poster extends CI_Controller {
+class Poster extends REST_Controller {
 
-    public function get_judge_posters($judge_id)
+    public function index_get($id = NULL)
     {
-        $this->load->model('Poster_model');
-        $data['posters'] = $this->Poster_model->get_judge_posters($judge_id);
-
-        $this->load->view('judge_posters', $data);
+        $authHeader = getHeader('Authorization');
+        $query = $this->Poster->get();
+        if($authHeader) {
+            $this->response(prepare_for_frontend($query));
+        }
     }
 
-    public function get($id)
+    public function index_post()
     {
-        $this->load->model('Judge_model');
-        $data['judge'] = $this->Judge_model->get_judge($id);
+        $data['posters'] = $this->Poster->get_usernames();
 
-        $this->load->view('judge', $data);
+        $this->load->view('poster_usernames', $data);
     }
 
 }

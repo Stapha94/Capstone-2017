@@ -108,7 +108,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 judges: ['judgeService', (judgeService) => {
-                    return judgeService.getUsernames()
+                    return judgeService.get()
                         .then((data) => {
                             return data;
                         });
@@ -137,8 +137,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                     controller: 'judgeDashboardController',
                     controllerAs: 'ctrl',
                     resolve: {
-                        posters: ['posterService', 'authorizationService', (posterService, authorizationService) => {
-                            return posterService.getJudgePosters(authorizationService.currentUser.id)
+                        posters: ['judgePosterService', 'authorizationService', (judgePosterService, authorizationService) => {
+                            return judgePosterService.get(authorizationService.currentUser.id)
                                 .then((data) => {
                                     return data;
                                 });  
