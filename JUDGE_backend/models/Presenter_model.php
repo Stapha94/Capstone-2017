@@ -1,7 +1,5 @@
-<!-- http://stackoverflow.com/questions/30379100/error-you-must-use-the-set-method-to-update-an-entry-fix -->
-
-
 <?php
+// http://stackoverflow.com/questions/30379100/error-you-must-use-the-set-method-to-update-an-entry-fix
 class Presenter_model extends CI_Model {
 
         private $presenter_id;

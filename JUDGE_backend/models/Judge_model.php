@@ -14,7 +14,7 @@ class Judge_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function get($id = NULL)
+	public function get($judge_id = NULL)
 	{
 		// Load foreign tables
 		$joins = $this->joins();
@@ -35,28 +35,30 @@ class Judge_model extends CI_Model {
 
 		// Where clauses here...must be conditionally based. I'll work on that later
 
-		if($id) {
-			$this->db->where("{$this->name}_id", $id);
+		if($judge_id) {
+			$this->db->where("{$this->name}_id", $judge_id);
 		}
+
+		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
 	}
 
-        public function check_judge($id, $pin) {
-                $query = $this->db->select('judge.judge_id, pin')
-                                ->from('judge')
-                                ->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
-                                ->join('summit', 'judge_summit.summit_id = summit.summit_id')
-                                ->where('judge.judge_id', $id)
-                                ->where('pin = SHA2(' . $pin . ', 256)')
-                                ->limit(1)
-                                ->get();
+	public function check_judge($id, $pin) {
+			$query = $this->db->select('judge.judge_id, pin')
+							->from('judge')
+							->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
+							->join('summit', 'judge_summit.summit_id = summit.summit_id')
+							->where('judge.judge_id', $id)
+							->where('pin = SHA2(' . $pin . ', 256)')
+							->limit(1)
+							->get();
 
-                $result = $query->result();
+			$result = $query->result();
 
-                return $result;
-        }
+			return $result;
+	}
 
 	public function joins() {
 		$joins = array(

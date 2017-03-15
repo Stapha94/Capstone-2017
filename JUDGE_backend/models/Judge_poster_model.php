@@ -61,6 +61,8 @@ class Judge_poster_model extends CI_Model {
 			if($poster_id) {
 				$this->db->where("{$this->name}.{$joins['po']}_id", intval($poster_id));
 			}
+
+			// Perform the query
 			$query = $this->db->get($this->name);
 			$result = $query->result();
 			return $result;

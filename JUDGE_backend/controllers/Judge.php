@@ -6,20 +6,22 @@ use Restserver\Libraries\REST_Controller;
 
 class Judge extends REST_Controller {
 
-    public function index_get($id = NULL)
+    public function index_get($judge_id = NULL)
     {
-        $authHeader = getHeader('Authorization');
-        $query = $this->Judge->get();
-        if($authHeader) {
-            $this->response(prepare_for_frontend($query));
-        } else {
-            $safeColumns = array(
-                0 => 'judge_id',
-                1 => 'user_name'
-            );
-            $query = retrieve_columns($query, $safeColumns);
-            $this->response(prepare_for_frontend($query));
-        }
+        $auth = $this->authorize->get_auth();
+        $query = $this->Judge->get($judge_id);
+        if($auth === 400) {
+			$safeColumns = array(
+				0 => 'judge_id',
+				1 => 'user_name'
+			);
+			$query = retrieve_columns($query, $safeColumns);
+			$this->response(prepare_for_frontend($query));
+        } else if($auth === 401) {
+        	$this->response([], 401);
+        } else if($auth) {
+			$this->response(prepare_for_frontend($query));
+		}
     }
 
     public function index_post()

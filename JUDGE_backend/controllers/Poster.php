@@ -8,9 +8,13 @@ class Poster extends REST_Controller {
 
     public function index_get($id = NULL)
     {
-        $authHeader = getHeader('Authorization');
+        $auth = $this->authorize->get_auth();
         $query = $this->Poster->get();
-        if($authHeader) {
+        if($auth === 400) {
+        	$this->response([], 400);
+		} else if($auth === 401) {
+        	$this->response([], 401);
+		} else if($auth) {
             $this->response(prepare_for_frontend($query));
         }
     }

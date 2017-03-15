@@ -4,12 +4,12 @@ require_once ('JUDGE_backend/libraries/REST_Controller.php');
 
 use Restserver\Libraries\REST_Controller;
 
-class Judge_poster extends REST_Controller {
+class Form_question extends REST_Controller {
 
-	public function index_get($judge_id = NULL, $poster_id = NULL)
+	public function index_get($form_id = NULL, $question_id = NULL, $poster_id = NULL, $judge_id = NULL)
 	{
 		$auth = $this->authorize->get_auth();
-		$query = $this->Judge_poster->get($judge_id, $poster_id);
+		$query = $this->Form_question->get($form_id, $question_id, $poster_id, $judge_id);
 		if($auth === 400) {
 			$this->response([], 400);
 		} else if($auth === 401) {
@@ -21,9 +21,9 @@ class Judge_poster extends REST_Controller {
 
 	public function index_post()
 	{
-		$data['judge_posters'] = $this->Judge_poster->get_usernames();
+		$data['form_questions'] = $this->Form_questions->get_usernames();
 
-		$this->load->view('poster_usernames', $data);
+		$this->load->view('form_questions_usernames', $data);
 	}
 
 }

@@ -55,6 +55,8 @@ class Poster_model extends CI_Model {
             if($id) {
                 $this->db->where("{$this->name}_id", $id);
             }
+
+            // Perform the query
             $query = $this->db->get($this->name);
             $result = $query->result();
             return $result;

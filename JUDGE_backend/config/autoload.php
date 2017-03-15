@@ -62,7 +62,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database');
+$autoload['libraries'] = array('database', 'authorize');
 
 /*
 | -------------------------------------------------------------------
@@ -136,7 +136,23 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Judge_model' => 'Judge',
+$autoload['model'] = array(
+						'Abstract_model' => 'Abstract',
+						'Admin_model' => 'Admin',
+						'Award_model' => 'Award',
+						'Form_model' => 'Form',
+						'Form_question_model' => 'Form_question',
+						//'Institution_model' => 'Institution',
+						'Judge_model' => 'Judge',
+						//'Judge_category_model' => 'Judge_category',
+						'Judge_poster_model' => 'Judge_poster',
+						//'Judge_summit_model' => 'Judge_summit',
+						//'Key_participant_model' => 'Key_participant',
+						'Poster_model' => 'Poster',
+						//'Poster_category_model' => 'Poster_category',
+						'Presenter_model' => 'Presenter',
+						//'Role_model' => 'Role',
                         'Summit_model' => 'Summit',
-                        'Poster_model' => 'Poster',
-						 'Judge_poster_model' => 'Judge_poster');
+						'Question_model' => 'Question',
+						'Question_section_model' => 'Question_section'
+						);
