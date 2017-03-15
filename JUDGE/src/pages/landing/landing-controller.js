@@ -1,13 +1,13 @@
 class LandingController {
 
-    constructor($scope, authorizationService, localStorageService) {
+    constructor($scope, authService, localStorageService) {
         // Putting this here to test login
-        this.authorizationService = authorizationService;
+        this.authService = authService;
     }
 
     isJudgeLoggedIn() {
-        if(this.authorizationService.isLoggedIn()) {
-            if(this.authorizationService.isJudge()) {
+        if(this.authService.isLoggedIn()) {
+            if(this.authService.isJudge()) {
                 return true;
             }
         }
@@ -15,8 +15,8 @@ class LandingController {
     }
 
     isAdminLoggedIn() {
-        if(this.authorizationService.isLoggedIn()) {
-            if(this.authorizationService.isAdmin()) {
+        if(this.authService.isLoggedIn()) {
+            if(this.authService.isAdmin()) {
                 return true;
             }
         }
@@ -24,5 +24,5 @@ class LandingController {
     }
 }
 
-LandingController.$inject = ['$scope', 'authorizationService', 'localStorageService'];
+LandingController.$inject = ['$scope', 'authService', 'localStorageService'];
 app.controller('landingController', LandingController);

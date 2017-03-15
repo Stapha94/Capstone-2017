@@ -1,4 +1,4 @@
-class AuthorizationService {
+class AuthService {
 
     constructor($http, $log, $state, $q, localStorageService, CONFIG) {
         this.$http = $http;
@@ -27,10 +27,30 @@ class AuthorizationService {
         this.localStorageService.set('authToken', token);
         this._authToken = token;
         if(token) {
-            this.$http.defaults.headers.common.Authorization = 'Bearer' + token;
+            this.$http.defaults.headers.common.Authorization = 'Bearer ' + token;
         } else {
             this.$http.defaults.headers.common.Authorization = null;
         }
+    }
+
+    adminLogin(email, password) {
+        var deferred = this.$q.defer();
+
+        var url = this.baseUrl + 'authorize/admin';
+        this.$http.post(url, {email: email, password: password})
+            .then((response) => {
+                this.$log.info('Login for user ' + email + ' successful!');
+                this.currentUser = response.data.admin[0];
+                this.authToken = response.data.token.jwt;
+                deferred.resolve(response.data.admin[0]);
+            })
+            .catch((error) => {
+                this.$log.error('Login for user ' + email + ' failed!');
+                this.currentUser = null;
+                this.authToken = null;
+                deferred.reject(error);
+            });
+        return deferred.promise;
     }
 
     judgeLogin(user, pin) {
@@ -104,5 +124,5 @@ class AuthorizationService {
 
 }
 
-AuthorizationService.$inject = ['$http', '$log', '$state', '$q', 'localStorageService', 'CONFIG'];
-app.factory('authorizationService', AuthorizationService);
+AuthService.$inject = ['$http', '$log', '$state', '$q', 'localStorageService', 'CONFIG'];
+app.factory('authService', AuthService);

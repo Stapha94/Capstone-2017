@@ -5,17 +5,18 @@
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Email" id="email" type="email" class="validate">
+                        <input ng-model="ctrl.email" placeholder="Email" id="email" type="email" class="validate">
                         <label for="email"></label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Password" id="password" type="password" class="validate">
+                        <input ng-model="ctrl.password" placeholder="Password" id="password" type="password" class="validate">
                         <label for="password"></label>
                     </div>
                 </div>
                 <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
+                <button ui-sref="home" class="btn cancel-btn">Cancel</button>
             </form>
         </div>
     </div>

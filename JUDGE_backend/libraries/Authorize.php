@@ -5,12 +5,31 @@ use Firebase\JWT\JWT;
 
 class Authorize {
 
-    public function get_auth_token($data = null)
+    public function get_auth($data = null)
     {
         if($data) {
             return $this->create_auth_token($data);
         }
-        return 'Method to decode here.';
+        $auth_header = getHeader('Authorization');
+        if($auth_header) {
+        	list($jwt) = sscanf($auth_header, 'Authorization: Bearer %s');
+
+        	if($jwt) {
+        		try {
+        			$secret_key = base64_decode(config_item('secret_key'));
+
+        			$token = JWT::decode($jwt, $secret_key, array('HS256'));
+
+        			return $token;
+				} catch (Exception $e) {
+        			return 401;
+				}
+			} else {
+        		return 400;
+			}
+		} else {
+        	return 400;
+		}
     }
 
     private function create_auth_token($data) {
@@ -18,8 +37,8 @@ class Authorize {
         // Create the token values
         $token_id = base64_encode(openssl_random_pseudo_bytes(32)); //mcrypt_create_iv has been deprecated
         $issued_at = time();
-        $not_before = $issued_at + 10;
-        $expire = $not_before + 60;
+        $not_before = $issued_at;
+        $expire = $not_before + 3600;
         $server_name = config_item('base_url');
 
         //Create the token
@@ -38,6 +57,7 @@ class Authorize {
 
         // Create and encode JWT
         $secret_key = base64_decode(config_item('secret_key'));
+
 
         $jwt = JWT::encode(
             $token,

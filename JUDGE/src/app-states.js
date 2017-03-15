@@ -14,9 +14,18 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('admin', {
-            url: '/admin',
-            abstract: true,
-            templateUrl: 'JUDGE/src/pages/admin-dashboard/admin-nav.html'
+            url: '/admin/:id',
+            templateUrl: 'JUDGE/src/pages/admin-nav/admin-nav.html',
+            controller: 'adminNavController',
+            controllerAs: 'ctrl',
+            resolve: {
+                admin: ['adminService', '$stateParams', (adminService, $stateParams) => {
+                    return adminService.get($stateParams.id)
+                        .then((data) => {
+                            return data[0];
+                        })
+                }]
+            }
         })
         .state('admin.dashboard', {
             url: '/dashboard',
@@ -122,7 +131,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
-                    return judgeService.getById($stateParams.id)
+                    return judgeService.get($stateParams.id)
                         .then((data) => {
                             return data[0];
                         })
@@ -137,8 +146,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                     controller: 'judgeDashboardController',
                     controllerAs: 'ctrl',
                     resolve: {
-                        posters: ['judgePosterService', 'authorizationService', (judgePosterService, authorizationService) => {
-                            return judgePosterService.get(authorizationService.currentUser.id)
+                        posters: ['judgePosterService', 'authService', (judgePosterService, authService) => {
+                            return judgePosterService.get(authService.currentUser.id)
                                 .then((data) => {
                                     return data;
                                 });  

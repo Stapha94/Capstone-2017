@@ -1,11 +1,11 @@
 class JudgeLoginController {
 
-    constructor($scope, $state, authorizationService, judgeService, notificationService, judges) {
+    constructor($scope, $state, authService, judgeService, notificationService, judges) {
         this.correct = false;
         this.pin = '';
         this.user = {};
         this.notificationService = notificationService;
-        this.authorizationService = authorizationService;
+        this.authService = authService;
         this.judgeService = judgeService;
         this.$state = $state;
         this.judges = judges;
@@ -13,7 +13,7 @@ class JudgeLoginController {
 
     login() {
         var judge = angular.fromJson(this.user);
-        this.authorizationService.judgeLogin(judge, this.pin)
+        this.authService.judgeLogin(judge, this.pin)
             .then((response) => {
                 this.$state.go('judge', {id: judge.judgeId});
             })
@@ -26,7 +26,7 @@ class JudgeLoginController {
         if(this.pin == null) {
             this.pin = '';
         } else if(this.pin.length === 4) {
-            this.authorizationService.checkPin(this.pin)
+            this.authService.checkPin(this.pin)
                 .then((response) => {
                     this.correct = true;
                 })
@@ -38,5 +38,5 @@ class JudgeLoginController {
 
 }
 
-JudgeLoginController.$inject = ['$scope', '$state', 'authorizationService', 'judgeService', 'notificationService', 'judges'];
+JudgeLoginController.$inject = ['$scope', '$state', 'authService', 'judgeService', 'notificationService', 'judges'];
 app.controller('judgeLoginController', JudgeLoginController);

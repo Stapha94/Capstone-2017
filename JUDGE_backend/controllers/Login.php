@@ -9,8 +9,32 @@ class Login extends REST_Controller {
         $this->response([]);
     }
 
+    public function admin_post() {
+		$post_data = file_get_contents('php://input');
+		$request = json_decode($post_data);
+
+		$email = $request->email;
+		$password = $request->password;
+
+		$matches = $this->Admin->check_admin($email, $password);
+
+		if (count($matches) === 1) {
+			$admin = array(
+				'id' => $matches[0]->admin_id,
+				'user_name' => $email,
+				'type' => 'Admin'
+			);
+			$auth_token = $this->authorize->get_auth($admin);
+			$data['token'] = json_decode($auth_token);
+			$data['admin'] = prepare_for_frontend(array($admin));
+			$data['status'] = 200;
+			$this->response($data);
+		} else {
+			$this->response([], 401);
+		}
+	}
+
     public function judge_post() {
-        $this->load->library('authorize');
         $post_data = file_get_contents('php://input');
         $request = json_decode($post_data);
 
@@ -26,7 +50,7 @@ class Login extends REST_Controller {
                 'user_name' => $user_name,
                 'type' => 'Judge'
             );
-            $auth_token = $this->authorize->get_auth_token($judge);
+            $auth_token = $this->authorize->get_auth($judge);
             $data['token'] = json_decode($auth_token);
             $data['judge'] = prepare_for_frontend(array($judge));
             $data['status'] = 200;

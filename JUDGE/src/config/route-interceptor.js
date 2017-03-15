@@ -1,10 +1,10 @@
 class RouteInterceptor {
 
-    constructor($log, $state, $rootScope, authorizationService) {
+    constructor($log, $state, $rootScope, authService) {
         this.$log = $log;
         this.$state = $state;
         this.$rootScope = $rootScope;
-        this.authorizationService = authorizationService;
+        this.authService = authService;
         this.adminStates = [
             'admin',
             'admin.dashboard',
@@ -30,7 +30,7 @@ class RouteInterceptor {
     listenOnRoute() {
         this.$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
             // No user is logged in
-            if(!this.authorizationService.isLoggedIn) {
+            if(!this.authService.isLoggedIn) {
                 if(_.includes(this.judgeStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-judge attempted access to state: ' + toState.name);
@@ -46,5 +46,5 @@ class RouteInterceptor {
 
 }
 
-RouteInterceptor.$inject = ['$log', '$state', '$rootScope', 'authorizationService'];
+RouteInterceptor.$inject = ['$log', '$state', '$rootScope', 'authService'];
 app.service('routeInterceptor', RouteInterceptor);

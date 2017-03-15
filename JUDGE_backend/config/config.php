@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+include_once ('secret.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -530,4 +531,4 @@ $config['proxy_ips'] = '';
 | This simply sets a secret key for authentication to the API service.
 |
  */
-$config['secret_key'] = base64_encode(openssl_random_pseudo_bytes(64));
+$config['secret_key'] = $secret_key;

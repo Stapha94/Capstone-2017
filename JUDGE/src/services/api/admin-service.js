@@ -1,21 +1,21 @@
-class JudgeService {
+class AdminService {
     constructor($log, $http, $q, CONFIG) {
         this.$log = $log;
         this.$http = $http;
         this.$q = $q;
         this.baseUrl = CONFIG.DBURL;
-        this.params = { judge: ''};
+        this.params = { admin: ''};
     }
 
     // Gets all the judges
-    get(judgeId) {
+    get(adminId) {
         var deferred = this.$q.defer();
 
-        if(judgeId) {
-            this.params.judge = 'judge/' + judgeId;
+        if(adminId) {
+            this.params.admin = 'admin/' + adminId;
         }
 
-        var url = this.baseUrl + 'judges/' + this.params.judge;
+        var url = this.baseUrl + 'admins/' + this.params.admin;
         this.$http.get(url)
             .then(function(response) {
                 deferred.resolve(response.data);
@@ -28,5 +28,5 @@ class JudgeService {
 
 }
 
-JudgeService.$inject = ['$log', '$http', '$q', 'CONFIG'];
-app.factory('judgeService', JudgeService);
+AdminService.$inject = ['$log', '$http', '$q', 'CONFIG'];
+app.factory('adminService', AdminService);
