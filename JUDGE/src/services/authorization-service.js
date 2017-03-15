@@ -40,7 +40,7 @@ class AuthorizationService {
         this.$http.post(url, {judgeId: user.judgeId, userName: user.userName, pin: pin})
             .then((response) => {
                 this.$log.info('Login for user ' + user.userName + ' successful!');
-                this.currentUser = response.data.judge;
+                this.currentUser = response.data.judge[0];
                 this.authToken = response.data.token.jwt;
                 deferred.resolve(response);
             })

@@ -28,7 +28,7 @@ class Login extends REST_Controller {
             );
             $auth_token = $this->authorize->get_auth_token($judge);
             $data['token'] = json_decode($auth_token);
-            $data['judge'] = prepare_for_frontend(array($judge))[0];
+            $data['judge'] = prepare_for_frontend(array($judge));
             $data['status'] = 200;
             $this->response($data);
         } else {

@@ -20,3 +20,22 @@ function prepare_for_frontend($data = NULL)
     }
     return $data;
 }
+
+function retrieve_columns($data = array(), $columns = array())
+{
+    $newColumns = array();
+    if(count($columns) > 0 && count($data) > 0)
+    {
+        foreach($data as $index=>$json) {
+            $jsonString = json_encode($json);
+            $arr = json_decode($jsonString, TRUE);
+            foreach ($arr as $key => $value) {
+                if (in_array($key, $columns)) {
+                    $newColumns[$key] = $value;
+                }
+            }
+            $newResult[$index] = $newColumns;
+        }
+    }
+    return $newResult;
+}

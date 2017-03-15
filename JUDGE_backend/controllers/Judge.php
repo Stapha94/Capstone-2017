@@ -9,14 +9,16 @@ class Judge extends REST_Controller {
     public function index_get($id = NULL)
     {
         $authHeader = getHeader('Authorization');
+        $query = $this->Judge->get();
         if($authHeader) {
-            $judges = $this->Judge->get();
-
-            $this->response(prepare_for_frontend($judges));
+            $this->response(prepare_for_frontend($query));
         } else {
-            $judges = $this->Judge->get_user_names();
-
-            $this->response(prepare_for_frontend($judges));
+            $safeColumns = array(
+                0 => 'judge_id',
+                1 => 'user_name'
+            );
+            $query = retrieve_columns($query, $safeColumns);
+            $this->response(prepare_for_frontend($query));
         }
     }
 
