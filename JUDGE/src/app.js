@@ -2,7 +2,7 @@
 app = angular.module('app', ['ui.router', 'ui.bootstrap'])
     .constant('CONFIG', {
         // This is the url for the database. Change it between local and host when needed.
-        DBURL: 'http://localhost:8080/Capstone-2017/'
+        DBURL: 'http://localhost:8800/Capstone-2017/'
       //DBURL: 'https://qss-judge.heroku.com/'
     })
     .run(($log, $rootScope, routeInterceptor) => {
