@@ -1939,4 +1939,14 @@ abstract class REST_Controller extends \CI_Controller {
             exit;
         }
     }
+
+	protected function sanitize_uri($params = array(), $fields) {
+		foreach($params as $column=>$value) {
+			if (!in_array($column, $fields)) {
+				return 404;
+			}
+		}
+		$auth = $this->authorize->get_auth();
+		return $auth;
+	}
 }

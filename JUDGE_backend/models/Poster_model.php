@@ -7,14 +7,16 @@ class Poster_model extends CI_Model {
         private $abstract_id;
         private $presenter_id;
         private $summit_id;
+        private $score;
 
         public function __construct()
         {
+        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id, score');
                 $this->name = 'poster';
                 parent::__construct();
         }
 
-        public function get($id = NULL)
+        public function get($params = array())
         {
             // Load foreign tables
             $joins = $this->joins();
@@ -24,11 +26,11 @@ class Poster_model extends CI_Model {
             $this->db->select("{$this->name}_id,
                 {$joins['pc']}.title AS category,
                 {$joins['aw']}.title AS award,
-                {$joins['ab']}.title AS poster_title,
-                {$joins['ab']}.objective,
-                {$joins['ab']}.methods,
-                {$joins['ab']}.results,
-                {$joins['ab']}.conclusion,
+                {$joins['pa']}.title AS poster_title,
+                {$joins['pa']}.objective,
+                {$joins['pa']}.methods,
+                {$joins['pa']}.results,
+                {$joins['pa']}.conclusion,
                 {$joins['pr']}.first_name,
                 {$joins['pr']}.last_name,
                 {$joins['pr']}.suffix,
@@ -38,23 +40,24 @@ class Poster_model extends CI_Model {
                 {$joins['pr']}.is_registered,
                 {$joins['s']}.summit_start,
                 {$joins['s']}.summit_end,
-                {$joins['s']}.registration_deadline");
+                {$joins['s']}.registration_deadline,
+                score");
 
             // Put any joins here
 
             $this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$this->name}.{$joins['pc']}_id");
             $this->db->join("{$joins['aw']}", "{$joins['aw']}.{$joins['aw']}_id = {$this->name}.{$joins['aw']}_id");
-            $this->db->join("{$joins['ab']}", "{$joins['ab']}.{$joins['ab']}_id = {$this->name}.{$joins['ab']}_id");
+            $this->db->join("{$joins['pa']}", "{$joins['pa']}.{$joins['pa']}_id = {$this->name}.{$joins['pa']}_id");
             $this->db->join("{$joins['pr']}", "{$joins['pr']}.{$joins['pr']}_id = {$this->name}.{$joins['pr']}_id");
-            $this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$joins['p']}.{$joins['i']}_id");
-            $this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$joins['p']}.{$joins['r']}_id");
+            $this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$joins['pr']}.{$joins['i']}_id");
+            $this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$joins['pr']}.{$joins['r']}_id");
             $this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$this->name}.{$joins['s']}_id");
 
             // Where clauses here...must be conditionally based. I'll work on that later
 
-            if($id) {
-                $this->db->where("{$this->name}_id", $id);
-            }
+			foreach($params as $column=>$value) {
+				$this->db->where("{$this->name}.{$column}", $value);
+			}
 
             // Perform the query
             $query = $this->db->get($this->name);
@@ -66,12 +69,11 @@ class Poster_model extends CI_Model {
         	$joins = array(
         		'pc' => 'poster_category',
 				'aw' => 'award',
-				'ab' => 'abstract',
+				'pa' => 'poster_abstract',
 				'pr' => 'presenter',
-				'i' => 'institution',
-				'r' => 'role',
 				's' => 'summit'
 			);
+			$joins = array_merge($joins, $this->presenter->joins());
         	return $joins;
 		}
 

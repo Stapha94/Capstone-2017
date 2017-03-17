@@ -7,11 +7,12 @@ class Question_model extends CI_Model {
 
         public function __construct()
         {
+        		$this->fields = array('question_id', 'question_description_id', 'description');
         		$this->name = 'question';
                 parent::__construct();
         }
 
-        public function get($question_id = NULL, $question_section_id = NULL)
+        public function get($params = array())
         {
 			// Load foreign tables
 			$joins = $this->joins();
@@ -27,11 +28,8 @@ class Question_model extends CI_Model {
 			$this->db->join("{$joins['qs']}", "{$joins['qs']}.{$joins['qs']}_id = {$this->name}.{$joins['qs']}_id");
 
 			// Where clauses here...must be conditionally based. I'll work on that later
-			if($question_id) {
-				$this->db->where("{$this->name}_id", intval($question_id));
-			}
-			if($question_section_id) {
-				$this->db->where("{$joins['qs']}_id", intval($question_section_id));
+			foreach($params as $column=>$value) {
+				$this->db->where("{$this->name}.{$column}", $value);
 			}
 			// Perform the query
 			$query = $this->db->get($this->name);

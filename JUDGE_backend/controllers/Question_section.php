@@ -6,15 +6,19 @@ use Restserver\Libraries\REST_Controller;
 
 
 class Question_section extends REST_Controller {
-	public function index_get($question_section_id = NULL)
+
+	public function index_get()
 	{
-		$auth = $this->authorize->get_auth();
-		$query = $this->Question_section->get($question_section_id);
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $this->question_section->fields);
 		if($auth === 400) {
 			$this->response([], 400);
 		} else if($auth === 401) {
 			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
 		} else if($auth) {
+			$query = $this->question_section->get($params);
 			$this->response(prepare_for_frontend($query));
 		}
 	}

@@ -8,11 +8,12 @@ class Admin_model extends CI_Model {
 
 	public function __construct()
 	{
+		$this->fields = array('admin_id', 'email', 'active');
 		$this->name = 'admin';
 		parent::__construct();
 	}
 
-	public function get($admin_id = NULL)
+	public function get($params = array())
 	{
 		// Load foreign tables
 
@@ -24,10 +25,10 @@ class Admin_model extends CI_Model {
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		if($admin_id) {
-			$this->db->where("{$this->name}_id", $admin_id);
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
 		}
 
 		// Perform the query

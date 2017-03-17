@@ -6,15 +6,18 @@ use Restserver\Libraries\REST_Controller;
 
 class Admin extends REST_Controller {
 
-	public function index_get($admin_id = NULL)
+	public function index_get()
 	{
-		$auth = $this->authorize->get_auth();
-		$query = $this->Admin->get($admin_id);
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $this->admin->fields);
 		if($auth === 400) {
 			$this->response([], 400);
 		} else if($auth === 401) {
 			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
 		} else if($auth) {
+			$query = $this->admin->get($params);
 			$this->response(prepare_for_frontend($query));
 		}
 	}

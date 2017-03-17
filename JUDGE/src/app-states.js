@@ -20,7 +20,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 admin: ['adminService', '$stateParams', (adminService, $stateParams) => {
-                    return adminService.get($stateParams.id)
+                    return adminService.get({adminId: $stateParams.id })
                         .then((data) => {
                             return data[0];
                         })
@@ -131,7 +131,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
-                    return judgeService.get($stateParams.id)
+                    return judgeService.get({judgeId: $stateParams.id})
                         .then((data) => {
                             return data[0];
                         })
@@ -147,7 +147,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                     controllerAs: 'ctrl',
                     resolve: {
                         posters: ['judgePosterService', 'authService', (judgePosterService, authService) => {
-                            return judgePosterService.get(authService.currentUser.id)
+                            return judgePosterService.get({judgeId: authService.currentUser.id})
                                 .then((data) => {
                                     return data;
                                 });  

@@ -8,23 +8,69 @@ class Summit_model extends CI_Model {
         private $created_by_admin_id;
         private $pin;
 
-        public function __construct()
-        {
-                parent::__construct();
-        }
+	public function __construct()
+	{
+		$this->name = 'summit';
+		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id');
+		parent::__construct();
+	}
 
-        public function check_pin($pin, $date) {
+	public function get($params = array())
+	{
+		// Load foreign tables
+        $joins = $this->joins();
 
-            $query = $this->db->select('pin')
-                              ->from('summit')
-                              ->where('summit_start <', $date)
-                              ->where('summit_end >', $date)
-                              ->where('pin = SHA2(' . $pin . ', 256)')
-                              ->limit(1)
-                              ->get();
-            $result = $query->result();
-            return $result;
-        }
+		// All the select fields
+
+		$this->db->select("{$this->name}_id,
+			summit_start,
+			summit_end,
+			registration_deadline,
+			{$joins['ad']}.email,
+			active");
+
+		// Put any joins here
+		$this->db->join("{$joins['ad']}", "{$joins['ad']}.{$joins['ad']}_id = {$this->name}.created_by_{$joins['ad']}_id");
+
+		// Where clauses here...found better way.
+
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
+		}
+
+/**		if($summit_id) {
+			$this->db->where("{$this->name}_id", $summit_id);
+		}
+		if($admin_id) {
+			$this->db->where("created_by_{$joins['ad']}_id", $admin_id);
+		}*/
+
+		// Perform the query
+		$query = $this->db->get($this->name);
+		$result = $query->result();
+		return $result;
+	}
+
+	public function joins() {
+		$joins = array(
+			'ad' => 'admin'
+		);
+
+		return $joins;
+	}
+
+	public function check_pin($pin, $date) {
+
+		$query = $this->db->select('pin')
+						  ->from('summit')
+						  ->where('summit_start <', $date)
+						  ->where('summit_end >', $date)
+						  ->where('pin = SHA2(' . $pin . ', 256)')
+						  ->limit(1)
+						  ->get();
+		$result = $query->result();
+		return $result;
+	}
 
 }
 ?>

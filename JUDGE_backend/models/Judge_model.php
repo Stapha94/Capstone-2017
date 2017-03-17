@@ -10,11 +10,12 @@ class Judge_model extends CI_Model {
 
 	public function __construct()
 	{
+		$this->fields = array('judge_id', 'user_name', 'first_name', 'last_name', 'judge_category_id', 'is_active');
 		$this->name = 'judge';
 		parent::__construct();
 	}
 
-	public function get($judge_id = NULL)
+	public function get($params = array())
 	{
 		// Load foreign tables
 		$joins = $this->joins();
@@ -35,8 +36,8 @@ class Judge_model extends CI_Model {
 
 		// Where clauses here...must be conditionally based. I'll work on that later
 
-		if($judge_id) {
-			$this->db->where("{$this->name}_id", $judge_id);
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
 		}
 
 		// Perform the query

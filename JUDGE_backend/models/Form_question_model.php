@@ -3,17 +3,16 @@ class Form_question_model extends CI_Model {
 
 	public function __construct()
 	{
+		$this->fields = array('form_id', 'question_id', 'poster_id', 'judge_id');
 		$this->name = 'form_question';
 		parent::__construct();
 	}
 
-	public function get($form_id = NULL, $question_id = NULL, $poster_id = NULL, $judge_id = NULL)
+	public function get($params = array())
 	{
 		// Load foreign tables
 		// For many-to-many tables, I've provided functions to load all the joins for the two tables.
-		$joins = array_merge($this->Form->joins(), $this->Questions->joins());
-		$joins['f'] = 'form';
-		$joins['q'] = 'question';
+		$joins = $this->joins();
 
 		// All the select fields
 
@@ -36,24 +35,26 @@ class Form_question_model extends CI_Model {
 		$this->db->join("{$joins['po']}", "{$joins['po']}.{$joins['po']}_id = {$joins['f']}.{$joins['po']}_id");
 		$this->db->join("{$joins['qs']}", "{$joins['qs']}.{$joins['qs']}_id = {$joins['q']}.{$joins['qs']}_id");
 
-		// Where clauses here...must be conditionally based. I'll work on that later
-		if($form_id) {
-			$this->db->where("{$this->name}.{$joins['f']}_id", intval($form_id));
-		}
-		if($question_id) {
-			$this->db->where("{$this->name}.{$joins['q']}_id", intval($question_id));
-		}
-		if($poster_id) {
-			$this->db->where("{$joins['po']}.{$joins['po']}_id", intval($poster_id));
-		}
-		if($judge_id) {
-			$this->db->where("{$joins['j']}.{$joins['j']}_id", intval($judge_id));
+		// Where clauses here
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
 		}
 
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
+	}
+
+	public function joins() {
+		$joins = array(
+			'f' => 'form',
+			'q' => 'question'
+		);
+		// For many-to-many tables, I've provided functions to load all the joins for the two tables.
+		$joins = array_merge($joins, $this->form->joins());
+		$joins = array_merge($joins, $this->question->joins());
+		return $joins;
 	}
 
 }

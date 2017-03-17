@@ -9,11 +9,12 @@ class Form_model extends CI_Model {
 
 	public function __construct()
 	{
+		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'comments');
 		$this->name = 'form';
 		parent::__construct();
 	}
 
-	public function get($judge_id = NULL, $poster_id = NULL, $form_id = NULL)
+	public function get($params = array())
 	{
 		// Load foreign tables
 		$joins = $this->joins();
@@ -27,11 +28,8 @@ class Form_model extends CI_Model {
 		// Put any joins here
 
 		// Where clauses here...must be conditionally based. I'll work on that later
-		if($judge_id) {
-			$this->db->where("{$joins['j']}_id", intval($judge_id));
-		}
-		if($poster_id) {
-			$this->db->where("{$joins['po']}_id", intval($poster_id));
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
 		}
 		// Perform the query
 		$query = $this->db->get($this->name);

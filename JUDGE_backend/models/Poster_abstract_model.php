@@ -1,14 +1,17 @@
 <?php
-class Question_section_model extends CI_Model {
+class Poster_abstract_model extends CI_Model {
 
-	private $question_id;
-	private $question_section_id;
-	private $description;
+	private $poster_abstract_id;
+	private $title;
+	private $objective;
+	private $methods;
+	private $results;
+	private $conclusion;
 
 	public function __construct()
 	{
-		$this->fields = array('question_section_id', 'description');
-		$this->name = 'question_section';
+		$this->fields = array('poster_abstract_id', 'title');
+		$this->name = 'poster_abstract';
 		parent::__construct();
 	}
 
@@ -19,26 +22,24 @@ class Question_section_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
-                title");
+			title,
+			objective,
+			methods,
+			results,
+			conclusions");
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
+
 		foreach($params as $column=>$value) {
 			$this->db->where("{$this->name}.{$column}", $value);
 		}
+
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
-	}
-
-	public function joins()
-	{
-		$joins = array(
-			'qs' => 'question_section'
-		);
-		return $joins;
 	}
 
 }

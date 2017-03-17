@@ -1,4 +1,4 @@
-class PosterService {
+class RoleService {
     constructor($log, $http, $q, CONFIG) {
         this.$log = $log;
         this.$http = $http;
@@ -20,7 +20,7 @@ class PosterService {
             });
         }
 
-        var url = this.baseUrl + 'posters' + paramString;
+        var url = this.baseUrl + 'roles' + paramString;
         this.$http.get(url)
             .then(function(response) {
                 deferred.resolve(response.data);
@@ -33,5 +33,5 @@ class PosterService {
 
 }
 
-PosterService.$inject = ['$log', '$http', '$q', 'CONFIG'];
-app.factory('posterService', PosterService);
+RoleService.$inject = ['$log', '$http', '$q', 'CONFIG'];
+app.factory('roleService', RoleService);

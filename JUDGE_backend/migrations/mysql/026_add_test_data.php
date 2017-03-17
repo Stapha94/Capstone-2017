@@ -17,7 +17,7 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);
 
-        $sql = "INSERT INTO abstract (title, objective, methods, results, conclusion)
+        $sql = "INSERT INTO poster_abstract (title, objective, methods, results, conclusion)
                 VALUES ('Test title', 'Test objective', 'Test methods', 'Test results', 'Test conclusion');";
 
         $this->db->query($sql);                        
@@ -27,7 +27,7 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);
 
-        $sql = "INSERT INTO poster (poster_category_id, award_id, abstract_id, summit_id, presenter_id, submission_date)
+        $sql = "INSERT INTO poster (poster_category_id, award_id, poster_abstract_id, summit_id, presenter_id, submission_date)
                 VALUES (1, 0, 1, 1, 1, NOW());";
 
         $this->db->query($sql);
@@ -69,7 +69,7 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);
 
-        $sql = "DELETE FROM abstract
+        $sql = "DELETE FROM poster_abstract
                 WHERE title = 'Test title' AND objective = 'Test objective' AND methods = 'Test methods' AND results = 'Test results' AND conclusion = 'Test conclusion';";
 
         $this->db->query($sql);                        
@@ -80,7 +80,7 @@ class Migration_Add_test_data extends CI_Migration {
         $this->db->query($sql);
 
         $sql = "DELETE FROM poster
-                WHERE poster_category_id = 1 AND abstract_id = 1 AND award_id = 0 AND presenter_id = 1;";
+                WHERE poster_category_id = 1 AND poster_abstract_id = 1 AND award_id = 0 AND presenter_id = 1;";
 
         $this->db->query($sql);
 

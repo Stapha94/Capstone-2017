@@ -11,9 +11,10 @@ class Migration_Add_poster extends CI_Migration {
                             poster_category_id  INT(11)  NOT NULL,
                             award_id        INT(11)		NOT NULL,
                             presenter_id    INT(11)     NOT NULL,
-                            abstract_id     INT(11)         NOT NULL,
+                            poster_abstract_id     INT(11)         NOT NULL,
                             submission_date DATETIME        NOT NULL,
                             summit_id       INT(11)     NOT NULL,
+                            score			INT(11)		NOT NULL DEFAULT 0,
 
                             FOREIGN KEY (poster_category_id) REFERENCES poster_category(poster_category_id),
 
@@ -21,7 +22,7 @@ class Migration_Add_poster extends CI_Migration {
 
                             FOREIGN KEY (presenter_id) REFERENCES presenter(presenter_id),
                             
-                            FOREIGN KEY (abstract_id) REFERENCES abstract(abstract_id),
+                            FOREIGN KEY (poster_abstract_id) REFERENCES poster_abstract(poster_abstract_id),
 
                             FOREIGN KEY (summit_id) REFERENCES summit(summit_id),
 

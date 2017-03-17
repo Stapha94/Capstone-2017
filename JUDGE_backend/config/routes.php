@@ -55,23 +55,43 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Admin Routes
 $route['admins'] = 'admin';
-$route['admins/admin/(:num)'] = 'admin/$1';
+$route['admins/(.+)'] = 'admin';
 
-// Presenter routes
-$route['presenters'] ='presenter';
-$route['presenter/create'] = 'presenter/create';
+// Award Routes
+$route['awards'] = 'award';
+$route['awards/(.+)'] = 'award';
 
-//Poster Routes
-$route['posters/(:num)'] = 'poster/get_judge_posters/$1';
+// Form Routes
+$route['forms'] = 'form';
+$route['forms/(.+)'] = 'form';
+
+// FormQuestion Routes
+$route['form_questions'] = 'form_question';
+$route['form_questions/(.+)'] = 'form_question';
+
+// Institution Routes
+$route['institutions'] = 'institution';
+$route['institutions/(.+)'] = 'institution';
 
 // Judge Routes
 $route['judges'] = 'judge';
-$route['judges/judge/(:num)'] = 'judge/$1';
+$route['judges/(.+)'] = 'judge';
+
+// JudgeCategory Routes
+$route['judge_categories'] = 'judge_category';
+$route['judge_categories/(.+)'] = 'judge_category';
 
 // JudgePoster Routes
 $route['judge_posters'] = 'judge_poster';
-$route['judge_posters/judge/(:num)'] = 'judge_poster/$1';
-$route['judge_posters/judge/(:num)/poster/(:num)'] = 'judge_poster/$1/$2';
+$route['judge_posters/(.+)'] = 'judge_poster';
+
+// JudgeSummit Routes
+$route['judge_summits'] = 'judge_summit';
+$route['judge_summits/(.+)'] = 'judge_summit';
+
+// KeyParticipants Routes
+$route['key_participants'] = 'key_participant';
+$route['key_participants/(.+)'] = 'key_participant';
 
 //Login routes
 $route['authorize/check-pin'] = 'login/check_pin';
@@ -85,15 +105,38 @@ $route['migrate/up'] = 'migrate/up';
 $route['migrate/down'] = 'migrate/down';
 $route['migrate/down/(:num)'] = 'migrate/down/$1';
 
+//Poster Routes
+$route['posters'] = 'poster';
+$route['posters/(.+)'] = 'poster';
+
+// PosterAbstract Routes
+$route['poster_abstract'] = 'poster_abstract';
+$route['poster_abstract/(.+)'] = 'poster_abstract';
+
+// PosterCategory Routes
+$route['poster_categories'] = 'poster_category';
+$route['poster_categories/(.+)'] = 'poster_category';
+
+// Presenter routes
+$route['presenters'] ='presenter';
+$route['presenters/(.+)'] ='presenter';
+$route['presenter/create'] = 'presenter/create';
+
 //Question Routes
 $route['questions'] = 'question';
-$route['questions/question/(:num)'] = 'question/$1';
-$route['questions/question_section/(:num)'] = 'question/index/NULL/$1'; // codeigniter routing is annoying sometimes
-$route['questions/question/(:num)/question_section/(:num)'] = 'question/$1/$2';
+$route['questions/(.+)'] = 'question';
 
 //QuestionSection Routes
 $route['question_sections'] = 'question_section';
-$route['question_sections/question_section/(:num)'] = 'question_section/$1';
+$route['question_sections/(.+)'] = 'question_section';
+
+// Role Routes
+$route['roles'] = 'role';
+$route['roles/(.+)'] = 'role';
+
+//Summit Routes
+$route['summits'] = 'summit';
+$route['summits/(.+)'] = 'summit';
 
 //Redirects to error page if any invalid page is called
 $route['(:any)'] = 'error';

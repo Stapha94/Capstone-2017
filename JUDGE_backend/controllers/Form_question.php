@@ -6,15 +6,18 @@ use Restserver\Libraries\REST_Controller;
 
 class Form_question extends REST_Controller {
 
-	public function index_get($form_id = NULL, $question_id = NULL, $poster_id = NULL, $judge_id = NULL)
+	public function index_get()
 	{
-		$auth = $this->authorize->get_auth();
-		$query = $this->Form_question->get($form_id, $question_id, $poster_id, $judge_id);
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $this->form_question->fields);
 		if($auth === 400) {
 			$this->response([], 400);
 		} else if($auth === 401) {
 			$this->response([], 401);
-		} else if($auth) { // just to make sure it exists
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($auth) {
+			$query = $this->form_question->get($params);
 			$this->response(prepare_for_frontend($query));
 		}
 	}

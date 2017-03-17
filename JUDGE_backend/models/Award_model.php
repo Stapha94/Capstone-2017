@@ -7,11 +7,12 @@ class Award_model extends CI_Model {
 
 	public function __construct()
 	{
+		$this->fields = array('award_id', 'title', 'active');
 		$this->name = 'award';
 		parent::__construct();
 	}
 
-	public function get($award_id = NULL)
+	public function get($params = array())
 	{
 		// Load foreign tables
 
@@ -23,10 +24,10 @@ class Award_model extends CI_Model {
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		if($award_id) {
-			$this->db->where("{$this->name}_id", $award_id);
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
 		}
 
 		// Perform the query

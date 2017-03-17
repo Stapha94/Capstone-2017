@@ -24,6 +24,7 @@ function prepare_for_frontend($data = NULL)
 function retrieve_columns($data = array(), $columns = array())
 {
     $newColumns = array();
+    $newResult = array();
     if(count($columns) > 0 && count($data) > 0)
     {
         foreach($data as $index=>$json) {
@@ -37,5 +38,15 @@ function retrieve_columns($data = array(), $columns = array())
             $newResult[$index] = $newColumns;
         }
     }
-    return $newResult;
+	return $newResult;
+}
+
+function get_paramters()
+{
+	$ci =& get_instance();
+	$params = $ci->uri->uri_to_assoc(2);
+	foreach($params as $column=>$value) {
+		$params[$column] = str_replace("%20", " ", $value);
+	}
+	return $params;
 }

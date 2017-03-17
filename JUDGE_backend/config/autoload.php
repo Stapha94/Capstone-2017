@@ -93,7 +93,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('data', 'string_conversion', 'header');
+$autoload['helper'] = array('data', 'url', 'string_conversion', 'header');
 
 /*
 | -------------------------------------------------------------------
@@ -137,22 +137,22 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array(
-						'Abstract_model' => 'Abstract',
-						'Admin_model' => 'Admin',
-						'Award_model' => 'Award',
-						'Form_model' => 'Form',
-						'Form_question_model' => 'Form_question',
-						//'Institution_model' => 'Institution',
-						'Judge_model' => 'Judge',
-						//'Judge_category_model' => 'Judge_category',
-						'Judge_poster_model' => 'Judge_poster',
-						//'Judge_summit_model' => 'Judge_summit',
-						//'Key_participant_model' => 'Key_participant',
-						'Poster_model' => 'Poster',
-						//'Poster_category_model' => 'Poster_category',
-						'Presenter_model' => 'Presenter',
-						//'Role_model' => 'Role',
-                        'Summit_model' => 'Summit',
-						'Question_model' => 'Question',
-						'Question_section_model' => 'Question_section'
+						'Admin_model' => 'admin',
+						'Award_model' => 'award',
+						'Form_model' => 'form',
+						'Form_question_model' => 'form_question',
+						'Institution_model' => 'institution',
+						'Judge_model' => 'judge',
+						'Judge_category_model' => 'judge_category',
+						'Judge_poster_model' => 'judge_poster',
+						'Judge_summit_model' => 'judge_summit',
+						'Key_participant_model' => 'key_participant',
+						'Poster_model' => 'poster',
+						'Poster_abstract_model' => 'poster_abstract',
+						'Poster_category_model' => 'poster_category',
+						'Presenter_model' => 'presenter',
+						'Role_model' => 'role',
+                        'Summit_model' => 'summit',
+						'Question_model' => 'question',
+						'Question_section_model' => 'question_section'
 						);

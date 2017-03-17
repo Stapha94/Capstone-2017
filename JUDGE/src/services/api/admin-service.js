@@ -4,18 +4,23 @@ class AdminService {
         this.$http = $http;
         this.$q = $q;
         this.baseUrl = CONFIG.DBURL;
-        this.params = { admin: ''};
     }
 
     // Gets all the judges
-    get(adminId) {
+    // Regex found here: http://stackoverflow.com/questions/8955533/javascript-jquery-split-camelcase-string-and-add-hyphen-rather-than-space
+    get(params) {
         var deferred = this.$q.defer();
 
-        if(adminId) {
-            this.params.admin = 'admin/' + adminId;
+        var paramString = '';
+        if(params) {
+            paramString = '/';
+            _.forOwn(params, (value, key) => {
+                var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+                paramString += newKey + '/' + value;
+            });
         }
 
-        var url = this.baseUrl + 'admins/' + this.params.admin;
+        var url = this.baseUrl + 'admins' + paramString;
         this.$http.get(url)
             .then(function(response) {
                 deferred.resolve(response.data);

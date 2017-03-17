@@ -16,7 +16,7 @@ class Login extends REST_Controller {
 		$email = $request->email;
 		$password = $request->password;
 
-		$matches = $this->Admin->check_admin($email, $password);
+		$matches = $this->admin->check_admin($email, $password);
 
 		if (count($matches) === 1) {
 			$admin = array(
@@ -42,7 +42,7 @@ class Login extends REST_Controller {
         $user_name = $request->userName;
         $pin = $request->pin;
 
-        $matches = $this->Judge->check_judge($judge_id, $pin);
+        $matches = $this->judge->check_judge($judge_id, $pin);
 
         if (count($matches) === 1) {
             $judge = array(
@@ -67,7 +67,7 @@ class Login extends REST_Controller {
         $pin = $request->pin;
         $date = date('Y-m-d H:i:s');
 
-        $matches = $this->Summit->check_pin($pin, $date);
+        $matches = $this->summit->check_pin($pin, $date);
         if (count($matches) === 1) {
             $this->response([], 200);
         } else {

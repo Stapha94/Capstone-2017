@@ -6,18 +6,22 @@ use Restserver\Libraries\REST_Controller;
 
 
 class Presenter extends REST_Controller {
-  public function index_get()
-  {
-	  $auth = $this->response->get_auth();
-	  $query = $this->Poster->get();
-	  if($auth === 400) {
-	  	$this->response([], 400);
-	  } else if($auth === 401) {
-	  	$this->response([], 401);
-	  } else if($auth) {
-		  $this->response(prepare_for_frontend($query));
-	  }
-  }
+
+	public function index_get()
+	{
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $this->presenter->fields);
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($auth) {
+			$query = $this->presenter->get($params);
+			$this->response(prepare_for_frontend($query));
+		}
+	}
 
   public function index_post() {
       $this->load->model('Presenter_model');

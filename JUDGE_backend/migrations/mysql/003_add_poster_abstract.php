@@ -2,19 +2,19 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_abstract extends CI_Migration {
+class Migration_Add_poster_abstract extends CI_Migration {
 
         public function up()
         {
-                $sql = "CREATE TABLE abstract (
-                            abstract_id     INT(11)     NOT NULL        AUTO_INCREMENT,
+                $sql = "CREATE TABLE poster_abstract (
+                            poster_abstract_id     INT(11)     NOT NULL        AUTO_INCREMENT,
                             title           VARCHAR(255)    NOT NULL,
                             objective       TEXT    NOT NULL,
                             methods         TEXT    NOT NULL,
                             results         TEXT    NOT NULL,
                             conclusion      TEXT    NOT NULL,
 
-                            PRIMARY KEY (abstract_id)
+                            PRIMARY KEY (poster_abstract_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
@@ -22,7 +22,7 @@ class Migration_Add_abstract extends CI_Migration {
 
         public function down()
         {
-                $sql = "DROP TABLE abstract;";
+                $sql = "DROP TABLE poster_abstract;";
                 $this->db->query($sql);
         }
 }

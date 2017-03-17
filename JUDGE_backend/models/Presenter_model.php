@@ -9,55 +9,55 @@ class Presenter_model extends CI_Model {
         private $email;
         private $institution_id;
         private $role_id;
-        private $abstract_id;
         private $is_registered;
 
-        public function __construct()
-        {
-                parent::__construct();
-        }
+	public function __construct()
+	{
+		$this->fields = array('presenter_id', 'first_name', 'last_name', 'suffix', 'email', 'institution_id', 'role_id', 'is_registered');
+		$this->name = 'presenter';
+		parent::__construct();
+	}
 
-        public function get_all_presenters() {
-                $query = $this->db->select('*')
-                                ->from('presenter')
-                                ->order_by('presenter_name', 'ASC')
-                                ->get();
+	public function get($params = array())
+	{
+		// Load foreign tables
+		$joins = $this->joins();
 
-                $result = $query->result();
+		// All the select fields
 
-                return $result;
-        }
+		$this->db->select("{$this->name}_id,
+                first_name,
+                last_name,
+                suffix,
+                email,
+                {$joins['i']}.title AS institution,
+                {$joins['r']}.title AS role,
+                is_registered");
 
-        public function get_presenter($presenter_id) {
-                $query = $this->db->select('*')
-                                ->from('presenter')
-                                ->where('presenter_id', $presenter_id)
-                                ->get();
+		// Put any joins here
 
-                $result = $query->result();
+		$this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$this->name}.{$joins['i']}_id");
+		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$this->name}.{$joins['r']}_id");
 
-                return $result;
-        }
+		// Where clauses here...must be conditionally based. I'll work on that later
 
-        public function create_presenter($data) {
-                echo '<script> console.log('. $this->input->post('presenter') . '); </script>';       
+		foreach($params as $column=>$value) {
+			$this->db->where("{$this->name}.{$column}", $value);
+		}
 
-                $query = $this->db->insert('presenter', $data);
-        }
+		// Perform the query
+		$query = $this->db->get($this->name);
+		$result = $query->result();
+		return $result;
+	}
 
-        public function update_presenter() {
-                //This is actually all wrong, I'll have to fix this
-                $this->presenter_id     = $this->input->post('presenter_id');
-                $this->presenter_name   = $this->input->post('presenter_name');
-                $this->email            = $this->input->post('email');
-                $this->institution      = $this->input->post('institution');
-                $this->role             = $this->input->post('role');
-                $this->$abstract_id     = $this->input->post('abstract_id');
-                $this->$submission_date = $this->input->post('submission_date');
-                $this->is_registered    = $this->input->post('is_registered');
-
-                $this->db->update('presenter', $this, $this->presenter_id);                                       
-        }
+	public function joins() {
+		$joins = array(
+			'i' => 'institution',
+			'r' => 'role'
+		);
+		return $joins;
+	}
 
 }
 ?>
