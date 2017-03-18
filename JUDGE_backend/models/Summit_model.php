@@ -7,11 +7,12 @@ class Summit_model extends CI_Model {
         private $registration_deadline;
         private $created_by_admin_id;
         private $pin;
+        private $active;
 
 	public function __construct()
 	{
 		$this->name = 'summit';
-		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id');
+		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'active');
 		parent::__construct();
 	}
 
@@ -27,7 +28,7 @@ class Summit_model extends CI_Model {
 			summit_end,
 			registration_deadline,
 			{$joins['ad']}.email,
-			active");
+			{$this->name}.active");
 
 		// Put any joins here
 		$this->db->join("{$joins['ad']}", "{$joins['ad']}.{$joins['ad']}_id = {$this->name}.created_by_{$joins['ad']}_id");

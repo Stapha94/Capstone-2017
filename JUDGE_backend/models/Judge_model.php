@@ -6,11 +6,11 @@ class Judge_model extends CI_Model {
         private $first_name;
         private $last_name;
         private $judge_category_id;
-        private $is_active;
+        private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('judge_id', 'user_name', 'first_name', 'last_name', 'judge_category_id', 'is_active');
+		$this->fields = array('judge_id', 'user_name', 'first_name', 'last_name', 'judge_category_id', 'active');
 		$this->name = 'judge';
 		parent::__construct();
 	}
@@ -27,7 +27,7 @@ class Judge_model extends CI_Model {
 			first_name,
 			last_name,
 			{$joins['jc']}.title AS category,
-			is_active");
+			active");
 
 		// Put any joins here
 

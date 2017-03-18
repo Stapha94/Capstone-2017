@@ -10,6 +10,7 @@ class Migration_Add_question extends CI_Migration {
                             question_id     INT(11)     NOT NULL        AUTO_INCREMENT,
                             question_section_id         INT(11)         NOT NULL,
                             description     VARCHAR(255)    NOT NULL,
+                            active		TINYINT(1)	NOT NULL DEFAULT 1,
 
                             FOREIGN KEY (question_section_id) REFERENCES question_section(question_section_id),
 

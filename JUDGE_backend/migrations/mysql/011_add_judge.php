@@ -12,7 +12,7 @@ class Migration_Add_judge extends CI_Migration {
                             first_name  VARCHAR(50)    NOT NULL,
                             last_name   VARCHAR(50)    NOT NULL,
                             judge_category_id    INT(11)     NOT NULL,
-                            is_active   TINYINT(1)      NOT NULL,
+                            active   TINYINT(1)      NOT NULL DEFAULT 1,
 
                             FOREIGN KEY (judge_category_id) REFERENCES judge_category(judge_category_id),
 

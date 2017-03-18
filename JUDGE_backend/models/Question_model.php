@@ -4,10 +4,11 @@ class Question_model extends CI_Model {
         private $question_id;
         private $question_section_id;
         private $description;
+        private $active;
 
         public function __construct()
         {
-        		$this->fields = array('question_id', 'question_description_id', 'description');
+        		$this->fields = array('question_id', 'question_description_id', 'description', 'active');
         		$this->name = 'question';
                 parent::__construct();
         }
@@ -21,7 +22,8 @@ class Question_model extends CI_Model {
 
 			$this->db->select("{$this->name}_id,
                 {$joins['qs']}.title AS section,
-                description");
+                description,
+                {$this->name}.active");
 
 			// Put any joins here
 
