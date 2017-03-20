@@ -9,9 +9,9 @@
                         <label for="pin">PIN</label>
                     </div>
                     <div ng-if="ctrl.correct" class="input-field col s12">
-                        <select ng-model="ctrl.user" material-select>
+                        <select ng-model="ctrl.judgeId" material-select>
                             <option value="" disabled selected>Choose your name</option>
-                            <option ng-repeat="judge in ctrl.judges" value="{{judge}}">{{judge.userName}}</option>
+                            <option ng-repeat="judge in ctrl.judges" value="{{judge.judgeId}}">{{judge.userName}}</option>
                         </select>
                         <label>Judge Select</label>
                     </div>

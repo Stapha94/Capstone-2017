@@ -3,7 +3,7 @@ class JudgeLoginController {
     constructor($scope, $state, authService, judgeService, notificationService, judges) {
         this.correct = false;
         this.pin = '';
-        this.user = {};
+        this.judgeId = 0;
         this.notificationService = notificationService;
         this.authService = authService;
         this.judgeService = judgeService;
@@ -12,10 +12,9 @@ class JudgeLoginController {
     }
 
     login() {
-        var judge = angular.fromJson(this.user);
-        this.authService.judgeLogin(judge, this.pin)
+        this.authService.judgeLogin(this.judgeId, this.pin)
             .then((response) => {
-                this.$state.go('judge', {id: judge.judgeId});
+                this.$state.go('judge', {id: this.judgeId});
             })
             .catch((error) => {
                 return error;

@@ -4,7 +4,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: 'JUDGE/src/pages/landing/landing.html',
             controller: 'landingController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: {
+                summit: ['summitService', (summitService) => {
+                    return summitService.get({active: 1})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }]
+            }
         })
         //admin related states
         .state('login', {
@@ -24,6 +32,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                         .then((data) => {
                             return data[0];
                         })
+                }],
+                summitId: ['localStorageService', (localStorageService) => {
+                    return localStorageService.get('summit');
                 }]
             }
         })
@@ -63,7 +74,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 'admin': {
                     templateUrl: 'JUDGE/src/pages/admin-judges/admin-judges.html',
                     controller: 'adminJudgesController',
-                    controllerAs: 'ctrl'
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        judges: ['judgeService', (judgeService) => {
+                            return judgeService.get()
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                            return judgeCategoryService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }]
+                    }
                 }
             }
         })
@@ -117,7 +142,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 judges: ['judgeService', (judgeService) => {
-                    return judgeService.get()
+                    return judgeService.get({active: 1})
                         .then((data) => {
                             return data;
                         });

@@ -24,9 +24,21 @@ class Judge_summit extends REST_Controller {
 
 	public function index_post()
 	{
-		$data['judge_summits'] = $this->Judge_summit->get_usernames();
-
-		$this->load->view('summit_usernames', $data);
+		$method = $this->uri->segment(2);
+		$data = array();
+		$fields = $this->judge_summit->fields;
+		foreach($fields as $index=>$field) {
+			if($this->post($field)) {
+				$data[$field] = $this->post($field);
+			}
+		}
+		if($method === 'create') {
+			if($this->judge_summit->create($data)) {
+				$this->response([], 201);
+			} else {
+				$this->response([], 400);
+			}
+		}
 	}
 
 }

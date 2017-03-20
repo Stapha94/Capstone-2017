@@ -35,19 +35,15 @@ class Login extends REST_Controller {
 	}
 
     public function judge_post() {
-        $post_data = file_get_contents('php://input');
-        $request = json_decode($post_data);
-
-        $judge_id = $request->judgeId;
-        $user_name = $request->userName;
-        $pin = $request->pin;
+        $judge_id = $this->post('judgeId');
+        $pin = $this->post('pin');
 
         $matches = $this->judge->check_judge($judge_id, $pin);
 
         if (count($matches) === 1) {
             $judge = array(
-                'id' => $judge_id,
-                'user_name' => $user_name,
+                'id' => $matches[0]->judge_id,
+                'user_name' => $matches[0]->user_name,
                 'type' => 'Judge'
             );
             $auth_token = $this->authorize->get_auth($judge);
@@ -61,13 +57,9 @@ class Login extends REST_Controller {
     }
 
     public function check_pin_post() {
-        $post_data = file_get_contents('php://input');
-        $request = json_decode($post_data);
+        $pin = $this->post('pin');
 
-        $pin = $request->pin;
-        $date = date('Y-m-d H:i:s');
-
-        $matches = $this->summit->check_pin($pin, $date);
+        $matches = $this->summit->check_pin($pin);
         if (count($matches) === 1) {
             $this->response([], 200);
         } else {

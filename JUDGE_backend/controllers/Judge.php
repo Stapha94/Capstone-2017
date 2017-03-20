@@ -30,7 +30,22 @@ class Judge extends REST_Controller {
 
     public function index_post()
     {
-
+    	$method = $this->uri->segment(2);
+    	$data = array();
+		$fields = $this->judge->fields;
+		foreach($fields as $index=>$field) {
+			if($this->post($field)) {
+				$data[$field] = $this->post($field);
+			}
+		}
+		if($method === 'create') {
+			$query = $this->judge->create($data);
+			if($query) {
+				$this->response(prepare_for_frontend($query), 201);
+			} else {
+				$this->response([], 400);
+			}
+		}
     }
 
 }

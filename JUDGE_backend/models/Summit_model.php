@@ -39,13 +39,6 @@ class Summit_model extends CI_Model {
 			$this->db->where("{$this->name}.{$column}", $value);
 		}
 
-/**		if($summit_id) {
-			$this->db->where("{$this->name}_id", $summit_id);
-		}
-		if($admin_id) {
-			$this->db->where("created_by_{$joins['ad']}_id", $admin_id);
-		}*/
-
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
@@ -60,12 +53,11 @@ class Summit_model extends CI_Model {
 		return $joins;
 	}
 
-	public function check_pin($pin, $date) {
+	public function check_pin($pin) {
 
 		$query = $this->db->select('pin')
 						  ->from('summit')
-						  ->where('summit_start <', $date)
-						  ->where('summit_end >', $date)
+						  ->where('active', 1)
 						  ->where('pin = SHA2(' . $pin . ', 256)')
 						  ->limit(1)
 						  ->get();

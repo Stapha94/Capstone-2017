@@ -27,7 +27,7 @@ class Judge_model extends CI_Model {
 			first_name,
 			last_name,
 			{$joins['jc']}.title AS category,
-			active");
+			{$this->name}.active");
 
 		// Put any joins here
 
@@ -46,8 +46,23 @@ class Judge_model extends CI_Model {
 		return $result;
 	}
 
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$judge_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('judge_id' => $judge_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function check_judge($id, $pin) {
-			$query = $this->db->select('judge.judge_id, pin')
+			$query = $this->db->select('judge.judge_id, user_name, pin')
 							->from('judge')
 							->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
 							->join('summit', 'judge_summit.summit_id = summit.summit_id')

@@ -25,6 +25,7 @@
     <script src="JUDGE/src/app-states.js"></script>
 
     <!-- Load api files here -->
+    <script src="judge/src/services/api/base-api-service.js"></script>
     <script src="judge/src/services/api/admin-service.js"></script>
     <script src="judge/src/services/api/award-service.js"></script>
     <script src="judge/src/services/api/form-question-service.js"></script>
@@ -50,8 +51,13 @@
     <script src="JUDGE/src/services/notification-service.js"></script>
     <script src="JUDGE/src/services/local-storage-service.js"></script>
 
-    <!-- Load directives here -->
+    <!-- Load material directives here. -->
+    <script src="JUDGE/src/directives/material/modal-directive.js"></script>
     <script src="JUDGE/src/directives/material/select-directive.js"></script>
+
+    <!-- Load other directives here. . If it has a controller, load the controller first! -->
+    <script src="JUDGE/src/directives/judge-modal/judge-modal-controller.js"></script>
+    <script src="JUDGE/src/directives/judge-modal/judge-modal-directive.js"></script>
 
     <!-- Make sure to load controllers here -->
     <script src="JUDGE/src/pages/landing/landing-controller.js"></script>

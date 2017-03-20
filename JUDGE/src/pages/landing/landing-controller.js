@@ -1,8 +1,9 @@
 class LandingController {
 
-    constructor($scope, authService, localStorageService) {
+    constructor($scope, authService, localStorageService, summit) {
         // Putting this here to test login
         this.authService = authService;
+        localStorageService.set('summit', summit.summitId);
     }
 
     isJudgeLoggedIn() {
@@ -24,5 +25,5 @@ class LandingController {
     }
 }
 
-LandingController.$inject = ['$scope', 'authService', 'localStorageService'];
+LandingController.$inject = ['$scope', 'authService', 'localStorageService', 'summit'];
 app.controller('landingController', LandingController);
