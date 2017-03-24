@@ -67,7 +67,7 @@ class Judge_model extends CI_Model {
 							->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
 							->join('summit', 'judge_summit.summit_id = summit.summit_id')
 							->where('judge.user_name', $user_name)
-							->where('pin = SHA2(' . $pin . ', 256)')
+							->where($this->authorize->get_password_hash($pin, TRUE))
 							->where('judge.active', 1)
 							->where('summit.active', 1)
 							->limit(1)

@@ -7,14 +7,11 @@ class Migration_Add_form extends CI_Migration {
         public function up()
         {
                 $sql = "CREATE TABLE form (
-                            form_id     INT(11)     NOT NULL    AUTO_INCREMENT,
-                            poster_id   INT(11)     NOT NULL,
-                            judge_id    INT(11)     NOT NULL,
-                            total       INT(11),
-
-                            FOREIGN KEY (poster_id) REFERENCES poster(poster_id),
-
-                            FOREIGN KEY (judge_id) REFERENCES judge(judge_id),
+                            form_id     SERIAL,
+                            poster_id   INTEGER     NOT NULL REFERENCES poster(poster_id),
+                            judge_id    INTEGER     NOT NULL REFERENCES judge(judge_id),
+                            total       INTEGER,
+                            comments    TEXT,
 
                             PRIMARY KEY (form_id)
                         );";

@@ -2,16 +2,16 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_role extends CI_Migration {
+class Migration_Add_award extends CI_Migration {
 
         public function up()
         {
-                $sql = "CREATE TABLE role (
-                            role_id         SERIAL,
+                $sql = "CREATE TABLE award (
+                            award_id  SERIAL,
                             title           VARCHAR(50)    NOT NULL,
-			                active      SMALLINT     NOT NULL DEFAULT 1,
+                			active      SMALLINT     NOT NULL DEFAULT 1,
 
-                            PRIMARY KEY (role_id)
+                            PRIMARY KEY (award_id)
                         );";
 
                 $this->db->query($sql);
@@ -19,7 +19,7 @@ class Migration_Add_role extends CI_Migration {
 
         public function down()
         {
-                $sql = "DROP TABLE role;";
+                $sql = "DROP TABLE award;";
                 $this->db->query($sql);
         }
 }

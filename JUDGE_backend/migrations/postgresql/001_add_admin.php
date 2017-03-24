@@ -8,8 +8,9 @@ class Migration_Add_admin extends CI_Migration {
         {
                 $sql = "CREATE TABLE admin (
                 admin_id    SERIAL,
-                email       VARCHAR(50)     NOT NULL,
-                password    VARCHAR(255)    NOT NULL,
+                email       varchar(50) NOT NULL,
+                password    varchar(64)    NOT NULL,
+                active      SMALLINT     NOT NULL DEFAULT 1,
 
                 PRIMARY KEY (admin_id)
                 );";
@@ -20,6 +21,9 @@ class Migration_Add_admin extends CI_Migration {
         public function down()
         {
                 $sql = "DROP TABLE admin;";
+                $this->db->query($sql);
+
+                $sql = "SET FOREIGN_KEY_CHECKS = 1;";
                 $this->db->query($sql);
         }
 }

@@ -50,3 +50,13 @@ function get_paramters()
 	}
 	return $params;
 }
+
+function set_active($active)
+{
+	$ci =& get_instance();
+	if($ci->db->dbdriver === 'mysqli') {
+		return $active;
+	} else if($ci->db->dbdriver === 'postgre') {
+		return "cast({$active} as BOOLEAN)";
+	}
+}

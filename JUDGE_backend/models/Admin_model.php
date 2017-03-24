@@ -41,7 +41,7 @@ class Admin_model extends CI_Model {
 	public function check_admin($email, $password) {
 		$this->db->select("{$this->name}_id, email, password");
 		$this->db->where('email', $email);
-		$this->db->where("password = SHA2('{$password}', 256)");
+		$this->db->where($this->authorize->get_password_hash($password));
 		$this->db->where('active', 1);
 		$this->db->limit(1);
 

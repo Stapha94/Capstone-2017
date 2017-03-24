@@ -7,8 +7,10 @@ class Migration_Add_question extends CI_Migration {
         public function up()
         {
                 $sql = "CREATE TABLE question (
-                            question_id     INT(11)     NOT NULL        AUTO_INCREMENT,
+                            question_id     SERIAL,
+                            question_section_id         INTEGER         NOT NULL REFERENCES question_section(question_section_id),
                             description     VARCHAR(255)    NOT NULL,
+                			active      SMALLINT     NOT NULL DEFAULT 1,
 
                             PRIMARY KEY (question_id)
                         );";

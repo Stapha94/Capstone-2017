@@ -7,11 +7,15 @@ class Migration_Add_summit extends CI_Migration {
         public function up()
         {
                 $sql = "CREATE TABLE summit (
-                            summit_id       INT(11)     NOT NULL    AUTO_INCREMENT,
-                            summit_start    DATETIME  NOT NULL,
-                            summit_end      DATETIME  NOT NULL,
-                            registration_deadline       DATETIME,
-                            pin       INT(4) NOT NULL,
+                            summit_id       SERIAL,
+                            summit_start    TIMESTAMP  NOT NULL,
+                            summit_end      TIMESTAMP  NOT NULL,
+                            registration_deadline       TIMESTAMP,
+                            created_by_admin_id INTEGER NOT NULL REFERENCES admin(admin_id),
+                            pin       VARCHAR(64) NOT NULL,
+			                active      SMALLINT     NOT NULL DEFAULT 1,
+                            
+                            CONSTRAINT  summit_time UNIQUE(summit_start, summit_end),
 
                             PRIMARY KEY (summit_id)
                         );";

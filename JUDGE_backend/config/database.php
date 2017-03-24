@@ -98,10 +98,10 @@ $db['local'] = array(
 
 $db['heroku'] = array(
 	'dsn'	=> '',
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => $heroku_server['host'],
+	'username' => $heroku_server['username'],
+	'password' => $heroku_server['password'],
+	'database' => $heroku_server['db'],
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

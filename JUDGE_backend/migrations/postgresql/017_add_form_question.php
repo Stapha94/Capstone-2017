@@ -7,13 +7,9 @@ class Migration_Add_form_question extends CI_Migration {
         public function up()
         {
                 $sql = "CREATE TABLE form_question (
-                            form_id     INT(11)     NOT NULL,
-                            question_id INT(11)     NOT NULL,
-                            score       INT(1)      NOT NULL,
-
-                            FOREIGN KEY (form_id) REFERENCES form(form_id) ON DELETE CASCADE,
-
-                            FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE,
+                            form_id     INTEGER     NOT NULL REFERENCES form(form_id) ON DELETE CASCADE,
+                            question_id INTEGER     NOT NULL REFERENCES question(question_id) ON DELETE CASCADE,
+                            score       INTEGER      NOT NULL DEFAULT 0,
 
                             PRIMARY KEY (form_id, question_id)
                         );";
