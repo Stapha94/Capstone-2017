@@ -22,6 +22,8 @@ class Form_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
+				{$joins['j']}_id,
+				{$joins['po']}_id,
                 total,
                 comments");
 
@@ -35,6 +37,29 @@ class Form_model extends CI_Model {
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
+	}
+
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$form_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('form_id' => $form_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public function joins()

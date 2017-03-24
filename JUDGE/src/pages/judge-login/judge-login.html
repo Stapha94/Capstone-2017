@@ -4,22 +4,18 @@
             <h4>Login</h4>
             <form class="col s12">
                 <div class="row">
-                    <div ng-if="!ctrl.correct" class="input-field col s12">
+                    <div class="input-field col s12">
+                        <input placeholder="Username" id="userName" type="text" ng-model="ctrl.userName" class="validate" required>
+                        <label for="userName">User Name</label>
+                    </div>
+                    <div class="input-field col s12">
                         <input placeholder="Pin" id="pin" type="password" ng-model="ctrl.pin" class="validate" required>
                         <label for="pin">PIN</label>
-                    </div>
-                    <div ng-if="ctrl.correct" class="input-field col s12">
-                        <select ng-model="ctrl.judgeId" material-select>
-                            <option value="" disabled selected>Choose your name</option>
-                            <option ng-repeat="judge in ctrl.judges" value="{{judge.judgeId}}">{{judge.userName}}</option>
-                        </select>
-                        <label>Judge Select</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <button ng-if="ctrl.correct" ng-click="ctrl.login()" class="btn admin-btn">Login</button>
-                        <button ng-if="!ctrl.correct" ng-click="ctrl.checkPin()" class="btn admin-btn">Check</button>
+                        <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
                     </div>
                     <div class="col s6">
                         <button ui-sref="home" class="btn cancel-btn">Cancel</button>

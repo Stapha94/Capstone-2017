@@ -2,6 +2,7 @@ node_modules
 .vscode
 .idea/
 vendor
+build
 composer.phar
 
 .DS_Store

@@ -10,11 +10,8 @@ class Login extends REST_Controller {
     }
 
     public function admin_post() {
-		$post_data = file_get_contents('php://input');
-		$request = json_decode($post_data);
-
-		$email = $request->email;
-		$password = $request->password;
+		$email = $this->post('email');
+		$password = $this->post('password');
 
 		$matches = $this->admin->check_admin($email, $password);
 
@@ -35,15 +32,15 @@ class Login extends REST_Controller {
 	}
 
     public function judge_post() {
-        $judge_id = $this->post('judgeId');
+        $user_name = $this->post('userName');
         $pin = $this->post('pin');
 
-        $matches = $this->judge->check_judge($judge_id, $pin);
+        $matches = $this->judge->check_judge($user_name, $pin);
 
         if (count($matches) === 1) {
             $judge = array(
                 'id' => $matches[0]->judge_id,
-                'user_name' => $matches[0]->user_name,
+                'user_name' => $user_name,
                 'type' => 'Judge'
             );
             $auth_token = $this->authorize->get_auth($judge);
@@ -51,17 +48,6 @@ class Login extends REST_Controller {
             $data['judge'] = prepare_for_frontend(array($judge));
             $data['status'] = 200;
             $this->response($data);
-        } else {
-            $this->response([], 401);
-        }
-    }
-
-    public function check_pin_post() {
-        $pin = $this->post('pin');
-
-        $matches = $this->summit->check_pin($pin);
-        if (count($matches) === 1) {
-            $this->response([], 200);
         } else {
             $this->response([], 401);
         }

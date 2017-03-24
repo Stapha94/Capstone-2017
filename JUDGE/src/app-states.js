@@ -150,13 +150,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('judge', {
-            url: '/judge/:id',
+            url: '/judge/:judgeId',
             templateUrl: 'JUDGE/src/pages/judge-nav/judge-nav.html',
             controller: 'judgeNavController',
             controllerAs: 'ctrl',
             resolve: {
                 judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
-                    return judgeService.get({judgeId: $stateParams.id})
+                    return judgeService.get({judgeId: $stateParams.judgeId})
                         .then((data) => {
                             return data[0];
                         })
@@ -182,12 +182,46 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('judge.form', {
-            url: '/form/:id',
+            url: '/form/:posterId',
             views: {
                 'judge': {
                     templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
                     controller: 'judgeFormController',
-                    controllerAs: 'ctrl'
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        form: ['formService', '$stateParams', (formService, $stateParams) => {
+                            return formService.get({judgeId: $stateParams.judgeId, posterId: $stateParams.posterId})
+                                .then((data) => {
+                                    if(data.length === 1) {
+                                        return data[0];
+                                    } else {
+                                        return {judgeId: $stateParams.judgeId, posterId: $stateParams.posterId};
+                                    }
+                                })
+                        }],
+                        formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
+                            if(form.formId) {
+                                return formQuestionService.get({formId: form.formId})
+                                    .then((data) => {
+                                        return data;
+                                    });
+                            } else {
+                                return [];
+                            }
+                        }],
+                        questionSections: ['questionSectionService', (questionSectionService) => {
+                            return questionSectionService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        questions: ['questionService', (questionService) => {
+                            return questionService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }]
+                    }
                 }
             }
         });

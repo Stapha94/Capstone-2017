@@ -11,6 +11,8 @@ class Judge extends REST_Controller {
 		$params = get_paramters();
 		$auth = $this->sanitize_uri($params, $this->judge->fields);
 		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
 			$query = $this->judge->get($params);
 			$safeColumns = array(
 				0 => 'judge_id',
@@ -18,8 +20,6 @@ class Judge extends REST_Controller {
 			);
 			$query = retrieve_columns($query, $safeColumns);
 			$this->response(prepare_for_frontend($query));
-		} else if($auth === 401) {
-			$this->response([], 401);
 		} else if($auth === 404) {
 			$this->response([], 404);
 		} else if($auth) {

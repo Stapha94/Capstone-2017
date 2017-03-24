@@ -61,13 +61,15 @@ class Judge_model extends CI_Model {
 		}
 	}
 
-	public function check_judge($id, $pin) {
+	public function check_judge($user_name, $pin) {
 			$query = $this->db->select('judge.judge_id, user_name, pin')
 							->from('judge')
 							->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
 							->join('summit', 'judge_summit.summit_id = summit.summit_id')
-							->where('judge.judge_id', $id)
+							->where('judge.user_name', $user_name)
 							->where('pin = SHA2(' . $pin . ', 256)')
+							->where('judge.active', 1)
+							->where('summit.active', 1)
 							->limit(1)
 							->get();
 

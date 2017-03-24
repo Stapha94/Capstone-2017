@@ -1,38 +1,22 @@
 class JudgeLoginController {
 
     constructor($scope, $state, authService, judgeService, notificationService, judges) {
-        this.correct = false;
         this.pin = '';
-        this.judgeId = 0;
+        this.userName = '';
         this.notificationService = notificationService;
         this.authService = authService;
         this.judgeService = judgeService;
         this.$state = $state;
-        this.judges = judges;
     }
 
     login() {
-        this.authService.judgeLogin(this.judgeId, this.pin)
-            .then((response) => {
-                this.$state.go('judge', {id: this.judgeId});
+        this.authService.judgeLogin(this.userName, this.pin)
+            .then((judge) => {
+                this.$state.go('judge', {judgeId: judge.id});
             })
             .catch((error) => {
-                return error;
+                this.notificationService.error('Incorrect login!');
             });
-    }
-
-    checkPin() {
-        if(this.pin == null) {
-            this.pin = '';
-        } else if(this.pin.length === 4) {
-            this.authService.checkPin(this.pin)
-                .then((response) => {
-                    this.correct = true;
-                })
-                .catch((reject) => {
-                    this.notificationService.error('Incorrect pin!');
-                });
-        }
     }
 
 }

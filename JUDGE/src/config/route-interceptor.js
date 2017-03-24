@@ -40,6 +40,11 @@ class RouteInterceptor {
                     this.$log.warn('Non-admin attempted access to state: ' + toState.name);
                     this.$state.go('login'); // redirect to judge login
                 }
+            } else {
+                if(toState.name === 'judge') {
+                    event.preventDefault();
+                    this.$state.go('judge.dashboard', {judgeId: toParams.judgeId});
+                }
             }
         });
     }

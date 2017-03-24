@@ -53,17 +53,5 @@ class Summit_model extends CI_Model {
 		return $joins;
 	}
 
-	public function check_pin($pin) {
-
-		$query = $this->db->select('pin')
-						  ->from('summit')
-						  ->where('active', 1)
-						  ->where('pin = SHA2(' . $pin . ', 256)')
-						  ->limit(1)
-						  ->get();
-		$result = $query->result();
-		return $result;
-	}
-
 }
 ?>

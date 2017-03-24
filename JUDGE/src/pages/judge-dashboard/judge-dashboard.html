@@ -1,23 +1,27 @@
- <table class="bordered highlight">
-    <thead>
-        <tr>
-            <th data-field="posterId">Poster ID</th>
-            <th data-field="firstName">First Name</th>
-            <th data-field="lastName">Last Name</th>
-            <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
-            <th data-field="score">Score</th>
-            <th></th>
-        </tr>
-    </thead>
+<div class="wrap"> 
+    <div class="col s12">
+        <table class="bordered highlight">
+            <thead>
+                <tr>
+                    <th data-field="posterId">Poster ID</th>
+                    <th data-field="firstName">First Name</th>
+                    <th data-field="lastName">Last Name</th>
+                    <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
+                    <th data-field="score">Score</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-    <tbody>
-        <tr ng-repeat="poster in ctrl.posters">
-        <td>{{poster.posterId}}</td>
-        <td>{{poster.presenterFirstName}}</td>
-        <td>{{poster.presenterLastName}}</td>
-        <td>{{poster.posterCategory}}</td>
-        <td>{{poster.score}}</td>
-        <td ui-sref="#">Judge Poster</td>
-        </tr>
-    </tbody>
-</table>
+            <tbody>
+                <tr ng-repeat="poster in ctrl.posters">
+                <td>{{poster.posterId}}</td>
+                <td>{{poster.presenterFirstName}}</td>
+                <td>{{poster.presenterLastName}}</td>
+                <td>{{poster.posterCategory}}</td>
+                <td>{{poster.score}}</td>
+                <td ui-sref="judge.form({posterId: poster.posterId})"><a>Judge Poster</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

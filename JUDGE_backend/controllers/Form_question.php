@@ -24,9 +24,32 @@ class Form_question extends REST_Controller {
 
 	public function index_post()
 	{
-		$data['form_questions'] = $this->Form_questions->get_usernames();
-
-		$this->load->view('form_questions_usernames', $data);
+		$method = $this->uri->segment(2);
+		$data = array();
+		$fields = $this->form_question->fields;
+		$batch_entries = $this->post();
+		foreach ($batch_entries as $key=>$value) {
+			foreach ($fields as $index => $field) {
+				if ($value[$field]) {
+					$data[$key][$field] = $value[$field];
+				}
+			}
+		}
+		if($method === 'create') {
+			$query = $this->form_question->create($data);
+			if($query) {
+				$this->response([], 201);
+			} else {
+				$this->response([], 400);
+			}
+		} else if($method === 'update') {
+			$query = $this->form_question->update($data);
+			if($query) {
+				$this->response([], 201);
+			} else {
+				$this->response([], 400);
+			}
+		}
 	}
 
 }

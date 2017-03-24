@@ -4,7 +4,7 @@
 
         <!-- Judge buttons -->
         <ul ng-if="ctrl.authService.isJudge" id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a ui-sref="judge.dashboard({id: ctrl.authService.currentUser.id})">Dashboard</a></li>
+            <li><a ui-sref="judge.dashboard({judgeId: ctrl.authService.currentUser.id})">Dashboard</a></li>
             <li><a ng-click="ctrl.authService.logout()">Logout</a></li>
         </ul>
         <!-- Admin buttons -->

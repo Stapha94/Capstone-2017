@@ -5,6 +5,7 @@ class BaseApiService {
         this.$q = $injector.get('$q');
         this.baseUrl = $injector.get('CONFIG').DBURL;
         this.notificationService = $injector.get('notificationService');
+        this.authService = $injector.get('authService');
         this.serviceUrl = serviceUrl;
         this.serviceType = serviceType;
     }
@@ -13,14 +14,7 @@ class BaseApiService {
     get(params) {
         var deferred = this.$q.defer();
 
-        var paramString = '';
-        if(params) {
-            paramString = '/';
-            _.forOwn(params, (value, key) => {
-                var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
-                paramString += newKey + '/' + value;
-            });
-        }
+        var paramString = this.sanitizeParams(params);
 
         var url = this.baseUrl + this.serviceUrl + paramString;
         this.$http.get(url)
@@ -28,6 +22,9 @@ class BaseApiService {
                 deferred.resolve(response.data);
             })
             .catch((error) => {
+                if(error.status === 401) {
+                    this.authService.logout();
+                }
                 deferred.reject(error);
             })
         return deferred.promise;
@@ -36,13 +33,7 @@ class BaseApiService {
     create(object) {
         var deferred = this.$q.defer();
 
-        var backendSafeObject = {};
-        if(object) {
-            _.forOwn(object, (value, key) => {
-                var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
-                backendSafeObject[newKey] = value;
-            });
-        }
+        var backendSafeObject = this.sanitizeObject(object);
 
         var url = this.baseUrl + this.serviceUrl + '/create';
         this.$http.post(url, backendSafeObject)
@@ -51,11 +42,64 @@ class BaseApiService {
                 deferred.resolve(response.data[0]);
             })
             .catch((error) => {
-                this.notificationService.success('Failed to create ' + this.serviceType + '!');
+                this.notificationService.error('Failed to create ' + this.serviceType + '!');
                 deferred.reject(error);
             })
         return deferred.promise;
+    }
+
+    update(object) {
+        var deferred = this.$q.defer();
+
+        var backendSafeObject = this.sanitizeObject(object);
+
+        var url = this.baseUrl + this.serviceUrl + '/update';
+        this.$http.post(url, backendSafeObject)
+            .then((response) => {
+                this.notificationService.success('Successfully updated ' + this.serviceType + '!');
+                deferred.resolve(response.data[0]);
+            })
+            .catch((error) => {
+                this.notificationService.error('Failed to update ' + this.serviceType + '!');
+                deferred.reject(error);
+            })
+        return deferred.promise;
+    }
+
+    sanitizeParams(params) {
+        var paramString = '';
+        if(params) {
+            _.forOwn(params, (value, key) => {
+                var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+                paramString += '/' + newKey + '/' + value;
+            });
+        }
+        return paramString;
     } 
+
+    sanitizeObject(object) {
+        var backendSafeObject = {};
+        if(object) {
+            if(Array.isArray(object)) {
+                backendSafeObject = [];
+                var index = 0;
+                _.forEach(object, (item) => {
+                    backendSafeObject[index] = {};
+                    _.forOwn(item, (value, key) => {
+                        var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+                        backendSafeObject[index][newKey] = value;
+                    });
+                    index++;
+                });
+            } else {
+                _.forOwn(object, (value, key) => {
+                    var newKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+                    backendSafeObject[newKey] = value;
+                });
+            }
+        }
+        return backendSafeObject;
+    }
 
 
 }

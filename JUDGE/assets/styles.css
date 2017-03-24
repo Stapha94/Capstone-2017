@@ -187,6 +187,19 @@ td a, td a:hover {
 }
 
 /** Toast styles **/
+.toast.success {
+    background-color: #00B140;
+}
 .toast.error {
     background-color: #f44336;
 }
+
+/** Judge form **/
+.judge-form .question-info {
+    width: 718px;
+}
+
+/** Spacing **/
+.pull-right {
+    float: right !important;
+} 
