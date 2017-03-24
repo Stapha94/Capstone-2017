@@ -39,8 +39,12 @@ var paths = {
    */
   app: {
     basePath: 'JUDGE/src/',
-    fonts: 'node_modules/**/*.{eot,svg,ttf,woff,woff2}',
-    styles: 'JUDGE/assets/styles.css',
+    fonts: 'node_modules/materialize-css/dist/fonts/**/*.{eot,svg,ttf,woff,woff2}',
+    styles: [
+      'node_modules/materialize-css/dist/css/materialize.min.css',
+      'node_modules/angular-loading-bar/build/loading-bar.min.css',
+      'JUDGE/assets/styles.css'
+    ],
     images: 'JUDGE/assets/img/*.{png,gif,jpg,jpeg}',
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
@@ -51,6 +55,14 @@ var paths = {
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     '!JUDGE/src/directives/**/base-api-service.js'
+    ],
+    dependencies: [
+       'node_modules/angular/angular.js',
+       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+       'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+       'node_modules/angular-loading-bar/build/loading-bar.min.js',
+       'node_modules/lodash/lodash.min.js',
+       'node_modules/materialize-css/dist/js/materialize.min.js'
     ],
     html: 'app.html',
     templates: 'JUDGE/src/**/*.html'
@@ -72,18 +84,15 @@ var paths = {
     dist: {
       basePath: 'build/dist/',
       fonts: 'build/dist/fonts/',
-      images: 'build/dist/img/'
+      images: 'build/dist/img/',
+      styles: 'build/dist/styles/'
     }
   }
 };
 
-gulp.task('compileApp', function() {
-    return gulp.src("JUDGE/src/app.js")
-                .pipe(gulp.dest(paths.build.dist.basePath));
-});
-
-gulp.task('compileStates', function() {
-    return gulp.src("JUDGE/src/app-states.js")
+gulp.task('compileDependencies', function() {
+    return gulp.src(paths.app.dependencies)
+                .pipe(concat('dependencies.js'))
                 .pipe(gulp.dest(paths.build.dist.basePath));
 });
 
@@ -105,11 +114,12 @@ gulp.task('compileImages', function() {
 
 gulp.task('compileStyles', function() {
     return gulp.src(paths.app.styles)
-                .pipe(gulp.dest(paths.build.dist.basePath));
+                .pipe(concat('main.css'))
+                .pipe(gulp.dest(paths.build.dist.styles));
 });
 
 gulp.task('build', function() {
-    runSequence(['compileApp', 'compileStates', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
+    runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
 });
 
 var watcher = gulp.watch(paths.app.basePath + '**', ['build']);

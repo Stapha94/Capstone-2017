@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="app">
 <head>
-    <!-- jQuery -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Lodash -->
-    <script src="node_modules/lodash/lodash.min.js"></script>
-    <!-- Materialize CSS -->
-    <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css" />
-    <!-- Materialize JavaScript -->
-    <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <!-- Angular Loading Bar -->
-    <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.min.css" type="text/css" media="all" />
-    <!-- Our stylesheet -->
-    <link rel="stylesheet" href="build/dist/styles.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="build/dist/styles/main.css" type="text/css" media="all" />
 </head>
 <body>
-    <!-- AngularJS -->
-    <script src="node_modules/angular/angular.js"></script>
-    <!-- Angular UI Bootstrap -->
-    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-    <!-- Angular UI Router -->
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <!-- Angular Loading Bar -->
-    <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    <!-- jQuery needs to loaded by itself for Materialize -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    
+    <!-- Dependencies -->
+    <script src="build/dist/dependencies.js"></script>
     
     <!-- Load app files here -->
     <script src="build/dist/judge.js"></script>
