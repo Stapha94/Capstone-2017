@@ -111,3 +111,6 @@ gulp.task('compileStyles', function() {
 gulp.task('build', function() {
     runSequence(['compileApp', 'compileStates', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
 });
+
+var watcher = gulp.watch(paths.app.basePath + '**', ['build']);
+watcher.on('change', function() {});
