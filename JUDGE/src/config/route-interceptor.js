@@ -44,6 +44,9 @@ class RouteInterceptor {
                 if(toState.name === 'judge') {
                     event.preventDefault();
                     this.$state.go('judge.dashboard', {judgeId: toParams.judgeId});
+                } else if(toState.name === 'admin') {
+                    event.preventDefault();
+                    this.$state.go('admin.dashboard', {adminId: toParams.adminId});
                 }
             }
         });

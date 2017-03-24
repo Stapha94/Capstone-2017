@@ -4,7 +4,6 @@ class AdminNavController {
         this.authService = authService;
         this.admin = admin;
         $scope.summitId = summitId;
-        $state.go('admin.dashboard');
     }
 
     logout() {

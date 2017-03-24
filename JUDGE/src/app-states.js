@@ -22,7 +22,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('admin', {
-            url: '/admin/:id',
+            url: '/admin/:adminId',
             templateUrl: 'JUDGE/src/pages/admin-nav/admin-nav.html',
             controller: 'adminNavController',
             controllerAs: 'ctrl',
