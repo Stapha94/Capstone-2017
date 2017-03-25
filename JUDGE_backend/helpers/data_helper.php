@@ -46,7 +46,9 @@ function get_paramters()
 	$ci =& get_instance();
 	$params = $ci->uri->uri_to_assoc(2);
 	foreach($params as $column=>$value) {
-		$params[$column] = str_replace("%20", " ", $value);
+		if(!($column === 'create' || $column === 'update')) {
+			$params[$column] = str_replace("%20", " ", $value);
+		}
 	}
 	return $params;
 }

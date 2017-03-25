@@ -39,6 +39,29 @@ class Question_model extends CI_Model {
 			return $result;
         }
 
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$question_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('question_id' => $question_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
         public function joins()
 		{
 				$joins = array(

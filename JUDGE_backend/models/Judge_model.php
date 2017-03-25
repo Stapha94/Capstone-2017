@@ -61,6 +61,14 @@ class Judge_model extends CI_Model {
 		}
 	}
 
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function check_judge($user_name, $pin) {
 			$query = $this->db->select('judge.judge_id, user_name, pin')
 							->from('judge')
