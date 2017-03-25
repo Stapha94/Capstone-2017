@@ -1,25 +1,55 @@
-<div class="wrap"> 
-    <div class="col s12">
-        <table class="bordered highlight">
+<div class="wrap">
+    <abstract-modal abstract="ctrl.abstract"></abstract-modal>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#NeedJudged">Needs Judged</a></li>
+                <li class="tab col s3"><a href="#AlreadyJudged">Already Judged</a></li>
+            </ul>
+        </div>
+    </div> 
+    <div id="NeedJudged" class="col s12">
+        <table class="bordered highlight responsive-table">
             <thead>
                 <tr>
                     <th data-field="posterId">Poster ID</th>
-                    <th data-field="firstName">First Name</th>
-                    <th data-field="lastName">Last Name</th>
+                    <th data-field="firstName">Poster Title</th>
                     <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
-                    <th data-field="score">Score</th>
-                    <th></th>
+                    <th>Abstract</th>
+                    <th>Judge</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr ng-repeat="poster in ctrl.posters">
+                <tr ng-repeat="poster in ctrl.posters | filter: { isScored: false }">
                 <td>{{poster.posterId}}</td>
-                <td>{{poster.presenterFirstName}}</td>
-                <td>{{poster.presenterLastName}}</td>
+                <td>{{poster.posterTitle}}</td>
                 <td>{{poster.posterCategory}}</td>
-                <td>{{poster.score}}</td>
-                <td ui-sref="judge.form({posterId: poster.posterId})"><a>Judge Poster</a></td>
+                <td><button class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(poster)">View Abstract</button></td>
+                <td><button class="waves-effect waves-light btn green" ui-sref="judge.form({posterId: poster.posterId})">Judge Poster</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="AlreadyJudged" class="col s12">
+        <table class="bordered highlight responsive-table">
+            <thead>
+                <tr>
+                    <th data-field="posterId">Poster ID</th>
+                    <th data-field="firstName">Poster Title</th>
+                    <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
+                    <th>Abstract</th>
+                    <th>Judge</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="poster in ctrl.posters | filter: { isScored: true }">
+                <td>{{poster.posterId}}</td>
+                <td>{{poster.posterTitle}}</td>
+                <td>{{poster.posterCategory}}</td>
+                <td><button class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(poster)">View Abstract</button></td>
+                <td><button class="waves-effect waves-light btn green" ui-sref="judge.form({posterId: poster.posterId})">Judge Poster</button></td>
                 </tr>
             </tbody>
         </table>

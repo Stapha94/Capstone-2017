@@ -176,6 +176,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                                 .then((data) => {
                                     return data;
                                 });  
+                        }],
+                        forms: ['formService', 'authService', (formService, authService) => {
+                            return formService.get({judgeId: authService.currentUser.id})
+                                .then((data) => {
+                                    return data;
+                                });
                         }]
                     }
                 }

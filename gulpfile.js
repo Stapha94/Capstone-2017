@@ -49,12 +49,11 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
-    'JUDGE/src/config/**/*.js',
-    'JUDGE/src/directives/**/*.js',
-    'JUDGE/src/pages/**/*.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
-    '!JUDGE/src/directives/**/base-api-service.js'
+    'JUDGE/src/config/**/*.js',
+    'JUDGE/src/directives/**/*.js',
+    'JUDGE/src/pages/**/*.js'
     ],
     dependencies: [
        'node_modules/angular/angular.js',
@@ -122,5 +121,7 @@ gulp.task('build', function() {
     runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
 });
 
-var watcher = gulp.watch(paths.app.basePath + '**', ['build']);
-watcher.on('change', function() {});
+gulp.task('watch', function() {
+  var watcher = gulp.watch(paths.app.basePath + '**', ['build']);
+  watcher.on('change', function() {});
+})
