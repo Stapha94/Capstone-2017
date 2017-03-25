@@ -3,6 +3,10 @@ class RoleService extends BaseApiService {
         super($injector, 'roles', 'role');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 RoleService.$inject = ['$injector'];

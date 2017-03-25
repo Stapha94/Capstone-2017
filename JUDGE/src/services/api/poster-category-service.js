@@ -3,6 +3,10 @@ class PosterCategoryService extends BaseApiService {
         super($injector, 'poster_categories', 'poster category');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 PosterCategoryService.$inject = ['$injector'];

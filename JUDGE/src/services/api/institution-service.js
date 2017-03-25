@@ -3,6 +3,10 @@ class InstitutionService extends BaseApiService {
         super($injector, 'institutions', 'institution');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 InstitutionService.$inject = ['$injector'];

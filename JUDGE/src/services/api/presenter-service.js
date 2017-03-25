@@ -3,6 +3,10 @@ class PresenterService extends BaseApiService {
         super($injector, 'presenters', 'presenter');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 PresenterService.$inject = ['$injector'];

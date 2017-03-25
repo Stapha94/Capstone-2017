@@ -3,6 +3,10 @@ class SummitService extends BaseApiService {
         super($injector, 'summits', 'summit');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 SummitService.$inject = ['$injector'];

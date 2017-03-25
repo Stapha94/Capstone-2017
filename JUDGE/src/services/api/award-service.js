@@ -3,6 +3,10 @@ class AwardService extends BaseApiService {
         super($injector, 'awards', 'award');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 AwardService.$inject = ['$injector'];

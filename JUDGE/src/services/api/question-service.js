@@ -3,6 +3,10 @@ class QuestionService extends BaseApiService {
         super($injector, 'questions', 'question');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 QuestionService.$inject = ['$injector'];
