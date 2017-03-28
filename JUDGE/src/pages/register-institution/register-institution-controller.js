@@ -1,10 +1,11 @@
 class RegisterInstitutionController{
 
-    constructor($scope, presenterService, notificationService, localStorageService, registrationService, institutions, roles) {
+    constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService, institutions, roles) {
         this.notificationService = notificationService;
         this.presenterService = presenterService;
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
+        this.$state = $state;
         this.presenterInstitution = "";
         this.presenterRole = "";
         this.keyParticipantFName = "";
@@ -28,11 +29,20 @@ class RegisterInstitutionController{
             keyParticipantRole: this.keyParticipantRole
         };
         this.keyParticipants.push(this.keyParticipant);
-    }
+    };
+
+    continue() {
+        this.registrationService.presenterInstitution = this.presenterInstitution;
+        this.registrationService.presenterRole = this.presenterRole;
+        this.registrationService.keyParticipants = this.keyParticipants.slice();
+        this.$state.go('register-info');
+
+
+    };
 
 
 
 }
 
-RegisterInstitutionController.$inject = ['$scope', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'institutions', 'roles'];
+RegisterInstitutionController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'institutions', 'roles'];
 app.controller('registerInstitutionController', RegisterInstitutionController);

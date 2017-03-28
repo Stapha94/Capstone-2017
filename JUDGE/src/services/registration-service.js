@@ -6,6 +6,11 @@ class registrationService {
         this.presenterInstitution = "";
         this.presenterRole = "";
         this.keyParticipants = [];
+        this.projectTitle = "";
+        this.projectObjective = "";
+        this.projectMethods = "";
+        this.projectResults = "";
+        this.projectConclusion = "";
         this.presenter = {};
         this.poster = {};
         this.$http = $http;
@@ -27,7 +32,11 @@ class registrationService {
 
     getPoster() {
         this.poster = {
-
+            projectTitle: this.projectTitle,
+            projectObjective: this.projectObjective,
+            projectMethods: this.projectMethods,
+            projectResults: this.projectResults,
+            projectConclusion: this.projectConclusion
         };
         return this.poster;
     }
