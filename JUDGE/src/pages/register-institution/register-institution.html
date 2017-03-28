@@ -14,28 +14,21 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <select id="institution" ng-model="presenter.institution" required>
+                    <select id="institution" ng-model="ctrl.presenterInstitution" required>
                         <option value="" disabled selected>Choose Your Institution</option>
-                        <option value="MUSOM">Marshall University School of Medicine</option>
-                        <option value="MUSOP">Marshall University School of Pharmacy</option>
-                        <option value="MUSON">Marshall University School of Nursing</option>
-                        <option value="CHH">Cabell Huntington Hospital</option>
+                        <option ng-repeat="institution in ctrl.institutions" value="{{institution.title}}">{{institution.title}}</option>
                     </select>
                 </div>
                 <div class="input-field col s6">
-                    <select id="role" ng-model="presenter.role" required>
+                    <select id="role" ng-model="ctrl.presenterRole" required>
                         <option value="" disabled selected>Choose Your Role</option>
-                        <option value="FM">Faculty Member</option>
-                        <option value="CHHE">Cabell Huntington Hospital Employee</option>
-                        <option value="R">Resident or Fellow</option>
-                        <option value="M">Medical Student</option>
-                        <option value="P">Pharmacy Student</option>
+                        <option ng-repeat="role in ctrl.roles" value="{{role.title}}">{{role.title}}</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col 14 s12">
-                    <h5 class="black-text"><u>Presenters:</u></h5>
+                    <h5 class="black-text"><u>Key Participants:</u></h5>
                 </div>
             </div>
             <div class="row">
@@ -50,17 +43,16 @@
                                  <th data-field="keyParticipantRole">Role</th>
                             </tr>
                          </thead>
+                         <tbody>
+                            <tr ng-repeat="kParticipant in ctrl.keyParticipants">
+                                <td>{{kParticipant.keyParticipantFName}}</td>
+                                <td>{{kParticipant.keyParticipantLName}}</td>
+                                <td>{{kParticipant.keyParticipantDepartment}}</td>
+                                <td>{{kParticipant.keyParticipantInstitution}}</td>
+                                <td>{{kParticipant.keyParticipantRole}}</td>
+                            </tr>
+                         </tbody>
                      </table>
-                     <!--
-                     <div class="input-field col s6">
-                         <input placeholder="First Name" id="partnerFirstName" ng-model="presenter.partnerFirstName" type="text" class="validate" required>
-                         <label for="partnerFirstName">First Name: </label>
-                     </div>
-                     <div class="input-field col s6">
-                         <input placeholder="Last Name" id="partnerLastName" ng-model="presenter.partnerLastName" type="text" class="validate" required>
-                         <label for="partnerLastName">Last Name: </label>
-                     </div>
-                     -->
                  </div>
             </div>
             <div class="row">
@@ -70,42 +62,35 @@
                 <div class="modal-content">
                     <div class="row">
                         <div class="input-field col s4">
-                            <input placeholder="First Name" id="keyParticipantFName" ng-model="presenter.keyParticipantFName" type="text" class="validate" required>
+                            <input placeholder="First Name" id="keyParticipantFName" ng-model="ctrl.keyParticipantFName" type="text" class="validate" required>
                             <label for="keyParticipantFName">First Name:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input placeholder="Last Name" id="keyParticipantLName" ng-model="presenter.keyParticipantLName" type="text" class="validate" required>
+                            <input placeholder="Last Name" id="keyParticipantLName" ng-model="ctrl.keyParticipantLName" type="text" class="validate" required>
                             <label for="keyParticipantLName">Last Name:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input placeholder="Department" id="keyParticipantDepartment" ng-model="presenter.keyParticipantDepartment" type="text" class="validate" required>
+                            <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate" required>
                             <label for="keyParticipantDepartment">Department</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <select id="keyParticipantInstitution" ng-model="presenter.keyParticipantInstitution" required>
+                            <select id="keyParticipantInstitution" ng-model="ctrl.keyParticipantInstitution" required>
                                 <option value="" disabled selected>Choose Your Institution</option>
-                                <option value="MUSOM">Marshall University School of Medicine</option>
-                                <option value="MUSOP">Marshall University School of Pharmacy</option>
-                                <option value="MUSON">Marshall University School of Nursing</option>
-                                <option value="CHH">Cabell Huntington Hospital</option>
+                                <option ng-repeat="institution in ctrl.institutions" value="{{institution.title}}">{{institution.title}}</option>
                             </select>
                         </div>
                         <div class="input-field col s6">
-                            <select id="keyParticipantRole" ng-model="presenter.keyParticipantRole" required>
+                            <select id="keyParticipantRole" ng-model="ctrl.keyParticipantRole" required>
                                 <option value="" disabled selected>Choose Your Role</option>
-                                <option value="FM">Faculty Member</option>
-                                <option value="CHHE">Cabell Huntington Hospital Employee</option>
-                                <option value="R">Resident or Fellow</option>
-                                <option value="M">Medical Student</option>
-                                <option value="P">Pharmacy Student</option>
+                                <option ng-repeat="role in ctrl.roles" value="{{role.title}}">{{role.title}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</a>
+                    <button ng-click="addKeyParticipant()" class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</button>
                 </div>
             </div>
             <br>
