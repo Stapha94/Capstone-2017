@@ -59,5 +59,9 @@ class Presenter_model extends CI_Model {
 		return $joins;
 	}
 
+	public function create_presenter($data) {
+		$this->db->insert('presenter',$data);
+	}
+
 }
 ?>

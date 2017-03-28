@@ -4,10 +4,165 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
 <body>
     <div class="wrap">
         <h5 class="page-title">Participants</h5>
         <table class="bordered highlight">
+            <button style="float: right"  data-target="add-participant" class="btn green">Add Participant</button>
+
+            <!-- ADD PARTICIPANT MODAL -->
+            <div id="add-participant" class="modal">
+                <div class="modal-content">
+                    <script>
+                        $(document).ready(function(){
+                            $('ul.tabs').tabs();
+                        });
+
+                        $(document).ready(function() {
+                            $('select').material_select();
+                        });
+
+                    </script>
+
+                    <!-- TABBED NAVIGATION ON MODAL -->
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs tabs-fixed-width">
+                                <li class="tab col s3"><a class="active" href="#tab1">Presenter Information</a></li>
+                                <li class="tab col s3"><a href="#tab2">Key Participants</a></li>
+                                <li class="tab col s3"><a href="#tab3">Abstract Information</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- TAB ONE -->
+                    <div id="tab1">
+                        <form class="col-s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="First Name" id="presenterFirstName" ng-model="presenter.firstName" type="text" class="validate" required>
+                                    <label for="presenterFirstName">First Name: </label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="Last Name" id="presenterLastName" ng-model="presenter.lastName" type="text" class="validate" required>
+                                    <label for="presenterLastName">Last Name: </label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="" id="presenterSuffix" ng-model="presenter.suffix" type="text" class="validate" required>
+                                    <label for="presenterFirstName">Suffix: </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Email" id="presenterEmail" ng-model="presenter.email" type="email" class="validate" required>
+                                    <label for="presenterEmail">Email: </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Confirm Email" id="presenterEmailConfirm" ng-model="presenter.emailConfirm" type="email" class="validate" required>
+                                    <label for="presenterEmailConfirm">Confirm Email: </label>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button class="btn green"><a>Next</a></button>
+                        </div>
+                    </div>
+
+
+                    <!-- TAB TWO-->
+                    <div id="tab2">
+                        <p>{{ presenter.firstName }}</p>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <select id="institution" ng-model="presenter.institutionId" required>
+                                    <option value="" disabled selected>Choose Your Institution</option>
+                                    <option value="1">Marshall University School of Medicine</option>
+                                    <option value="3">Marshall University School of Pharmacy</option>
+                                    <option value="4">Marshall University School of Nursing</option>
+                                    <option value="2">Cabell Huntington Hospital</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="role" ng-model="presenter.roleId" required>
+                                    <option value="" disabled selected>Choose Your Role</option>
+                                    <option value="1">Faculty Member</option>
+                                    <option value="2">Cabell Huntington Hospital Employee</option>
+                                    <option value="3">Resident or Fellow</option>
+                                    <option value="4">Medical Student</option>
+                                    <option value="5">Pharmacy Student</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="registered" ng-model="presenter.isRegistered" required>
+                                    <option value="0">Not Registered</option>
+                                    <option value="1">Registered</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="category" ng-model="poster.category" required>
+                                    <option value="0">Not Registered</option>
+                                    <option value="1">Registered</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn green">Next</button>
+                        </div>
+
+                    </div>
+
+                    <!-- TAB THREE -->
+                    <div id="tab3">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="projectTitle" ng-model="abstract.title" type="text" class="validate" required>
+                                <label for="projectTitle">Project Title:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="objective" ng-model="abstract.objective" class="materialize-textarea" required></textarea>
+                                <label for="objective">Objective: </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="method" ng-model="abstract.methods" class="materialize-textarea" required></textarea>
+                                <label for="method">Methods: </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="result" ng-model="abstract.results" class="materialize-textarea" required></textarea>
+                                <label for="result">Results: </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="conclusion" ng-model="abstract.conclusion" class="materialize-textarea" required></textarea>
+                                <label for="conclusion">Conclusion: </label>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button ng-click="submit(presenter,abstract,poster)" class=" modal-action modal-close waves-effect waves-green btn green ">Add Participant</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
             <thead>
             <tr>
                 <th>ID</th>
@@ -19,11 +174,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-target="{{ project.id }}" ng-repeat="project in data">
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.project }}</td>
-                <td>{{ project.institute }}</td>
+            <tr data-target="{{ project.presenterId }}" ng-repeat="project in data">
+                <td>{{ project.presenterId }}</td>
+                <td>{{ project.firstName + ' ' + project.lastName }}</td>
+                <td>{{ project.suffix }}</td>
+                <td>{{ project.institution }}</td>
                 <td>{{ project.role }}</td>
                 <td>{{ project.email }}</TD>
             </tr>
@@ -36,16 +191,11 @@
                 $('.modal').modal();
             });
         </script>
+
         <!-- Modal Structure -->
-        <div id="{{ project.id }}" class="modal modal-fixed-footer" ng-repeat="project in data">
+        <div id="{{ project.presenterId }}" class="modal modal-fixed-footer" ng-repeat="project in data">
             <div class="modal-content">
-                <h4>{{ project.id + ". " + project.project + " Presented By " + project.name }}</h4>
-                <h6>{{ project.abstract }}</h6>
-                <h6><strong>Objective</strong></h6>
-                <p>{{ project.objective }}</p>
-                <p>{{ project.methods }}</p>
-                <p>{{ project.results }}</p>
-                <p>{{ project.conclusion }}</p>
+                <h4>{{ project.presenterId }}</h4>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn green ">Edit Information</a>

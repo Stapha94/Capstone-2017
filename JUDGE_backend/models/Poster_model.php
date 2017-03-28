@@ -77,5 +77,9 @@ class Poster_model extends CI_Model {
         	return $joins;
 		}
 
+        public function create_poster($data) {
+            $this->db->insert('poster',$data);
+        }
+
 }
 ?>

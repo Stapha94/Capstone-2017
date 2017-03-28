@@ -34,8 +34,8 @@ class Presenter extends REST_Controller {
           'email'            => $request->email,
           'institution_id'   => $request->institutionId,
           'role_id'          => $request->roleId,
-          'abstract_id'      => $request->abstractId,
-          'submission_date'  => $request->submissionDate,
+          //'abstract_id'      => $request->abstractId,
+          //'submission_date'  => $request->submissionDate,
           'is_registered'    => $request->isRegistered                                             
         ];
       $this->Presenter_model->create_presenter($data);

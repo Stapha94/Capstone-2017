@@ -24,9 +24,31 @@ class Poster extends REST_Controller {
 
     public function index_post()
     {
-        $data['posters'] = $this->Poster->get_usernames();
+        //$data['posters'] = $this->Poster->get_usernames();
+        //$this->load->view('poster_usernames', $data);
 
-        $this->load->view('poster_usernames', $data);
+		$this->load->model('Poster_model');
+		$postdata = file_get_contents('php://input');
+		$request = json_decode($postdata);
+		$this->db->select_max('presenter_id');
+		$presenterId = $this->get_presenter_id($request->presenterId);
+		//$presenterQuery = $this->db->get('presenter');
+		//$presenterId = $presenterQuery->result;
+		$data = [
+			'poster_category_id' => $request->category,
+			'presenter_id'       => $presenterId,
+			'award_id'           => 0,
+			'poster_abstract_id' => 1,
+			'submission_date'    => $request->date,
+			'summit_id'          => $request->summitId,
+			'score'              => 0
+		];
+
+		$this->Poster_model->create_poster($data);
     }
+
+	public function get_presenter_id($presenter_name) {
+		return $result->presenter_id;
+	}
 
 }

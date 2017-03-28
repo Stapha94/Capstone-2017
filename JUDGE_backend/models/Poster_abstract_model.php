@@ -42,5 +42,9 @@ class Poster_abstract_model extends CI_Model {
 		return $result;
 	}
 
+	public function create_poster_abstract($data) {
+		$this->db->insert('poster_abstract',$data);
+	}
+
 }
 ?>
