@@ -14,19 +14,20 @@ class RegisterInstitutionController{
         this.keyParticipantRole = "";
         this.institutions = institutions;
         this.roles = roles;
-        this.keyParticipants;
+        this.keyParticipants = [];
+        this.keyParticipant = {};
 
     }
 
     addKeyParticipant() {
-        this.kParticipant = {
+        this.keyParticipant = {
             keyParticipantFName: this.keyParticipantFName,
             keyParticipantLName: this.keyParticipantLName,
             keyParticipantDepartment: this.keyParticipantDepartment,
             keyParticipantInstitution: this.keyParticipantInstitution,
             keyParticipantRole: this.keyParticipantRole
         };
-        this.keyParticipants.push(this.kParticipant);
+        this.keyParticipants.push(this.keyParticipant);
     }
 
 

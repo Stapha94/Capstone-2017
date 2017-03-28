@@ -36,20 +36,20 @@
                      <table class="highlight">
                          <thead>
                              <tr>
-                                 <th data-field="keyParticipantFName">First Name</th>
-                                 <th data-field="keyParticipantLName">Last Name</th>
-                                 <th data-field="keyParticipantDepartment">Department</th>
-                                 <th data-field="keyParticipantInstitution">Institution</th>
-                                 <th data-field="keyParticipantRole">Role</th>
+                                 <th>First Name</th>
+                                 <th>Last Name</th>
+                                 <th>Department</th>
+                                 <th>Institution</th>
+                                 <th>Role</th>
                             </tr>
                          </thead>
                          <tbody>
-                            <tr ng-repeat="kParticipant in ctrl.keyParticipants">
-                                <td>{{kParticipant.keyParticipantFName}}</td>
-                                <td>{{kParticipant.keyParticipantLName}}</td>
-                                <td>{{kParticipant.keyParticipantDepartment}}</td>
-                                <td>{{kParticipant.keyParticipantInstitution}}</td>
-                                <td>{{kParticipant.keyParticipantRole}}</td>
+                            <tr ng-repeat="keyParticipant in ctrl.keyParticipants">
+                                <td>{{keyParticipant.keyParticipantFName}}</td>
+                                <td>{{keyParticipant.keyParticipantLName}}</td>
+                                <td>{{keyParticipant.keyParticipantDepartment}}</td>
+                                <td>{{keyParticipant.keyParticipantInstitution}}</td>
+                                <td>{{keyParticipant.keyParticipantRole}}</td>
                             </tr>
                          </tbody>
                      </table>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="addKeyParticipant()" class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</button>
+                    <button ng-click="ctrl.addKeyParticipant()" class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</button>
                 </div>
             </div>
             <br>

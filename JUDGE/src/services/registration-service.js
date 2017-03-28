@@ -3,6 +3,11 @@ class registrationService {
         this.presenterFirstName = "";
         this.presenterLastName = "";
         this.presenterEmail = "";
+        this.presenterInstitution = "";
+        this.presenterRole = "";
+        this.keyParticipants = [];
+        this.presenter = {};
+        this.poster = {};
         this.$http = $http;
         this.$log = $log;
 
@@ -12,7 +17,10 @@ class registrationService {
         this.presenter = {
             presenterFirstName: this.presenterFirstName,
             presenterLastName: this.presenterLastName,
-        }
+            presenterEmail: this.presenterEmail,
+            presenterInstitution: this.presenterInstitution,
+            presenterRole: this.presenterRole
+        };
         return this.presenter;
 
     }
@@ -20,7 +28,7 @@ class registrationService {
     getPoster() {
         this.poster = {
 
-        }
+        };
         return this.poster;
     }
 

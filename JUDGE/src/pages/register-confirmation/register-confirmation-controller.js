@@ -9,6 +9,12 @@ class RegisterConfirmationController{
 
     }
 
+    validateCode() {
+
+
+
+    }
+
 }
 
 RegisterConfirmationController.$inject = ['$scope', 'presenterService', 'notificationService', 'localStorageService', 'registrationService'];
