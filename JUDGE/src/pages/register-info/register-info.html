@@ -2,38 +2,41 @@
     <div class="row">
         <form class="col s12">
             <div class="row">
+                <div class="col 14 s12">
+                    <h5 class="black-text">Abstract</h5>
+                </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s12">
-                    <input id="projectTitle" ng-model="presenter.projectTitle" type="text" class="validate" required>
+                    <input id="projectTitle" ng-model="ctrl.projectTitle" type="text" class="validate" required>
                     <label for="projectTitle">Project Title:</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="objective" class="materialize-textarea" required></textarea>
+                    <textarea id="objective" ng-model="ctrl.projectObjective" class="materialize-textarea" required></textarea>
                     <label for="objective">Objective: </label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="method" class="materialize-textarea" required></textarea>
+                    <textarea id="method" ng-model="ctrl.projectMethods" class="materialize-textarea" required></textarea>
                     <label for="method">Methods: </label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="result" class="materialize-textarea" required></textarea>
+                    <textarea id="result" ng-model="ctrl.projectResults" class="materialize-textarea" required></textarea>
                     <label for="result">Results: </label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="conclusion" class="materialize-textarea" required></textarea>
+                    <textarea id="conclusion" ng-model="ctrl.projectConclusion" class="materialize-textarea" required></textarea>
                     <label for="conclusion">Conclusion: </label>
                 </div>
             </div>
-            <div class="row">
-                <div ui-sref="register-finish" class="btn waves-effect waves-light" type="submit">Submit</div>
-            </div>
+            <div ng-click="ctrl.validate()" class="btn waves-effect waves-light" type="submit">Submit</div>
         </form>
     </div>
 </div>

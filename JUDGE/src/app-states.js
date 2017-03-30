@@ -132,35 +132,51 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         })
-        // registration related states
+        // register related states
         .state('register', {
             url: '/register',
-            templateUrl: 'JUDGE/src/pages/registration/register.html',
-            controller: 'registrationController',
+            templateUrl: 'JUDGE/src/pages/register/register.html',
+            controller: 'registerController',
             controllerAs: 'ctrl'
         })
         .state('register-confirmation', {
             url: '/register-confirmation',
-            templateUrl: 'JUDGE/src/pages/registration/register-confirmation.html',
-            controller: 'registrationController',
+            templateUrl: 'JUDGE/src/pages/register-confirmation/register-confirmation.html',
+            controller: 'registerConfirmationController',
             controllerAs: 'ctrl'
         })
         .state('register-institution', {
             url: '/register-institution',
-            templateUrl: 'JUDGE/src/pages/registration/register-institution.html',
-            controller: 'registrationController',
-            controllerAs: 'ctrl'
+            templateUrl: 'JUDGE/src/pages/register-institution/register-institution.html',
+            controller: 'registerInstitutionController',
+            controllerAs: 'ctrl',
+            resolve: {
+                institutions: ['institutionService', (institutionService) => {
+                    return institutionService.get({active: 1 })
+                        .then((data) => {
+                            return data;
+                        });
+                }],
+
+                roles: ['roleService', (roleService) => {
+                    return roleService.get({active: 1 })
+                        .then((data) => {
+                            return data;
+                        });
+                }]
+
+            }
         })
         .state('register-info', {
             url: '/register-info',
-            templateUrl: 'JUDGE/src/pages/registration/register-info.html',
-            controller: 'registrationController',
+            templateUrl: 'JUDGE/src/pages/register-info/register-info.html',
+            controller: 'registerInfoController',
             controllerAs: 'ctrl'
         })
         .state('register-finish', {
             url: '/register-finish',
-            templateUrl: 'JUDGE/src/pages/registration/register-finish.html',
-            controller: 'registrationController',
+            templateUrl: 'JUDGE/src/pages/register/register-finish.html',
+            controller: 'registerController',
             controllerAs: 'ctrl'
         })
         
