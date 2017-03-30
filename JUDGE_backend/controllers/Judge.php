@@ -43,8 +43,9 @@ class Judge extends REST_Controller {
 			$data = array();
 			$fields = $this->judge->fields;
 			foreach ($fields as $index => $field) {
-				if ($this->post($field)) {
-					$data[$field] = $this->post($field);
+				$item = $this->post($field);
+				if (isset($item)) {
+					$data[$field] = $item;
 				}
 			}
 			if ($method === 'create') {

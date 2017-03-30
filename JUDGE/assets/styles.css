@@ -68,6 +68,10 @@
     color: #00B140;
 }
 
+td a:visited {
+    color: #00B140;
+}
+
 .nav-wrapper {
     background: #00B140;
 
@@ -203,3 +207,26 @@ td a, td a:hover {
 .pull-right {
     float: right !important;
 } 
+
+/** Modal Footer Override **/
+.modal .modal-footer .btn {
+    margin: 6px 5px;
+}
+
+/** Label **/
+.input-field label {
+    color: #00B140;
+}
+
+/** Override Disabled Settings **/
+input:not([type]):disabled {
+    color: inherit;
+}
+
+input:not([type]):disabled+label {
+    color: #00B140;
+}
+
+.select-wrapper input.select-dropdown:disabled {
+    color: inherit;
+}

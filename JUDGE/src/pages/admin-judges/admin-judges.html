@@ -1,18 +1,11 @@
 <div class="wrap">
-    <judge-modal judge-categories="ctrl.judgeCategories" summit-id="summitId"></judge-modal>
+    <judge-modal ctrl="ctrl" judge-categories="ctrl.judgeCategories" summit-id="summitId"></judge-modal>
+    <judge-assignment-modal judge="ctrl.selectedJudge" posters="ctrl.posters"></judge-assignment-modal>
     <h5 class="page-title">Judges</h5>
-
-    <script>
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-        });
-
-
-    </script>
 
     <div class="row">
         <div class="col s12">
-            <ul class="tabs">
+            <ul class="tabs" material-tabs>
                 <li class="tab col s3"><a href="#Marshall">Marshall</a></li>
                 <li class="tab col s3"><a class="active" href="#Cabell">Cabell</a></li>
                 <li class="tab col s3"><a href="#Inactive">Inactive</a></li>
@@ -21,69 +14,36 @@
         </div>
     </div>
 
-    <div id="Marshall" class="col s12">
+    <div ng-repeat="tab in ctrl.tabs" id="{{tab.name}}" class="col s12">
     <table class="bordered highlight">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>User Name</th>
             <th>Judge Name</th>
             <th>Category</th>
+            <th>Posters</th>
             <th>Status</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="judge in ctrl.judges | filter:{category:'Marshall'} | filter:{active:1}">
-            <td data-target="{{ judge.judgeId }}">{{ judge.judgeId }}</td>
-            <td data-target="{{ judge.firstName + ' ' + judge.lastName }}">{{ judge.firstName + ' ' + judge.lastName }}</td>
-            <td data-target="{{ judge.category }}">{{ judge.category }}</td>
-            <td><a onclick="deactivate(project)">Deactivate</a></td>
+        <tr ng-if="tab.name !== 'Inactive'" ng-repeat="judge in ctrl.judges | filter:{category:tab.name} | filter:{active:1}">
+            <td><a ui-sref="admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+            <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
+            <td>{{ judge.category }}</td>
+            <td><a ng-click="ctrl.setJudge(judge)" data-target="judge-assignment">Assign Posters</a></td>
+            <td><a ng-click="ctrl.deactivate(judge)">Deactivate</a></td>
+        </tr>
+        <tr ng-if="tab.name === 'Inactive'" ng-repeat="judge in ctrl.judges | filter:{active:0}">
+            <td><a ui-sref="admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+            <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
+            <td>{{ judge.category }}</td>
+            <td><a ng-click="ctrl.setJudge(judge)" data-target="judge-assignment">Assign Posters</a></td>
+            <td><a ng-click="ctrl.activate(judge)">Activate</a></td>
         </tr>
         </tbody>
     </table>
     </div>
 
-    <!- TABLE TWO -!>
-
-    <div id="Cabell" class="col s12">
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Judge Name</th>
-                <th>Category</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-target="{{ judge.judgeId }}" ng-repeat="judge in ctrl.judges | filter: {category:'Cabell'} | filter:{active:1}">
-                <td>{{ judge.judgeId }}</td>
-                <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
-                <td>{{ judge.category }}</td>
-                <td><a>Deactivate</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="Inactive" class="col s12">
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Judge Name</th>
-                <th>Category</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-target="{{ judge.judgeId }}" ng-repeat="judge in ctrl.judges | filter:{active:0}">
-                <td>{{ judge.judgeId }}</td>
-                <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
-                <td>{{ judge.category }}</td>
-                <td><a>Activate</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
     <!-- Modal Structure -->
     <div id="{{ judge.judgeId }}" class="modal modal-fixed-footer" ng-repeat="judge in ctrl.judges" material-modal>
         <div class="modal-content">

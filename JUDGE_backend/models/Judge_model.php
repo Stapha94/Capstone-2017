@@ -12,6 +12,7 @@ class Judge_model extends CI_Model {
 	{
 		$this->fields = array('judge_id', 'user_name', 'first_name', 'last_name', 'judge_category_id', 'active');
 		$this->name = 'judge';
+		$this->id = "{$this->name}_id";
 		parent::__construct();
 	}
 
@@ -22,10 +23,11 @@ class Judge_model extends CI_Model {
 
 		// All the select fields
 
-		$this->db->select("{$this->name}_id,
+		$this->db->select("{$this->id},
 			user_name,
 			first_name,
 			last_name,
+			{$joins['jc']}.{$joins['jc']}_id,
 			{$joins['jc']}.title AS category,
 			{$this->name}.active");
 
@@ -50,9 +52,8 @@ class Judge_model extends CI_Model {
 		try {
 			if($this->db->insert($this->name, $data)) {
 				$judge_id = $this->db->insert_id();
-				$query = $this->db->get_where($this->name, array('judge_id' => $judge_id));
-				$result = $query->result();
-				return $result;
+				$judge = $this->get(array("{$this->id}" => $judge_id));
+				return $judge;
 			} else {
 				return false;
 			}
@@ -63,7 +64,7 @@ class Judge_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array( "{$this->id}" => intval($data["{$this->id}"])));
 		} catch (Exception $e) {
 			return false;
 		}

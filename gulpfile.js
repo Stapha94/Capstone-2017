@@ -38,7 +38,7 @@ var paths = {
    * - 'config'       contains Angular app config files
    */
   app: {
-    basePath: 'JUDGE/src/',
+    basePath: 'JUDGE/',
     fonts: 'node_modules/materialize-css/dist/fonts/**/*.{eot,svg,ttf,woff,woff2}',
     styles: [
       'node_modules/materialize-css/dist/css/materialize.min.css',
@@ -49,6 +49,7 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
+    'JUDGE/src/filters/**/*.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     'JUDGE/src/config/**/*.js',

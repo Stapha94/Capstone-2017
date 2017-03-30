@@ -1,0 +1,33 @@
+<!-- Modal Structure -->
+<div id="judge-assignment" class="modal modal-fixed-footer" material-modal>
+    <div class="modal-content">
+        <h5>Assign Posters</h5>
+        <div class="input-field col s12">
+            <form>
+                <div class="row" ng-if="ctrl.judgePosters.length > 0">
+                    <div class="col s12">
+                            <div ng-repeat="poster in ctrl.judgePosters track by $index">
+                            <div class="divider"></div>
+                            <div class="section">
+                                <h5>{{$index+1}}.) {{poster.posterTitle}}<a class="waves-effect waves-light btn red pull-right" ng-click="ctrl.remove()">Remove</a></h5>
+                            </div>
+                            <br />
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <select ng-model="ctrl.poster.posterId" id="category" title="Category" material-select>
+                            <option value="" disabled selected>Poster</option>
+                            <option ng-repeat="poster in ctrl.filteredPosters" value="{{poster.posterId}}">{{poster.posterTitle}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-light btn red ">Cancel</a>
+        <a ng-click="ctrl.add()"class="modal-action waves-effect waves-green btn green ">Assign Poster</a>
+    </div>
+</div>

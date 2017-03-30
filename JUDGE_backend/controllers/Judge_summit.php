@@ -44,7 +44,7 @@ class Judge_summit extends REST_Controller {
 			if ($method === 'create') {
 				$query = $this->judge_summit->create($data);
 				if ($query) {
-					$this->response(prepare_for_frontend($query), 201);
+					$this->response([], 201);
 				} else {
 					$this->response([], 400);
 				}

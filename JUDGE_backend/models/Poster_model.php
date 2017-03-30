@@ -11,7 +11,7 @@ class Poster_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id, score');
+        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
                 $this->name = 'poster';
                 parent::__construct();
         }

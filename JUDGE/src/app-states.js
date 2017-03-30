@@ -87,6 +87,36 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                                 .then((data) => {
                                     return data;
                                 })
+                        }],
+                        posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
+                            return posterService.get({summitId: localStorageService.get('summit')})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }]
+                    }
+                }
+            }
+        })
+        .state('admin.judge', {
+            url: '/judge/:judgeId',
+            views: {
+                'admin': {
+                    templateUrl: 'JUDGE/src/pages/admin-judges/admin-judge-info.html',
+                    controller: 'adminJudgeInfoController',
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
+                            return judgeService.get({judgeId: $stateParams.judgeId})
+                                .then((data) => {
+                                    return data[0];
+                                })
+                        }],
+                        judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                            return judgeCategoryService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
                         }]
                     }
                 }
