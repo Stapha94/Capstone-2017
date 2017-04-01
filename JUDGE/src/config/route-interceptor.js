@@ -58,6 +58,22 @@ class RouteInterceptor {
                         }
                     }
                 }
+                // Admin is logged in
+                else if(this.authService.isAdmin) {
+                    if(_.includes(this.judgeStates, toState.name)) {
+                        event.preventDefault();
+                        this.$log.warn('Non-judge attempted access to state: ' + toState.name);
+                        this.$state.go('home.judge-login'); // redirect to judge login
+                    } else if(_.includes(this.adminStates, toState.name)) {
+                        // Checks to see if the user id matches the logged in id
+                        if(toParams.adminId !== this.authService.currentUser.id) {
+                            event.preventDefault();
+                            toParams.adminId = this.authService.currentUser.id;
+                            this.$state.go(toState.name, toParams);
+                            
+                        }
+                    }
+                }
                 if(toState.name === 'home.judge') {
                     event.preventDefault();
                     this.$state.go('home.judge.dashboard', {judgeId: toParams.judgeId});
