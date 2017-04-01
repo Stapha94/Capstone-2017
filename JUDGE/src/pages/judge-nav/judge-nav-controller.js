@@ -1,15 +1,11 @@
 class JudgeNavController {
 
-    constructor($stateParams, $state, judge, authService) {
+    constructor($scope, judge, authService) {
+        $scope.navbar = { hideNav: false };
         this.authService = authService;
-        this.judge = judge;
-        this.loaded = false;
-    }
-
-    logout() {
-        this.authService.logout();
+        this.user = judge;
     }
 }
 
-JudgeNavController.$inject = ['$stateParams', '$state', 'judge', 'authService'];
+JudgeNavController.$inject = ['$scope', 'judge', 'authService'];
 app.controller('judgeNavController', JudgeNavController);

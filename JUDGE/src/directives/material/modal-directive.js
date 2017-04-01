@@ -7,7 +7,9 @@ class MaterialModalDirective {
 
     link(scope, element, attribute, controller) {
         this.$timeout(() => {
-            element.modal();
+            element.modal({
+                dismissible: false
+            });
         });
     }
 

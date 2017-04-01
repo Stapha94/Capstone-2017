@@ -16,7 +16,7 @@ class Admin extends REST_Controller {
 			$this->response([], 401);
 		} else if($auth === 404) {
 			$this->response([], 404);
-		} else if($auth) {
+		} else if($this->authorize->is_admin($auth)) {
 			$query = $this->admin->get($params);
 			$this->response(prepare_for_frontend($query));
 		}

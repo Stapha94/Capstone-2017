@@ -5,21 +5,27 @@ class MaterialSelectDirective {
         this.$timeout = $timeout;
         this.scope = {
             condition: '='
-        }
+        };
     }
 
     link(scope, element, attribute, controller) {
-        this.$timeout(() => {
-            element.material_select();
-        });
-
         if(scope.condition !== undefined) {
-            scope.$watch('condition', () => {
+            scope.$watch(() => {
+                return scope.condition;
+            }, () => {
                 if(!scope.condition) {
                     this.$timeout(() => {
                         element.material_select('destroy');
                     });
+                } else {
+                    this.$timeout(() => {
+                        element.material_select();
+                    });
                 }
+            }, true);
+        } else {
+            this.$timeout(() => {
+                element.material_select();
             });
         }
     }

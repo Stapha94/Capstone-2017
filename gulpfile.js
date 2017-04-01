@@ -57,6 +57,7 @@ var paths = {
     'JUDGE/src/pages/**/*.js'
     ],
     dependencies: [
+       'node_modules/jquery/dist/jquery.min.js',
        'node_modules/angular/angular.js',
        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
        'node_modules/angular-ui-router/release/angular-ui-router.min.js',

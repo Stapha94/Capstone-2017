@@ -12,7 +12,7 @@ class JudgeLoginController {
     login() {
         this.authService.judgeLogin(this.userName, this.pin)
             .then((judge) => {
-                this.$state.go('judge', {judgeId: judge.id});
+                this.$state.go('home.judge', {judgeId: judge.id});
             })
             .catch((error) => {
                 this.notificationService.error('Incorrect login!');

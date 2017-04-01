@@ -1,11 +1,15 @@
 class AdminSettingsController {
 
-    constructor($scope, admins, summits) {
-        this.admins = admins;
-        this.summits = summits;
+    constructor($state) {
+        this.tabs = [
+            { title: 'Admins', state: 'home.admin.settings.admins' },
+            { title: 'Summits', state: 'home.admin.settings.summits' },
+            { title: 'Institutions', state: 'home.admin.settings.institutions'}
+        ]
+        $state.go('home.admin.settings.admins');
     }
 
 }
 
-AdminSettingsController.$inject = ['$scope', 'admins', 'summits'];
+AdminSettingsController.$inject = ['$state'];
 app.controller('adminSettingsController', AdminSettingsController);

@@ -1,6 +1,7 @@
 class AdminNavController {
 
     constructor($scope, $stateParams, $state, admin, summitId, authService) {
+        $scope.navbar = { hideNav: false };
         this.authService = authService;
         this.admin = admin;
         $scope.summitId = summitId;

@@ -1,100 +1,13 @@
 <div class="wrap">
+    <h5 class="page-title">Site Settings</h5>
 
     <div class="row">
-        <div class="col s12">
-            <ul class="tabs" material-tabs>
-                <li class="tab col s3"><a class="active" href="#Admins">Admins</a></li>
-                <li class="tab col s3"><a href="#Summits">Summits</a></li>
-                <li class="tab col s3"><a href="#RegistrationData">Registration Data</a></li>
-                <li class="tab col s3"><a href="#RubricData">Rubric Data</a></li>
-            </ul>
+        <div class="col s3">
+            <side-tabs tabs="ctrl.tabs" active="'Admins'" on-change="ctrl.setActiveTab"></side-tabs>
         </div>
-    </div>
-
-    <div id="Admins" class="col s12">
-
-        <div class="row pull-right">
-            <button data-target="add-judge" class="btn green">Add Admin</button>
+        <div class="col s9">
+            <ui-view />
         </div>
-        
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>Email</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="admin in ctrl.admins">
-                <td>{{ admin.email }}</td>
-                <td><a ng-click="ctrl.deactivate(admin)">Remove</a></td>
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
-
-    <div id="Summits" class="col s12">
-
-        <div class="row pull-right">
-            <button data-target="add-judge" class="btn green">Add Summit</button>
-        </div>
-
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Registration Deadline</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="summit in ctrl.summits">
-                <td>{{ summit.summitStart | date: 'mediumDate' }}</td>
-                <td>{{ summit.summitStart | date: 'shortTime'}}</td>
-                <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
-                <td>{{ summit.registrationDeadline | date: 'medium' }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="RegistrationData" class="col s12">
-
-    <div class="row">
-        <div class="col s12">
-            <ul class="tabs" material-tabs>
-                <li class="tab col s3"><a class="active" href="#Institutions">Institutions</a></li>
-                <li class="tab col s3"><a href="#Roles">Roles</a></li>
-                <li class="tab col s3"><a href="#PosterCategories">Poster Categories</a></li>
-                <li class="tab col s3"><a href="#JudgeCategories">Judge Categories</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="Institutions" class="col s12">
-
-        <div class="row pull-right">
-            <button data-target="add-judge" class="btn green">Add Institution</button>
-        </div>
-
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="institution in ctrl.institutions">
-                <td>{{ institution.title }}</td>
-                <td>deactivate</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
     </div>
 
 </div>

@@ -1,5 +1,5 @@
 <div class="wrap">
-    <judge-modal ctrl="ctrl" judge-categories="ctrl.judgeCategories" summit-id="summitId"></judge-modal>
+    <judge-modal ctrl="ctrl"></judge-modal>
     <judge-assignment-modal judge="ctrl.selectedJudge" posters="ctrl.posters"></judge-assignment-modal>
     <h5 class="page-title">Judges</h5>
 
@@ -27,14 +27,14 @@
         </thead>
         <tbody>
         <tr ng-if="tab.name !== 'Inactive'" ng-repeat="judge in ctrl.judges | filter:{category:tab.name} | filter:{active:1}">
-            <td><a ui-sref="admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+            <td><a ui-sref="home.admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
             <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
             <td>{{ judge.category }}</td>
             <td><a ng-click="ctrl.setJudge(judge)" data-target="judge-assignment">Assign Posters</a></td>
             <td><a ng-click="ctrl.deactivate(judge)">Deactivate</a></td>
         </tr>
         <tr ng-if="tab.name === 'Inactive'" ng-repeat="judge in ctrl.judges | filter:{active:0}">
-            <td><a ui-sref="admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+            <td><a ui-sref="home.admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
             <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
             <td>{{ judge.category }}</td>
             <td><a ng-click="ctrl.setJudge(judge)" data-target="judge-assignment">Assign Posters</a></td>

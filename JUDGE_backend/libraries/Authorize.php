@@ -87,4 +87,23 @@ class Authorize {
 		}
 	}
 
+	// Checks if the user is an admin
+	public function is_admin($auth = NULL) {
+		if($auth) {
+			if($auth->data->userType === 'Admin') {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Checks if the user is a judge
+	public function is_judge($auth = NULL) {
+		if($auth) {
+			if($auth->data->userType === 'Judge') {
+				return true;
+			}
+		}
+		return false;
+	}
 }

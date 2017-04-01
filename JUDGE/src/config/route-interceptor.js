@@ -6,17 +6,18 @@ class RouteInterceptor {
         this.$rootScope = $rootScope;
         this.authService = authService;
         this.adminStates = [
-            'admin',
-            'admin.dashboard',
-            'admin.settings',
-            'admin.reporting',
-            'admin.judges',
-            'admin.participants'
+            'home.admin',
+            'home.admin.dashboard',
+            'home.admin.settings',
+            'home.admin.reporting',
+            'home.admin.judges',
+            'home.admin.participants'
         ];
         this.judgeStates = [
-            'judge',
-            'judge.dashboard',
-            'judge.form'
+            'home.judge',
+            'home.judge.dashboard',
+            'home.judge.info',
+            'home.judge.form'
         ];
         this.registrationStates = [
             'register',
@@ -34,19 +35,35 @@ class RouteInterceptor {
                 if(_.includes(this.judgeStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-judge attempted access to state: ' + toState.name);
-                    this.$state.go('judge-login'); // redirect to judge login
+                    this.$state.go('home.judge-login'); // redirect to judge login
                 } else if(_.includes(this.adminStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-admin attempted access to state: ' + toState.name);
                     this.$state.go('login'); // redirect to judge login
                 }
             } else {
-                if(toState.name === 'judge') {
+                // Judge is logged in
+                if(this.authService.isJudge) {
+                    if(_.includes(this.adminStates, toState.name)) {
+                        event.preventDefault();
+                        this.$log.warn('Non-admin attempted access to state: ' + toState.name);
+                        this.$state.go('login'); // redirect to judge login
+                    } else if(_.includes(this.judgeStates, toState.name)) {
+                        // Checks to see if the user id matches the logged in id
+                        if(toParams.judgeId !== this.authService.currentUser.id) {
+                            event.preventDefault();
+                            toParams.judgeId = this.authService.currentUser.id;
+                            this.$state.go(toState.name, toParams);
+                            
+                        }
+                    }
+                }
+                if(toState.name === 'home.judge') {
                     event.preventDefault();
-                    this.$state.go('judge.dashboard', {judgeId: toParams.judgeId});
-                } else if(toState.name === 'admin') {
+                    this.$state.go('home.judge.dashboard', {judgeId: toParams.judgeId});
+                } else if(toState.name === 'home.admin') {
                     event.preventDefault();
-                    this.$state.go('admin.dashboard', {adminId: toParams.adminId});
+                    this.$state.go('home.admin.dashboard', {adminId: toParams.adminId});
                 }
             }
         });

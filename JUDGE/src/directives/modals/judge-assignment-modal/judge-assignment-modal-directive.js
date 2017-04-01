@@ -2,7 +2,7 @@ class JudgeAssignmentModalDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'judge/src/directives/judge-assignment-modal/judge-assignment-modal.html';
+        this.templateUrl = 'judge/src/directives/modals/judge-assignment-modal/judge-assignment-modal.html';
         this.scope = {
             judge: '=',
             posters: '='
