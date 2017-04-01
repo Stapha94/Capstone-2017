@@ -12,6 +12,7 @@ class RouteInterceptor {
             'home.admin.reporting',
             'home.admin.judges',
             'home.admin.participants'
+            // ADD OTHER STATES HERE
         ];
         this.judgeStates = [
             'home.judge',
@@ -39,7 +40,7 @@ class RouteInterceptor {
                 } else if(_.includes(this.adminStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-admin attempted access to state: ' + toState.name);
-                    this.$state.go('login'); // redirect to judge login
+                    this.$state.go('home.login'); // redirect to judge login
                 }
             } else {
                 // Judge is logged in
@@ -47,7 +48,7 @@ class RouteInterceptor {
                     if(_.includes(this.adminStates, toState.name)) {
                         event.preventDefault();
                         this.$log.warn('Non-admin attempted access to state: ' + toState.name);
-                        this.$state.go('login'); // redirect to judge login
+                        this.$state.go('home.login'); // redirect to judge login
                     } else if(_.includes(this.judgeStates, toState.name)) {
                         // Checks to see if the user id matches the logged in id
                         if(toParams.judgeId !== this.authService.currentUser.id) {

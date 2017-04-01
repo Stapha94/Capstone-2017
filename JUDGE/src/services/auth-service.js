@@ -80,7 +80,7 @@ class AuthService {
             this.$state.go('home.judge-login');
         } else if(this.isAdmin) {
             this.clearToken();
-            this.$state.go('login');
+            this.$state.go('home.login');
         }
     }
 

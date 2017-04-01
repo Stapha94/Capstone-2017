@@ -6,7 +6,8 @@ class AdminSettingsController {
             { title: 'Summits', state: 'home.admin.settings.summits' },
             { title: 'Institutions', state: 'home.admin.settings.institutions'}
         ]
-        $state.go('home.admin.settings.admins');
+
+        // REMINDER: Set up listener in route-interceptor for admin-settings!!!!!
     }
 
 }
