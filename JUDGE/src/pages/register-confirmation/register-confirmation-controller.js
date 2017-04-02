@@ -16,13 +16,13 @@ class RegisterConfirmationController{
 
         if (this.presenterCode !== "") {
             this.codeValidated = true;
-
+            this.continue();
         }
         else {
             this.codeValidated = false;
             this.notificationService.error("Please enter the code you received in your email!");
         }
-        this.continue();
+
 
     };
 

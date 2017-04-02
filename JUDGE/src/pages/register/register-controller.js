@@ -8,6 +8,7 @@ class RegisterController {
         this.$state = $state;
         this.emailVerified = false;
         this.nameVerified = false;
+        this.emailExists = false
         this.presenterFirstName = "";
         this.presenterLastName = "";
         this.presenterEmail = "";
@@ -22,7 +23,7 @@ class RegisterController {
         if(this.presenterFirstName !== "" && this.presenterLastName !== ""){
 
             this.nameVerified = true;
-
+            this.checkEmailExist();
         }
         else{
 
@@ -30,22 +31,32 @@ class RegisterController {
             this.notificationService.error("First Name and Last Name are required!");
 
         }
-        this.verifyEmail();
 
-    }
+
+    };
+    //Checks to see that the user has entered an email address in both fields
+    checkEmailExist() {
+        if(this.presenterEmail !== "" && this.presenterEmailConfirmation !== "") {
+            this.emailExists = true;
+            this.verifyEmail();
+        }
+        else {
+            this.emailExists = false;
+            this.notificationService.error("Email and Email Confirmation Must have a valid email address!");
+        }
+    };
 
     //Makes sure that the registrant entered the same email for both email fields
     verifyEmail() {
         if(this.presenterEmail === this.presenterEmailConfirmation) {
             this.emailVerified = true;
-
+            this.continue();
         }
         else{
             this.verified = false;
             this.notificationService.error("Email and Email Confirmation must match!");
 
         }
-        this.continue();
 
     };
 
