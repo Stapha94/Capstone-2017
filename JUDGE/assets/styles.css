@@ -68,6 +68,14 @@
     color: #00B140;
 }
 
+td a:visited {
+    color: #00B140;
+}
+
+td a.btn:visited, td a.btn:hover {
+    color: white;
+}
+
 .nav-wrapper {
     background: #00B140;
 
@@ -110,7 +118,23 @@
     margin-left: 220px;
 }
 
+.side-nav {
+    background-color: #222222;
+}
+
+.side-nav a {
+    color: white;
+}
+
 .side-nav a:hover {background-color: #00B140}
+
+.collapsible-header {
+    color: white;
+}
+
+.side-nav .collapsible-body {
+    background-color: #222222;
+}
 
 @media only screen and (max-width: 1200px) {
     .wrap {
@@ -143,6 +167,20 @@
 
 /*** ADMIN PAGE STYLES **/
 
+span.card-link a {
+    cursor: pointer;
+    color: #00B140;
+}
+
+.collection a.collection-item {
+    background-color: white;
+    color: #00B140;
+}
+
+.collection a.collection-item.active {
+    background-color: #00B140;
+    color: white;
+}
 
 /** ADMIN.JUDGES **/
 
@@ -195,11 +233,66 @@ td a, td a:hover {
 }
 
 /** Judge form **/
+
+.form-background {
+    background: #ECECEC;
+    width: 100%;
+    padding: 150px 50px;
+}
+
+.form-cont {
+    text-align: center;
+    width: 100%;
+    padding: 50px 50px 50px;
+    margin: auto;
+    background: white;
+}
+
 .judge-form .question-info {
     width: 718px;
+}
+
+.comment-box {
+    margin-top: 2rem;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #00B140;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid #00B140;
 }
 
 /** Spacing **/
 .pull-right {
     float: right !important;
 } 
+
+th button.table-btn {
+    text-align: center;
+    float: right;
+}
+
+/** Modal Footer Override **/
+.modal .modal-footer .btn {
+    margin: 6px 5px;
+}
+
+/** Label **/
+.input-field label {
+    color: #00B140;
+}
+
+/** Override Disabled Settings **/
+input:not([type]):disabled {
+    color: inherit;
+}
+
+input:not([type]):disabled+label {
+    color: #00B140;
+}
+
+.select-wrapper input.select-dropdown:disabled {
+    color: inherit;
+}

@@ -3,6 +3,10 @@ class JudgeCategoryService extends BaseApiService {
         super($injector, 'judge_categories', 'judgeCategory');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 JudgeCategoryService.$inject = ['$injector'];

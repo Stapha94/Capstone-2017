@@ -3,12 +3,31 @@ class MaterialSelectDirective {
     constructor($timeout) {
         this.restrict = 'A';
         this.$timeout = $timeout;
+        this.scope = {
+            condition: '='
+        };
     }
 
     link(scope, element, attribute, controller) {
-        this.$timeout(() => {
-            element.material_select();
-        });
+        if(scope.condition !== undefined) {
+            scope.$watch(() => {
+                return scope.condition;
+            }, () => {
+                if(!scope.condition) {
+                    this.$timeout(() => {
+                        element.material_select('destroy');
+                    });
+                } else {
+                    this.$timeout(() => {
+                        element.material_select();
+                    });
+                }
+            }, true);
+        } else {
+            this.$timeout(() => {
+                element.material_select();
+            });
+        }
     }
 
     static directiveFactory($timeout) {

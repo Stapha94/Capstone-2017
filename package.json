@@ -9,6 +9,9 @@
     "type": "Github",
     "url": "https://github.com/Stapha94/Capstone-2017.git"
   },
+  "scripts": {
+    "postinstall": "gulp build"
+  },
   "license": "MIT",
   "dependencies": {
     "angular": "1.6.2",

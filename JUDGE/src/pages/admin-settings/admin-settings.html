@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<div class="wrap">
+    <h5 class="page-title">Site Settings</h5>
+
+    <div class="row">
+        <div class="col s3">
+            <side-tabs tabs="ctrl.tabs" active="'Admins'" on-change="ctrl.setActiveTab"></side-tabs>
+        </div>
+        <div class="col s9">
+            <ui-view />
+        </div>
+    </div>
+
+</div>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,4 +48,4 @@
         </div>
     </div>
 </body>
-</html>
+</html -->

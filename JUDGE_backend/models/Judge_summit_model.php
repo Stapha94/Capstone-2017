@@ -52,6 +52,14 @@ class Judge_summit_model extends CI_Model {
 		}
 	}
 
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function joins() {
 		$joins = array(
 			'j' => 'judge',

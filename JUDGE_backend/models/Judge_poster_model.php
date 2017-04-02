@@ -62,6 +62,22 @@ class Judge_poster_model extends CI_Model {
 			return $result;
 		}
 
+	public function create($data = array()) {
+		try {
+			return $this->db->insert($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 		public function joins() {
 			$joins = array(
 				'j' => 'judge',

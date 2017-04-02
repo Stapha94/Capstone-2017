@@ -38,7 +38,7 @@ var paths = {
    * - 'config'       contains Angular app config files
    */
   app: {
-    basePath: 'JUDGE/src/',
+    basePath: 'JUDGE/',
     fonts: 'node_modules/materialize-css/dist/fonts/**/*.{eot,svg,ttf,woff,woff2}',
     styles: [
       'node_modules/materialize-css/dist/css/materialize.min.css',
@@ -49,14 +49,15 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
-    'JUDGE/src/config/**/*.js',
-    'JUDGE/src/directives/**/*.js',
-    'JUDGE/src/pages/**/*.js',
+    'JUDGE/src/filters/**/*.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
-    '!JUDGE/src/directives/**/base-api-service.js'
+    'JUDGE/src/config/**/*.js',
+    'JUDGE/src/directives/**/*.js',
+    'JUDGE/src/pages/**/*.js'
     ],
     dependencies: [
+       'node_modules/jquery/dist/jquery.min.js',
        'node_modules/angular/angular.js',
        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
        'node_modules/angular-ui-router/release/angular-ui-router.min.js',
@@ -122,5 +123,7 @@ gulp.task('build', function() {
     runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
 });
 
-var watcher = gulp.watch(paths.app.basePath + '**', ['build']);
-watcher.on('change', function() {});
+gulp.task('watch', function() {
+  var watcher = gulp.watch(paths.app.basePath + '**', ['build']);
+  watcher.on('change', function() {});
+})

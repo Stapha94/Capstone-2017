@@ -11,7 +11,7 @@ class Poster_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id, score');
+        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
                 $this->name = 'poster';
                 parent::__construct();
         }
@@ -64,6 +64,29 @@ class Poster_model extends CI_Model {
             $result = $query->result();
             return $result;
         }
+
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$poster_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('poster_id' => $poster_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
         public function joins() {
         	$joins = array(

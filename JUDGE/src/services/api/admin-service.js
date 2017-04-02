@@ -3,6 +3,10 @@ class AdminService extends BaseApiService {
         super($injector, 'admins', 'admin');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 AdminService.$inject = ['$injector'];

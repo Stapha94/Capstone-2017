@@ -1,6 +1,12 @@
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('home', {
+            url: '',
+            templateUrl: 'JUDGE/src/pages/home.html',
+            controller: 'homeController',
+            controllerAs: 'ctrl'
+        })
+        .state('home.landing', {
             url: '/home',
             templateUrl: 'JUDGE/src/pages/landing/landing.html',
             controller: 'landingController',
@@ -21,7 +27,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'adminLoginController',
             controllerAs: 'ctrl'
         })
-        .state('admin', {
+        .state('home.admin', {
             url: '/admin/:adminId',
             templateUrl: 'JUDGE/src/pages/admin-nav/admin-nav.html',
             controller: 'adminNavController',
@@ -38,7 +44,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }]
             }
         })
-        .state('admin.dashboard', {
+        .state('home.admin.dashboard', {
             url: '/dashboard',
             views: {
                 'admin': {
@@ -48,7 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         })
-        .state('admin.settings', {
+        .state('home.admin.settings', {
             url: '/settings',
             views: {
                 'admin': {
@@ -58,7 +64,52 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         })
-        .state('admin.reporting', {
+        .state('home.admin.settings.admins', {
+            url: '/admins',
+            templateUrl: 'JUDGE/src/pages/admin-settings/admins/admins.html',
+            controller: 'adminsController',
+            controllerAs: 'ctrl',
+            sideTab: 'Admins',
+            resolve: {
+                admins: ['adminService', (adminService) => {
+                    return adminService.get()
+                        .then((data) => {
+                            return data;
+                        });
+                }]
+            }
+        })
+        .state('home.admin.settings.summits', {
+            url: '/summits',
+            templateUrl: 'JUDGE/src/pages/admin-settings/summits/summits.html',
+            controller: 'summitsController',
+            controllerAs: 'ctrl',
+            sideTab: 'Summits',
+            resolve: {
+                summits: ['summitService', (summitService) => {
+                    return summitService.get()
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+        })
+        .state('home.admin.settings.institutions', {
+            url: '/institutions',
+            templateUrl: 'JUDGE/src/pages/admin-settings/institutions/institutions.html',
+            controller: 'institutionsController',
+            controllerAs: 'ctrl',
+            sideTab: 'Institutions',
+            resolve: {
+                institutions: ['institutionService', (institutionService) => {
+                    return institutionService.get()
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+        })
+        .state('home.admin.reporting', {
             url: '/reporting',
             views: {
                 'admin': {
@@ -68,7 +119,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }
             }
         })
-        .state('admin.judges', {
+        .state('home.admin.judges', {
             url: '/judges',
             views: {
                 'admin': {
@@ -87,12 +138,66 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                                 .then((data) => {
                                     return data;
                                 })
+                        }],
+                        posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
+                            return posterService.get({summitId: localStorageService.get('summit')})
+                                .then((data) => {
+                                    return data;
+                                })
                         }]
                     }
                 }
             }
         })
-        .state('admin.participants', {
+        .state('home.admin.judge', {
+            url: '/judge/:judgeId',
+            views: {
+                'admin': {
+                    templateUrl: 'JUDGE/src/pages/admin-judges/admin-judge-info.html',
+                    controller: 'adminJudgeInfoController',
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
+                            return judgeService.get({judgeId: $stateParams.judgeId})
+                                .then((data) => {
+                                    return data[0];
+                                })
+                        }],
+                        judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                            return judgeCategoryService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        forms: ['formService', 'judge', (formService, judge) => {
+                            return formService.get({judgeId: judge.judgeId})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        judgePosters: ['judgePosterService', 'judge', 'forms', (judgePosterService, judge, forms) => {
+                            return judgePosterService.get({judgeId: judge.judgeId})
+                                .then((data) => {
+                                    _.forEach(data, (judgePoster) => {
+                                        var judgeForm = _.find(forms, {'judgeId': judgePoster.judgeId, 'posterId': judgePoster.posterId})
+                                        if(judgeForm) {
+                                            judgePoster.score = judgeForm.total;
+                                        }
+                                    });
+                                    return data;
+                                })
+                        }],
+                        judgeSummits: ['judgeSummitService', 'judge', (judgeSummitService, judge, judgePosters) => {
+                            return judgeSummitService.get({judgeId: judge.judgeId})
+                                .then((data) => {
+                                    return data;
+                                });
+                        }]
+                    }
+                }
+            }
+        })
+        .state('home.admin.participants', {
             url: '/participants',
             views: {
                 'admin': {
@@ -151,11 +256,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         })
         
         // judge related states
-        .state('judge-login', {
+        .state('home.judge-login', {
             url: '/judge-login',
             templateUrl: 'JUDGE/src/pages/judge-login/judge-login.html',
             controller: 'judgeLoginController',
             controllerAs: 'ctrl',
+            hideNav: true,
             resolve: {
                 judges: ['judgeService', (judgeService) => {
                     return judgeService.get({active: 1})
@@ -165,7 +271,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }]
             }
         })
-        .state('judge', {
+        .state('home.judge', {
             url: '/judge/:judgeId',
             templateUrl: 'JUDGE/src/pages/judge-nav/judge-nav.html',
             controller: 'judgeNavController',
@@ -179,66 +285,84 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 }]
             }
         })
-        .state('judge.dashboard', {
+        .state('home.judge.dashboard', {
             url: '/dashboard',
-            views: {
-                'judge': {
-                    templateUrl: 'JUDGE/src/pages/judge-dashboard/judge-dashboard.html',
-                    controller: 'judgeDashboardController',
-                    controllerAs: 'ctrl',
-                    resolve: {
-                        posters: ['judgePosterService', 'authService', (judgePosterService, authService) => {
-                            return judgePosterService.get({judgeId: authService.currentUser.id})
-                                .then((data) => {
-                                    return data;
-                                });  
-                        }]
-                    }
-                }
+            templateUrl: 'JUDGE/src/pages/judge-dashboard/judge-dashboard.html',
+            controller: 'judgeDashboardController',
+            controllerAs: 'ctrl',
+            resolve: {
+                posters: ['judgePosterService', 'authService', (judgePosterService, authService) => {
+                    return judgePosterService.get({judgeId: authService.currentUser.id})
+                        .then((data) => {
+                            return data;
+                        });  
+                }],
+                forms: ['formService', 'authService', (formService, authService) => {
+                    return formService.get({judgeId: authService.currentUser.id})
+                        .then((data) => {
+                            return data;
+                        });
+                }]
             }
         })
-        .state('judge.form', {
+        .state('home.judge.info', {
+            url: '/info',
+            templateUrl: 'JUDGE/src/pages/judge-info/judge-info.html',
+            controller: 'judgeInfoController',
+            controllerAs: 'ctrl',
+            resolve: {
+                judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
+                    return judgeService.get({judgeId: $stateParams.judgeId})
+                        .then((data) => {
+                            return data[0];
+                        });
+                }],
+                judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                    return judgeCategoryService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        });
+                }]
+            }
+        })
+        .state('home.judge.form', {
             url: '/form/:posterId',
-            views: {
-                'judge': {
-                    templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
-                    controller: 'judgeFormController',
-                    controllerAs: 'ctrl',
-                    resolve: {
-                        form: ['formService', '$stateParams', (formService, $stateParams) => {
-                            return formService.get({judgeId: $stateParams.judgeId, posterId: $stateParams.posterId})
-                                .then((data) => {
-                                    if(data.length === 1) {
-                                        return data[0];
-                                    } else {
-                                        return {judgeId: $stateParams.judgeId, posterId: $stateParams.posterId};
-                                    }
-                                })
-                        }],
-                        formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
-                            if(form.formId) {
-                                return formQuestionService.get({formId: form.formId})
-                                    .then((data) => {
-                                        return data;
-                                    });
+            templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
+            controller: 'judgeFormController',
+            controllerAs: 'ctrl',
+            resolve: {
+                form: ['formService', '$stateParams', (formService, $stateParams) => {
+                    return formService.get({judgeId: $stateParams.judgeId, posterId: $stateParams.posterId})
+                        .then((data) => {
+                            if(data.length === 1) {
+                                return data[0];
                             } else {
-                                return [];
+                                return {judgeId: $stateParams.judgeId, posterId: $stateParams.posterId};
                             }
-                        }],
-                        questionSections: ['questionSectionService', (questionSectionService) => {
-                            return questionSectionService.get({active: 1})
-                                .then((data) => {
-                                    return data;
-                                })
-                        }],
-                        questions: ['questionService', (questionService) => {
-                            return questionService.get({active: 1})
-                                .then((data) => {
-                                    return data;
-                                })
-                        }]
+                        })
+                }],
+                formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
+                    if(form.formId) {
+                        return formQuestionService.get({formId: form.formId})
+                            .then((data) => {
+                                return data;
+                            });
+                    } else {
+                        return [];
                     }
-                }
+                }],
+                questionSections: ['questionSectionService', (questionSectionService) => {
+                    return questionSectionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
+                questions: ['questionService', (questionService) => {
+                    return questionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }]
             }
         });
     

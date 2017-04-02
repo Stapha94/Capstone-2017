@@ -3,6 +3,10 @@ class JudgeService extends BaseApiService {
         super($injector, 'judges', 'judge');
     }
 
+    delete(object) {
+        super.update(object);
+    }
+
 }
 
 JudgeService.$inject = ['$injector'];

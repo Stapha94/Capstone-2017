@@ -12,15 +12,16 @@ class AuthService {
     }
 
     get currentUser() {
-        return this.localStorageService.get('currentUser');
+        return this._currentUser;
+    }
+
+    get authToken() {
+        return this._authToken;
     }
 
     set currentUser(data) {
         this.localStorageService.set('currentUser', data);
-    }
-
-    get authToken() {
-        return this.localStorageService.get('authToken');
+        this._currentUser = data;
     }
 
     set authToken(token) {
@@ -76,7 +77,7 @@ class AuthService {
     logout() {
         if(this.isJudge) {
             this.clearToken();
-            this.$state.go('judge-login');
+            this.$state.go('home.judge-login');
         } else if(this.isAdmin) {
             this.clearToken();
             this.$state.go('login');

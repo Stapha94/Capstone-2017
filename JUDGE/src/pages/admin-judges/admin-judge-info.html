@@ -1,0 +1,98 @@
+<div class="wrap">
+
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#Info">Info</a></li>
+                <li class="tab col s3"><a href="#Posters">Posters</a></li>
+                <li class="tab col s3"><a href="#Summit">Summit</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Info" class="input-field col s12">
+        <form>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="firstName" ng-model="ctrl.judge.firstName" placeholder="First Name" ng-disabled="!ctrl.canEdit">
+                    <label class="active" for="firstName" >First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="lastName" ng-model="ctrl.judge.lastName" placeholder="Last Name" ng-disabled="!ctrl.canEdit">
+                    <label class="active" for="lastName" >Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="userName" ng-model="ctrl.judge.userName" class="validate" placeholder="User Name" ng-disabled="!ctrl.canEdit">
+                    <label class="active" for="userName" >User Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.canEdit" ng-show="ctrl.canEdit">
+                        <option ng-repeat="judgeCategory in ctrl.judgeCategories" value="{{judgeCategory.judgeCategoryId}}">{{judgeCategory.title}}</option>
+                    </select>
+                    <input id="category" ng-model="ctrl.judge.category" disabled ng-if="!ctrl.canEdit">
+                    <label class="active" for="category">Category</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="filled-in-box" ng-disabled="!ctrl.canEdit" />
+                <label for="filled-in-box">Active</label>
+            </div>
+        </form>
+
+        <div class="row pull-right">
+            <a ng-if="!ctrl.canEdit" class="wave-effects wave-light btn" ng-click="ctrl.edit()">Edit</a>
+            <button type="submit" ng-if="ctrl.canEdit" class="wave-effects wave-light btn green" ng-click="ctrl.save()">Save</button>
+            <a ng-if="ctrl.canEdit" class="wave-effects wave-light btn red" ng-click="ctrl.cancel()">Cancel</a>
+        </div>
+
+    </div>
+
+    <div id="Posters" class="col s12">
+        <div class="row pull-right">
+            <button data-target="add-judge" class="btn green">Assign Poster</button>
+        </div>
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Poster Title</th>
+                <th>Score</th>
+                <th>Unassign</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="poster in ctrl.judgePosters">
+                <td>{{ poster.posterTitle }}</td>
+                <td>{{ poster.score }}</td>
+                <td><a ng-click="ctrl.deactivate(judge)">Remove</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Summit" class="col s12">
+        <div class="row pull-right">
+            <button data-target="add-judge" class="btn green">Assign Summit</button>
+        </div>
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Summit Date</th>
+                <th>Number of Posters</th>
+                <th>Unassign</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="summit in ctrl.judgeSummits">
+                <td>{{ summit.date }}</td>
+                <td>{{ summit.numOfPosters }}</td>
+                <td><a ng-click="ctrl.deactivate(summit)">Remove</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
