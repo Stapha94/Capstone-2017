@@ -7,13 +7,13 @@
                     <div class="input-field col s6">
                         <select material-select id="institution" ng-model="ctrl.presenterInstitution">
                             <option value="" disabled selected>Choose Your Institution</option>
-                            <option ng-repeat="institution in ctrl.institutions" value="{{institution.title}}">{{institution.title}}</option>
+                            <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
                         </select>
                     </div>
                     <div class="input-field col s6">
                         <select material-select id="role" ng-model="ctrl.presenterRole">
                             <option value="" disabled selected>Choose Your Role</option>
-                            <option ng-repeat="role in ctrl.roles" value="{{role.title}}">{{role.title}}</option>
+                            <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
                         </select>
                     </div>
                 </div>

@@ -73,7 +73,7 @@ class RegisterInstitutionController{
 
     //Checks to see if the user chose an institution for the key participant
     checkKeyParticipantInstitutionExists() {
-        if(this.keyParticipantInstitution !== "") {
+        if(this.keyParticipantInstitution !== null) {
             this.keyParticipantInstitutionExists = true;
             this.checkKeyParticipantDepartmentExists();
         }
@@ -92,14 +92,17 @@ class RegisterInstitutionController{
             else {
                 this.notificationService.error("Please enter/choose a department!");
             }
+        }
+        else {
             this.keyParticipantDepartmentExists = true;
+            this.keyParticipantDepartment = "N/A";
             this.checkKeyParticipantRoleExists();
         }
     };
 
     //Checks to see if the user chose a role for the key participant
     checkKeyParticipantRoleExists() {
-        if(this.keyParticipantRole !== "") {
+        if(this.keyParticipantRole !== null) {
             this.keyParticipantRoleExists == true;
             this.addKeyParticipant();
         }
@@ -118,6 +121,7 @@ class RegisterInstitutionController{
             keyParticipantRole: this.keyParticipantRole
         };
         this.keyParticipants.push(this.keyParticipant);
+        this.close();
     };
 
     //Puts all of the information in the Registration Service and goes to the next page
@@ -137,7 +141,7 @@ class RegisterInstitutionController{
 
     //Closes the modal
     close() {
-        var modal = 
+        angular.element(document.querySelector("#modal1")).modal('close');
     }
 
 
