@@ -1,7 +1,7 @@
 <!-- Modal Structure -->
 <div id="add-judge" class="modal modal-fixed-footer" material-modal>
     <div class="modal-content">
-        <h5>Add Judge</h5>
+        <h5 class="page-title">Add Judge</h5>
         <div class="input-field col s12">
             <form>
                 <div class="row">
@@ -23,6 +23,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a ng-click="ctrl.add()"class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
+        <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+        <a ng-click="ctrl.add()" class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
     </div>
 </div>

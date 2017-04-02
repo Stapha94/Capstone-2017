@@ -6,7 +6,8 @@ class SideTabsDirective {
         this.scope = {
             tabs: '=',
             active: '=',
-            state: '='
+            state: '=',
+            paramCheck: '='
         };
         this.controller = 'sideTabsController';
         this.controllerAs = 'ctrl';

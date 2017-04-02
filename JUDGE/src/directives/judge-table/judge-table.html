@@ -1,0 +1,56 @@
+<div>
+    <add-judge-modal ctrl="ctrl"></add-judge-modal>
+    <h5 class="page-title">Judges</h5>
+    <div class="row pull-right">
+        <a data-target="add-judge" class="waves-effect waves-light btn green">Add Judge</a>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a href="#Active">Active</a></li>
+                <li class="tab col s3"><a href="#Inactive">Inactive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Active" class="col s12">
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Judge Name</th>
+                <th>Number of Posters</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="judge in ctrl.judges | filter:{active:1}">
+                <td><a ui-sref="home.admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+                <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
+                <td><!-- To do: add number of posters --></td>
+                <td><a ng-click="ctrl.deactivate(judge)">Deactivate</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="Inactive" class="col s12">
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Judge Name</th>
+                <th>Number of Posters</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="judge in ctrl.judges | filter:{active:0}">
+                <td><a ui-sref="home.admin.judge({judgeId: judge.judgeId})">{{ judge.userName }}</a></td>
+                <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
+                <td><!-- To do: add number of posters --></td>
+                <td><a ng-click="ctrl.activate(judge)">Activate</a></td>
+            </tr>
+        </table>
+    </div>
+
+</div>

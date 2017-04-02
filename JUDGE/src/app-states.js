@@ -31,7 +31,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             hideNav: true
         })
         .state('home.admin', {
-            url: '/admin/:adminId',
+            url: '/admin/{adminId:[0-9]+}',
             templateUrl: 'JUDGE/src/pages/admin-nav/admin-nav.html',
             controller: 'adminNavController',
             controllerAs: 'ctrl',
@@ -111,7 +111,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('home.admin.judges', {
-            url: '/judges',
+            url: '/judges/{category:[a-zA-Z]*}',
             templateUrl: 'JUDGE/src/pages/admin-judges/admin-judges.html',
             controller: 'adminJudgesController',
             controllerAs: 'ctrl',
@@ -127,17 +127,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                         .then((data) => {
                             return data;
                         })
-                }],
-                posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
-                    return posterService.get({summitId: localStorageService.get('summit')})
-                        .then((data) => {
-                            return data;
-                        })
                 }]
             }
         })
         .state('home.admin.judge', {
-            url: '/judge/:judgeId',
+            url: '/judge/{judgeId:[0-9]+}',
             templateUrl: 'JUDGE/src/pages/admin-judges/admin-judge-info.html',
             controller: 'adminJudgeInfoController',
             controllerAs: 'ctrl',
@@ -254,7 +248,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('home.judge', {
-            url: '/judge/:judgeId',
+            url: '/judge/{judgeId:[0-9]+}',
             templateUrl: 'JUDGE/src/pages/judge-nav/judge-nav.html',
             controller: 'judgeNavController',
             controllerAs: 'ctrl',
@@ -308,7 +302,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('home.judge.form', {
-            url: '/form/:posterId',
+            url: '/form/{posterId:[0-9]+}',
             templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
             controller: 'judgeFormController',
             controllerAs: 'ctrl',
