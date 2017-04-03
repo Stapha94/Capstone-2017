@@ -10,7 +10,11 @@ class Poster_abstract_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->fields = array('poster_abstract_id', 'title');
+		$this->fields = array('poster_abstract_id', 'title', 'objective', 'methods', 'results', 'conclusion');
+		$this->filter = array(
+			'poster_abstract_id' =>	'poster_abstract',
+			'title' => 'poster_abstract'
+		);
 		$this->name = 'poster_abstract';
 		parent::__construct();
 	}
@@ -32,8 +36,11 @@ class Poster_abstract_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
 
 		// Perform the query

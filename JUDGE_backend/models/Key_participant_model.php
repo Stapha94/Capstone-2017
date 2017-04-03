@@ -12,6 +12,10 @@ class Key_participant_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('key_participant_id', 'presenter_id', 'first_name', 'last_name', 'department', 'institution_id', 'role_id');
+		$this->filter = array(
+			'key_participant_id' => 'key_participant',
+			'presenter_id' => 'key_participant'
+		);
 		$this->name = 'key_participant';
 		parent::__construct();
 	}
@@ -38,8 +42,12 @@ class Key_participant_model extends CI_Model {
 		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$this->name}.{$joins['r']}_id");
 
 		// Where clauses here
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
 
 		// Perform the query

@@ -8,16 +8,12 @@ class Institution extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->institution->fields);
-		$this->generate_get_response($auth, $this->institution, $params);
+		$this->generate_get_response($this->institution);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->institution->fields);
-		$this->generate_admin_post_response($auth, $this->institution);
+		$this->generate_post_response($this->institution);
 	}
 
 }

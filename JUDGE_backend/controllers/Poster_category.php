@@ -8,16 +8,12 @@ class Poster_category extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->poster_category->fields);
-		$this->generate_get_response($auth, $this->poster_category, $params);
+		$this->generate_get_response($this->poster_category);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->poster_category->fields);
-		$this->generate_admin_post_response($auth, $this->poster_category);
+		$this->generate_post_response($this->poster_category);
 	}
 
 }

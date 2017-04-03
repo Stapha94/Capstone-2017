@@ -8,6 +8,11 @@ class Poster_category_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('poster_category_id', 'title', 'active');
+		$this->filter = array(
+			'poster_category_id' => 'poster_category',
+			'title' => 'poster_category',
+			'active' => 'poster_category'
+		);
 		$this->name = 'poster_category';
 		parent::__construct();
 	}
@@ -24,10 +29,14 @@ class Poster_category_model extends CI_Model {
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			$field = $this->convert_join_field($field);
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
 
 		// Perform the query

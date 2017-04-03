@@ -1,11 +1,16 @@
 class JudgeDashboardController {
 
     constructor($scope, $state, $stateParams, forms) {
+        this.active = $stateParams.tab;
         this.$scope = $scope;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.forms = forms;
         this.abstract = {};
+        this.tabs = [
+            { id: 'Pending' },
+            { id: 'Complete' }
+        ];
         this.dividePosters();
     }
 

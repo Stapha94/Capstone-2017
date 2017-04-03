@@ -8,16 +8,12 @@ class Poster extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->poster->fields);
-		$this->generate_admin_get_response($auth, $this->poster, $params);
+		$this->generate_get_response($this->poster);
 	}
 
-    public function index_post()
-    {
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->poster->fields);
-		$this->generate_post_response($auth, $this->poster);
-    }
+	public function index_post()
+	{
+		$this->generate_post_response($this->poster);
+	}
 
 }

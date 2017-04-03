@@ -1952,7 +1952,10 @@ abstract class REST_Controller extends \CI_Controller {
 		return $auth;
 	}
 
-	protected function generate_get_response ($auth = 400, $model = NULL, $params = array(), $safe_columns = NULL) {
+	protected function generate_get_response ($model = NULL, $safe_columns = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
 
     	if($model === NULL) {
 			$this->response([], 400);
@@ -1978,7 +1981,10 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+	protected function generate_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
 
 		if($model === NULL) {
 			$this->response([], 400);
@@ -2045,7 +2051,10 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_admin_get_response ($auth = 400, $model = NULL, $params = array()) {
+	protected function generate_admin_get_response ($model = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
 
 		if($model === NULL) {
 			$this->response([], 400);
@@ -2065,7 +2074,10 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_admin_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+	protected function generate_admin_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
 
 		if($model === NULL) {
 			$this->response([], 400);
@@ -2118,7 +2130,10 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_judge_get_response ($auth = 400, $model = NULL, $params = array()) {
+	protected function generate_judge_get_response ($model = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
 
 		if($model === NULL) {
 			$this->response([], 400);
@@ -2138,7 +2153,10 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_judge_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+	protected function generate_judge_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
 
 		if($model === NULL) {
 			$this->response([], 400);

@@ -14,6 +14,13 @@ class Presenter_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('presenter_id', 'first_name', 'last_name', 'suffix', 'email', 'institution_id', 'role_id', 'active');
+		$this->filter = array(
+			'presenter_id' => 'presenter',
+			'email' => 'presenter',
+			'institution' => 'institution',
+			'role' => 'role',
+			'active' => 'presenter'
+		);
 		$this->name = 'presenter';
 		parent::__construct();
 	}
@@ -39,10 +46,14 @@ class Presenter_model extends CI_Model {
 		$this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$this->name}.{$joins['i']}_id");
 		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$this->name}.{$joins['r']}_id");
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			$field = $this->convert_join_field($field);
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
 
 		// Perform the query
@@ -80,6 +91,24 @@ class Presenter_model extends CI_Model {
 			'r' => 'role'
 		);
 		return $joins;
+	}
+
+	private function convert_join_field($field = NULL) {
+
+		if($field === NULL) {
+			return $field;
+		}
+
+		if($field === 'institution') {
+			$field = 'title';
+		}
+
+		if($field === 'role') {
+			$field = 'role';
+		}
+
+		return $field;
+
 	}
 
 }

@@ -12,6 +12,12 @@ class Form_model extends CI_Model {
 	{
 		// These are for filtering the data.
 		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'comments');
+		$this->filter = array(
+			'form_id' => 'form',
+			'poster_id' => 'form',
+			'judge_id' => 'form'
+			// This can be added as the need arises
+		);
 		$this->name = 'form';
 		parent::__construct();
 	}
@@ -64,9 +70,14 @@ class Form_model extends CI_Model {
 		$this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$joins['po']}.{$joins['s']}_id");
 
 		// Where clauses here
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
+
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
@@ -78,8 +89,7 @@ class Form_model extends CI_Model {
 			if($this->db->insert($this->name, $data)) {
 				$form_id = $this->db->insert_id();
 				$query = $this->get(array('form_id' => $form_id));
-				$result = $query->result();
-				return $result;
+				return $query;
 			} else {
 				return false;
 			}

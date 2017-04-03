@@ -118,8 +118,13 @@ gulp.task('compileStyles', function() {
                 .pipe(gulp.dest(paths.build.dist.styles));
 });
 
+gulp.task('compileViews', function() {
+    return gulp.src(paths.app.templates)
+            .pipe(gulp.dest(paths.views.basePath))
+});
+
 gulp.task('build', function() {
-    runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles']);
+    runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles', 'compileViews']);
 });
 
 gulp.task('watch', function() {

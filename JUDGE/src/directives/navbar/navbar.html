@@ -90,9 +90,9 @@
             <!-- Judge dropdown -->
 
             <ul id="judge-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.judge.info">Info</a></li>
+                <li><a ui-sref="home.judge.info({judgeId: ctrl.user.id})">Info</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="home.judge.dashboard">Posters</a></li>
+                <li><a ui-sref="home.judge.dashboard({judgeId: ctrl.user.id})">Posters</a></li>
             </ul>
 
             <nav>

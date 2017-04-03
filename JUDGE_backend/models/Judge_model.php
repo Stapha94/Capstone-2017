@@ -11,6 +11,11 @@ class Judge_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('judge_id', 'email', 'first_name', 'last_name', 'judge_category_id', 'active');
+		$this->filter = array(
+			'judge_id' => 'judge',
+			'email' => 'judge',
+			'category' => 'judge_category',
+			'active' => 'judge');
 		$this->name = 'judge';
 		$this->id = "{$this->name}_id";
 		parent::__construct();
@@ -36,10 +41,14 @@ class Judge_model extends CI_Model {
         // The format for joins is table1.column = table2.column;
 		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$this->name}.{$joins['jc']}_id");
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
+		foreach ($this->filter as $field=>$table) {
+			$param = $params[$field];
+			$field = $this->convert_join_field($field);
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
 		}
 
 		// Perform the query
@@ -91,6 +100,17 @@ class Judge_model extends CI_Model {
 			'jc' => 'judge_category'
 		);
 		return $joins;
+	}
+
+	private function convert_join_field($field = NULL) {
+		if($field === NULL) {
+			return $field;
+		}
+
+		if($field === 'category') {
+			$field = 'title';
+		}
+		return $field;
 	}
 
 }
