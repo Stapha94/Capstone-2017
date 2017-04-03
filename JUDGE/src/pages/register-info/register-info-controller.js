@@ -6,6 +6,7 @@ class RegisterInfoController{
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
         this.$state = $state;
+        this.summitId = $scope.summitId;
         this.projectTitle = "";
         this.projectObjective = "";
         this.projectMethods = "";
@@ -18,14 +19,14 @@ class RegisterInfoController{
     validate() {
         if (this.projectTitle !== "" && this.projectObjective !== "" && this.projectMethods !== "" && this.projectResults !== "" && this.projectConclusion !== "") {
             this.validated = true;
-
+            this.finish();
         }
         else {
             this.validated = false;
             this.notificationService.error("You must enter all fields!");
 
         }
-        this.finish();
+
 
     };
 
@@ -36,6 +37,8 @@ class RegisterInfoController{
             this.registrationService.projectMethods = this.projectMethods;
             this.registrationService.projectResults = this.projectResults;
             this.registrationService.projectConclusion = this.projectConclusion;
+            this.registrationService.summitId = this.summitId;
+            //this.registrationService.create();
             this.$state.go('home');
             this.notificationService.success("Thank you for registering!");
 

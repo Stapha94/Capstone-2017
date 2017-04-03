@@ -1,110 +1,69 @@
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-
-    $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-    });
-</script>
-
 <div class="container">
+    <key-participants-modal ctrl="ctrl"></key-participants-modal>
     <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <select id="institution" ng-model="ctrl.presenterInstitution" required>
-                        <option value="" disabled selected>Choose Your Institution</option>
-                        <option ng-repeat="institution in ctrl.institutions" value="{{institution.title}}">{{institution.title}}</option>
-                    </select>
-                </div>
-                <div class="input-field col s6">
-                    <select id="role" ng-model="ctrl.presenterRole" required>
-                        <option value="" disabled selected>Choose Your Role</option>
-                        <option ng-repeat="role in ctrl.roles" value="{{role.title}}">{{role.title}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col 14 s12">
-                    <h5 class="black-text"><u>Key Participants:</u></h5>
-                </div>
-            </div>
-            <div class="row">
-                 <div class="col s12">
-                     <table class="highlight">
-                         <thead>
-                             <tr>
-                                 <th>First Name</th>
-                                 <th>Last Name</th>
-                                 <th>Department</th>
-                                 <th>Institution</th>
-                                 <th>Role</th>
-                            </tr>
-                         </thead>
-                         <tbody>
-                            <tr ng-repeat="keyParticipant in ctrl.keyParticipants">
-                                <td>{{keyParticipant.keyParticipantFName}}</td>
-                                <td>{{keyParticipant.keyParticipantLName}}</td>
-                                <td>{{keyParticipant.keyParticipantDepartment}}</td>
-                                <td>{{keyParticipant.keyParticipantInstitution}}</td>
-                                <td>{{keyParticipant.keyParticipantRole}}</td>
-                            </tr>
-                         </tbody>
-                     </table>
-                 </div>
-            </div>
-            <div class="row">
-                <button data-target="modal1" class="btn waves-effect waves-light">Add Presenter</button>
-            </div>
-            <div id="modal1" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <input placeholder="First Name" id="keyParticipantFName" ng-model="ctrl.keyParticipantFName" type="text" class="validate" required>
-                            <label for="keyParticipantFName">First Name:</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <input placeholder="Last Name" id="keyParticipantLName" ng-model="ctrl.keyParticipantLName" type="text" class="validate" required>
-                            <label for="keyParticipantLName">Last Name:</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate" required>
-                            <label for="keyParticipantDepartment">Department</label>
-                        </div>
+        <div class="input-field col s12">
+            <form name="test">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select material-select id="institution" ng-model="ctrl.presenterInstitution">
+                            <option value="" disabled selected>Choose Your Institution</option>
+                            <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <select id="keyParticipantInstitution" ng-model="ctrl.keyParticipantInstitution" required>
-                                <option value="" disabled selected>Choose Your Institution</option>
-                                <option ng-repeat="institution in ctrl.institutions" value="{{institution.title}}">{{institution.title}}</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s6">
-                            <select id="keyParticipantRole" ng-model="ctrl.keyParticipantRole" required>
-                                <option value="" disabled selected>Choose Your Role</option>
-                                <option ng-repeat="role in ctrl.roles" value="{{role.title}}">{{role.title}}</option>
-                            </select>
-                        </div>
+                    <div class="input-field col s6">
+                        <select material-select id="role" ng-model="ctrl.presenterRole">
+                            <option value="" disabled selected>Choose Your Role</option>
+                            <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button ng-click="ctrl.addKeyParticipant()" class="modal-action modal-close waves-effect btn waves-effect waves-light">Submit</button>
+                <div class="row">
+                    <div class="col 14 s12">
+                        <h5 class="black-text"><u>Key Participants:</u></h5>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="row">
-                <div ng-click="ctrl.continue()" class="btn waves-effect waves-light right">Continue</div>
-            </div>
-        </form>
+                <div class="row">
+                     <div class="col s12">
+                         <table class="highlight">
+                             <thead>
+                                 <tr>
+                                     <th>First Name</th>
+                                     <th>Last Name</th>
+                                     <th>Department</th>
+                                     <th>Institution</th>
+                                     <th>Role</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr ng-repeat="keyParticipant in ctrl.keyParticipants">
+                                    <td>{{keyParticipant.keyParticipantFName}}</td>
+                                    <td>{{keyParticipant.keyParticipantLName}}</td>
+                                    <td>{{keyParticipant.keyParticipantDepartment}}</td>
+                                    <td>{{keyParticipant.keyParticipantInstitution}}</td>
+                                    <td>{{keyParticipant.keyParticipantRole}}</td>
+                                </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                </div>
+                <div class="row">
+                    <button data-target="modal1" class="btn waves-effect waves-light">Add Presenter</button>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div ng-click="ctrl.checkInstitutionExists()" class="btn waves-effect waves-light right">Continue</div>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
