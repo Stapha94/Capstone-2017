@@ -71,12 +71,7 @@ class Form_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach ($this->filter as $field=>$table) {
-			$param = $params[$field];
-			if(isset($param)) {
-				$this->db->where("{$table}.{$field}", $param);
-			}
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

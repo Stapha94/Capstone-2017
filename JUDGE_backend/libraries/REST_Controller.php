@@ -1943,7 +1943,7 @@ abstract class REST_Controller extends \CI_Controller {
 	protected function sanitize_uri($params = array(), $fields) {
 		foreach($params as $column=>$value) {
 			if(!($column === 'create' || $column === 'update')) {
-				if (!in_array($column, $fields)) {
+				if (!in_array($column, $fields) && !array_key_exists($column, $fields)) {
 					return 404;
 				}
 			}
