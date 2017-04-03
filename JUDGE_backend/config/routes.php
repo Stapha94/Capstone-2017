@@ -81,14 +81,6 @@ $route['judges/(.+)'] = 'judge';
 $route['judge_categories'] = 'judge_category';
 $route['judge_categories/(.+)'] = 'judge_category';
 
-// JudgePoster Routes
-$route['judge_posters'] = 'judge_poster';
-$route['judge_posters/(.+)'] = 'judge_poster';
-
-// JudgeSummit Routes
-$route['judge_summits'] = 'judge_summit';
-$route['judge_summits/(.+)'] = 'judge_summit';
-
 // KeyParticipants Routes
 $route['key_participants'] = 'key_participant';
 $route['key_participants/(.+)'] = 'key_participant';

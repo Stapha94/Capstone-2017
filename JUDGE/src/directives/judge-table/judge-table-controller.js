@@ -1,26 +1,32 @@
 class JudgeTableController {
 
-    constructor($scope, $stateParams, judgeService, judgeSummitService) {
+    constructor($scope, $stateParams, judgeService) {
         this.judgeService = judgeService;
-        this.judgeSummitService = judgeSummitService;
         this.judges = _.filter($scope.judges, (judge) => {
            return judge.category === $stateParams.category || judge.category === $stateParams.category.charAt(0).toUpperCase() +  $stateParams.category.slice(1) 
         });
+        this.params = $stateParams;
         this.judgeCategories = $scope.judgeCategories;
         this.judge = {active: 1};
         this.summitId = $scope.summitId;
+        this.modal = false;
     }
 
     add() {
         this.judgeService.create(this.judge)
             .then((judge) => {
-                this.judges.push(judge);
-                this.judgeSummitService.create({judgeId: judge.judgeId, summitId: this.summitId});
+                angular.element('.modal').modal('close');
+                this.setModal();
+                if(this.params.category === judge.category || judge.category.toLowerCase()) {
+                    this.judges.push(judge);
+                }
+                this.judge = {active: 1};
             });
     }
 
     cancel() {
         this.judge = {active: 1};
+        this.setModal();
     }
 
     activate(judge) {
@@ -33,7 +39,11 @@ class JudgeTableController {
         this.judgeService.delete(judge);
     }
 
+    setModal() {
+        this.modal = this.modal ? false : true;
+    }
+
 }
 
-JudgeTableController.$inject = ['$scope', '$stateParams', 'judgeService', 'judgeSummitService'];
+JudgeTableController.$inject = ['$scope', '$stateParams', 'judgeService'];
 app.controller('judgeTableController', JudgeTableController);

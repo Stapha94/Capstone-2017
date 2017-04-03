@@ -10,52 +10,14 @@ class Institution extends REST_Controller {
 	{
 		$params = get_paramters();
 		$auth = $this->sanitize_uri($params, $this->institution->fields);
-		if($auth === 400) {
-			$this->response([], 400);
-		} else if($auth === 401) {
-			$this->response([], 401);
-		} else if($auth === 404) {
-			$this->response([], 404);
-		} else if($auth) {
-			$query = $this->institution->get($params);
-			$this->response(prepare_for_frontend($query));
-		}
+		$this->generate_get_response($auth, $this->institution, $params);
 	}
 
 	public function index_post()
 	{
 		$params = get_paramters();
 		$auth = $this->sanitize_uri($params, $this->institution->fields);
-		if($auth === 400) {
-			$this->response([], 400);
-		} else if($auth === 401) {
-			$this->response([], 401);
-		} else if($auth === 404) {
-			$this->response([], 404);
-		} else if($auth) {
-			$method = $this->uri->segment(2);
-			$data = array();
-			$fields = $this->institution->fields;
-			foreach ($fields as $index => $field) {
-				if ($this->post($field)) {
-					$data[$field] = $this->post($field);
-				}
-			}
-			if ($method === 'create') {
-				$query = $this->institution->create($data);
-				if ($query) {
-					$this->response(prepare_for_frontend($query), 201);
-				} else {
-					$this->response([], 400);
-				}
-			} else if ($method === 'update') {
-				if ($this->institution->update($data)) {
-					$this->response([], 200);
-				} else {
-					$this->response([], 400);
-				}
-			}
-		}
+		$this->generate_admin_post_response($auth, $this->institution);
 	}
 
 }

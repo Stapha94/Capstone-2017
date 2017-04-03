@@ -154,23 +154,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                             return data;
                         })
                 }],
-                judgePosters: ['judgePosterService', 'judge', 'forms', (judgePosterService, judge, forms) => {
-                    return judgePosterService.get({judgeId: judge.judgeId})
+                posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
+                    return posterService.get({summitId: localStorageService.get('summit')})
                         .then((data) => {
-                            _.forEach(data, (judgePoster) => {
-                                var judgeForm = _.find(forms, {'judgeId': judgePoster.judgeId, 'posterId': judgePoster.posterId})
-                                if(judgeForm) {
-                                    judgePoster.score = judgeForm.total;
-                                }
-                            });
                             return data;
                         })
-                }],
-                judgeSummits: ['judgeSummitService', 'judge', (judgeSummitService, judge, judgePosters) => {
-                    return judgeSummitService.get({judgeId: judge.judgeId})
-                        .then((data) => {
-                            return data;
-                        });
                 }]
             }
         })
@@ -237,15 +225,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: 'JUDGE/src/pages/judge-login/judge-login.html',
             controller: 'judgeLoginController',
             controllerAs: 'ctrl',
-            hideNav: true,
-            resolve: {
-                judges: ['judgeService', (judgeService) => {
-                    return judgeService.get({active: 1})
-                        .then((data) => {
-                            return data;
-                        });
-                }]
-            }
+            hideNav: true
         })
         .state('home.judge', {
             url: '/judge/{judgeId:[0-9]+}',
@@ -267,12 +247,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'judgeDashboardController',
             controllerAs: 'ctrl',
             resolve: {
-                posters: ['judgePosterService', 'authService', (judgePosterService, authService) => {
-                    return judgePosterService.get({judgeId: authService.currentUser.id})
-                        .then((data) => {
-                            return data;
-                        });  
-                }],
                 forms: ['formService', 'authService', (formService, authService) => {
                     return formService.get({judgeId: authService.currentUser.id})
                         .then((data) => {
@@ -302,19 +276,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('home.judge.form', {
-            url: '/form/{posterId:[0-9]+}',
+            url: '/form/{formId:[0-9]+}',
             templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
             controller: 'judgeFormController',
             controllerAs: 'ctrl',
             resolve: {
                 form: ['formService', '$stateParams', (formService, $stateParams) => {
-                    return formService.get({judgeId: $stateParams.judgeId, posterId: $stateParams.posterId})
+                    return formService.get({formId: $stateParams.formId})
                         .then((data) => {
-                            if(data.length === 1) {
-                                return data[0];
-                            } else {
-                                return {judgeId: $stateParams.judgeId, posterId: $stateParams.posterId};
-                            }
+                            return data[0];
                         })
                 }],
                 formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {

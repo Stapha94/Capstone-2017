@@ -54,7 +54,7 @@ class Admin_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}
@@ -62,7 +62,7 @@ class Admin_model extends CI_Model {
 
 	// For login
 	public function check_admin($email, $password) {
-		$this->db->select("{$this->name}_id, email, password");
+		$this->db->select("{$this->name}_id, first_name, last_name, email");
 		$this->db->where('email', $email);
 		$this->db->where($this->authorize->get_password_hash($password));
 		$this->db->where('active', 1);

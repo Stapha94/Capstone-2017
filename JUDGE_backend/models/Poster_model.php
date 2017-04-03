@@ -37,7 +37,7 @@ class Poster_model extends CI_Model {
                 {$joins['pr']}.email,
                 {$joins['i']}.title AS institution,
                 {$joins['r']}.title AS role,
-                {$joins['pr']}.is_registered,
+                {$joins['pr']}.active,
                 {$joins['s']}.summit_start,
                 {$joins['s']}.summit_end,
                 {$joins['s']}.registration_deadline,
@@ -82,7 +82,7 @@ class Poster_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}

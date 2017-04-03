@@ -54,27 +54,15 @@ class JudgeFormController {
         this.$state.go('home.judge.dashboard');
     }
 
-    // This creates a form and form questions if its the first time accessing the page
+    // This creates form questions if its the first time accessing the page
     setupForm() {
         if(this.formQuestions.length === 0) {
             _.forEach(this.questions, (question) => {
-                var formQuestion = { questionId: question.questionId, section: question.section, description: question.description, score: 0 };
+                var formQuestion = { formId: this.form.formId, questionId: question.questionId, section: question.section, description: question.description, score: 0 };
                 this.formQuestions.push(formQuestion);
             });
-            if(!this.form.formId) {
-                this.formService.create(this.form)
-                    .then((form) => {
-                        _.forEach(this.formQuestions, (formQuestion) => {
-                            formQuestion['formId'] = form.formId;
-                        });
-                        this.formQuestionService.create(this.formQuestions);
-                    });
-            } else {
-                _.forEach(this.formQuestions, (formQuestion) => {
-                    formQuestion['formId'] = this.form.formId;
-                });
-                this.formQuestionService.create(this.formQuestions);
-            }
+            this.formQuestionService.create(this.formQuestions);
+            this.originalFormQuestions = angular.copy(this.formQuestions);
         }
     }
 

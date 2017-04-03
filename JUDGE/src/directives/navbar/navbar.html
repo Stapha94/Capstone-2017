@@ -59,7 +59,7 @@
                     <a ui-sref="home.landing" class="brand-logo logo"><img src="judge/assets/img/MarshallWhite.png" height="40" width=""></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="drop-button" data-activates="admin-dropdown" material-dropdown>{{ctrl.user.userName}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a class="drop-button" data-activates="admin-dropdown" material-dropdown>{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a class="drop-button" data-activates="admin-presenters-dropdown" material-dropdown>Participants<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a class="drop-button" data-activates="admin-users-dropdown" material-dropdown>User Management<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a ui-sref="home.admin.reports">Reports</a></li>
@@ -100,7 +100,7 @@
                     <a ui-sref="home.landing" class="brand-logo logo"><img src="judge/assets/img/MarshallWhite.png" height="40" width=""></a>
                     <a ui-sref="." data-activates="judge-menu" class="button-collapse" material-side-nav><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="drop-button" data-activates="judge-dropdown" material-dropdown>{{ctrl.user.userName}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a class="drop-button" data-activates="judge-dropdown" material-dropdown>{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a ng-click="ctrl.authService.logout()">Logout</a></li>
                     </ul>
                 </div>
@@ -111,7 +111,7 @@
                     <li>
                         <ul class="collapsible" data-collapsible="expandable" material-collapsible>
                             <li>
-                                <div class="collapsible-header">{{ctrl.user.userName}}</div>
+                                <div class="collapsible-header">{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}</div>
                                 <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.info"><img class="nav-icon" src="judge/assets/img/ic_verified_user_white_48dp_2x.png">Info</a></div>
                                 <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.dashboard"><img class="nav-icon" src="judge/assets/img/ic_dashboard_white_48dp_2x.png">Posters</a></div>
                             </li>

@@ -18,7 +18,9 @@ class Login extends REST_Controller {
 		if (count($matches) === 1) {
 			$admin = array(
 				'id' => $matches[0]->admin_id,
-				'user_name' => $email,
+				'email' => $email,
+				'first_name' => $matches[0]->first_name,
+				'last_name' => $matches[0]->last_name,
 				'type' => 'Admin'
 			);
 			$auth_token = $this->authorize->get_auth($admin);
@@ -32,15 +34,17 @@ class Login extends REST_Controller {
 	}
 
     public function judge_post() {
-        $user_name = $this->post('userName');
+        $email = $this->post('email');
         $pin = $this->post('pin');
 
-        $matches = $this->judge->check_judge($user_name, $pin);
+        $matches = $this->judge->check_judge($email, $pin);
 
         if (count($matches) === 1) {
             $judge = array(
                 'id' => $matches[0]->judge_id,
-                'user_name' => $user_name,
+                'email' => $email,
+				'first_name' => $matches[0]->first_name,
+				'last_name' => $matches[0]->last_name,
                 'type' => 'Judge'
             );
             $auth_token = $this->authorize->get_auth($judge);

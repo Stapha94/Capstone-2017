@@ -10,6 +10,8 @@ class Migration_Add_award extends CI_Migration {
                             award_id  INT(11) NOT NULL,
                             title           VARCHAR(50)    NOT NULL,
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
+                            
+                            UNIQUE (title),
 
                             PRIMARY KEY (award_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

@@ -13,6 +13,8 @@ class Migration_Add_question extends CI_Migration {
                             active		TINYINT(1)	NOT NULL DEFAULT 1,
 
                             FOREIGN KEY (question_section_id) REFERENCES question_section(question_section_id),
+                            
+                            UNIQUE (description),
 
                             PRIMARY KEY (question_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

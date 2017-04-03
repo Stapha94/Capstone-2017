@@ -2,7 +2,7 @@
 class Judge_model extends CI_Model {
 
         private $judge_id;
-        private $user_name;
+        private $email;
         private $first_name;
         private $last_name;
         private $judge_category_id;
@@ -10,7 +10,7 @@ class Judge_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->fields = array('judge_id', 'user_name', 'first_name', 'last_name', 'judge_category_id', 'active');
+		$this->fields = array('judge_id', 'email', 'first_name', 'last_name', 'judge_category_id', 'active');
 		$this->name = 'judge';
 		$this->id = "{$this->name}_id";
 		parent::__construct();
@@ -24,7 +24,7 @@ class Judge_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->id},
-			user_name,
+			email,
 			first_name,
 			last_name,
 			{$joins['jc']}.{$joins['jc']}_id,
@@ -70,12 +70,11 @@ class Judge_model extends CI_Model {
 		}
 	}
 
-	public function check_judge($user_name, $pin) {
-			$query = $this->db->select('judge.judge_id, user_name, pin')
+	public function check_judge($email, $pin) {
+			$query = $this->db->select('judge_id, first_name, last_name, email')
 							->from('judge')
-							->join('judge_summit', 'judge.judge_id = judge_summit.judge_id')
-							->join('summit', 'judge_summit.summit_id = summit.summit_id')
-							->where('judge.user_name', $user_name)
+							->from('summit')
+							->where('judge.email', $email)
 							->where($this->authorize->get_password_hash($pin, TRUE))
 							->where('judge.active', 1)
 							->where('summit.active', 1)

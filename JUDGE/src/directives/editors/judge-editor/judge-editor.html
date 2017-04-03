@@ -1,24 +1,24 @@
 <div class="input-field col s12">
-    <form>
+    <form ng-submit="ctrl.save()">
         <div class="row">
             <div class="input-field col s6">
-                <input id="firstName" ng-model="ctrl.judge.firstName" placeholder="First Name" ng-disabled="!ctrl.canEdit">
+                <input id="firstName" ng-model="ctrl.judge.firstName" class="validate" placeholder="First Name" ng-disabled="!ctrl.canEdit" required>
                 <label class="active" for="firstName" >First Name</label>
             </div>
             <div class="input-field col s6">
-                <input id="lastName" ng-model="ctrl.judge.lastName" placeholder="Last Name" ng-disabled="!ctrl.canEdit">
+                <input id="lastName" ng-model="ctrl.judge.lastName" class="validate" placeholder="Last Name" ng-disabled="!ctrl.canEdit" required>
                 <label class="active" for="lastName" >Last Name</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="userName" ng-model="ctrl.judge.userName" class="validate" placeholder="User Name" ng-disabled="!ctrl.canEdit">
-                <label class="active" for="userName" >User Name</label>
+                <input type="email" id="email" ng-model="ctrl.judge.email" class="validate" placeholder="Email" ng-disabled="!ctrl.canEdit" required>
+                <label class="active" for="email" >Email</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.canEdit" ng-show="ctrl.canEdit && ctrl.user.isAdmin">
+                <select ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.canEdit" ng-show="ctrl.canEdit && ctrl.user.isAdmin" ng-required="ctrl.canEdit && ctrl.user.isAdmin">
                     <option ng-repeat="judgeCategory in ctrl.judgeCategories" value="{{judgeCategory.judgeCategoryId}}">{{judgeCategory.title}}</option>
                 </select>
                 <input id="category" ng-model="ctrl.judge.category" disabled ng-if="!ctrl.canEdit || ctrl.user.isJudge">
@@ -26,15 +26,15 @@
             </div>
         </div>
         <div class="row">
-            <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="filled-in-box" ng-disabled="!ctrl.canEdit || !ctrl.user.isAdmin" />
+            <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="filled-in-box" ng-disabled="!ctrl.canEdit || !ctrl.user.isAdmin"  ng-required="ctrl.user.IsAdmin"/>
             <label for="filled-in-box">Active</label>
         </div>
-    </form>
 
-    <div class="row pull-right">
-        <a ng-if="!ctrl.canEdit" class="wave-effects wave-light btn" ng-click="ctrl.edit()">Edit</a>
-        <button type="submit" ng-if="ctrl.canEdit" class="wave-effects wave-light btn green" ng-click="ctrl.save()">Save</button>
-        <a ng-if="ctrl.canEdit" class="wave-effects wave-light btn red" ng-click="ctrl.cancel()">Cancel</a>
-    </div>
+        <div class="row pull-right">
+            <a ng-if="!ctrl.canEdit" class="wave-effects wave-light btn" ng-click="ctrl.edit()">Edit</a>
+            <button type="submit" id="submit" value="Submit" ng-if="ctrl.canEdit" class="wave-effects wave-light btn green">Save</button>
+            <a ng-if="ctrl.canEdit" class="wave-effects wave-light btn red" ng-click="ctrl.cancel()">Cancel</a>
+        </div>
+    </form>
 
 </div>

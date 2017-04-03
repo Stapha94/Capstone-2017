@@ -74,7 +74,7 @@ class Migration_Add_test_data extends CI_Migration {
         $sql = "DELETE FROM poster_abstract
                 WHERE title = 'Test title' AND objective = 'Test objective' AND methods = 'Test methods' AND results = 'Test results' AND conclusion = 'Test conclusion';";
 
-        $this->db->query($sql);                        
+        $this->db->query($sql);
 
         $sql = "DELETE FROM presenter
                 WHERE first_name = 'Mark' AND last_name = 'Adkins' AND email = 'test@test.com' AND institution_id = 1 AND role_id = 1 AND is_registered = 1;";

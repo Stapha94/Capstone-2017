@@ -9,11 +9,11 @@ class Presenter_model extends CI_Model {
         private $email;
         private $institution_id;
         private $role_id;
-        private $is_registered;
+        private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('presenter_id', 'first_name', 'last_name', 'suffix', 'email', 'institution_id', 'role_id', 'is_registered');
+		$this->fields = array('presenter_id', 'first_name', 'last_name', 'suffix', 'email', 'institution_id', 'role_id', 'active');
 		$this->name = 'presenter';
 		parent::__construct();
 	}
@@ -32,7 +32,7 @@ class Presenter_model extends CI_Model {
                 email,
                 {$joins['i']}.title AS institution,
                 {$joins['r']}.title AS role,
-                is_registered");
+                active");
 
 		// Put any joins here
 
@@ -68,7 +68,7 @@ class Presenter_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}

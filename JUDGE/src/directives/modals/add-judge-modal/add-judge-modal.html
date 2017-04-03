@@ -1,29 +1,41 @@
 <!-- Modal Structure -->
 <div id="add-judge" class="modal modal-fixed-footer" material-modal>
-    <div class="modal-content">
-        <h5 class="page-title">Add Judge</h5>
-        <div class="input-field col s12">
-            <form>
+    <form name="add-judge-form" id="add-judge-form" ng-submit="ctrl.add()">
+        <div class="modal-content">
+            <h5 class="page-title">Add Judge</h5>
+            <div class="input-field col s12">
                 <div class="row">
-                    <div class="col s6">
-                        <input id="first_name" ng-model="ctrl.judge.firstName" placeholder="First Name">
+                    <div class="input-field col s6">
+                        <input type="text" name="first_name" id="first_name" ng-model="ctrl.judge.firstName" placeholder="First Name" ng-required="ctrl.modal">
+                        <label class="active" for="first_name">First Name</label>
                     </div>
-                    <div class="col s6">
-                        <input id="last_name" ng-model="ctrl.judge.lastName" placeholder="Last Name">
+                    <div class="input-field col s6">
+                        <input type="text" name="last_name" id="last_name" ng-model="ctrl.judge.lastName" placeholder="Last Name" ng-required="ctrl.modal">
+                        <label class="active" for="last_name">Last Name</label>
                     </div>
                 </div>
-                <input id="userName" ng-model="ctrl.judge.userName" class="validate" placeholder="User Name">
-                <select ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select>
-                    <option value="" disabled selected>Category</option>
-                    <option ng-repeat="judgeCategory in ctrl.judgeCategories" value="{{judgeCategory.judgeCategoryId}}">{{judgeCategory.title}}</option>
-                </select>
-                <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="filled-in-box" checked="checked" />
-                <label for="filled-in-box">Active</label>
-            </form>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" id="email" ng-model="ctrl.judge.email" class="validate" placeholder="Email" ng-required="ctrl.modal">
+                        <label class="active" for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select name="category" class="form-control" ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.modal" ng-show="ctrl.modal" ng-required="ctrl.modal"
+                            ng-options="judgeCategory.judgeCategoryId as judgeCategory.title for judgeCategory in ctrl.judgeCategories">
+                            <option value="" disabled>Category</option>
+                        </select>
+                        <label class="active" for="category">Category</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.judge.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
-        <a ng-click="ctrl.add()" class="modal-action modal-close waves-effect waves-green btn green ">Add Judge</a>
-    </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Add Judge</a>
+        </div>
+    </form>
 </div>

@@ -49,7 +49,6 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
-    'JUDGE/src/filters/**/*.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     'JUDGE/src/config/**/*.js',

@@ -1,10 +1,9 @@
 class JudgeDashboardController {
 
-    constructor($scope, $state, $stateParams, posters, forms) {
+    constructor($scope, $state, $stateParams, forms) {
         this.$scope = $scope;
         this.$state = $state;
         this.$stateParams = $stateParams;
-        this.posters = posters;
         this.forms = forms;
         this.abstract = {};
         this.dividePosters();
@@ -21,17 +20,16 @@ class JudgeDashboardController {
     }
 
     dividePosters() {
-        _.forEach(this.posters, (poster) => {
-            var form = _.find(this.forms, {posterId: poster.posterId})
-            if(form) {
-                poster.isScored = true;
+        _.forEach(this.forms, (form) => {
+            if(form.total > 0) {
+                form.isScored = true;
             } else {
-                poster.isScored = false;
+                form.isScored = false;
             }
         });
     }
 
 }
 
-JudgeDashboardController.$inject = ['$scope', '$state', '$stateParams', 'posters', 'forms'];
+JudgeDashboardController.$inject = ['$scope', '$state', '$stateParams', 'forms'];
 app.controller('judgeDashboardController', JudgeDashboardController);

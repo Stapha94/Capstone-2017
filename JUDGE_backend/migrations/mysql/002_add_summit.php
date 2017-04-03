@@ -12,12 +12,12 @@ class Migration_Add_summit extends CI_Migration {
                             summit_end      DATETIME  NOT NULL,
                             registration_deadline       DATETIME,
                             created_by_admin_id INT(11) NOT NULL,
-                            pin       INT(4) NOT NULL,
+                            pin       VARCHAR(64)       NOT NULL,
                             active		TINYINT(1)		NOT NULL DEFAULT 1,
                             
                             FOREIGN KEY (created_by_admin_id) REFERENCES admin(admin_id),
                             
-                            UNIQUE KEY (summit_start, summit_end),
+                            UNIQUE (summit_start, summit_end),
 
                             PRIMARY KEY (summit_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

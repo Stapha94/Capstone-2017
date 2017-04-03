@@ -54,19 +54,19 @@ class AuthService {
         return deferred.promise;
     }
 
-    judgeLogin(userName, pin) {
+    judgeLogin(email, pin) {
         var deferred = this.$q.defer();
 
         var url = this.baseUrl + 'authorize/judge';
-        this.$http.post(url, {userName: userName, pin: pin})
+        this.$http.post(url, {email: email, pin: pin})
             .then((response) => {
-                this.$log.info('Login for user ' + response.data.judge[0].userName + ' successful!');
+                this.$log.info('Login for user ' + email + ' successful!');
                 this.currentUser = response.data.judge[0];
                 this.authToken = response.data.token.jwt;
                 deferred.resolve(response.data.judge[0]);
             })
             .catch((error) => {
-                this.$log.error('Login failed!');
+                this.$log.error('Login for user ' + email + ' failed!');
                 this.currentUser = null;
                 this.authToken = null;
                 deferred.reject(error);

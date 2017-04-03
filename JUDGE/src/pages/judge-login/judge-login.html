@@ -5,7 +5,7 @@
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Username" id="userName" type="text" ng-model="ctrl.userName" class="validate" required>
+                        <input placeholder="Email" id="email" type="email" ng-model="ctrl.email" class="validate" required>
                     </div>
                     <div class="input-field col s12">
                         <input placeholder="Pin" id="pin" type="password" ng-model="ctrl.pin" class="validate" required>
@@ -13,7 +13,7 @@
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
+                        <button ng-click="ctrl.login()" class="btn admin-btn" type="submit" name="login">Login</button>
                     </div>
                     <div class="col s6">
                         <button ui-sref="home.landing" class="btn cancel-btn">Cancel</button>

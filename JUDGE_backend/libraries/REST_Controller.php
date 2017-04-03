@@ -1951,4 +1951,243 @@ abstract class REST_Controller extends \CI_Controller {
 		$auth = $this->authorize->get_auth();
 		return $auth;
 	}
+
+	protected function generate_get_response ($auth = 400, $model = NULL, $params = array(), $safe_columns = NULL) {
+
+    	if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+    		if($safe_columns !== NULL) {
+				$query = $model->get($params);
+				$query = retrieve_columns($query, $safe_columns);
+				$this->response(prepare_for_frontend($query));
+			} else {
+				$this->response([], 401);
+			}
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth) || $this->authorize->is_judge($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth) || $this->authorize->is_judge($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response([], 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_admin_get_response ($auth = 400, $model = NULL, $params = array()) {
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_admin_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_judge_get_response ($auth = 400, $model = NULL, $params = array()) {
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_judge($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_judge_post_response ($auth = 400, $model = NULL, $batch = FALSE) {
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_judge($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
 }

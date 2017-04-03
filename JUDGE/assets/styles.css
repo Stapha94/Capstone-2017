@@ -114,8 +114,7 @@ td a.btn:visited, td a.btn:hover {
 
 .wrap {
     margin: auto;
-    width: 80%;
-    margin-left: 220px;
+    width: 90%;
 }
 
 .side-nav {
@@ -144,7 +143,6 @@ td a.btn:visited, td a.btn:hover {
 
 @media only screen and (max-width: 995px) {
     .wrap {
-        margin-left: 150px;
         width: 80%;
     }
 
@@ -285,11 +283,11 @@ th button.table-btn {
 }
 
 /** Override Disabled Settings **/
-input:not([type]):disabled {
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled {
     color: inherit;
 }
 
-input:not([type]):disabled+label {
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label {
     color: #00B140;
 }
 
