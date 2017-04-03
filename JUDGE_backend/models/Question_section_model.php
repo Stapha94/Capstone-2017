@@ -4,10 +4,11 @@ class Question_section_model extends CI_Model {
 	private $question_id;
 	private $question_section_id;
 	private $description;
+	private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('question_section_id', 'description');
+		$this->fields = array('question_section_id', 'description', 'active');
 		$this->name = 'question_section';
 		parent::__construct();
 	}
@@ -19,7 +20,8 @@ class Question_section_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
-                title");
+                title,
+                active");
 
 		// Put any joins here
 
@@ -33,12 +35,27 @@ class Question_section_model extends CI_Model {
 		return $result;
 	}
 
-	public function joins()
-	{
-		$joins = array(
-			'qs' => 'question_section'
-		);
-		return $joins;
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$question_section_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('question_section_id' => $question_section_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 }

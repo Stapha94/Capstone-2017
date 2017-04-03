@@ -1,9 +1,9 @@
 class AdminNavController {
 
-    constructor($stateParams, $state, admin, authService) {
+    constructor($scope, $stateParams, $state, admin, summitId, authService) {
         this.authService = authService;
         this.admin = admin;
-        $state.go('admin.dashboard');
+        $scope.summitId = summitId;
     }
 
     logout() {
@@ -11,5 +11,5 @@ class AdminNavController {
     }
 }
 
-AdminNavController.$inject = ['$stateParams', '$state', 'admin', 'authService'];
+AdminNavController.$inject = ['$scope', '$stateParams', '$state', 'admin', 'summitId', 'authService'];
 app.controller('adminNavController', AdminNavController);

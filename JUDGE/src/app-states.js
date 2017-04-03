@@ -4,7 +4,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: 'JUDGE/src/pages/landing/landing.html',
             controller: 'landingController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: {
+                summit: ['summitService', (summitService) => {
+                    return summitService.get({active: 1})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }]
+            }
         })
         //admin related states
         .state('login', {
@@ -14,7 +22,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('admin', {
-            url: '/admin/:id',
+            url: '/admin/:adminId',
             templateUrl: 'JUDGE/src/pages/admin-nav/admin-nav.html',
             controller: 'adminNavController',
             controllerAs: 'ctrl',
@@ -24,6 +32,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                         .then((data) => {
                             return data[0];
                         })
+                }],
+                summitId: ['localStorageService', (localStorageService) => {
+                    return localStorageService.get('summit');
                 }]
             }
         })
@@ -63,7 +74,21 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 'admin': {
                     templateUrl: 'JUDGE/src/pages/admin-judges/admin-judges.html',
                     controller: 'adminJudgesController',
-                    controllerAs: 'ctrl'
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        judges: ['judgeService', (judgeService) => {
+                            return judgeService.get()
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                            return judgeCategoryService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }]
+                    }
                 }
             }
         })
@@ -117,7 +142,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: {
                 judges: ['judgeService', (judgeService) => {
-                    return judgeService.get()
+                    return judgeService.get({active: 1})
                         .then((data) => {
                             return data;
                         });
@@ -125,13 +150,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             }
         })
         .state('judge', {
-            url: '/judge/:id',
+            url: '/judge/:judgeId',
             templateUrl: 'JUDGE/src/pages/judge-nav/judge-nav.html',
             controller: 'judgeNavController',
             controllerAs: 'ctrl',
             resolve: {
                 judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
-                    return judgeService.get({judgeId: $stateParams.id})
+                    return judgeService.get({judgeId: $stateParams.judgeId})
                         .then((data) => {
                             return data[0];
                         })
@@ -151,18 +176,58 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                                 .then((data) => {
                                     return data;
                                 });  
+                        }],
+                        forms: ['formService', 'authService', (formService, authService) => {
+                            return formService.get({judgeId: authService.currentUser.id})
+                                .then((data) => {
+                                    return data;
+                                });
                         }]
                     }
                 }
             }
         })
         .state('judge.form', {
-            url: '/form/:id',
+            url: '/form/:posterId',
             views: {
                 'judge': {
                     templateUrl: 'JUDGE/src/pages/judge-form/judge-form.html',
                     controller: 'judgeFormController',
-                    controllerAs: 'ctrl'
+                    controllerAs: 'ctrl',
+                    resolve: {
+                        form: ['formService', '$stateParams', (formService, $stateParams) => {
+                            return formService.get({judgeId: $stateParams.judgeId, posterId: $stateParams.posterId})
+                                .then((data) => {
+                                    if(data.length === 1) {
+                                        return data[0];
+                                    } else {
+                                        return {judgeId: $stateParams.judgeId, posterId: $stateParams.posterId};
+                                    }
+                                })
+                        }],
+                        formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
+                            if(form.formId) {
+                                return formQuestionService.get({formId: form.formId})
+                                    .then((data) => {
+                                        return data;
+                                    });
+                            } else {
+                                return [];
+                            }
+                        }],
+                        questionSections: ['questionSectionService', (questionSectionService) => {
+                            return questionSectionService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }],
+                        questions: ['questionService', (questionService) => {
+                            return questionService.get({active: 1})
+                                .then((data) => {
+                                    return data;
+                                })
+                        }]
+                    }
                 }
             }
         });

@@ -32,8 +32,8 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);
 
-        $sql = "INSERT INTO judge (user_name, first_name, last_name, judge_category_id, is_active)
-                VALUES ('MUSOMFox', 'Paul', 'Fox', 1, 1);";
+        $sql = "INSERT INTO judge (user_name, first_name, last_name, judge_category_id)
+                VALUES ('MUSOMFox', 'Paul', 'Fox', 1);";
 
         $this->db->query($sql);
 

@@ -13,6 +13,7 @@ class Migration_Add_summit extends CI_Migration {
                             registration_deadline       DATETIME,
                             created_by_admin_id INT(11) NOT NULL,
                             pin       INT(4) NOT NULL,
+                            active		TINYINT(1)		NOT NULL DEFAULT 1,
                             
                             FOREIGN KEY (created_by_admin_id) REFERENCES admin(admin_id),
                             

@@ -46,7 +46,19 @@ function get_paramters()
 	$ci =& get_instance();
 	$params = $ci->uri->uri_to_assoc(2);
 	foreach($params as $column=>$value) {
-		$params[$column] = str_replace("%20", " ", $value);
+		if(!($column === 'create' || $column === 'update')) {
+			$params[$column] = str_replace("%20", " ", $value);
+		}
 	}
 	return $params;
+}
+
+function set_active($active)
+{
+	$ci =& get_instance();
+	if($ci->db->dbdriver === 'mysqli') {
+		return $active;
+	} else if($ci->db->dbdriver === 'postgre') {
+		return "cast({$active} as BOOLEAN)";
+	}
 }

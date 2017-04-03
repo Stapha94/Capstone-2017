@@ -28,7 +28,7 @@ class Authorize {
         		return 400;
 			}
 		} else {
-        	return 400;
+        	return 401;
 		}
     }
 
@@ -68,5 +68,23 @@ class Authorize {
         $unencoded_array = array( 'jwt' => $jwt);
         return json_encode($unencoded_array);
     }
+
+    // This is for checking to see if we're using the mysql or postgres database and using the correct hashing function.
+    public function get_password_hash($pass, $is_pin = FALSE) {
+    	$ci =& get_instance();
+    	if($ci->db->dbdriver === 'mysqli') {
+    		if($is_pin === true) {
+				return "pin = SHA2({$pass}, 256)";
+			} else if($is_pin === false) {
+    			return "password = SHA2('{$pass}', 256)";
+			}
+		} else if ($ci->db->dbdriver === 'postgre') {
+    		if($is_pin === TRUE) {
+				return "pin = crypt('{$pass}', pin)";
+			} else if($is_pin === false) {
+    			return "password = crypt('{$pass}', password)";
+			}
+		}
+	}
 
 }

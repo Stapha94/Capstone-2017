@@ -1,33 +1,56 @@
-<div class="container">
+<div class="wrap">
 
-    <form ng-if="ctrl.questionsLoaded()">
+    <form>
 
-        <table class="bordered highlight responsive-table">
-            <thead>
-                <tr>
-                    <th data-field="question">Question</th>
-                    <th data-field="poor">Poor</th>
-                    <th data-field="adequate">Adequate</th>
-                    <th data-field="fair">Fair</th><!-- we'll probably put an ng-if here later depending on the judge -->
-                    <th data-field="good">Good</th>
-                    <th data-field="excellent">Excellent</th>
-                    <th data-field="totals">TOTALS</th>
-                </tr>
-            </thead>
-
+        <table>
             <tbody>
-                <tr ng-repeat="question in questions">
-                    <td>{{question.description}}</td>
-                    <td ng-repeat="score in scores">
-                        <input name="{{'group' + question.questionId}}" ng-model="$parent.question.score" type="radio" id="{{score.label}}" ng-value="score.score" required />
-                        <label for="{{score.label}}"></label>
+                <tr ng-repeat="questionSection in ctrl.questionSections">
+                    <td>
+                        <table class="bordered highlight judge-form responsive-table">
+                            <thead>
+                                <tr>
+                                    <th class="question-info" data-field="question">{{questionSection.title}}</th>
+                                    <th data-field="poor">Poor</th>
+                                    <th data-field="adequate">Adequate</th>
+                                    <th data-field="fair">Fair</th>
+                                    <th data-field="good">Good</th>
+                                    <th data-field="excellent">Excellent</th>
+                                    <th class="pull-right" data-field="totals">TOTALS</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="question in ctrl.formQuestions | filter: {section: questionSection.title}">
+                                    <td class="question-info">{{question.description}}</td>
+                                    <td ng-repeat="score in ctrl.scores">
+                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" required />
+                                        <label for="{{'question' + question.questionId + score.label}}"></label>
+                                    </td>
+                                    <td class="pull-right">{{question.score}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </td>
-                    <td>{{question.score}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="bordered highlight judge-form responsive-table">
+                            <tbody>
+                                <tr>
+                                    <td class="pull-right">{{ctrl.form.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
-        <button ng-click="ctrl.submit()" class="btn admin-btn">Submit</button>
+        <div class="row">
+            <div class="pull-right">
+                <button ng-click="ctrl.submit()" class="btn admin-btn">Submit</button>
+            </div>
+        </div>
 
     </form>
 </div>

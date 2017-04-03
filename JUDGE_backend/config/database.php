@@ -96,12 +96,12 @@ $db['local'] = array(
 	'save_queries' => TRUE
 );
 
-$db['heroku'] = array(
+/*$db['heroku'] = array(
 	'dsn'	=> '',
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => $heroku_server['host'],
+	'username' => $heroku_server['username'],
+	'password' => $heroku_server['password'],
+	'database' => $heroku_server['db'],
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -116,4 +116,4 @@ $db['heroku'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);
+);*/

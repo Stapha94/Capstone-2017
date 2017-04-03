@@ -20,7 +20,7 @@ class Judge_poster_model extends CI_Model {
 				{$joins['j']}.first_name AS {$joins['j']}_first_name,
 				{$joins['j']}.last_name AS {$joins['j']}_last_name,
 				{$joins['jc']}.title AS {$joins['j']}_category,
-				{$joins['j']}.is_active,
+				{$joins['j']}.active,
 				{$joins['pc']}.title AS {$joins['po']}_category,
 				{$joins['aw']}.title AS award,
 				{$joins['pr']}.first_name AS {$joins['pr']}_first_name,
@@ -61,6 +61,22 @@ class Judge_poster_model extends CI_Model {
 			$result = $query->result();
 			return $result;
 		}
+
+	public function create($data = array()) {
+		try {
+			return $this->db->insert($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 		public function joins() {
 			$joins = array(

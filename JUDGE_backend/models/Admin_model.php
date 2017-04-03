@@ -37,11 +37,34 @@ class Admin_model extends CI_Model {
 		return $result;
 	}
 
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$admin_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('admin_id' => $admin_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	// For login
 	public function check_admin($email, $password) {
 		$this->db->select("{$this->name}_id, email, password");
 		$this->db->where('email', $email);
-		$this->db->where("password = SHA2('{$password}', 256)");
+		$this->db->where($this->authorize->get_password_hash($password));
 		$this->db->where('active', 1);
 		$this->db->limit(1);
 

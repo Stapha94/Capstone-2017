@@ -53,38 +53,24 @@ class AuthService {
         return deferred.promise;
     }
 
-    judgeLogin(user, pin) {
+    judgeLogin(userName, pin) {
         var deferred = this.$q.defer();
 
         var url = this.baseUrl + 'authorize/judge';
-        this.$http.post(url, {judgeId: user.judgeId, userName: user.userName, pin: pin})
+        this.$http.post(url, {userName: userName, pin: pin})
             .then((response) => {
-                this.$log.info('Login for user ' + user.userName + ' successful!');
+                this.$log.info('Login for user ' + response.data.judge[0].userName + ' successful!');
                 this.currentUser = response.data.judge[0];
                 this.authToken = response.data.token.jwt;
-                deferred.resolve(response);
+                deferred.resolve(response.data.judge[0]);
             })
             .catch((error) => {
-                this.$log.error('Login for user ' + user.userName + ' failed!');
+                this.$log.error('Login failed!');
                 this.currentUser = null;
                 this.authToken = null;
                 deferred.reject(error);
             });
         return deferred.promise;
-    }
-
-    checkPin(pin) {
-            var deferred = this.$q.defer();
-
-            var url = this.baseUrl + 'authorize/check-pin';
-            this.$http.post(url, {pin: pin})
-                .then((response) => {
-                    deferred.resolve(response);
-                })
-                .catch((response) => {
-                    deferred.reject(response);
-                });
-            return deferred.promise;
     }
 
     logout() {

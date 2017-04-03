@@ -42,8 +42,27 @@ class Poster_abstract_model extends CI_Model {
 		return $result;
 	}
 
-	public function create_poster_abstract($data) {
-		$this->db->insert('poster_abstract',$data);
+	public function create($data = array()) {
+		try {
+			if($this->db->insert($this->name, $data)) {
+				$poster_abstract_id = $this->db->insert_id();
+				$query = $this->db->get_where($this->name, array('poster_abstract_id' => $poster_abstract_id));
+				$result = $query->result();
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 }

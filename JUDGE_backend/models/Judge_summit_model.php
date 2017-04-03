@@ -20,7 +20,7 @@ class Judge_summit_model extends CI_Model {
 				{$joins['j']}.first_name AS {$joins['j']}_first_name,
 				{$joins['j']}.last_name AS {$joins['j']}_last_name,
 				{$joins['jc']}.title AS {$joins['j']}_category,
-				{$joins['j']}.is_active,
+				{$joins['j']}.active,
 				{$joins['s']}.summit_start,
 				{$joins['s']}.summit_end,
 				{$joins['s']}.registration_deadline");
@@ -42,6 +42,22 @@ class Judge_summit_model extends CI_Model {
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
+	}
+
+	public function create($data = array()) {
+		try {
+			return $this->db->insert($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			return $this->db->update($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public function joins() {

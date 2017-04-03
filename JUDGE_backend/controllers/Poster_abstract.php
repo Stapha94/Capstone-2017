@@ -24,22 +24,9 @@ class Poster_abstract extends REST_Controller {
 
 	public function index_post()
 	{
-		//$data['poster_abstracts'] = $this->poster_abstract->get_usernames();
+		$data['poster_abstracts'] = $this->poster_abstract->get_usernames();
 
-		//$this->load->view('poster_abstract_usernames', $data);
-
-		$this->load->model('Poster_abstract_model');
-		$postdata = file_get_contents('php://input');
-		$request = json_decode($postdata);
-		$data = [
-			'title'      => $request->title,
-			'objective'  => $request->objective,
-			'methods'    => $request->methods,
-			'results'    => $request->results,
-			'conclusion' => $request->conclusion
-  		];
-
-		$this->Poster_abstract_model->create_poster_abstract($data);
+		$this->load->view('poster_abstract_usernames', $data);
 	}
 
 }

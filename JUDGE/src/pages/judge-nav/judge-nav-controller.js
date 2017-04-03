@@ -4,7 +4,6 @@ class JudgeNavController {
         this.authService = authService;
         this.judge = judge;
         this.loaded = false;
-        $state.go('judge.dashboard');
     }
 
     logout() {

@@ -3,7 +3,7 @@ class Form_question_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->fields = array('form_id', 'question_id', 'poster_id', 'judge_id');
+		$this->fields = array('form_id', 'question_id', 'score');
 		$this->name = 'form_question';
 		parent::__construct();
 	}
@@ -18,7 +18,7 @@ class Form_question_model extends CI_Model {
 
 		$this->db->select("{$this->name}.form_id,
 				{$this->name}.question_id,
-				score,
+				{$this->name}.score,
 				{$joins['f']}.poster_id,
 				{$joins['f']}.judge_id,
 				{$joins['f']}.total,
@@ -44,6 +44,23 @@ class Form_question_model extends CI_Model {
 		$query = $this->db->get($this->name);
 		$result = $query->result();
 		return $result;
+	}
+
+	public function create($data = array()) {
+		try {
+			return $this->db->insert_batch($this->name, $data);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function update($data = array()) {
+		try {
+			$this->db->where('form_id', $data[0]['form_id']); // This is needed for many-to-many tables. There might be a way to clean it up a bit.
+			return $this->db->update_batch($this->name, $data, 'question_id');
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public function joins() {
