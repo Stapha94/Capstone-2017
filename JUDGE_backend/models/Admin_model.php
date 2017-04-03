@@ -9,6 +9,11 @@ class Admin_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('admin_id', 'email', 'active');
+		$this->filter = array(
+			'admin_id' => 'admin',
+			'email' => 'admin',
+			'active' => 'admin'
+		);
 		$this->name = 'admin';
 		parent::__construct();
 	}
@@ -27,9 +32,7 @@ class Admin_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

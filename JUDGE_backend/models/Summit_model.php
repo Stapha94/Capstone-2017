@@ -11,8 +11,16 @@ class Summit_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->name = 'summit';
 		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'active');
+		$this->filter = array(
+			'summit_id' => 'summit',
+			'summit_start' => 'summit',
+			'summit_end' => 'summit',
+			'registration_deadline' => 'summit',
+			'created_by_admin_id' => 'summit',
+			'active' => 'summit'
+		);
+		$this->name = 'summit';
 		parent::__construct();
 	}
 
@@ -33,11 +41,9 @@ class Summit_model extends CI_Model {
 		// Put any joins here
 		$this->db->join("{$joins['ad']}", "{$joins['ad']}.{$joins['ad']}_id = {$this->name}.created_by_{$joins['ad']}_id");
 
-		// Where clauses here...found better way.
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

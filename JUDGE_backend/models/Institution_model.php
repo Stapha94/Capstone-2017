@@ -8,6 +8,11 @@ class Institution_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('institution_id', 'title', 'active');
+		$this->filter = array(
+			'institution_id' => 'institution',
+			'title' => 'institution',
+			'active' => 'institution'
+		);
 		$this->name = 'institution';
 		parent::__construct();
 	}
@@ -24,11 +29,9 @@ class Institution_model extends CI_Model {
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

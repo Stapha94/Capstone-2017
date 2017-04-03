@@ -9,16 +9,12 @@ class Presenter extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->presenter->fields);
-		$this->generate_admin_get_response($auth, $this->presenter, $params);
+		$this->generate_get_response($this->presenter);
 	}
 
-  public function index_post()
-  {
-	  $params = get_paramters();
-	  $auth = $this->sanitize_uri($params, $this->presenter->fields);
-	  $this->generate_post_response($auth, $this->presenter);
-  }
+	public function index_post()
+	{
+		$this->generate_post_response($this->presenter);
+	}
 
 }

@@ -3,7 +3,7 @@ class NavbarDirective {
     constructor() {
         this.restrict = 'E';
         this.replace = true;
-        this.templateUrl = 'judge/src/directives/navbar/navbar.html';
+        this.templateUrl = 'views/directives/navbar/navbar.html';
         this.controller = 'navbarController';
         this.controllerAs = 'ctrl';
     }

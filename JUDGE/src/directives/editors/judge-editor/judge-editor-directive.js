@@ -2,7 +2,7 @@ class JudgeEditorDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'JUDGE/src/directives/editors/judge-editor/judge-editor.html';
+        this.templateUrl = 'views/directives/editors/judge-editor/judge-editor.html';
         this.replace = true;
         this.scope = {
             judge: '=',

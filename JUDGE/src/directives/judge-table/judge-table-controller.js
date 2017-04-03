@@ -17,7 +17,7 @@ class JudgeTableController {
             .then((judge) => {
                 angular.element('.modal').modal('close');
                 this.setModal();
-                if(this.params.category === judge.category || judge.category.toLowerCase()) {
+                if(this.params.category === judge.category || this.params.category === judge.category.toLowerCase()) {
                     this.judges.push(judge);
                 }
                 this.judge = {active: 1};

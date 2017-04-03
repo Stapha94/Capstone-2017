@@ -8,16 +8,12 @@ class Judge extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->judge->fields);
-		$this->generate_get_response($auth, $this->judge, $params);
+		$this->generate_get_response($this->judge);
 	}
 
     public function index_post()
     {
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->judge->fields);
-		$this->generate_post_response($auth, $this->judge);
+		$this->generate_post_response($this->judge);
     }
 
 }

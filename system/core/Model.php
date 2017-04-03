@@ -77,4 +77,29 @@ class CI_Model {
 		return get_instance()->$key;
 	}
 
+	protected function get_where_clauses($filter = array(), $params = array()) {
+		foreach ($filter as $field=>$table) {
+			if(array_key_exists($field, $params)) {
+				$param = $params[$field];
+			}
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
+			unset($param);
+		}
+	}
+
+	protected function get_join_where_clauses($filter = array(), $params = array()) {
+		foreach ($filter as $field=>$table) {
+			if(array_key_exists($field, $params)) {
+				$param = $params[$field];
+				$field = $this->convert_join_field($field);
+			}
+			if(isset($param)) {
+				$this->db->where("{$table}.{$field}", $param);
+			}
+			unset($param);
+		}
+	}
+
 }

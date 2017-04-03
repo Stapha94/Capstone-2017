@@ -1,11 +1,9 @@
 class LandingController {
 
-    constructor(authService, localStorageService, summit) {
-        this.authService = authService;
-        localStorageService.set('summit', summit.summitId); // Sets the current active summit for the site.
+    constructor() {
     }
 
 }
 
-LandingController.$inject = ['authService', 'localStorageService', 'summit'];
+LandingController.$inject = [];
 app.controller('landingController', LandingController);
