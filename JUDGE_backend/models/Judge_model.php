@@ -74,17 +74,34 @@ class Judge_model extends CI_Model {
 	}
 
 	public function check_judge($email, $pin) {
-			$query = $this->db->select('judge_id, first_name, last_name, email')
-							->from('judge')
-							->from('summit')
-							->where('judge.email', $email)
-							->where($this->authorize->get_password_hash($pin, TRUE))
-							->where('judge.active', 1)
-							->where('summit.active', 1)
-							->limit(1)
-							->get();
+		$this->db->select('pin');
+		$this->db->where('active', 1);
+		$this->db->limit(1);
 
-			$result = $query->result();
+		$query = $this->db->get('summit');
+		$result = $query->result();
+
+		if(count($result) === 1) {
+
+			$hash = $result[0]->pin;
+
+			if(password_verify($pin, $hash)) {
+
+
+				$this->db->select('judge_id, first_name, last_name, email');
+				$this->db->where('judge.email', $email);
+				$this->db->where('judge.active', 1);
+				$this->db->limit(1);
+
+				$query = $this->db->get("{$this->name}");
+
+				$result = $query->result();
+			} else {
+				$result = [];
+			}
+		} else {
+			$result = [];
+		}
 
 			return $result;
 	}

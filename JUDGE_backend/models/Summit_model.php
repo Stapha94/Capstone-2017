@@ -53,6 +53,7 @@ class Summit_model extends CI_Model {
 
 	public function create($data = array()) {
 		try {
+			$data['pin'] = password_hash($data['pin'], PASSWORD_BCRYPT);
 			if($this->db->insert($this->name, $data)) {
 				$summit_id = $this->db->insert_id();
 				$query = $this->db->get_where($this->name, array('summit_id' => $summit_id));

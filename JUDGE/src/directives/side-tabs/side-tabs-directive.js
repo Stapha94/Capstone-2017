@@ -2,7 +2,7 @@ class SideTabsDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'views/directives/side-tabs/side-tabs.html';
+        this.templateUrl = 'build/views/directives/side-tabs/side-tabs.html';
         this.scope = {
             tabs: '=',
             active: '=',

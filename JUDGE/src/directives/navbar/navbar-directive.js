@@ -6,7 +6,7 @@ class NavbarDirective {
         this.scope = {
             hideSide: '='
         };
-        this.templateUrl = 'views/directives/navbar/navbar.html';
+        this.templateUrl = 'build/views/directives/navbar/navbar.html';
         this.controller = 'navbarController';
         this.controllerAs = 'ctrl';
     }

@@ -50,6 +50,7 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
+    'JUDGE/src/pages/**/base-table-model-controller.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     'JUDGE/src/config/**/*.js',
@@ -69,12 +70,6 @@ var paths = {
     templates: 'JUDGE/src/**/*.html'
   },
   /**
-   * The 'views' folder is where our html templates reside
-   */
-  views: {
-    basePath: 'views/',
-  },
-  /**
    * The 'build' folder is where our app resides once it's
    * completely built.
    *
@@ -89,14 +84,13 @@ var paths = {
       styles: 'build/dist/styles/'
     },
     views: {
-      basePath: 'views/',
+      basePath: 'build/views/',
     }
   }
 };
 
 gulp.task('clean', function() {
-  var files = [].concat(paths.build.basePath, paths.views.basePath)
-    return del(files);
+    return del([paths.build.basePath]);
 });
 
 gulp.task('compileDependencies', function() {
@@ -129,7 +123,7 @@ gulp.task('compileStyles', function() {
 
 gulp.task('compileViews', function() {
     return gulp.src(paths.app.templates)
-            .pipe(gulp.dest(paths.views.basePath))
+            .pipe(gulp.dest(paths.build.views.basePath))
 });
 
 gulp.task('build', function() {

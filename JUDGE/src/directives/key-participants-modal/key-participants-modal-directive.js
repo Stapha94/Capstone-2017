@@ -2,7 +2,7 @@ class KeyParticipantsModalDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'views/directives/key-participants-modal/key-participants-modal.html';
+        this.templateUrl = 'build/views/directives/key-participants-modal/key-participants-modal.html';
         this.scope = {
             ctrl: '='
         };
