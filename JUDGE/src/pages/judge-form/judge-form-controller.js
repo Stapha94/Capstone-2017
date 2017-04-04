@@ -1,5 +1,38 @@
 class JudgeFormController {
 
+    static resolve() {
+        return {
+                form: ['formService', '$stateParams', (formService, $stateParams) => {
+                    return formService.get({formId: $stateParams.formId})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }],
+                formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
+                    if(form.formId) {
+                        return formQuestionService.get({formId: form.formId})
+                            .then((data) => {
+                                return data;
+                            });
+                    } else {
+                        return [];
+                    }
+                }],
+                questionSections: ['questionSectionService', (questionSectionService) => {
+                    return questionSectionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
+                questions: ['questionService', (questionService) => {
+                    return questionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+    }
+
     constructor($scope, $state, form, formQuestions, questions, questionSections, formService, formQuestionService, notificationService) {
         this.questions = questions;
         this.questionSections = questionSections;

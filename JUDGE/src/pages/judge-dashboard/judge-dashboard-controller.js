@@ -1,5 +1,16 @@
 class JudgeDashboardController {
 
+    static resolve() {
+        return {
+                forms: ['formService', '$stateParams', (formService, $stateParams) => {
+                    return formService.get({judgeId: $stateParams.judgeId})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
+            }
+    }
+
     constructor($scope, $state, $stateParams, forms) {
         this.active = $stateParams.tab;
         this.$scope = $scope;

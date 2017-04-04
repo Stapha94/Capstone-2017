@@ -76,7 +76,7 @@ class Question_model extends CI_Model {
 				return $joins;
 		}
 
-		private function convert_join_field($field = NULL) {
+		protected function convert_join_field($field = NULL) {
 
         	if($field === NULL) {
         		return $field;

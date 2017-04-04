@@ -13,7 +13,7 @@ class Form_question extends REST_Controller {
 
 	public function index_post()
 	{
-		$this->generate_post_response($this->form_question);
+		$this->generate_post_response($this->form_question, true);
 	}
 
 }

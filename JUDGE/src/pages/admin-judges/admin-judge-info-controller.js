@@ -1,5 +1,25 @@
 class AdminJudgeInfoController {
 
+    static resolve() {
+        return {
+                judge: ['judges', '$stateParams', (judges, $stateParams) => {
+                    return _.find(judges, {'judgeId': $stateParams.judgeId});
+                }],
+                forms: ['formService', 'judge', (formService, judge) => {
+                    return formService.get({judgeId: judge.judgeId})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
+                posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
+                    return posterService.get({summitId: localStorageService.get('summit')})
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+    }
+
     constructor($scope, judgeService, formService, judge, judgeCategories, forms, posters) {
         this.$scope = $scope;
         this.judgeService = judgeService;

@@ -1,4 +1,16 @@
 class HomeController {
+
+    static resolve() {
+        return {
+                summit: ['summitService', (summitService) => {
+                    return summitService.get({active: 1})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }]
+            }
+    }
+
     constructor($scope , $state, authService, localStorageService, summit) {
         $state.current.hideNav = $state.current.hideNav ? $state.current.hideNav : false; // This value can be used to make the navbar go away if we ever need it to.
         $scope.$state = $state;
