@@ -114,7 +114,8 @@ td a.btn:visited, td a.btn:hover {
 
 .wrap {
     margin: auto;
-    width: 90%;
+    width: 80%;
+    margin-left: 220px;
 }
 
 .side-nav {
@@ -143,6 +144,7 @@ td a.btn:visited, td a.btn:hover {
 
 @media only screen and (max-width: 995px) {
     .wrap {
+        margin-left: 150px;
         width: 80%;
     }
 
@@ -293,4 +295,14 @@ input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=em
 
 .select-wrapper input.select-dropdown:disabled {
     color: inherit;
+}
+
+.box-container {
+    border: 1px solid lightgrey;
+    margin: 50px;
+}
+
+.box-container .pull-right {
+    float: none;
+    margin-right: 2rem;
 }

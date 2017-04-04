@@ -14,20 +14,63 @@
             <button data-target="add-judge" class="btn green">Add Admin</button>
         </div>
         
-        <table class="bordered highlight">
-            <thead>
-            <tr>
-                <th>Email</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="admin in ctrl.admins | filter: { active: 1 }">
-                <td>{{ admin.email }}</td>
-                <td><a ng-click="ctrl.deactivate(admin)">Remove</a></td>
-            </tr>
-            </tbody>
-        </table>
+        <ul class="box-container">
+            <li ng-repeat="admin in ctrl.admins | filter: { active: 1 }">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <p id="firstName">{{admin.firstName}}</p>
+                        <label class="active" for="firstName">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <p id="lastName">{{admin.lastName}}</p>
+                        <label class="active" for="lastName">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p id="email">{{admin.email}}</p>
+                        <label class="active" for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row pull-right">
+                    <a ui-sref="admin.info({adminId: admin.adminId})" class="waves-effect waves-light btn">Edit</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div id="Inactive" class="col s12">
+
+        <div class="row pull-right">
+            <button data-target="add-judge" class="btn green">Add Admin</button>
+        </div>
+        
+        <div class="box-container">
+        <ul>
+            <li ng-repeat="admin in ctrl.admins | filter: { active: 0 }">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <p id="firstName">{{admin.firstName}}</p>
+                        <label class="active" for="firstName">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <p id="lastName">{{admin.lastName}}</p>
+                        <label class="active" for="lastName">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p id="email">{{admin.email}}</p>
+                        <label class="active" for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row pull-right">
+                    <a ui-sref="admin.info({adminId: admin.adminId})" class="waves-effect waves-light btn-floating"><i class="material-icons">mode_edit</i></a>
+                </div>
+            </li>
+        </ul>
+    </div>
 
     </div>
 </div>

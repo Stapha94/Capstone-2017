@@ -31,54 +31,27 @@
                 <li><a ui-sref="home.admin.account">Account</a></li>
             </ul>
 
-            <!-- Presenters dropdown -->
-            <ul id="admin-presenters-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.participants">Presenters</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.posters">Posters</a></li>
-            </ul>
-
-            <!-- Users dropdown -->
-            <ul id="admin-users-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.admins">Admins</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.judges({ category: 'marshall' })">Marshall Judges</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.judges({ category: 'cabell' })">Cabell Judges</a></li>
-            </ul>
-
-            <!-- Settings dropdown -->
-            <ul id="admin-settings-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.settings.summits">Summits</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.settings.institutions">Institutions</a></li>
-            </ul>
-
             <nav>
                 <div class="nav-wrapper">
                     <a ui-sref="home.landing" class="brand-logo logo"><img src="build/dist/img/MarshallWhite.png" height="40" width=""></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a class="drop-button" data-activates="admin-dropdown" material-dropdown>{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a class="drop-button" data-activates="admin-presenters-dropdown" material-dropdown>Participants<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a class="drop-button" data-activates="admin-users-dropdown" material-dropdown>User Management<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a ui-sref="home.admin.reports">Reports</a></li>
-                        <li><a class="drop-button" data-activates="admin-settings-dropdown" material-dropdown>Settings<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a ng-click="ctrl.authService.logout()">Logout</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
 
-        <!--aside>
+        <aside ng-if="!hideSide">
             <ul class="side-nav" id="bar">
                 <li><a class="waves-effect" ui-sref="home.admin.dashboard"><img class="nav-icon" src="build/dist/img/ic_dashboard_white_48dp_2x.png">Dashboard</a></li>
                 <li><a class="waves-effect" ui-sref="home.admin.participants"><img class="nav-icon" src="build/dist/img/ic_verified_user_white_48dp_2x.png">Participants</a></li>
                 <li><a class="waves-effect" ui-sref="home.admin.reporting"><img class="nav-icon" src="build/dist/img/ic_timeline_white_48dp_2x.png">Reports</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.judges"><img class="nav-icon" src="build/dist/img/ic_assignment_white_48dp_2x.png">Judges</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.settings"><img class="nav-icon" src="build/dist/img/ic_settings_white_48dp_2x.png">Settings</a></li>
+                <li><a class="waves-effect" ui-sref="home.admin.judges({category: 'marshall'})"><img class="nav-icon" src="build/dist/img/ic_assignment_white_48dp_2x.png">Judges</a></li>
+                <li><a class="waves-effect" ui-sref="home.admin.settings.summits"><img class="nav-icon" src="build/dist/img/ic_settings_white_48dp_2x.png">Settings</a></li>
             </ul>
-        </aside-->
+        </aside>
 
     </div>
 

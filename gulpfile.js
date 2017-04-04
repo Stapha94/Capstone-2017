@@ -6,6 +6,7 @@
 //            PLUGIN REFERENCES
 //=============================================
 var gulp = require('gulp');
+var del = require('del');
 var fs = require('fs');
 var path = require('path');
 var utils = require('gulp-util');
@@ -86,9 +87,17 @@ var paths = {
       fonts: 'build/dist/fonts/',
       images: 'build/dist/img/',
       styles: 'build/dist/styles/'
+    },
+    views: {
+      basePath: 'views/',
     }
   }
 };
+
+gulp.task('clean', function() {
+  var files = [].concat(paths.build.basePath, paths.views.basePath)
+    return del(files);
+});
 
 gulp.task('compileDependencies', function() {
     return gulp.src(paths.app.dependencies)
@@ -124,7 +133,7 @@ gulp.task('compileViews', function() {
 });
 
 gulp.task('build', function() {
-    runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles', 'compileViews']);
+runSequence(['clean'], ['compileDependencies'], ['compileScripts'], ['compileFonts'], ['compileImages'], ['compileStyles'], ['compileViews']);
 });
 
 gulp.task('watch', function() {

@@ -12,7 +12,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: 'views/pages/landing/landing.html',
             controller: 'landingController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            hideSide: true
         })
 
         //admin related states
@@ -75,7 +76,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('home.admin.judges', {
-            url: '/judges/{category:[a-zA-Z]*}',
+            url: '/judges/{category:[a-zA-Z]+}',
             reloadOnSearch: false,
             templateUrl: 'views/pages/admin-judges/admin-judges.html',
             controller: 'adminJudgesController',
