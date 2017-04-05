@@ -11,7 +11,7 @@ class Summit_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'active');
+		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'judge_login_disabled', 'active');
 		$this->filter = array(
 			'summit_id' => 'summit',
 			'summit_start' => 'summit',
@@ -36,6 +36,7 @@ class Summit_model extends CI_Model {
 			summit_end,
 			registration_deadline,
 			{$joins['ad']}.email,
+			judge_login_disabled,
 			{$this->name}.active");
 
 		// Put any joins here

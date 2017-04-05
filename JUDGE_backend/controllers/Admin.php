@@ -13,7 +13,7 @@ class Admin extends REST_Controller {
 
 	public function index_post()
 	{
-		$this->generate_post_response($this->admin);
+		$this->generate_admin_post_response($this->admin);
 	}
 
 }

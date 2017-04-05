@@ -16,7 +16,7 @@ class HomeController {
         $scope.$state = $state;
         this.authService = authService;
         this.user = authService.currentUser;
-        localStorageService.set('summit', summit.summitId); // Sets the current active summit for the site.
+        localStorageService.set('summit', summit); // Sets the current active summit for the site.
     }
 }
 

@@ -1942,7 +1942,7 @@ abstract class REST_Controller extends \CI_Controller {
 
 	protected function sanitize_uri($params = array(), $fields) {
 		foreach($params as $column=>$value) {
-			if(!($column === 'create' || $column === 'update')) {
+			if(!($column === 'create' || $column === 'update' || $column === 'update_password' || $column === 'update_pin')) {
 				if (!in_array($column, $fields) && !array_key_exists($column, $fields)) {
 					return 404;
 				}
@@ -2032,7 +2032,7 @@ abstract class REST_Controller extends \CI_Controller {
 					}
 				}
 				if ($method === 'create') {
-					$query = $model->create($data);
+					$query = $model->update_password($data);
 					if ($query) {
 						$this->response(prepare_for_frontend($query), 201);
 					} else {
@@ -2104,24 +2104,39 @@ abstract class REST_Controller extends \CI_Controller {
 					}
 				}
 			} else {
-				foreach ($fields as $index => $field) {
-					$item = $this->post($field);
-					if (isset($item)) {
-						$data[$field] = $item;
-					}
-				}
-				if ($method === 'create') {
-					$query = $model->create($data);
-					if ($query) {
-						$this->response(prepare_for_frontend($query), 201);
-					} else {
-						$this->response([], 400);
-					}
-				} else if ($method === 'update') {
-					if ($model->update($data)) {
+				if($method === 'update_password') {
+					$data['old_pass'] = $this->post('old_password');
+					$data['new_pass'] = $this->post('new_password');
+					$data['admin_id'] = $this->post('admin_id');
+
+					$query = $model->update_password($data);
+					if($query) {
 						$this->response([], 200);
 					} else {
 						$this->response([], 400);
+					}
+				} else if($method === 'update_pin') {
+
+				} else {
+					foreach ($fields as $index => $field) {
+						$item = $this->post($field);
+						if (isset($item)) {
+							$data[$field] = $item;
+						}
+					}
+					if ($method === 'create') {
+						$query = $model->create($data);
+						if ($query) {
+							$this->response(prepare_for_frontend($query), 201);
+						} else {
+							$this->response([], 400);
+						}
+					} else if ($method === 'update') {
+						if ($model->update($data)) {
+							$this->response([], 200);
+						} else {
+							$this->response([], 400);
+						}
 					}
 				}
 			}

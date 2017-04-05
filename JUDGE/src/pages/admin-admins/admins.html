@@ -1,4 +1,6 @@
 <div class="wrap">
+    <h5 class="page-title">Admin Management</h5>
+
     <add-admin-modal ctrl="ctrl"></add-admin-modal>
     <div class="col s12">
         <div class="row">
@@ -27,10 +29,10 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="admin in ctrl.models | filter: { active: 1 }">
-                    <td>{{ admin.email }}</td>
+                    <td><a ui-sref="home.admin.info({adminInfoId: admin.adminId, admin: admin})">{{ admin.email }}</a></td>
                     <td>{{ admin.firstName }}</td>
                     <td>{{ admin.lastName }}</td>
-                    <td><a ng-click="ctrl.deactivate(admin)">Remove</a></td>
+                    <td><a ng-click="ctrl.deactivate(admin)">Deactivate</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -55,10 +57,10 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="admin in ctrl.models | filter: { active: 0 }">
-                    <td>{{ admin.email }}</td>
+                    <td><a ui-sref="home.admin.info({adminInfoId: admin.adminId, admin: admin})">{{ admin.email }}</a></td>
                     <td>{{ admin.firstName }}</td>
                     <td>{{ admin.lastName }}</td>
-                    <td><a ng-click="ctrl.deactivate(admin)">Remove</a></td>
+                    <td><a ng-click="ctrl.activate(admin)">Activate</a></td>
                 </tr>
                 </tbody>
             </table>

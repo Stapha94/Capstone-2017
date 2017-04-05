@@ -44,13 +44,27 @@
         </div>
 
         <aside ng-if="!hideSide">
-            <ul class="side-nav" id="bar">
-                <li><a class="waves-effect" ui-sref="home.admin.dashboard"><img class="nav-icon" src="build/dist/img/ic_dashboard_white_48dp_2x.png">Dashboard</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.participants"><img class="nav-icon" src="build/dist/img/ic_verified_user_white_48dp_2x.png">Participants</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.reporting"><img class="nav-icon" src="build/dist/img/ic_timeline_white_48dp_2x.png">Reports</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.admins"><i class="material-icons md-light">face</i> Admins</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.judges({category: 'marshall'})"><img class="nav-icon" src="build/dist/img/ic_assignment_white_48dp_2x.png">Judges</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.settings.summits"><img class="nav-icon" src="build/dist/img/ic_settings_white_48dp_2x.png">Settings</a></li>
+            <ul class="side-nav collapsible" data-collapsible="expandable" material-collapsible id="bar">
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">perm_identity</i> &nbsp;&nbsp;{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.dashboard"><i class="material-icons md-light">dashboard</i> &nbsp;&nbsp;Dashboard</a>
+                        </div>
+                </li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">face</i> &nbsp;&nbsp;Users</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.participants"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;Participants</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.admins"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Admins</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.judges({category: 'marshall'})"><i class="material-icons md-light">assignment</i> &nbsp;&nbsp;Judges</a>
+                        </div>
+                </li>
+                <li>
+                        <a class="waves-effect" ui-sref="home.admin.reporting"><i class="material-icons md-light">timeline</i> &nbsp;&nbsp;Reports</a>
+                </li>
+                <li><a class="waves-effect" ui-sref="home.admin.settings.summits"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Settings</a></li>
             </ul>
         </aside>
 

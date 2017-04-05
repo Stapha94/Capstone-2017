@@ -12,7 +12,7 @@ class AdminJudgeInfoController {
                         })
                 }],
                 posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
-                    return posterService.get({summitId: localStorageService.get('summit')})
+                    return posterService.get({summitId: localStorageService.get('summit').summitId})
                         .then((data) => {
                             return data;
                         })

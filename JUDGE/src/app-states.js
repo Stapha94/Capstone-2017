@@ -46,8 +46,19 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: AdminsController.resolve()
         })
+        .state('home.admin.info', {
+            url: '/info/{adminInfoId:[0-9]+}',
+            templateUrl: 'build/views/pages/admin-admins/admin-info.html',
+            controller: 'adminInfoController',
+            controllerAs: 'ctrl',
+            params: {
+                admin: null
+            },
+            resolve: AdminInfoController.resolve()
+        })
         .state('home.admin.settings', {
             url: '/settings',
+            abstract: true,
             templateUrl: 'build/views/pages/admin-settings/admin-settings.html',
             controller: 'adminSettingsController',
             controllerAs: 'ctrl'
@@ -75,15 +86,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('home.admin.judges', {
-            url: '/judges/{category:[a-zA-Z]+}',
-            reloadOnSearch: false,
+            url: '/judges?category',
             templateUrl: 'build/views/pages/admin-judges/admin-judges.html',
             controller: 'adminJudgesController',
             controllerAs: 'ctrl',
             resolve: AdminJudgesController.resolve()
         })
         .state('home.admin.judge', {
-            url: '^/judge/{judgeId:[0-9]+}',
+            url: '^/admin/{adminId:[0-9]+}/judge/{judgeId:[0-9]+}',
             parent: 'home.admin.judges',
             templateUrl: 'build/views/pages/admin-judges/admin-judge-info.html',
             controller: 'adminJudgeInfoController',

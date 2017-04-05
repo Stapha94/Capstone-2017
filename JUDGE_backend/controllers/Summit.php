@@ -8,7 +8,7 @@ class Summit extends REST_Controller {
 
 	public function index_get()
 	{
-		$safe_columns = array('summit_id');
+		$safe_columns = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'judge_login_disabled');
 		$this->generate_get_response($this->summit, $safe_columns);
 	}
 

@@ -68,6 +68,30 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+	// For password updating
+	public function update_password($data = array()) {
+		try {
+			$this->db->select('password');
+			$this->db->where('admin_id', $data['admin_id']);
+
+			$query = $this->db->get('admin');
+			$result = $query->result();
+
+			$hash = $result[0]->password;
+
+			if(password_verify($data['old_pass'], $hash)) {
+				$password = password_hash($data['new_pass'], PASSWORD_BCRYPT);
+				$this->db->set('password', $password);
+				$this->db->where('admin_id', $data['admin_id']);
+				return $this->db->update($this->name);
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	// For login
 	public function check_admin($email, $password) {
 		$this->db->select('password');
