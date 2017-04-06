@@ -2,7 +2,7 @@ class AbstractModalDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'judge/src/directives/modals/abstract-modal/abstract-modal.html';
+        this.templateUrl = 'build/views/directives/modals/abstract-modal/abstract-modal.html';
         this.scope = {
             abstract: '='
         };

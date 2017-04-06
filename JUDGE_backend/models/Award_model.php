@@ -8,6 +8,11 @@ class Award_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('award_id', 'title', 'active');
+		$this->filter = array(
+			'award_id' => 'award',
+			'title' => 'award',
+			'active' => 'award'
+		);
 		$this->name = 'award';
 		parent::__construct();
 	}
@@ -26,9 +31,7 @@ class Award_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

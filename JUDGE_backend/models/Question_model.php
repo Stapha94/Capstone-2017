@@ -8,7 +8,13 @@ class Question_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('question_id', 'question_description_id', 'description', 'active');
+        		$this->fields = array('question_id', 'question_section_id', 'description', 'active');
+        		$this->filter = array(
+        			'question_id' => 'question',
+					'section' => 'question_section',
+					'description' => 'question',
+					'active' => 'question'
+				);
         		$this->name = 'question';
                 parent::__construct();
         }
@@ -21,6 +27,7 @@ class Question_model extends CI_Model {
 			// All the select fields
 
 			$this->db->select("{$this->name}_id,
+				{$this->name}.{$joins['qs']}_id,
                 {$joins['qs']}.title AS section,
                 description,
                 {$this->name}.active");
@@ -29,10 +36,10 @@ class Question_model extends CI_Model {
 
 			$this->db->join("{$joins['qs']}", "{$joins['qs']}.{$joins['qs']}_id = {$this->name}.{$joins['qs']}_id");
 
-			// Where clauses here...must be conditionally based. I'll work on that later
-			foreach($params as $column=>$value) {
-				$this->db->where("{$this->name}.{$column}", $value);
-			}
+			// Where clauses here
+
+			$this->get_join_where_clauses($this->filter, $params);
+
 			// Perform the query
 			$query = $this->db->get($this->name);
 			$result = $query->result();
@@ -68,6 +75,20 @@ class Question_model extends CI_Model {
 					'qs' => 'question_section'
 				);
 				return $joins;
+		}
+
+		protected function convert_join_field($field = NULL) {
+
+        	if($field === NULL) {
+        		return $field;
+			}
+
+			if($field === 'section') {
+        		$field = 'title';
+			}
+
+			return $field;
+
 		}
 
 }

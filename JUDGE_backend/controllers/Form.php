@@ -8,16 +8,17 @@ class Form extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->form->fields);
-		$this->generate_get_response($auth, $this->form, $params);
+		$this->generate_get_response($this->form);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->form->fields);
-		$this->generate_post_response($auth, $this->form);
+		$this->generate_post_response($this->form);
+	}
+
+	public function index_delete()
+	{
+		$this->generate_delete_response($this->form);
 	}
 
 }

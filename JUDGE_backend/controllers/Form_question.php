@@ -8,16 +8,12 @@ class Form_question extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->form_question->fields);
-		$this->generate_get_response($auth, $this->form_question, $params);
+		$this->generate_get_response($this->form_question);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->form_question->fields);
-		$this->generate_post_response($auth, $this->form_question, true);
+		$this->generate_post_response($this->form_question, true);
 	}
 
 }

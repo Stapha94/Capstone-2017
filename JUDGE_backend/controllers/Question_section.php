@@ -9,15 +9,11 @@ class Question_section extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->question_section->fields);
-		$this->generate_get_response($auth, $this->question_section, $params);
+		$this->generate_get_response($this->question_section);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->question_section->fields);
-		$this->generate_admin_post_response($auth, $this->question_section);
+		$this->generate_post_response($this->question_section);
 	}
 }

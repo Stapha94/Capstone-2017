@@ -1,0 +1,41 @@
+<!-- Modal Structure -->
+<div id="add-{{title}}" class="modal modal-fixed-footer" material-modal>
+    <form ng-if="!ctrl.canEdit" name="add-{{title}}-form" id="add-{{title}}-form" ng-submit="ctrl.add()">
+        <div class="modal-content">
+            <h5 class="page-title">Add {{title}}</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="title" id="title" ng-model="ctrl.model.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
+                        <label class="active" for="title">{{title}}</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Add {{title}}</a>
+        </div>
+    </form>
+    <form ng-if="ctrl.canEdit" name="add-{{title}}-form" id="add-{{title}}-form" ng-submit="ctrl.edit()">
+        <div class="modal-content">
+            <h5 class="page-title">Edit {{title}}</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="title" id="title" ng-model="ctrl.model.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
+                        <label class="active" for="title">{{title}}</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Edit {{title}}</a>
+        </div>
+    </form>
+</div>

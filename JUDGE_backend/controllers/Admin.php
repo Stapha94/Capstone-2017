@@ -8,16 +8,12 @@ class Admin extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->admin->fields);
-		$this->generate_admin_get_response($auth, $this->admin, $params);
+		$this->generate_get_response($this->admin);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->admin->fields);
-		$this->generate_admin_post_response($auth, $this->admin);
+		$this->generate_admin_post_response($this->admin);
 	}
 
 }
