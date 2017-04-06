@@ -2,7 +2,7 @@ class AssignPosterModalDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'views/directives/modals/assign-poster-modal/assign-poster-modal.html';
+        this.templateUrl = 'build/views/directives/modals/assign-poster-modal/assign-poster-modal.html';
         this.scope = {
             ctrl: '='
         };

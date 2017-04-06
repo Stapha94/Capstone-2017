@@ -6,6 +6,7 @@
 //            PLUGIN REFERENCES
 //=============================================
 var gulp = require('gulp');
+var del = require('del');
 var fs = require('fs');
 var path = require('path');
 var utils = require('gulp-util');
@@ -49,6 +50,9 @@ var paths = {
     scripts: [ // Must be in order of dependency
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
+    'JUDGE/src/pages/**/base-table-model-controller.js',
+    'JUDGE/src/pages/**/base-site-controller.js',    
+    'JUDGE/src/pages/**/base-site-table-model-controller.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     'JUDGE/src/config/**/*.js',
@@ -57,7 +61,9 @@ var paths = {
     ],
     dependencies: [
        'node_modules/jquery/dist/jquery.min.js',
+       'node_modules/jquery-ui/jquery-ui.min.js',
        'node_modules/angular/angular.js',
+       'node_modules/angular-dragdrop/src/angular-dragdrop.min.js',
        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
        'node_modules/angular-ui-router/release/angular-ui-router.min.js',
        'node_modules/angular-loading-bar/build/loading-bar.min.js',
@@ -66,12 +72,6 @@ var paths = {
     ],
     html: 'app.html',
     templates: 'JUDGE/src/**/*.html'
-  },
-  /**
-   * The 'views' folder is where our html templates reside
-   */
-  views: {
-    basePath: 'views/',
   },
   /**
    * The 'build' folder is where our app resides once it's
@@ -86,9 +86,16 @@ var paths = {
       fonts: 'build/dist/fonts/',
       images: 'build/dist/img/',
       styles: 'build/dist/styles/'
+    },
+    views: {
+      basePath: 'build/views/',
     }
   }
 };
+
+gulp.task('clean', function() {
+    return del([paths.build.basePath]);
+});
 
 gulp.task('compileDependencies', function() {
     return gulp.src(paths.app.dependencies)
@@ -120,11 +127,11 @@ gulp.task('compileStyles', function() {
 
 gulp.task('compileViews', function() {
     return gulp.src(paths.app.templates)
-            .pipe(gulp.dest(paths.views.basePath))
+            .pipe(gulp.dest(paths.build.views.basePath))
 });
 
 gulp.task('build', function() {
-    runSequence(['compileDependencies', 'compileScripts', 'compileFonts', 'compileImages', 'compileStyles', 'compileViews']);
+runSequence(['clean'], ['compileDependencies'], ['compileScripts'], ['compileFonts'], ['compileImages'], ['compileStyles'], ['compileViews']);
 });
 
 gulp.task('watch', function() {

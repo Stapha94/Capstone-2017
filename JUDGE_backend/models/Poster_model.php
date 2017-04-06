@@ -63,6 +63,18 @@ class Poster_model extends CI_Model {
 
 			// Where clauses here
 
+			foreach($params as $param=>$value) {
+				if($param === 'poster_id') {
+					$params[$param] = intval($value);
+				}
+				if($param === 'presenter_id') {
+					$params[$param] = intval($value);
+				}
+				if($param === 'summit_id') {
+					$params[$param] = intval($value);
+				}
+			}
+
 			$this->get_join_where_clauses($this->filter, $params);
 
             // Perform the query
@@ -106,7 +118,7 @@ class Poster_model extends CI_Model {
         	return $joins;
 		}
 
-		private function convert_join_field($field = NULL) {
+		protected function convert_join_field($field = NULL) {
 
         	if($field === NULL) {
         		return $field;

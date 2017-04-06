@@ -27,6 +27,7 @@ class Question_model extends CI_Model {
 			// All the select fields
 
 			$this->db->select("{$this->name}_id,
+				{$this->name}.{$joins['qs']}_id,
                 {$joins['qs']}.title AS section,
                 description,
                 {$this->name}.active");
@@ -76,7 +77,7 @@ class Question_model extends CI_Model {
 				return $joins;
 		}
 
-		private function convert_join_field($field = NULL) {
+		protected function convert_join_field($field = NULL) {
 
         	if($field === NULL) {
         		return $field;

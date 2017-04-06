@@ -2,11 +2,9 @@ class JudgeTableController {
 
     constructor($scope, $stateParams, judgeService) {
         this.judgeService = judgeService;
-        this.judges = _.filter($scope.judges, (judge) => {
-           return judge.category === $stateParams.category || judge.category === $stateParams.category.charAt(0).toUpperCase() +  $stateParams.category.slice(1) 
-        });
-        this.params = $stateParams;
+        this.judges = $scope.judges;
         this.judgeCategories = $scope.judgeCategories;
+        this.category = this.judgeCategories[0].judgeCategoryId;
         this.judge = {active: 1};
         this.summitId = $scope.summitId;
         this.modal = false;

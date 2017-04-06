@@ -1,0 +1,61 @@
+<div class="col s12">
+    <add-settings-item-modal ctrl="ctrl" title="title"></add-settings-item-modal>
+    <div class="row">
+        <div class="col s9">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#Active">Active</a></li>
+                <li class="tab col s3"><a href="#Inactive">Inactive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Active" class="col s12">
+
+        <div class="row pull-right">
+            <button data-target="add-{{title}}" class="btn green">Add {{title | uppercase}}</button>
+        </div>
+        
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Edit</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="model in ctrl.models | filter: { active: 1 }">
+                <td>{{ model.title }}</td>
+                <td><a ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
+                <td><a ng-click="ctrl.deactivate(model)">Deactivate</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="Inactive" class="col s12">
+
+        <div class="row pull-right">
+            <button data-target="add-{{title}}" class="btn green">Add {{title | uppercase}}</button>
+        </div>
+        
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Edit</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="model in ctrl.models | filter: { active: 0 }">
+                <td>{{ model.title }}</td>
+                <td><a ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
+                <td><a ng-click="ctrl.activate(model)">Activate</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

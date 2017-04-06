@@ -10,7 +10,8 @@ class Migration_Add_form extends CI_Migration {
                             form_id     INT(11)     NOT NULL    AUTO_INCREMENT,
                             poster_id   INT(11)     NOT NULL,
                             judge_id    INT(11)     NOT NULL,
-                            total       INT(3),
+                            total       INT(3) NOT NULL DEFAULT 0,
+                            judged		TINYINT(1)	NOT NULL DEFAULT 0,
                             comments    TEXT,
 
                             FOREIGN KEY (poster_id) REFERENCES poster(poster_id),
