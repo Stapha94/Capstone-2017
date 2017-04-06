@@ -24,7 +24,7 @@ include_once ('secret.php');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://judge.marshallcite.org/';
+$config['base_url'] = 'http://judge.marshallcite.org/app/';
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ $config['base_url'] = 'http://judge.marshallcite.org/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
