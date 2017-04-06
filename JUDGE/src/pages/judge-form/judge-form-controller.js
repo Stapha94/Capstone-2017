@@ -1,69 +1,114 @@
 class JudgeFormController {
 
-    constructor($scope, $state, form, formQuestions, questions, questionSections, formService, formQuestionService) {
+    static resolve() {
+        return {
+                form: ['formService', '$stateParams', (formService, $stateParams) => {
+                    return formService.get({formId: $stateParams.formId})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }],
+                formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
+                    if(form.formId) {
+                        return formQuestionService.get({formId: form.formId})
+                            .then((data) => {
+                                return data;
+                            });
+                    } else {
+                        return [];
+                    }
+                }],
+                questionSections: ['questionSectionService', (questionSectionService) => {
+                    return questionSectionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
+                questions: ['questionService', (questionService) => {
+                    return questionService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+    }
+
+    constructor($scope, $state, form, formQuestions, questions, questionSections, formService, formQuestionService, notificationService) {
         this.questions = questions;
         this.questionSections = questionSections;
-        this.form = form;
-        this.formQuestions = formQuestions;
+        this.originalForm = form;
+        this.form = angular.copy(this.originalForm);
+        this.form.judged = '1';
+        this.originalFormQuestions = formQuestions;
+        this.formQuestions = angular.copy(this.originalFormQuestions);
         this.formService = formService;
         this.formQuestionService = formQuestionService;
+        this.notificationService = notificationService;
         this.$state = $state;
         this.scores = [
-                { id: 1, label: 'poor' },
-                { id: 2, label: 'adequate'},
-                { id: 3, label: 'fair' },
-                { id: 4, label: 'good' },
-                { id: 5, label: 'excellent' }
+                { id: '1', label: 'poor' },
+                { id: '2', label: 'adequate'},
+                { id: '3', label: 'fair' },
+                { id: '4', label: 'good' },
+                { id: '5', label: 'excellent' }
             ];
         this.setupForm();
     }
 
     submit() {
-        this.formService.update(this.form)
-            .then((data) => {
-                this.formQuestionService.update(this.formQuestions)
-                    .then((data) => {
-                        this.$state.go('judge.dashboard');
-                    });
-            });
+        if(!_.isEqual(this.form, this.originalForm)) {
+            this.formService.update(this.form)
+                .then((data) => {
+                    this.originalForm = angular.copy(this.form);
+                    if(!_.isEqualWith(this.formQuestions, this.originalFormQuestions, (newVal, originalVal) => {
+                        var match = true;
+                        _.forEach(newVal, (val, key) => {
+                            if(val.score !== originalVal[key].score) {
+                                match = false;
+                            }
+                        })
+                        return match;
+                    })) {
+                        this.formQuestionService.update(this.formQuestions)
+                            .then((data) => {
+                                this.originalFormQuestions = angular.copy(this.formQuestions);
+                                this.$state.go('home.judge.dashboard');
+                            });
+                    } else {
+                        this.$state.go('home.judge.dashboard');
+                    }
+                });
+        } else {
+            this.notificationService.error('No changes to submit!');
+        }
     }
 
-    // This creates a form and form questions if its the first time accessing the page
+    cancel() {
+        this.form = angular.copy(this.originalForm);
+        this.form.judged = '1';
+        this.$state.go('home.judge.dashboard');
+    }
+
+    // This creates form questions if its the first time accessing the page
     setupForm() {
         if(this.formQuestions.length === 0) {
             _.forEach(this.questions, (question) => {
-                var formQuestion = { questionId: question.questionId, section: question.section, description: question.description, score: 0 };
+                var formQuestion = { formId: this.form.formId, questionId: question.questionId, section: question.section, description: question.description, score: 0 };
                 this.formQuestions.push(formQuestion);
             });
-            if(!this.form.formId) {
-                this.formService.create(this.form)
-                    .then((form) => {
-                        _.forEach(this.formQuestions, (formQuestion) => {
-                            formQuestion['formId'] = form.formId;
-                        });
-                        this.formQuestionService.create(this.formQuestions);
-                    });
-            } else {
-                _.forEach(this.formQuestions, (formQuestion) => {
-                    formQuestion['formId'] = this.form.formId;
-                });
-                this.formQuestionService.create(this.formQuestions);
-            }
-        } else {
-            _.forEach(this.formQuestions, (formQuestion) => {
-                formQuestion.score = parseInt(formQuestion.score); // Our db returns the number as a string. This is annoying but necessary for the form to work properly.
-            });
+            this.formQuestionService.create(this.formQuestions);
+            this.originalFormQuestions = angular.copy(this.formQuestions);
         }
     }
 
     sum() {
         this.form.total = 0;
         _.forEach(this.formQuestions, (formQuestion) => {
-            this.form.total += formQuestion.score;
+            this.form.total += parseInt(formQuestion.score);
         });
     }
 
 }
 
-JudgeFormController.$inject = ['$scope', '$state', 'form', 'formQuestions', 'questions', 'questionSections', 'formService', 'formQuestionService'];
+JudgeFormController.$inject = ['$scope', '$state', 'form', 'formQuestions', 'questions', 'questionSections', 'formService', 'formQuestionService', 'notificationService'];
 app.controller('judgeFormController', JudgeFormController);

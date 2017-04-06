@@ -95,8 +95,8 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-/*$db['heroku'] = array(
+/**
+$db['heroku'] = array(
 	'dsn'	=> '',
 	'hostname' => $heroku_server['host'],
 	'username' => $heroku_server['username'],
@@ -116,4 +116,5 @@ $db['local'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);*/
+);
+ */

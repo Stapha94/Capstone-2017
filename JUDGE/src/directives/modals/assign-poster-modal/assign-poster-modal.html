@@ -1,0 +1,23 @@
+<!-- Modal Structure -->
+<div id="assign-poster" class="modal modal-fixed-footer" material-modal>
+    <form ng-submit="ctrl.assign()">
+        <div class="modal-content">
+            <h5 class="page-title">Assign Poster</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select ng-model="ctrl.form.posterId" id="poster" title="Poster" material-select ng-if="ctrl.modal" ng-required="ctrl.modal"
+                            ng-options="poster.posterId as poster.posterTitle for poster in ctrl.posters">
+                            <option value="" disabled>Poster</option>
+                        </select>
+                        <label for="poster">Poster</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.close()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Assign Poster</a>
+        </div>
+    </form>
+</div>

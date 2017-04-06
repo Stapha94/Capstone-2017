@@ -1,0 +1,67 @@
+<div class="wrap">
+    <add-summit-modal ctrl="ctrl"></add-summit-modal>
+    <h5 class="page-title">Summit Management</h5>
+    <div class="col s12">
+        <div class="row">
+            <div class="col s9">
+                <ul class="tabs" material-tabs>
+                    <li class="tab col s3"><a class="active" href="#Active">Active</a></li>
+                    <li class="tab col s3"><a href="#Inactive">Inactive</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="Active" class="col s12">
+
+            <div class="row pull-right">
+                <button data-target="add-summit" class="btn green">Add Summit</button>
+            </div>
+
+            <table class="bordered highlight">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Registration Deadline</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="summit in ctrl.models | filter: {active: 1}">
+                    <td><a ui-sref="home.admin.settings.summit({summitId: summit.summitId})">{{ summit.summitStart | date: 'mediumDate' }}</td>
+                    <td>{{ summit.summitStart | date: 'shortTime'}}</td>
+                    <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
+                    <td>{{ summit.registrationDeadline | date: 'medium' }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="Inactive" class="col s12">
+
+            <div class="row pull-right">
+                <button data-target="add-summit" ng-click="ctrl.setModal()" class="btn green">Add Summit</button>
+            </div>
+
+            <table class="bordered highlight">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Registration Deadline</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="summit in ctrl.models | filter: {active: 1}">
+                    <td><a ui-sref="home.admin.settings.summit({summitId: summit.summitId})">{{ summit.summitStart | date: 'mediumDate' }}</td>
+                    <td>{{ summit.summitStart | date: 'shortTime'}}</td>
+                    <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
+                    <td>{{ summit.registrationDeadline | date: 'medium' }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

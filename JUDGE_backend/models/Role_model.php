@@ -8,6 +8,11 @@ class Role_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('role_id', 'title', 'active');
+		$this->filter = array(
+			'role_id' => 'role',
+			'title' => 'role',
+			'active' => 'role'
+		);
 		$this->name = 'role';
 		parent::__construct();
 	}
@@ -26,9 +31,7 @@ class Role_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
@@ -53,7 +56,7 @@ class Role_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}

@@ -9,7 +9,7 @@ class Migration_Add_poster extends CI_Migration {
                 $sql = "CREATE TABLE poster (
                             poster_id       INT(11)     NOT NULL        AUTO_INCREMENT,
                             poster_category_id  INT(11)  NOT NULL,
-                            award_id        INT(11)		NOT NULL,
+                            award_id        INT(11),
                             presenter_id    INT(11)     NOT NULL,
                             poster_abstract_id     INT(11)         NOT NULL,
                             submission_date DATETIME        NOT NULL,

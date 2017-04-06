@@ -1,15 +1,15 @@
-<div class="wrap">
+<div class="wrap" poster-select>
     <abstract-modal abstract="ctrl.abstract"></abstract-modal>
     <div class="row">
         <div class="col s12">
             <ul class="tabs" material-tabs>
-                <li class="tab col s3"><a class="active" href="#NeedJudged">Needs Judged</a></li>
-                <li class="tab col s3"><a href="#AlreadyJudged">Already Judged</a></li>
+                <li ng-repeat="tab in ctrl.tabs" class="tab col s3"><a href="#{{tab.id}}">{{tab.id}}</a></li>
             </ul>
         </div>
-    </div> 
-    <div id="NeedJudged" class="col s12">
-        <table class="bordered highlight responsive-table">
+    </div>
+
+    <div id="Pending" class="col s12">
+        <table class="bordered highlight poster-select">
             <thead>
                 <tr>
                     <th data-field="posterId">Poster ID</th>
@@ -21,18 +21,19 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="poster in ctrl.posters | filter: { isScored: false }">
-                <td>{{poster.posterId}}</td>
-                <td>{{poster.posterTitle}}</td>
-                <td>{{poster.posterCategory}}</td>
-                <td><button class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(poster)">View Abstract</button></td>
-                <td><button class="waves-effect waves-light btn green" ui-sref="judge.form({posterId: poster.posterId})">Judge Poster</button></td>
+                <tr ng-repeat="form in ctrl.forms | filter: { isScored: false }">
+                <td>{{form.posterId}}</td>
+                <td>{{form.posterTitle}}</td>
+                <td>{{form.posterCategory}}</td>
+                <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn green" ui-sref="home.judge.form({formId: form.formId})">Judge Poster</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div id="AlreadyJudged" class="col s12">
-        <table class="bordered highlight responsive-table">
+
+    <div id="Complete" class="col s12">
+        <table class="bordered highlight poster-select">
             <thead>
                 <tr>
                     <th data-field="posterId">Poster ID</th>
@@ -44,14 +45,15 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="poster in ctrl.posters | filter: { isScored: true }">
-                <td>{{poster.posterId}}</td>
-                <td>{{poster.posterTitle}}</td>
-                <td>{{poster.posterCategory}}</td>
-                <td><button class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(poster)">View Abstract</button></td>
-                <td><button class="waves-effect waves-light btn green" ui-sref="judge.form({posterId: poster.posterId})">Judge Poster</button></td>
+                <tr ng-repeat="form in ctrl.forms | filter: { isScored: true }">
+                <td>{{form.posterId}}</td>
+                <td>{{form.posterTitle}}</td>
+                <td>{{form.posterCategory}}</td>
+                <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn green" ui-sref="home.judge.form({formId: form.formId})">Judge Poster</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
+
 </div>

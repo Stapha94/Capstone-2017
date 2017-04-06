@@ -14,11 +14,11 @@ app.controller('adminParticipantsController', ['$scope','$state','presenterServi
 
         $scope.submit = function () {
             //var presenter = {firstName:'bob',lastName:'Greatest',suffix:'',email:'BobbyG@gmail.com',institutionId:1,roleId:1,abstractId:1,submissionDate:'10/10/2017',isRegistered:1};
-            presenterService.createPresenter($scope.presenter)
+            presenterService.create($scope.presenter)
                 .then(function(response) {
                     return response;
                 });
-            posterAbstractService.createAbstract($scope.abstract)
+            /*posterAbstractService.createAbstract($scope.abstract)
                 .then(function(response) {
                     return response;
                 });
@@ -32,10 +32,10 @@ app.controller('adminParticipantsController', ['$scope','$state','presenterServi
             posterService.createPoster(poster)
                 .then(function(response) {
                     return response;
-                })
+                })*/
 
         };
-        presenterService.getPresenters()
+        presenterService.get()
             .then(function(data) {
                 $scope.data = data;
             });

@@ -1942,13 +1942,316 @@ abstract class REST_Controller extends \CI_Controller {
 
 	protected function sanitize_uri($params = array(), $fields) {
 		foreach($params as $column=>$value) {
-			if(!($column === 'create' || $column === 'update')) {
-				if (!in_array($column, $fields)) {
+			if(!($column === 'create' || $column === 'update' || $column === 'update_password' || $column === 'update_pin' || $column === 'delete')) {
+				if (!in_array($column, $fields) && !array_key_exists($column, $fields)) {
 					return 404;
 				}
 			}
 		}
 		$auth = $this->authorize->get_auth();
 		return $auth;
+	}
+
+	protected function generate_get_response ($model = NULL, $safe_columns = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
+
+    	if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+    		if($safe_columns !== NULL) {
+				$query = $model->get($params);
+				$query = retrieve_columns($query, $safe_columns);
+				$this->response(prepare_for_frontend($query));
+			} else {
+				$this->response([], 401);
+			}
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth) || $this->authorize->is_judge($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth) || $this->authorize->is_judge($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response([], 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_admin_get_response ($model = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_admin_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+			} else {
+				if($method === 'update_password') {
+					$data['old_pass'] = $this->post('old_password');
+					$data['new_pass'] = $this->post('new_password');
+					$data['admin_id'] = $this->post('admin_id');
+
+					$query = $model->update_password($data);
+					if($query) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				} else if($method === 'update_pin') {
+
+				} else {
+					foreach ($fields as $index => $field) {
+						$item = $this->post($field);
+						if (isset($item)) {
+							$data[$field] = $item;
+						}
+					}
+					if ($method === 'create') {
+						$query = $model->create($data);
+						if ($query) {
+							$this->response(prepare_for_frontend($query), 201);
+						} else {
+							$this->response([], 400);
+						}
+					} else if ($method === 'update') {
+						if ($model->update($data)) {
+							$this->response([], 200);
+						} else {
+							$this->response([], 400);
+						}
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_judge_get_response ($model = NULL) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->filter);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_judge($auth)) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_judge_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_judge($auth)) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_delete_response($model = NULL) {
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$method = $this->uri->segment(2);
+			$id = $this->uri->segment(3);
+			$data['id'] = $id;
+			if ($method === 'delete') {
+				$query = $model->delete($data);
+				if ($query) {
+					$this->response([], 202);
+				} else {
+					$this->response([], 403);
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
 	}
 }

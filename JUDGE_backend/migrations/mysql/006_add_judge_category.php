@@ -10,6 +10,8 @@ class Migration_Add_judge_category extends CI_Migration {
                             judge_category_id  INT(11) NOT NULL    AUTO_INCREMENT,
                             title           VARCHAR(20)    NOT NULL,
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
+                            
+                            UNIQUE (title),
 
                             PRIMARY KEY (judge_category_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

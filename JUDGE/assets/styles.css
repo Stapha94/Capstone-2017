@@ -68,6 +68,14 @@
     color: #00B140;
 }
 
+td a:visited {
+    color: #00B140;
+}
+
+td a.btn:visited, td a.btn:hover {
+    color: white;
+}
+
 .nav-wrapper {
     background: #00B140;
 
@@ -87,9 +95,9 @@
     width: 200px;
 }
 
-#bar li a {
+.side-nav .collapsible-body li a {
     color: white;
-    margin: 15px -15px;
+    margin: 5px -15px;
 }
 
 .waves-effect:hover {
@@ -110,7 +118,24 @@
     margin-left: 220px;
 }
 
+.side-nav {
+    background-color: #222222;
+}
+
+.side-nav a {
+    color: white;
+    padding: 0 5px;
+}
+
 .side-nav a:hover {background-color: #00B140}
+
+.collapsible-header {
+    color: white;
+}
+
+.side-nav .collapsible-body {
+    background-color: #222222;
+}
 
 @media only screen and (max-width: 1200px) {
     .wrap {
@@ -143,6 +168,20 @@
 
 /*** ADMIN PAGE STYLES **/
 
+span.card-link a {
+    cursor: pointer;
+    color: #00B140;
+}
+
+.collection a.collection-item {
+    background-color: white;
+    color: #00B140;
+}
+
+.collection a.collection-item.active {
+    background-color: #00B140;
+    color: white;
+}
 
 /** ADMIN.JUDGES **/
 
@@ -195,11 +234,137 @@ td a, td a:hover {
 }
 
 /** Judge form **/
+
+.form-background {
+    background: #ECECEC;
+    width: 100%;
+    padding: 150px 50px;
+}
+
+.form-cont {
+    text-align: center;
+    width: 100%;
+    padding: 50px 50px 50px;
+    margin: auto;
+    background: white;
+}
+
 .judge-form .question-info {
     width: 718px;
+}
+
+.comment-box {
+    margin-top: 2rem;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #00B140;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid #00B140;
 }
 
 /** Spacing **/
 .pull-right {
     float: right !important;
 } 
+
+th button.table-btn {
+    text-align: center;
+    float: right;
+}
+
+/** Modal Footer Override **/
+.modal .modal-footer .btn {
+    margin: 6px 5px;
+}
+
+/** Label **/
+.input-field label {
+    color: #00B140;
+}
+
+/** Override Disabled Settings **/
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled {
+    color: inherit;
+}
+
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label {
+    color: #00B140;
+}
+
+.select-wrapper input.select-dropdown:disabled {
+    color: inherit;
+}
+
+.box-container {
+    border: 1px solid lightgrey;
+    margin: 50px;
+}
+
+.box-container .pull-right {
+    float: none;
+    margin-right: 2rem;
+}
+
+/** Material icons retrieved from: http://google.github.io/material-design-icons/ **/
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.side-nav li>a>i.material-icons.md-light { 
+    color: rgba(255, 255, 255, 1);
+    padding-left: 15px; 
+}
+
+.collapsible {
+    border: none;
+}
+
+.collapsible-body {
+    min-height: 2rem;
+}
+
+.side-nav .collapsible-body {
+    padding: 0 0 0 15px;
+}
+
+.side-nav .collapsible-body a {
+    margin: 5px -15px;
+}
+
+.side-nav .collapsible-body {
+    background-color: grey;
+}
+
+.side-nav .collapsible-header:hover {
+    background-color: #00B140;
+}
+
+.side-nav .collapsible-body:hover {
+    background-color: #00B140;
+}
+
+.collapsible-header.active {
+    background-color: #00B140;
+}
+
+table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
+    cursor: pointer;
+}
+
+table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
+    color: white;
+    background-color: #00B140;
+}

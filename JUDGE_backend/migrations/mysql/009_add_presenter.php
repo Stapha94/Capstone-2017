@@ -11,14 +11,16 @@ class Migration_Add_presenter extends CI_Migration {
                             first_name      VARCHAR(50)    NOT NULL,
                             last_name       VARCHAR(50)    NOT NULL,
                             suffix          VARCHAR(10),
-                            email           VARCHAR(50)    NOT NULL,
+                            email           VARCHAR(255)    NOT NULL,
                             institution_id  INT(11)         NOT NULL,
                             role_id         INT(11)         NOT NULL,
-                            is_registered   TINYINT(1)      NOT NULL,
+                            active   TINYINT(1)      NOT NULL DEFAULT 1,
 
                             FOREIGN KEY (institution_id) REFERENCES institution(institution_id),
 
                             FOREIGN KEY (role_id) REFERENCES role(role_id),
+                            
+                            UNIQUE (email, active),
 
                             PRIMARY KEY (presenter_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

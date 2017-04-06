@@ -11,7 +11,15 @@ class Poster_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id, score');
+        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
+        		$this->filter = array(
+        			'poster_id' => 'poster',
+					'category' => 'poster_category',
+					'award' => 'award',
+					'poster_title' => 'poster_abstract',
+					'presenter_id' => 'poster',
+					'summit_id' => 'poster'
+				);
                 $this->name = 'poster';
                 parent::__construct();
         }
@@ -37,7 +45,7 @@ class Poster_model extends CI_Model {
                 {$joins['pr']}.email,
                 {$joins['i']}.title AS institution,
                 {$joins['r']}.title AS role,
-                {$joins['pr']}.is_registered,
+                {$joins['pr']}.active,
                 {$joins['s']}.summit_start,
                 {$joins['s']}.summit_end,
                 {$joins['s']}.registration_deadline,
@@ -53,11 +61,21 @@ class Poster_model extends CI_Model {
             $this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$joins['pr']}.{$joins['r']}_id");
             $this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$this->name}.{$joins['s']}_id");
 
-            // Where clauses here...must be conditionally based. I'll work on that later
+			// Where clauses here
 
-			foreach($params as $column=>$value) {
-				$this->db->where("{$this->name}.{$column}", $value);
+			foreach($params as $param=>$value) {
+				if($param === 'poster_id') {
+					$params[$param] = intval($value);
+				}
+				if($param === 'presenter_id') {
+					$params[$param] = intval($value);
+				}
+				if($param === 'summit_id') {
+					$params[$param] = intval($value);
+				}
 			}
+
+			$this->get_join_where_clauses($this->filter, $params);
 
             // Perform the query
             $query = $this->db->get($this->name);
@@ -82,7 +100,7 @@ class Poster_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}
@@ -100,9 +118,25 @@ class Poster_model extends CI_Model {
         	return $joins;
 		}
 
-        public function create_poster($data) {
-            $this->db->insert('poster',$data);
-        }
+		protected function convert_join_field($field = NULL) {
+
+        	if($field === NULL) {
+        		return $field;
+			}
+
+			if($field === 'category') {
+        		$field = 'title';
+			}
+
+			if($field === 'award') {
+        		$field = 'title';
+			}
+
+			if($field === 'poster_title') {
+        		$field = 'title';
+			}
+			return $field;
+		}
 
 }
 ?>

@@ -50,7 +50,9 @@ class Authorize {
             'exp' => $expire,
             'data' => array(
                 'id'        => $data['id'],
-                'userName'  => $data['user_name'],
+                'email'  => $data['email'],
+				'firstName' => $data['first_name'],
+				'lastName' => $data['last_name'],
                 'userType'  => $data['type']
             )
         );
@@ -74,7 +76,7 @@ class Authorize {
     	$ci =& get_instance();
     	if($ci->db->dbdriver === 'mysqli') {
     		if($is_pin === true) {
-				return "pin = SHA2({$pass}, 256)";
+				return "pin = SHA2('{$pass}', 256)";
 			} else if($is_pin === false) {
     			return "password = SHA2('{$pass}', 256)";
 			}
@@ -87,4 +89,23 @@ class Authorize {
 		}
 	}
 
+	// Checks if the user is an admin
+	public function is_admin($auth = NULL) {
+		if($auth) {
+			if($auth->data->userType === 'Admin') {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Checks if the user is a judge
+	public function is_judge($auth = NULL) {
+		if($auth) {
+			if($auth->data->userType === 'Judge') {
+				return true;
+			}
+		}
+		return false;
+	}
 }

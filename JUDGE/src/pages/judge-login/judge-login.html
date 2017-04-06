@@ -1,24 +1,22 @@
 <div class="background">
     <div class="login-cont">
         <div class="row">
-            <h4>Login</h4>
+            <h4>Judge Login</h4>
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Username" id="userName" type="text" ng-model="ctrl.userName" class="validate" required>
-                        <label for="userName">User Name</label>
+                        <input placeholder="Email" id="email" type="email" ng-model="ctrl.email" class="validate" required>
                     </div>
                     <div class="input-field col s12">
                         <input placeholder="Pin" id="pin" type="password" ng-model="ctrl.pin" class="validate" required>
-                        <label for="pin">PIN</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
+                        <button ng-click="ctrl.login()" class="btn admin-btn" type="submit" name="login">Login</button>
                     </div>
                     <div class="col s6">
-                        <button ui-sref="home" class="btn cancel-btn">Cancel</button>
+                        <button ui-sref="home.landing" class="btn cancel-btn">Cancel</button>
                     </div>
                 </div>
             </form>

@@ -69,7 +69,7 @@ $config['migration_auto_latest'] = FALSE;
 | be upgraded / downgraded to.
 |
 */
-$config['migration_version'] = 26;
+$config['migration_version'] = 24;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +81,4 @@ $config['migration_version'] = 26;
 | Also, writing permission is required within the migrations path.
 |
 */
-$config['migration_path'] = APPPATH.'migrations/postgresql/';
+$config['migration_path'] = APPPATH.'migrations/mysql/';

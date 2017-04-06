@@ -1,0 +1,3 @@
+<div class="collection">
+    <a ui-sref="{{tab.state}}( {{tab.params}} )" ng-repeat="tab in ctrl.tabs" ng-click="ctrl.setActiveTab(tab.id)" id="{{tab.id}}" class="collection-item">{{tab.title}}</a>
+</div>

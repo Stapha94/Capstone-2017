@@ -12,15 +12,16 @@ class AuthService {
     }
 
     get currentUser() {
-        return this.localStorageService.get('currentUser');
+        return this._currentUser;
+    }
+
+    get authToken() {
+        return this._authToken;
     }
 
     set currentUser(data) {
         this.localStorageService.set('currentUser', data);
-    }
-
-    get authToken() {
-        return this.localStorageService.get('authToken');
+        this._currentUser = data;
     }
 
     set authToken(token) {
@@ -53,19 +54,19 @@ class AuthService {
         return deferred.promise;
     }
 
-    judgeLogin(userName, pin) {
+    judgeLogin(email, pin) {
         var deferred = this.$q.defer();
 
         var url = this.baseUrl + 'authorize/judge';
-        this.$http.post(url, {userName: userName, pin: pin})
+        this.$http.post(url, {email: email, pin: pin})
             .then((response) => {
-                this.$log.info('Login for user ' + response.data.judge[0].userName + ' successful!');
+                this.$log.info('Login for user ' + email + ' successful!');
                 this.currentUser = response.data.judge[0];
                 this.authToken = response.data.token.jwt;
                 deferred.resolve(response.data.judge[0]);
             })
             .catch((error) => {
-                this.$log.error('Login failed!');
+                this.$log.error('Login for user ' + email + ' failed!');
                 this.currentUser = null;
                 this.authToken = null;
                 deferred.reject(error);
@@ -76,10 +77,10 @@ class AuthService {
     logout() {
         if(this.isJudge) {
             this.clearToken();
-            this.$state.go('judge-login');
+            this.$state.go('home.judge-login');
         } else if(this.isAdmin) {
             this.clearToken();
-            this.$state.go('login');
+            this.$state.go('home.login');
         }
     }
 

@@ -1,0 +1,69 @@
+<div class="container">
+    <key-participants-modal ctrl="ctrl"></key-participants-modal>
+    <div class="row">
+        <div class="input-field col s12">
+            <form name="test">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select material-select id="institution" ng-model="ctrl.presenterInstitution">
+                            <option value="" disabled selected>Choose Your Institution</option>
+                            <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s6">
+                        <select material-select id="role" ng-model="ctrl.presenterRole">
+                            <option value="" disabled selected>Choose Your Role</option>
+                            <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col 14 s12">
+                        <h5 class="black-text"><u>Key Participants:</u></h5>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col s12">
+                         <table class="highlight">
+                             <thead>
+                                 <tr>
+                                     <th>First Name</th>
+                                     <th>Last Name</th>
+                                     <th>Department</th>
+                                     <th>Institution</th>
+                                     <th>Role</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr ng-repeat="keyParticipant in ctrl.keyParticipants">
+                                    <td>{{keyParticipant.keyParticipantFName}}</td>
+                                    <td>{{keyParticipant.keyParticipantLName}}</td>
+                                    <td>{{keyParticipant.keyParticipantDepartment}}</td>
+                                    <td>{{keyParticipant.keyParticipantInstitution}}</td>
+                                    <td>{{keyParticipant.keyParticipantRole}}</td>
+                                </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                </div>
+                <div class="row">
+                    <button data-target="modal1" class="btn waves-effect waves-light">Add Presenter</button>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div ng-click="ctrl.checkInstitutionExists()" class="btn waves-effect waves-light right">Continue</div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

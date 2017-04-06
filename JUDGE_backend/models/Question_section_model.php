@@ -1,14 +1,18 @@
 <?php
 class Question_section_model extends CI_Model {
 
-	private $question_id;
 	private $question_section_id;
-	private $description;
+	private $title;
 	private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('question_section_id', 'description', 'active');
+		$this->fields = array('question_section_id', 'title', 'active');
+		$this->filter = array(
+			'question_section_id' => 'question_section',
+			'title' => 'question_section',
+			'active' => 'question_section'
+		);
 		$this->name = 'question_section';
 		parent::__construct();
 	}
@@ -25,10 +29,10 @@ class Question_section_model extends CI_Model {
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		// Where clauses here
+
+		$this->get_where_clauses($this->filter, $params);
+
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
@@ -52,7 +56,7 @@ class Question_section_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}

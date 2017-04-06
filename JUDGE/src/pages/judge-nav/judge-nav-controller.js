@@ -1,15 +1,22 @@
 class JudgeNavController {
 
-    constructor($stateParams, $state, judge, authService) {
-        this.authService = authService;
-        this.judge = judge;
-        this.loaded = false;
+    static resolve() {
+        return {
+                judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
+                    return judgeService.get({judgeId: $stateParams.judgeId})
+                        .then((data) => {
+                            return data[0];
+                        })
+                }]
+            }
     }
 
-    logout() {
-        this.authService.logout();
+    constructor($scope, judge, authService) {
+        $scope.navbar = { hideNav: false };
+        this.authService = authService;
+        this.user = judge;
     }
 }
 
-JudgeNavController.$inject = ['$stateParams', '$state', 'judge', 'authService'];
+JudgeNavController.$inject = ['$scope', 'judge', 'authService'];
 app.controller('judgeNavController', JudgeNavController);

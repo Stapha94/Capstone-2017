@@ -1,0 +1,59 @@
+<!-- Modal Structure -->
+<div id="add-question" class="modal modal-fixed-footer" material-modal>
+    <form ng-if="!ctrl.canEdit" name="add-question-form" id="add-question-form" ng-submit="ctrl.add()">
+        <div class="modal-content">
+            <h5 class="page-title">Add Question</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="description" id="description" ng-model="ctrl.model.description" class="validate" placeholder="Description" required>
+                        <label class="active" for="description">Question</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select name="section" class="form-control" ng-model="ctrl.model.questionSectionId" id="section" title="Section" material-select
+                         ng-options="questionSection.questionSectionId as questionSection.title for questionSection in ctrl.questionSections">
+                            <option value="" disabled selected>Section</option>
+                        </select>
+                        <label class="active" for "section">Section</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" required />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Add Question</a>
+        </div>
+    </form>
+    <form ng-if="ctrl.canEdit" name="edit-question-form" id="edit-question-form" ng-submit="ctrl.edit()">
+        <div class="modal-content">
+            <h5 class="page-title">Edit Question</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="description" id="description" ng-model="ctrl.model.description" class="validate" placeholder="Description" ng-required="ctrl.modal">
+                        <label class="active" for="description">Question</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select name="section" class="form-control" ng-model="ctrl.model.questionSectionId" id="section" title="Section" material-select
+                         ng-options="questionSection.questionSectionId as questionSection.title for questionSection in ctrl.questionSections">
+                            <option value="" disabled selected>Section</option>
+                        </select>
+                        <label class="active" for "section">Section</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Edit Question</a>
+        </div>
+    </form>
+</div>

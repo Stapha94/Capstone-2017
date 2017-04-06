@@ -1,18 +1,17 @@
 class JudgeLoginController {
 
-    constructor($scope, $state, authService, judgeService, notificationService, judges) {
+    constructor($scope, $state, authService, notificationService) {
         this.pin = '';
-        this.userName = '';
+        this.email = '';
         this.notificationService = notificationService;
         this.authService = authService;
-        this.judgeService = judgeService;
         this.$state = $state;
     }
 
     login() {
-        this.authService.judgeLogin(this.userName, this.pin)
+        this.authService.judgeLogin(this.email, this.pin)
             .then((judge) => {
-                this.$state.go('judge', {judgeId: judge.id});
+                this.$state.go('home.judge.dashboard', {judgeId: judge.id});
             })
             .catch((error) => {
                 this.notificationService.error('Incorrect login!');
@@ -21,5 +20,5 @@ class JudgeLoginController {
 
 }
 
-JudgeLoginController.$inject = ['$scope', '$state', 'authService', 'judgeService', 'notificationService', 'judges'];
+JudgeLoginController.$inject = ['$scope', '$state', 'authService', 'notificationService'];
 app.controller('judgeLoginController', JudgeLoginController);

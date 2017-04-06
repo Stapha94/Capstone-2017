@@ -11,7 +11,7 @@ class AdminLoginController {
         if(this.email && this.password) {
             this.authService.adminLogin(this.email, this.password)
                 .then((admin) => {
-                    this.$state.go('admin', {adminId: admin.id});
+                    this.$state.go('home.admin.dashboard', {adminId: admin.id});
                 })
                 .catch((error) => {
                     this.notificationService.error('Invalid username or password!');

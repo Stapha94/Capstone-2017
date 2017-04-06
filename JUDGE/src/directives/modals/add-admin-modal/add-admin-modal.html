@@ -1,0 +1,44 @@
+<!-- Modal Structure -->
+<div id="add-admin" class="modal modal-fixed-footer" material-modal>
+    <form name="add-admin-form" id="add-admin-form" ng-submit="ctrl.add()">
+        <div class="modal-content">
+            <h5 class="page-title">Add Admin</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" name="first_name" id="first_name" ng-model="ctrl.model.firstName" placeholder="First Name" ng-required="ctrl.modal">
+                        <label class="active" for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" name="last_name" id="last_name" ng-model="ctrl.model.lastName" placeholder="Last Name" ng-required="ctrl.modal">
+                        <label class="active" for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" id="email" ng-model="ctrl.model.email" class="validate" placeholder="Email" ng-required="ctrl.modal">
+                        <label class="active" for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="email" name="confirmEmail" id="confirmEmail" ng-model="ctrl.confirmEmail" class="validate" placeholder="Confirm Email" ng-required="ctrl.modal">
+                        <label class="active" for="confirmEmail">Confirm Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" name="password" id="password" ng-model="ctrl.model.password" class="validate" placeholder="Password" ng-required="ctrl.modal">
+                        <label class="active" for="password">Password</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" name="confirmPassword" id="confirmPassword" ng-model="ctrl.confirmPassword" class="validate" placeholder="Confirm Password" ng-required="ctrl.modal">
+                        <label class="active" for="cofirmPassword">Confirm Password</label>
+                    </div>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Add Admin</button>
+        </div>
+    </form>
+</div>

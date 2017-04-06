@@ -1,12 +1,12 @@
 <div class="wrap">
 
-    <form>
+    <form ng-submit="ctrl.submit()">
 
         <table>
             <tbody>
                 <tr ng-repeat="questionSection in ctrl.questionSections">
                     <td>
-                        <table class="bordered highlight judge-form responsive-table">
+                        <table class="bordered highlight judge-form">
                             <thead>
                                 <tr>
                                     <th class="question-info" data-field="question">{{questionSection.title}}</th>
@@ -34,10 +34,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <table class="bordered highlight judge-form responsive-table">
+                        <table class="bordered highlight judge-form">
                             <tbody>
                                 <tr>
-                                    <td class="pull-right">{{ctrl.form.total}}</td>
+                                    <td class="pull-right"><strong>TOTAL SCORE: &nbsp</strong>{{ctrl.form.total}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -46,10 +46,20 @@
             </tbody>
         </table>
 
-        <div class="row">
-            <div class="pull-right">
-                <button ng-click="ctrl.submit()" class="btn admin-btn">Submit</button>
+        <div class="row comment-box">
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>
+                        <label class="active" for="comments"><h5>Comments</h5></label>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="row pull-right">
+            <button type="submit" class="waves-effect waves-light btn green">Submit</button>
+            <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn red">Cancel</a>
         </div>
 
     </form>

@@ -12,6 +12,10 @@ class Key_participant_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('key_participant_id', 'presenter_id', 'first_name', 'last_name', 'department', 'institution_id', 'role_id');
+		$this->filter = array(
+			'key_participant_id' => 'key_participant',
+			'presenter_id' => 'key_participant'
+		);
 		$this->name = 'key_participant';
 		parent::__construct();
 	}
@@ -38,9 +42,8 @@ class Key_participant_model extends CI_Model {
 		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$this->name}.{$joins['r']}_id");
 
 		// Where clauses here
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
@@ -50,14 +53,7 @@ class Key_participant_model extends CI_Model {
 
 	public function create($data = array()) {
 		try {
-			if($this->db->insert($this->name, $data)) {
-				$key_participant_id = $this->db->insert_id();
-				$query = $this->db->get_where($this->name, array('key_participant_id' => $key_participant_id));
-				$result = $query->result();
-				return $result;
-			} else {
-				return false;
-			}
+			return $this->db->insert_batch($this->name, $data);
 		} catch (Exception $e) {
 			return false;
 		}
@@ -65,7 +61,7 @@ class Key_participant_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
-			return $this->db->update($this->name, $data);
+			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;
 		}
