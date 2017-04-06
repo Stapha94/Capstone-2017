@@ -3,7 +3,7 @@ app = angular.module('app', ['ngDragDrop', 'ui.router', 'ui.bootstrap', 'angular
     .constant('CONFIG', {
         // This is the url for the database. Change it between local and host when needed.
         //DBURL: 'http://localhost:8800/'
-      DBURL: 'http://judge.marshallcite.org/app/index.php/'
+      DBURL: 'http://judge.marshallcite.org/index.php/'
     })
     .run(($log, $rootScope, routeInterceptor) => {
         // Set listener on state changes
