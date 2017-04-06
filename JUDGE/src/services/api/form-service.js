@@ -6,7 +6,7 @@ class FormService extends BaseApiService {
     delete(formId) {
         var deferred = this.$q.defer();
 
-        var url = this.baseUrl + this.serviceUrl + '/delete/' + formId;
+        var url = this.baseUrl + this.serviceUrl + '/' + formId;
         this.$http.delete(url)
             .then((response) => {
                 this.notificationService.success('Successfully deleted forms !');

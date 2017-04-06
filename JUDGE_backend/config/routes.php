@@ -63,6 +63,7 @@ $route['awards/(.+)'] = 'award';
 
 // Form Routes
 $route['forms'] = 'form';
+$route['forms/(:num)'] = 'form/index/$1'; // For delete
 $route['forms/(.+)'] = 'form';
 
 // FormQuestion Routes
