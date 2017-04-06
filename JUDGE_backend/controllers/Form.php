@@ -16,9 +16,9 @@ class Form extends REST_Controller {
 		$this->generate_post_response($this->form);
 	}
 
-	public function index_delete()
+	public function index_delete($id = 0)
 	{
-		$this->generate_delete_response($this->form);
+		$this->generate_delete_response($this->form, $id);
 	}
 
 }

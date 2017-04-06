@@ -48,7 +48,7 @@ class BaseApiService {
         return deferred.promise;
     }
 
-    // Note: This method is also used for delete since we're just updating the active value to 0
+    // Note: This method is also used for most deletes since we're just updating the active value to 0
     update(object) {
         var deferred = this.$q.defer();
 
