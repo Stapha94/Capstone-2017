@@ -32,3 +32,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 
 JUDGE_backend/config/secret.php
+JUDGE_backend/views/mailtest.php
