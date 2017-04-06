@@ -38,6 +38,7 @@ class JudgeFormController {
         this.questionSections = questionSections;
         this.originalForm = form;
         this.form = angular.copy(this.originalForm);
+        this.form.judged = '1';
         this.originalFormQuestions = formQuestions;
         this.formQuestions = angular.copy(this.originalFormQuestions);
         this.formService = formService;
@@ -84,6 +85,7 @@ class JudgeFormController {
 
     cancel() {
         this.form = angular.copy(this.originalForm);
+        this.form.judged = '1';
         this.$state.go('home.judge.dashboard');
     }
 

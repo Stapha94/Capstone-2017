@@ -27,6 +27,7 @@ class Question_model extends CI_Model {
 			// All the select fields
 
 			$this->db->select("{$this->name}_id,
+				{$this->name}.{$joins['qs']}_id,
                 {$joins['qs']}.title AS section,
                 description,
                 {$this->name}.active");

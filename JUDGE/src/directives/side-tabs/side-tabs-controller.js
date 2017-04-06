@@ -3,7 +3,7 @@ class SideTabsController {
     constructor($scope, $state, $element, $timeout) {
         this.$scope = $scope;
         this.tabs = $scope.tabs;
-        this.active = $scope.active ? $scope.active : this.tabs[0].title;
+        this.active = $scope.active ? $scope.active : this.tabs[0].id;
         this.$state = $scope.state;
         this.paramCheck = $scope.paramCheck ? $scope.paramCheck : 'id';
         this.current = $scope.state.current; // Is always the current state

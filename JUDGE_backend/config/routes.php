@@ -130,5 +130,8 @@ $route['roles/(.+)'] = 'role';
 $route['summits'] = 'summit';
 $route['summits/(.+)'] = 'summit';
 
+// Email Route
+$route['email/(.+)'] = 'email';
+
 //Redirects to error page if any invalid page is called
 $route['(:any)'] = 'error';

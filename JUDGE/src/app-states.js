@@ -59,25 +59,84 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         .state('home.admin.settings', {
             url: '/settings',
             abstract: true,
-            templateUrl: 'build/views/pages/admin-settings/admin-settings.html',
-            controller: 'adminSettingsController',
-            controllerAs: 'ctrl'
+            template: '<ui-view />'
         })
         .state('home.admin.settings.summits', {
             url: '/summits',
             templateUrl: 'build/views/pages/admin-settings/summits/summits.html',
             controller: 'summitsController',
             controllerAs: 'ctrl',
-            sideTab: 'Summits',
             resolve: SummitsController.resolve()
         })
-        .state('home.admin.settings.institutions', {
+        .state('home.admin.settings.summit', {
+            url: '/summit/{summitId:[0-9]+}',
+            templateUrl: 'build/views/pages/admin-settings/summits/summit-info.html',
+            controller: 'summitInfoController',
+            controllerAs: 'ctrl',
+            resolve: SummitInfoController.resolve()
+        })
+        .state('home.admin.settings.site', {
+            url: '',
+            abstract: true,
+            templateUrl: 'build/views/pages/admin-settings/admin-settings.html',
+            controller: 'adminSettingsController',
+            controllerAs: 'ctrl'
+        })
+        .state('home.admin.settings.site.institutions', {
             url: '/institutions',
             templateUrl: 'build/views/pages/admin-settings/institutions/institutions.html',
             controller: 'institutionsController',
             controllerAs: 'ctrl',
-            sideTab: 'Institutions',
+            sideTab: 'institutions',
             resolve: InstitutionsController.resolve()
+        })
+        .state('home.admin.settings.site.roles', {
+            url: '/roles',
+            templateUrl: 'build/views/pages/admin-settings/roles/roles.html',
+            controller: 'rolesController',
+            controllerAs: 'ctrl',
+            sideTab: 'roles',
+            resolve: RolesController.resolve()
+        })
+        .state('home.admin.settings.site.poster-categories', {
+            url: '/poster-categories',
+            templateUrl: 'build/views/pages/admin-settings/poster-categories/poster-categories.html',
+            controller: 'posterCategoriesController',
+            controllerAs: 'ctrl',
+            sideTab: 'poster-categories',
+            resolve: PosterCategoriesController.resolve()
+        })
+        .state('home.admin.settings.site.judge-categories', {
+            url: '/judge-categories',
+            templateUrl: 'build/views/pages/admin-settings/judge-categories/judge-categories.html',
+            controller: 'judgeCategoriesController',
+            controllerAs: 'ctrl',
+            sideTab: 'judge-categories',
+            resolve: JudgeCategoriesController.resolve()
+        })
+        .state('home.admin.settings.site.awards', {
+            url: '/awards',
+            templateUrl: 'build/views/pages/admin-settings/awards/awards.html',
+            controller: 'awardsController',
+            controllerAs: 'ctrl',
+            sideTab: 'awards',
+            resolve: AwardsController.resolve()
+        })
+        .state('home.admin.settings.site.questions', {
+            url: '/questions',
+            templateUrl: 'build/views/pages/admin-settings/questions/questions.html',
+            controller: 'questionsController',
+            controllerAs: 'ctrl',
+            sideTab: 'questions',
+            resolve: QuestionsController.resolve()
+        })
+        .state('home.admin.settings.site.question-sections', {
+            url: '/question-sections',
+            templateUrl: 'build/views/pages/admin-settings/question-sections/question-sections.html',
+            controller: 'questionSectionsController',
+            controllerAs: 'ctrl',
+            sideTab: 'question-sections',
+            resolve: QuestionSectionsController.resolve()
         })
         .state('home.admin.reporting', {
             url: '/reporting',
@@ -86,19 +145,25 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl'
         })
         .state('home.admin.judges', {
-            url: '/judges?category',
+            url: '/judges',
             templateUrl: 'build/views/pages/admin-judges/admin-judges.html',
             controller: 'adminJudgesController',
             controllerAs: 'ctrl',
             resolve: AdminJudgesController.resolve()
         })
         .state('home.admin.judge', {
-            url: '^/admin/{adminId:[0-9]+}/judge/{judgeId:[0-9]+}',
-            parent: 'home.admin.judges',
+            url: '/judge/{judgeId:[0-9]+}',
             templateUrl: 'build/views/pages/admin-judges/admin-judge-info.html',
             controller: 'adminJudgeInfoController',
             controllerAs: 'ctrl',
             resolve: AdminJudgeInfoController.resolve()
+        })
+        .state('home.admin.assign', {
+            url: '/assign-posters',
+            templateUrl: 'build/views/pages/admin-assign-posters/admin-assign-posters.html',
+            controller: 'adminAssignPostersController',
+            controllerAs: 'ctrl',
+            resolve: AdminAssignPostersController.resolve()
         })
         .state('home.admin.participants', {
             url: '/participants',

@@ -30,6 +30,9 @@ class Migration_Add_summit extends CI_Migration {
         {
                 $sql = "DROP TABLE summit;";
                 $this->db->query($sql);
+
+				$sql = "SET FOREIGN_KEY_CHECKS = 1;";
+				$this->db->query($sql);
         }
 }
 ?>

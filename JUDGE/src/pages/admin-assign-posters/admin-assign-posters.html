@@ -1,0 +1,48 @@
+<div class="wrap">
+    <h5 class="page-title">Assign Posters</h5>
+    <div class="row">
+        <div class="input-field col s6">
+            <select name="judge" class="form-control" ng-model="ctrl.judgeId" id="judge" title="Judge" material-select
+                ng-options="judge.judgeId as judge.email for judge in ctrl.judges">
+                <option value="" disabled selected>Select Judge</option>
+            </select>
+            <label for="judge">Select Judge</label>
+        </div>
+    </div>
+    <div ng-if="ctrl.judgeSelected()" class="row">
+        <div class="input-field col s5">
+            <h6 style="text-align: center;"><strong>Unassigned Posters</strong></h6>
+            <table class="unassigned-posters bordered highlight">
+                <thead>
+                    <tr>
+                        <th>Poster Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters">
+                        <td>{{poster.posterTitle}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="input-field col s2">
+            <a ng-click="ctrl.unassign()" class="waves-effect waves-light btn"><i class="material-icons">keyboard_arrow_left</i></a>
+            <a ng-click="ctrl.assign()" class="waves-effect waves-light btn"><i class="material-icons">keyboard_arrow_right</i></a>
+        </div>
+        <div class="input-field col s5">
+            <h6 style="text-align: center;"><strong>Assigned Posters</strong></h6>
+            <table class="assigned-posters bordered highlight">
+                <thead>
+                    <tr>
+                        <th>Poster Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-click="ctrl.selectForm(form, $event)" ng-repeat="form in ctrl.forms | filter: {judgeId: ctrl.judgeId }">
+                        <td>{{form.posterTitle}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

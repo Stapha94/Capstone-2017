@@ -51,6 +51,8 @@ var paths = {
     'JUDGE/src/app.js',
     'JUDGE/src/app-states.js',
     'JUDGE/src/pages/**/base-table-model-controller.js',
+    'JUDGE/src/pages/**/base-site-controller.js',    
+    'JUDGE/src/pages/**/base-site-table-model-controller.js',
     'JUDGE/src/services/**/base-api-service.js',
     'JUDGE/src/services/**/*.js',
     'JUDGE/src/config/**/*.js',
@@ -59,7 +61,9 @@ var paths = {
     ],
     dependencies: [
        'node_modules/jquery/dist/jquery.min.js',
+       'node_modules/jquery-ui/jquery-ui.min.js',
        'node_modules/angular/angular.js',
+       'node_modules/angular-dragdrop/src/angular-dragdrop.min.js',
        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
        'node_modules/angular-ui-router/release/angular-ui-router.min.js',
        'node_modules/angular-loading-bar/build/loading-bar.min.js',

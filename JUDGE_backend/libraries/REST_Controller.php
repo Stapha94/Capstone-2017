@@ -1942,7 +1942,7 @@ abstract class REST_Controller extends \CI_Controller {
 
 	protected function sanitize_uri($params = array(), $fields) {
 		foreach($params as $column=>$value) {
-			if(!($column === 'create' || $column === 'update' || $column === 'update_password' || $column === 'update_pin')) {
+			if(!($column === 'create' || $column === 'update' || $column === 'update_password' || $column === 'update_pin' || $column === 'delete')) {
 				if (!in_array($column, $fields) && !array_key_exists($column, $fields)) {
 					return 404;
 				}
@@ -2032,7 +2032,7 @@ abstract class REST_Controller extends \CI_Controller {
 					}
 				}
 				if ($method === 'create') {
-					$query = $model->update_password($data);
+					$query = $model->create($data);
 					if ($query) {
 						$this->response(prepare_for_frontend($query), 201);
 					} else {
@@ -2217,6 +2217,37 @@ abstract class REST_Controller extends \CI_Controller {
 					} else {
 						$this->response([], 400);
 					}
+				}
+			}
+		} else {
+			$this->response([], 401);
+		}
+	}
+
+	protected function generate_delete_response($model = NULL) {
+		$params = get_paramters();
+		$auth = $this->sanitize_uri($params, $model->fields);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($auth === 400) {
+			$this->response([], 400);
+		} else if($auth === 401) {
+			$this->response([], 401);
+		} else if($auth === 404) {
+			$this->response([], 404);
+		} else if($this->authorize->is_admin($auth)) {
+			$method = $this->uri->segment(2);
+			$id = $this->uri->segment(3);
+			$data['id'] = $id;
+			if ($method === 'delete') {
+				$query = $model->delete($data);
+				if ($query) {
+					$this->response([], 202);
+				} else {
+					$this->response([], 403);
 				}
 			}
 		} else {

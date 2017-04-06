@@ -37,5 +37,3 @@ class BaseTableModelController {
     }
 
 }
-
-app.controller('baseTableModelController', BaseTableModelController);

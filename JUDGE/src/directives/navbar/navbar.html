@@ -28,7 +28,7 @@
             <ul id="admin-dropdown" class="dropdown-content">
                 <li><a ui-sref="home.admin.dashboard">Dashboard</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="home.admin.account">Account</a></li>
+                <li><a ui-sref="home.admin.info({adminId: ctrl.user.id, adminInfoId: ctrl.user.id})">Account</a></li>
             </ul>
 
             <nav>
@@ -49,6 +49,23 @@
                         <div class="waves-effect collapsible-body">
                             <a class="waves-effect" ui-sref="home.admin.dashboard"><i class="material-icons md-light">dashboard</i> &nbsp;&nbsp;Dashboard</a>
                         </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.info({adminId: ctrl.user.id, adminInfoId: ctrl.user.id})"><i class="material-icons md-light">perm_identity</i> &nbsp;&nbsp;Account</a>
+                        </div>
+                </li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Summit</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.summit({summitId: ctrl.summit.summitId})"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;View Active</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.summits"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;View All</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.view-posters"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;View Posters</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.assign"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Assign Posters</a>
+                        </div>
                 </li>
                 <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">face</i> &nbsp;&nbsp;Users</div>
                         <div class="waves-effect collapsible-body">
@@ -64,7 +81,29 @@
                 <li>
                         <a class="waves-effect" ui-sref="home.admin.reporting"><i class="material-icons md-light">timeline</i> &nbsp;&nbsp;Reports</a>
                 </li>
-                <li><a class="waves-effect" ui-sref="home.admin.settings.summits"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Settings</a></li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Settings</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.institutions"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Institutions</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.roles"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Roles</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.awards"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Awards</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.judge-categories"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Judge Categories</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.poster-categories"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Poster Categories</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.questions"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Questions</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.question-sections"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Question Sections</a>
+                        </div>
+                </li>
             </ul>
         </aside>
 

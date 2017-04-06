@@ -11,11 +11,13 @@ class Form_model extends CI_Model {
 	public function __construct()
 	{
 		// These are for filtering the data.
-		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'comments');
+		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'judged', 'comments');
 		$this->filter = array(
 			'form_id' => 'form',
 			'poster_id' => 'form',
-			'judge_id' => 'form'
+			'judge_id' => 'form',
+			'summit_id' => 'summit',
+			'judged' => 'form'
 			// This can be added as the need arises
 		);
 		$this->name = 'form';
@@ -54,6 +56,7 @@ class Form_model extends CI_Model {
 				{$joins['pa']}.conclusion,
 				{$joins['po']}.submission_date,
 				{$joins['po']}.score AS {$joins['po']}_score,
+				judged,
                 total,
                 comments");
 
@@ -96,6 +99,15 @@ class Form_model extends CI_Model {
 	public function update($data = array()) {
 		try {
 			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function delete($data = array()) {
+		try {
+			$id = $data['id'];
+			return $this->db->delete($this->name, array("{$this->name}_id" => $id));
 		} catch (Exception $e) {
 			return false;
 		}

@@ -11,7 +11,7 @@ class Summit_model extends CI_Model {
 
 	public function __construct()
 	{
-		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'judge_login_disabled', 'active');
+		$this->fields = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'created_by_admin_id', 'judge_login_disabled', 'pin', 'active');
 		$this->filter = array(
 			'summit_id' => 'summit',
 			'summit_start' => 'summit',
@@ -55,6 +55,14 @@ class Summit_model extends CI_Model {
 	public function create($data = array()) {
 		try {
 			$data['pin'] = password_hash($data['pin'], PASSWORD_BCRYPT);
+			if(intval($data['active']) === 1) {
+				// Since only one summit can be active at a time, we need to deactivate the current active one.
+				$temp['active'] = 0;
+				//If the query fails, return false
+				if(!$this->db->update('summit', $temp)) {
+					return false;
+				}
+			}
 			if($this->db->insert($this->name, $data)) {
 				$summit_id = $this->db->insert_id();
 				$query = $this->db->get_where($this->name, array('summit_id' => $summit_id));

@@ -359,3 +359,12 @@ input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=em
 .collapsible-header.active {
     background-color: #00B140;
 }
+
+table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
+    cursor: pointer;
+}
+
+table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
+    color: white;
+    background-color: #00B140;
+}

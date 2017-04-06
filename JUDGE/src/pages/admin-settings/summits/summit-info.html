@@ -1,0 +1,72 @@
+<div class="wrap">
+    <h5 class="page-title">Summit Info</h5>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#Info">Info</a></li>
+                <li class="tab col s3"><a href="#Pin">Change Pin</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Info" class="input-field col s12">
+        <form ng-submit="ctrl.save()">
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input material-datepicker name="summit-date" id="summit-date" ng-model="$parent.ctrl.summitDate" ng-required="ctrl.modal">
+                        <label class="active" for="summit-date">Summit Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="time" name="start-time" id="start-time" ng-model="ctrl.startTime" class="validate" ng-required="ctrl.modal">
+                        <label class="active" for="start-time">Start Time</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="time" name="end-time" id="end-time" ng-model="ctrl.endTime" class="validate" ng-required="ctrl.modal">
+                        <label class="active" for="end-time">End Time</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s9">
+                        <input material-datepicker name="registration-deadline" id="registration-deadline" ng-model="$parent.ctrl.registrationDeadline" ng-required="ctrl.modal">
+                        <label class="active" for="registration-deadline">Registration Deadline</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input type="time" name="deadline-time" id="deadline-time" ng-model="ctrl.deadlineTime" class="validate" ng-required="ctrl.modal">
+                        <label class="active" for="deadline-time">Deadline Time</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row pull-right">
+                <button type="submit" class="waves-effect waves-light btn green ">Save</button>
+                <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn red ">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="Pin" class="input-field col s12">
+        <form ng-submit="ctrl.updatePassword()">
+            <div class="input-field col s12">
+                    <div class="input-field col s12">
+                        <input type="password" maxlength="4" name="oldPin" id="oldPin" ng-model="ctrl.oldPin" class="validate" placeholder="Old Pin" required>
+                        <label class="active" for="oldPin">Old Pin</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" maxlength="4" name="pin" id="pin" ng-model="ctrl.newPin" class="validate" placeholder="New Pin" required>
+                        <label class="active" for="pin">New Pin</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" maxlength="4" name="confirmPin" id="confirmPin" ng-model="ctrl.confirmPin" class="validate" placeholder="Confirm Pin" required>
+                        <label class="active" for="cofirmPin">Confirm Pin</label>
+                    </div>
+            </div>
+            <div class="row pull-right">
+                <button type="submit" class="waves-effect waves-light btn green ">Update</button>
+                <a ng-click="ctrl.cancelPin()" class="waves-effect waves-light btn red ">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>

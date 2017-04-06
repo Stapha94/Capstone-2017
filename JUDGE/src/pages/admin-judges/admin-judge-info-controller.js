@@ -2,8 +2,17 @@ class AdminJudgeInfoController {
 
     static resolve() {
         return {
-                judge: ['judges', '$stateParams', (judges, $stateParams) => {
-                    return _.find(judges, {'judgeId': $stateParams.judgeId});
+                judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
+                    return judgeService.get({judgeId: $stateParams.judgeId})
+                        .then((data) => {
+                            return data[0];
+                        });
+                }],
+                judgeCategories: ['judgeCategoryService', (judgeService) => {
+                    return judgeService.get()
+                        .then((data) => {
+                            return data;
+                        });
                 }],
                 forms: ['formService', 'judge', (formService, judge) => {
                     return formService.get({judgeId: judge.judgeId})
