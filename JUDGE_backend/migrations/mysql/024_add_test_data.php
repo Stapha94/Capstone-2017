@@ -29,11 +29,11 @@ class Migration_Add_test_data extends CI_Migration {
 
         $this->db->query($sql);
 
-        $sql = "INSERT INTO poster (poster_category_id, poster_abstract_id, summit_id, award_id, presenter_id, submission_date)
-                VALUES (1, 1, 1, 1, 1, NOW()),
-                		(1, 1, 1, 1, 1, NOW()),
-                		(1, 1, 1, 1, 1, NOW()),
-                		(1, 1, 1, 1, 1, NOW());";
+        $sql = "INSERT INTO poster (poster_abstract_id, summit_id, award_id, presenter_id, submission_date)
+                VALUES (1, 1, 1, 1, NOW()),
+                		(1, 1, 1, 1, NOW()),
+                		(1, 1, 1, 1, NOW()),
+                		(1, 1, 1, 1, NOW());";
 
         $this->db->query($sql);
 

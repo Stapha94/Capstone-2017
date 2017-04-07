@@ -2,7 +2,6 @@
 class Poster_model extends CI_Model {
 
         private $poster_id;
-        private $poster_category_id;
         private $award_id;
         private $abstract_id;
         private $presenter_id;
@@ -11,10 +10,12 @@ class Poster_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'poster_category_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
+        		$this->fields = array('poster_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
         		$this->filter = array(
         			'poster_id' => 'poster',
 					'category' => 'poster_category',
+					'judge_category_id' => 'institution',
+					'poster_category_id' => 'role',
 					'award' => 'award',
 					'poster_title' => 'poster_abstract',
 					'presenter_id' => 'poster',
@@ -44,8 +45,11 @@ class Poster_model extends CI_Model {
                 {$joins['pr']}.suffix,
                 {$joins['pr']}.email,
                 {$joins['i']}.title AS institution,
+				{$joins['i']}.judge_category_id,
                 {$joins['r']}.title AS role,
+                {$joins['r']}.poster_category_id,
                 {$joins['pr']}.active,
+                {$this->name}.summit_id,
                 {$joins['s']}.summit_start,
                 {$joins['s']}.summit_end,
                 {$joins['s']}.registration_deadline,
@@ -53,12 +57,13 @@ class Poster_model extends CI_Model {
 
             // Put any joins here
 
-            $this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$this->name}.{$joins['pc']}_id");
             $this->db->join("{$joins['aw']}", "{$joins['aw']}.{$joins['aw']}_id = {$this->name}.{$joins['aw']}_id");
             $this->db->join("{$joins['pa']}", "{$joins['pa']}.{$joins['pa']}_id = {$this->name}.{$joins['pa']}_id");
             $this->db->join("{$joins['pr']}", "{$joins['pr']}.{$joins['pr']}_id = {$this->name}.{$joins['pr']}_id");
             $this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$joins['pr']}.{$joins['i']}_id");
+			$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$joins['i']}.{$joins['jc']}_id");
             $this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$joins['pr']}.{$joins['r']}_id");
+			$this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$joins['r']}.{$joins['pc']}_id");
             $this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$this->name}.{$joins['s']}_id");
 
 			// Where clauses here
@@ -108,13 +113,14 @@ class Poster_model extends CI_Model {
 
         public function joins() {
         	$joins = array(
-        		'pc' => 'poster_category',
 				'aw' => 'award',
 				'pa' => 'poster_abstract',
 				'pr' => 'presenter',
 				's' => 'summit'
 			);
 			$joins = array_merge($joins, $this->presenter->joins());
+			$joins = array_merge($joins, $this->institution->joins());
+			$joins = array_merge($joins, $this->role->joins());
         	return $joins;
 		}
 
