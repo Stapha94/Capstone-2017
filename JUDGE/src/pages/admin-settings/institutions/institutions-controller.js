@@ -1,10 +1,21 @@
-class InstitutionsController {
+class InstitutionsController extends BaseSiteController {
 
-    constructor($scope, institutions) {
-        this.institutions = institutions;
+    static resolve() {
+        return {
+                institutions: ['institutionService', (institutionService) => {
+                    return institutionService.get()
+                        .then((data) => {
+                            return data;
+                        })
+                }]
+            }
+    }
+
+    constructor(institutionService, institutions) {
+        super(institutionService, institutions);
     }
 
 }
 
-InstitutionsController.$inject = ['$scope', 'institutions'];
+InstitutionsController.$inject = ['institutionService', 'institutions'];
 app.controller('institutionsController', InstitutionsController);

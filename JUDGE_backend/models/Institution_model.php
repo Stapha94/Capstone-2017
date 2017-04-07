@@ -2,12 +2,19 @@
 class Institution_model extends CI_Model {
 
 	private $institution_id;
+	private $judge_category_id;
 	private $title;
 	private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('institution_id', 'title', 'active');
+		$this->fields = array('institution_id', 'judge_category_id', 'title', 'active');
+		$this->filter = array(
+			'institution_id' => 'institution',
+			'judge_category_id' => 'institution',
+			'title' => 'institution',
+			'active' => 'institution'
+		);
 		$this->name = 'institution';
 		parent::__construct();
 	}
@@ -19,16 +26,15 @@ class Institution_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
+			{$this->name}.judge_category_id,
 			title,
 			active");
 
 		// Put any joins here
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
@@ -57,6 +63,13 @@ class Institution_model extends CI_Model {
 		} catch (Exception $e) {
 			return false;
 		}
+	}
+
+	public function joins() {
+		$joins = array(
+			'jc' => 'judge_category',
+		);
+		return $joins;
 	}
 
 }

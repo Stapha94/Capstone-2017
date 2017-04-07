@@ -10,7 +10,7 @@
         </ul>
         <nav>
             <div class="nav-wrapper landing-nav">
-                <a ui-sref="home.landing" class="brand-logo logo"><img src="judge/assets/img/MarshallWhite.png" height="40" width=""></a>
+                <a ui-sref="home.landing" class="brand-logo logo"><img src="build/dist/img/MarshallWhite.png" height="40" width=""></a>
 
                 <ul ng-if="!ctrl.authService.isLoggedIn" id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a class="drop-button" data-activates="login-dropdown" material-dropdown>Login<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -28,57 +28,84 @@
             <ul id="admin-dropdown" class="dropdown-content">
                 <li><a ui-sref="home.admin.dashboard">Dashboard</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="home.admin.account">Account</a></li>
-            </ul>
-
-            <!-- Presenters dropdown -->
-            <ul id="admin-presenters-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.participants">Presenters</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.posters">Posters</a></li>
-            </ul>
-
-            <!-- Users dropdown -->
-            <ul id="admin-users-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.admins">Admins</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.judges({ category: 'marshall' })">Marshall Judges</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.judges({ category: 'cabell' })">Cabell Judges</a></li>
-            </ul>
-
-            <!-- Settings dropdown -->
-            <ul id="admin-settings-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.admin.settings.summits">Summits</a></li>
-                <li class="divider"></li>
-                <li><a ui-sref="home.admin.settings.institutions">Institutions</a></li>
+                <li><a ui-sref="home.admin.info({adminId: ctrl.user.id, adminInfoId: ctrl.user.id})">Account</a></li>
             </ul>
 
             <nav>
                 <div class="nav-wrapper">
-                    <a ui-sref="home.landing" class="brand-logo logo"><img src="judge/assets/img/MarshallWhite.png" height="40" width=""></a>
+                    <a ui-sref="home.landing" class="brand-logo logo"><img src="build/dist/img/MarshallWhite.png" height="40" width=""></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a class="drop-button" data-activates="admin-dropdown" material-dropdown>{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a class="drop-button" data-activates="admin-presenters-dropdown" material-dropdown>Participants<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a class="drop-button" data-activates="admin-users-dropdown" material-dropdown>User Management<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a ui-sref="home.admin.reports">Reports</a></li>
-                        <li><a class="drop-button" data-activates="admin-settings-dropdown" material-dropdown>Settings<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a ng-click="ctrl.authService.logout()">Logout</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
 
-        <!--aside>
-            <ul class="side-nav" id="bar">
-                <li><a class="waves-effect" ui-sref="home.admin.dashboard"><img class="nav-icon" src="judge/assets/img/ic_dashboard_white_48dp_2x.png">Dashboard</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.participants"><img class="nav-icon" src="judge/assets/img/ic_verified_user_white_48dp_2x.png">Participants</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.reporting"><img class="nav-icon" src="judge/assets/img/ic_timeline_white_48dp_2x.png">Reports</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.judges"><img class="nav-icon" src="judge/assets/img/ic_assignment_white_48dp_2x.png">Judges</a></li>
-                <li><a class="waves-effect" ui-sref="home.admin.settings"><img class="nav-icon" src="judge/assets/img/ic_settings_white_48dp_2x.png">Settings</a></li>
+        <aside ng-if="!hideSide">
+            <ul class="side-nav collapsible" data-collapsible="expandable" material-collapsible id="bar">
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">perm_identity</i> &nbsp;&nbsp;{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.dashboard"><i class="material-icons md-light">dashboard</i> &nbsp;&nbsp;Dashboard</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.info({adminId: ctrl.user.id, adminInfoId: ctrl.user.id})"><i class="material-icons md-light">perm_identity</i> &nbsp;&nbsp;Account</a>
+                        </div>
+                </li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Summit</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.summit({summitId: ctrl.summit.summitId})"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;View Active</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.summits"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;View All</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.view-posters"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;View Posters</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.assign"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Assign Posters</a>
+                        </div>
+                </li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">face</i> &nbsp;&nbsp;Users</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.participants"><i class="material-icons md-light">verified_user</i> &nbsp;&nbsp;Participants</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.admins"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Admins</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.judges({category: 'marshall'})"><i class="material-icons md-light">assignment</i> &nbsp;&nbsp;Judges</a>
+                        </div>
+                </li>
+                <li>
+                        <a class="waves-effect" ui-sref="home.admin.reporting"><i class="material-icons md-light">timeline</i> &nbsp;&nbsp;Reports</a>
+                </li>
+                <li><div class="waves-effect collapsible-header"><i class="material-icons md-light">settings</i> &nbsp;&nbsp;Settings</div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.institutions"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Institutions</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.roles"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Roles</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.awards"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Awards</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.judge-categories"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Judge Categories</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.poster-categories"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Poster Categories</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.questions"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Questions</a>
+                        </div>
+                        <div class="waves-effect collapsible-body">
+                            <a class="waves-effect" ui-sref="home.admin.settings.site.question-sections"><i class="material-icons md-light">supervisor_account</i> &nbsp;&nbsp;Question Sections</a>
+                        </div>
+                </li>
             </ul>
-        </aside-->
+        </aside>
 
     </div>
 
@@ -90,14 +117,14 @@
             <!-- Judge dropdown -->
 
             <ul id="judge-dropdown" class="dropdown-content">
-                <li><a ui-sref="home.judge.info">Info</a></li>
+                <li><a ui-sref="home.judge.info({judgeId: ctrl.user.id})">Info</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="home.judge.dashboard">Posters</a></li>
+                <li><a ui-sref="home.judge.dashboard({judgeId: ctrl.user.id})">Posters</a></li>
             </ul>
 
             <nav>
                 <div class="nav-wrapper landing-nav">
-                    <a ui-sref="home.landing" class="brand-logo logo"><img src="judge/assets/img/MarshallWhite.png" height="40" width=""></a>
+                    <a ui-sref="home.landing" class="brand-logo logo"><img src="build/dist/img/MarshallWhite.png" height="40" width=""></a>
                     <a ui-sref="." data-activates="judge-menu" class="button-collapse" material-side-nav><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a class="drop-button" data-activates="judge-dropdown" material-dropdown>{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -112,12 +139,12 @@
                         <ul class="collapsible" data-collapsible="expandable" material-collapsible>
                             <li>
                                 <div class="collapsible-header">{{ctrl.user.firstName + ' ' + ctrl.user.lastName}}</div>
-                                <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.info"><img class="nav-icon" src="judge/assets/img/ic_verified_user_white_48dp_2x.png">Info</a></div>
-                                <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.dashboard"><img class="nav-icon" src="judge/assets/img/ic_dashboard_white_48dp_2x.png">Posters</a></div>
+                                <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.info"><img class="nav-icon" src="build/dist/img/ic_verified_user_white_48dp_2x.png">Info</a></div>
+                                <div class="collapsible-body"><a class="waves-effect" ui-sref="home.judge.dashboard"><img class="nav-icon" src="build/dist/img/ic_dashboard_white_48dp_2x.png">Posters</a></div>
                             </li>
                         </ul>
                     </li>
-                    <li><a class="waves-effect" ng-click="ctrl.logout($event)"><img class="nav-icon" src="judge/assets/img/ic_settings_white_48dp_2x.png">Logout</a></li>
+                    <li><a class="waves-effect" ng-click="ctrl.logout($event)"><img class="nav-icon" src="build/dist/img/ic_settings_white_48dp_2x.png">Logout</a></li>
             </ul>
     </div>
 </div>

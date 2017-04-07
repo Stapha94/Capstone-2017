@@ -4,6 +4,11 @@ class Form_question_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('form_id', 'question_id', 'score');
+		$this->filter = array(
+			'form_id' => 'form_question',
+			'question_id' => 'form_question',
+			'summit_id' => 'summit'
+		);
 		$this->name = 'form_question';
 		parent::__construct();
 	}
@@ -33,12 +38,12 @@ class Form_question_model extends CI_Model {
 		$this->db->join("{$joins['q']}", "{$joins['q']}.{$joins['q']}_id = {$this->name}.{$joins['q']}_id");
 		$this->db->join("{$joins['j']}", "{$joins['j']}.{$joins['j']}_id = {$joins['f']}.{$joins['j']}_id");
 		$this->db->join("{$joins['po']}", "{$joins['po']}.{$joins['po']}_id = {$joins['f']}.{$joins['po']}_id");
+		$this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$joins['po']}.{$joins['s']}_id");
 		$this->db->join("{$joins['qs']}", "{$joins['qs']}.{$joins['qs']}_id = {$joins['q']}.{$joins['qs']}_id");
 
 		// Where clauses here
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);

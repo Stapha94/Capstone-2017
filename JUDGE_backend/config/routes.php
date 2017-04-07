@@ -63,6 +63,7 @@ $route['awards/(.+)'] = 'award';
 
 // Form Routes
 $route['forms'] = 'form';
+$route['forms/(:num)'] = 'form/index/$1'; // For delete
 $route['forms/(.+)'] = 'form';
 
 // FormQuestion Routes
@@ -129,6 +130,9 @@ $route['roles/(.+)'] = 'role';
 //Summit Routes
 $route['summits'] = 'summit';
 $route['summits/(.+)'] = 'summit';
+
+// Email Route
+$route['email/(.+)'] = 'email';
 
 //Redirects to error page if any invalid page is called
 $route['(:any)'] = 'error';

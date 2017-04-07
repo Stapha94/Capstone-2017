@@ -1,0 +1,22 @@
+<!-- Modal Structure -->
+<div id="view-poster-performance" class="modal modal-fixed-footer" material-modal>
+    <form ng-submit="ctrl.assign()">
+        <div class="modal-content">
+            <table class="bordered highlight">
+                <thead>
+                    <th>Question</th>
+                    <th>Average</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="question in ctrl.questions">
+                        <td>{{question.description}}</th>
+                        <td>{{ question.average }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.closeViewPerformance()" class="modal-action modal-close waves-effect waves-green btn red ">Close</a>
+        </div>
+    </form>
+</div>

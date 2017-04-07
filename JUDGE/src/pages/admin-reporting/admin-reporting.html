@@ -1,49 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reporting</title>
-</head>
-<body>
-    <div class="wrap">
-        <h5 class="page-title">Reporting</h5>
+<div class="wrap">
+    <view-judge-scores-modal ctrl="ctrl"></view-judge-scores-modal>
+    <view-poster-performance-modal ctrl="ctrl"></view-poster-performance-modal>
+    <h5 class="page-title">Reports</h5>
+    <div class="row">
+        <div class="input-field col s6">
+            <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
+                ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
+                <option value="" disabled selected>Select Summit</option>
+            </select>
+            <label for="judge">Select Summit</label>
+        </div>
+        <div ng-if="!ctrl.reportGenerated" class="input-field col s4">
+            <a ng-click="ctrl.generateReport()" class="waves-effect waves-light btn">Generate Report</a>
+        </div>
+        <div ng-if="ctrl.reportGenerated" class="input-field col s4">
+            <a class="waves-effect waves-light btn">Download Full Report</a>
+        </div>
+    </div>
+    <div ng-if="ctrl.reportGenerated" class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3" ng-repeat="judgeCategory in ctrl.judgeCategories"><a href="#{{judgeCategory.title}}">{{judgeCategory.title}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-if="ctrl.reportGenerated" ng-repeat="judgeCategory in ctrl.judgeCategories" id="{{judgeCategory.title}}" class="col s12">
         <table class="bordered highlight">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Project Title</th>
-                    <th>Key Participant</th>
-                    <th>Score</th>
+                    <th>Lead Author</th>
                     <th>Category</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Publication</th>
+                    <th>Judge Scores</th>
+                    <th>Question Performance</th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-target="{{ project.id }}" ng-repeat="project in data">
-                    <td>{{ project.id }}</td>
-                    <td>{{ project.project }}</td>
-                    <td>{{ project.name }}</td>
-                    <td>{{ project.score }}</td>
-                    <td>{{ project.category }}</td>
+                <tr ng-repeat="poster in ctrl.posters | filter: { judgeCategoryId: judgeCategory.judgeCategoryId } | filter: { summitId: ctrl.summitId } | orderBy: { score }">
+                    <td>{{ ctrl.getLeadAuthor(poster) }}</td>
+                    <td>{{ poster.role }}</td>
+                    <td>{{ poster.institution }}</td>
+                    <td>{{ poster.score }}</td>
+                    <td>{{ poster.posterTitle }}</td>
+                    <td><a ng-click="ctrl.viewScores(poster)" data-target="view-judge-scores" class="waves-effect waves-light btn">View Scores</a></td>
+                    <td><a ng-click="ctrl.viewPerformance(poster)" data-target="view-poster-performance" class="waves-effect waves-light btn">View Performance</a></td>
                 </tr>
             </tbody>
         </table>
-
-        <script>
-            $(document).ready(function(){
-                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-                $('.modal').modal();
-            });
-        </script>
-        <!-- Modal Structure -->
-        <div id="{{ project.id }}" class="modal modal-fixed-footer" ng-repeat="project in data">
-            <div class="modal-content">
-                <h4>{{ project.id + " " + project.project }}</h4>
-                <p>Judge score information</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green ">Mail Grades</a>
-            </div>
-        </div>
     </div>
-</body>
-</html>
+</div>

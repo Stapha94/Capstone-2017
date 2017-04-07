@@ -1,8 +1,9 @@
 class NavbarController {
 
-    constructor(authService) {
+    constructor(authService, localStorageService) {
         this.authService = authService;
         this.user = authService.currentUser;
+        this.summit = localStorageService.get('summit')
     }
 
     logout(event) {
@@ -12,5 +13,5 @@ class NavbarController {
 
 }
 
-NavbarController.$inject = ['authService'];
+NavbarController.$inject = ['authService', 'localStorageService'];
 app.controller('navbarController', NavbarController);

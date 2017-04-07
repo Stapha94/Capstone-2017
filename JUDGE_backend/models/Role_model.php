@@ -2,12 +2,19 @@
 class Role_model extends CI_Model {
 
 	private $role_id;
+	private $poster_category_id;
 	private $title;
 	private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('role_id', 'title', 'active');
+		$this->fields = array('role_id', 'poster_category_id', 'title', 'active');
+		$this->filter = array(
+			'role_id' => 'role',
+			'poster_category_id' => 'role',
+			'title' => 'role',
+			'active' => 'role'
+		);
 		$this->name = 'role';
 		parent::__construct();
 	}
@@ -19,6 +26,7 @@ class Role_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
+			{$this->name}.poster_category_id,
 			title,
 			active");
 
@@ -26,9 +34,7 @@ class Role_model extends CI_Model {
 
 		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
@@ -57,6 +63,13 @@ class Role_model extends CI_Model {
 		} catch (Exception $e) {
 			return false;
 		}
+	}
+
+	public function joins() {
+		$joins = array(
+			'pc' => 'poster_category',
+		);
+		return $joins;
 	}
 
 }

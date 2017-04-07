@@ -11,6 +11,11 @@ class Judge_model extends CI_Model {
 	public function __construct()
 	{
 		$this->fields = array('judge_id', 'email', 'first_name', 'last_name', 'judge_category_id', 'active');
+		$this->filter = array(
+			'judge_id' => 'judge',
+			'email' => 'judge',
+			'category' => 'judge_category',
+			'active' => 'judge');
 		$this->name = 'judge';
 		$this->id = "{$this->name}_id";
 		parent::__construct();
@@ -36,11 +41,9 @@ class Judge_model extends CI_Model {
         // The format for joins is table1.column = table2.column;
 		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$this->name}.{$joins['jc']}_id");
 
-		// Where clauses here...must be conditionally based. I'll work on that later
+		// Where clauses here
 
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+		$this->get_join_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
@@ -71,17 +74,35 @@ class Judge_model extends CI_Model {
 	}
 
 	public function check_judge($email, $pin) {
-			$query = $this->db->select('judge_id, first_name, last_name, email')
-							->from('judge')
-							->from('summit')
-							->where('judge.email', $email)
-							->where($this->authorize->get_password_hash($pin, TRUE))
-							->where('judge.active', 1)
-							->where('summit.active', 1)
-							->limit(1)
-							->get();
+		$this->db->select('pin');
+		$this->db->where('active', 1);
+//		$this->db->where('judge_login_disabled', 0);
+		$this->db->limit(1);
 
-			$result = $query->result();
+		$query = $this->db->get('summit');
+		$result = $query->result();
+
+		if(count($result) === 1) {
+
+			$hash = $result[0]->pin;
+
+			if(password_verify($pin, $hash)) {
+
+
+				$this->db->select('judge_id, first_name, last_name, email');
+				$this->db->where('judge.email', $email);
+				$this->db->where('judge.active', 1);
+				$this->db->limit(1);
+
+				$query = $this->db->get("{$this->name}");
+
+				$result = $query->result();
+			} else {
+				$result = [];
+			}
+		} else {
+			$result = [];
+		}
 
 			return $result;
 	}
@@ -91,6 +112,17 @@ class Judge_model extends CI_Model {
 			'jc' => 'judge_category'
 		);
 		return $joins;
+	}
+
+	protected function convert_join_field($field = NULL) {
+		if($field === NULL) {
+			return $field;
+		}
+
+		if($field === 'category') {
+			$field = 'title';
+		}
+		return $field;
 	}
 
 }

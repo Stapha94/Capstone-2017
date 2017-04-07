@@ -6,12 +6,12 @@ class Migration_Insert_awards extends CI_Migration {
 
     public function up()
     {
-        $sql = "INSERT INTO award (award_id, title)
-                VALUES (0, 'No award'),
-                		(1, 'Outstanding PS Award'),
-                        (2, 'Outstanding QI Award'),
-                        (3, 'Best Integrated/Sustainable QI Project'),
-                        (4, 'Best Interdisciplinary Team');";
+        $sql = "INSERT INTO award (title)
+                VALUES  ('No award'),
+                		('Outstanding PS Award'),
+                        ('Outstanding QI Award'),
+                        ('Best Integrated/Sustainable QI Project'),
+                        ('Best Interdisciplinary Team');";
 
         $this->db->query($sql);
     }
@@ -23,8 +23,7 @@ class Migration_Insert_awards extends CI_Migration {
         $this->db->query($sql);
 
         $sql = "DELETE FROM award
-                WHERE title = 'No award' OR
-					  title = 'Outstanding PS Award' OR
+                WHERE title = 'Outstanding PS Award' OR
                       title = 'Outstanding QI Award' OR
                       title = 'Best Integrated/Sustainable QI Project' OR
                       title = 'Best Interdisciplinary Team';";

@@ -11,7 +11,16 @@ class Form_model extends CI_Model {
 	public function __construct()
 	{
 		// These are for filtering the data.
-		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'comments');
+		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'judged', 'comments');
+		$this->filter = array(
+			'form_id' => 'form',
+			'poster_id' => 'form',
+			'judge_id' => 'form',
+			'judge_category_id' => 'judge_category',
+			'summit_id' => 'summit',
+			'judged' => 'form'
+			// This can be added as the need arises
+		);
 		$this->name = 'form';
 		parent::__construct();
 	}
@@ -48,6 +57,8 @@ class Form_model extends CI_Model {
 				{$joins['pa']}.conclusion,
 				{$joins['po']}.submission_date,
 				{$joins['po']}.score AS {$joins['po']}_score,
+				{$joins['po']}.summit_id,
+				judged,
                 total,
                 comments");
 
@@ -55,18 +66,18 @@ class Form_model extends CI_Model {
 		$this->db->join("{$joins['j']}", "{$joins['j']}.{$joins['j']}_id = {$this->name}.{$joins['j']}_id");
 		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$joins['j']}.{$joins['jc']}_id");
 		$this->db->join("{$joins['po']}", "{$joins['po']}.{$joins['po']}_id = {$this->name}.{$joins['po']}_id");
-		$this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$joins['po']}.{$joins['pc']}_id");
 		$this->db->join("{$joins['aw']}", "{$joins['aw']}.{$joins['aw']}_id = {$joins['po']}.{$joins['aw']}_id");
 		$this->db->join("{$joins['pa']}", "{$joins['pa']}.{$joins['pa']}_id = {$joins['po']}.{$joins['pa']}_id");
 		$this->db->join("{$joins['pr']}", "{$joins['pr']}.{$joins['pr']}_id = {$joins['po']}.{$joins['pr']}_id");
 		$this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$joins['pr']}.{$joins['i']}_id");
 		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$joins['pr']}.{$joins['r']}_id");
+		$this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$joins['r']}.{$joins['pc']}_id");
 		$this->db->join("{$joins['s']}", "{$joins['s']}.{$joins['s']}_id = {$joins['po']}.{$joins['s']}_id");
 
 		// Where clauses here
-		foreach($params as $column=>$value) {
-			$this->db->where("{$this->name}.{$column}", $value);
-		}
+
+		$this->get_where_clauses($this->filter, $params);
+
 		// Perform the query
 		$query = $this->db->get($this->name);
 		$result = $query->result();
@@ -78,8 +89,7 @@ class Form_model extends CI_Model {
 			if($this->db->insert($this->name, $data)) {
 				$form_id = $this->db->insert_id();
 				$query = $this->get(array('form_id' => $form_id));
-				$result = $query->result();
-				return $result;
+				return $query;
 			} else {
 				return false;
 			}
@@ -91,6 +101,15 @@ class Form_model extends CI_Model {
 	public function update($data = array()) {
 		try {
 			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function delete($data = array()) {
+		try {
+			$id = $data['id'];
+			return $this->db->delete($this->name, array("{$this->name}_id" => $id));
 		} catch (Exception $e) {
 			return false;
 		}
@@ -108,6 +127,29 @@ class Form_model extends CI_Model {
 		$joins = array_merge($joins, $this->poster->joins());
 		$joins = array_merge($joins, $this->judge->joins());
 		return $joins;
+	}
+
+	public function generate_report_forms($params = array()) {
+		$forms = [];
+		if(count($params) > 0) {
+			$query = $this->get($params);
+			$result = $query->result();
+
+			foreach($result as $key=>$value) {
+				$suffix = $value->suffix;
+				if (isset($suffix)) {
+					$full_name = $value->presenter_first_name . ' ' . $value->presenter_last_name . ' ' . $value->suffix;
+				} else {
+					$full_name = $value->presenter_first_name . ' ' . $value->presenter_last_name . ' ' . $value->suffix;
+				}
+				$forms[$key]['author'] = $full_name;
+				$forms[$key]['category'] = $value->role;
+				$forms[$key]['department'] = $value->department;
+				$forms[$key]['status'] = $value->poster_score;
+				$forms[$key]['publication'] = $value->publication;
+			}
+		}
+		return $forms;
 	}
 
 }

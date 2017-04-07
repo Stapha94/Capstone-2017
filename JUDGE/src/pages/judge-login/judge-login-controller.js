@@ -11,7 +11,7 @@ class JudgeLoginController {
     login() {
         this.authService.judgeLogin(this.email, this.pin)
             .then((judge) => {
-                this.$state.go('home.judge', {judgeId: judge.id});
+                this.$state.go('home.judge.dashboard', {judgeId: judge.id});
             })
             .catch((error) => {
                 this.notificationService.error('Incorrect login!');

@@ -95,9 +95,9 @@ td a.btn:visited, td a.btn:hover {
     width: 200px;
 }
 
-#bar li a {
+.side-nav .collapsible-body li a {
     color: white;
-    margin: 15px -15px;
+    margin: 5px -15px;
 }
 
 .waves-effect:hover {
@@ -114,7 +114,8 @@ td a.btn:visited, td a.btn:hover {
 
 .wrap {
     margin: auto;
-    width: 90%;
+    width: 80%;
+    margin-left: 220px;
 }
 
 .side-nav {
@@ -123,6 +124,7 @@ td a.btn:visited, td a.btn:hover {
 
 .side-nav a {
     color: white;
+    padding: 0 5px;
 }
 
 .side-nav a:hover {background-color: #00B140}
@@ -143,6 +145,7 @@ td a.btn:visited, td a.btn:hover {
 
 @media only screen and (max-width: 995px) {
     .wrap {
+        margin-left: 150px;
         width: 80%;
     }
 
@@ -316,4 +319,75 @@ input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=em
 
 .select-wrapper input.select-dropdown:disabled {
     color: inherit;
+}
+
+.box-container {
+    border: 1px solid lightgrey;
+    margin: 50px;
+}
+
+.box-container .pull-right {
+    float: none;
+    margin-right: 2rem;
+}
+
+/** Material icons retrieved from: http://google.github.io/material-design-icons/ **/
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.side-nav li>a>i.material-icons.md-light { 
+    color: rgba(255, 255, 255, 1);
+    padding-left: 15px; 
+}
+
+.collapsible {
+    border: none;
+}
+
+.collapsible-body {
+    min-height: 2rem;
+}
+
+.side-nav .collapsible-body {
+    padding: 0 0 0 15px;
+}
+
+.side-nav .collapsible-body a {
+    margin: 5px -15px;
+}
+
+.side-nav .collapsible-body {
+    background-color: grey;
+}
+
+.side-nav .collapsible-header:hover {
+    background-color: #00B140;
+}
+
+.side-nav .collapsible-body:hover {
+    background-color: #00B140;
+}
+
+.collapsible-header.active {
+    background-color: #00B140;
+}
+
+table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
+    cursor: pointer;
+}
+
+table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
+    color: white;
+    background-color: #00B140;
 }

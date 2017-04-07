@@ -8,17 +8,13 @@ class Summit extends REST_Controller {
 
 	public function index_get()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->summit->fields);
-		$safe_columns = array('summit_id');
-		$this->generate_get_response($auth, $this->summit, $params, $safe_columns);
+		$safe_columns = array('summit_id', 'summit_start', 'summit_end', 'registration_deadline', 'judge_login_disabled');
+		$this->generate_get_response($this->summit, $safe_columns);
 	}
 
 	public function index_post()
 	{
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $this->summit->fields);
-		$this->generate_admin_post_response($auth, $this->summit);
+		$this->generate_post_response($this->summit);
 	}
 
 }

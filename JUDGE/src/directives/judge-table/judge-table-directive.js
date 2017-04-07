@@ -2,7 +2,7 @@ class JudgeTableDirective {
 
     constructor() {
         this.restrict = 'E';
-        this.templateUrl = 'JUDGE/src/directives/judge-table/judge-table.html';
+        this.templateUrl = 'build/views/directives/judge-table/judge-table.html';
         this.replace = true;
         this.scope = {
             judges: '=',

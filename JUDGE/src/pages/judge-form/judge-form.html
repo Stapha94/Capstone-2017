@@ -1,6 +1,6 @@
 <div class="wrap">
 
-    <form>
+    <form ng-submit="ctrl.submit()">
 
         <table>
             <tbody>
@@ -48,20 +48,18 @@
 
         <div class="row comment-box">
             <div class="input-field col s12">
-                <form>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>
-                            <label class="active" for="comments"><h5>Comments</h5></label>
-                        </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>
+                        <label class="active" for="comments"><h5>Comments</h5></label>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
         <div class="row pull-right">
-            <button ng-click="ctrl.submit()" class="waves-effect waves-light btn-large green">Submit</button>
-            <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn-large red">Cancel</a>
+            <button type="submit" class="waves-effect waves-light btn green">Submit</button>
+            <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn red">Cancel</a>
         </div>
 
     </form>
