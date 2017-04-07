@@ -3,18 +3,9 @@
     <!-- Default navbar -->
 
     <div ng-if="!ctrl.authService.isLoggedIn" class="navbar-fixed">
-        <ul id="login-dropdown" class="dropdown-content">
-            <li><a ui-sref="home.judge-login">Judge</a></li>
-            <li class="divider"></li>
-            <li><a ui-sref="home.login">Admin</a></li>
-        </ul>
         <nav>
             <div class="nav-wrapper landing-nav">
                 <a ui-sref="home.landing" class="brand-logo logo"><img src="build/dist/img/MarshallWhite.png" height="40" width=""></a>
-
-                <ul ng-if="!ctrl.authService.isLoggedIn" id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="drop-button" data-activates="login-dropdown" material-dropdown>Login<i class="material-icons right">arrow_drop_down</i></a></li>
-                </ul>
             </div>
         </nav>
 

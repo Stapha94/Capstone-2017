@@ -55,8 +55,11 @@ class RouteInterceptor {
                             event.preventDefault();
                             toParams.judgeId = this.authService.currentUser.id;
                             this.$state.go(toState.name, toParams);
-                            
                         }
+                    } else if(toState.name === 'home.landing') {
+                        event.preventDefault();
+                        toParams.judgeId = this.authService.currentUser.id;
+                        this.$state.go('home.judge.dashboard', toParams);
                     }
                 }
                 // Admin is logged in
@@ -73,6 +76,10 @@ class RouteInterceptor {
                             this.$state.go(toState.name, toParams);
                             
                         }
+                    } else if(toState.name === 'home.landing') {
+                        event.preventDefault();
+                        toParams.judgeId = this.authService.currentUser.id;
+                        this.$state.go('home.admin.dashboard', toParams);
                     }
                 }
                 if(toState.name === 'home.judge') {

@@ -34,36 +34,16 @@ class AuthService {
         }
     }
 
-    adminLogin(email, password) {
+    login(email, password) {
         var deferred = this.$q.defer();
 
-        var url = this.baseUrl + 'authorize/admin';
+        var url = this.baseUrl + 'authorize';
         this.$http.post(url, {email: email, password: password})
             .then((response) => {
                 this.$log.info('Login for user ' + email + ' successful!');
-                this.currentUser = response.data.admin[0];
+                this.currentUser = response.data.user[0];
                 this.authToken = response.data.token.jwt;
-                deferred.resolve(response.data.admin[0]);
-            })
-            .catch((error) => {
-                this.$log.error('Login for user ' + email + ' failed!');
-                this.currentUser = null;
-                this.authToken = null;
-                deferred.reject(error);
-            });
-        return deferred.promise;
-    }
-
-    judgeLogin(email, pin) {
-        var deferred = this.$q.defer();
-
-        var url = this.baseUrl + 'authorize/judge';
-        this.$http.post(url, {email: email, pin: pin})
-            .then((response) => {
-                this.$log.info('Login for user ' + email + ' successful!');
-                this.currentUser = response.data.judge[0];
-                this.authToken = response.data.token.jwt;
-                deferred.resolve(response.data.judge[0]);
+                deferred.resolve(response.data.user[0]);
             })
             .catch((error) => {
                 this.$log.error('Login for user ' + email + ' failed!');
@@ -75,13 +55,8 @@ class AuthService {
     }
 
     logout() {
-        if(this.isJudge) {
-            this.clearToken();
-            this.$state.go('home.judge-login');
-        } else if(this.isAdmin) {
-            this.clearToken();
-            this.$state.go('home.login');
-        }
+        this.clearToken();
+        this.$state.go('home.landing');
     }
 
     clearToken() {

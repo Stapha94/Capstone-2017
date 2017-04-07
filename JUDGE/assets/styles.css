@@ -40,17 +40,19 @@
 
 .login-cont {
     text-align: center;
-    width: 40%;
-    padding: 50px 50px 50px;
+    width: 100%;
+    padding: 100px 100px 100px;
     margin: auto;
     background: white;
+    border: 1px solid black;
+    border-radius: 30px;
 }
 
 .background {
     background: #ECECEC;
-    height: 1000px;
     width: 100%;
-    padding: 150px 50px;
+    padding: 50px 50px;
+    margin-bottom: 100px;
 }
 
 .admin-btn {

@@ -9,9 +9,18 @@ class Login extends REST_Controller {
         $this->response([]);
     }
 
-    public function admin_post() {
+    public function index_post() {
 		$email = $this->post('email');
 		$password = $this->post('password');
+
+		if(strlen($password) === 4) {
+			$this->judge($email, $password);
+		} else {
+			$this->admin($email, $password);
+		}
+	}
+
+    public function admin($email, $password) {
 
 		$matches = $this->admin->check_admin($email, $password);
 
@@ -25,7 +34,7 @@ class Login extends REST_Controller {
 			);
 			$auth_token = $this->authorize->get_auth($admin);
 			$data['token'] = json_decode($auth_token);
-			$data['admin'] = prepare_for_frontend(array($admin));
+			$data['user'] = prepare_for_frontend(array($admin));
 			$data['status'] = 200;
 			$this->response($data);
 		} else {
@@ -33,9 +42,7 @@ class Login extends REST_Controller {
 		}
 	}
 
-    public function judge_post() {
-        $email = $this->post('email');
-        $pin = $this->post('pin');
+    public function judge($email, $pin) {
 
         $matches = $this->judge->check_judge($email, $pin);
 
@@ -49,7 +56,7 @@ class Login extends REST_Controller {
             );
             $auth_token = $this->authorize->get_auth($judge);
             $data['token'] = json_decode($auth_token);
-            $data['judge'] = prepare_for_frontend(array($judge));
+            $data['user'] = prepare_for_frontend(array($judge));
             $data['status'] = 200;
             $this->response($data);
         } else {
