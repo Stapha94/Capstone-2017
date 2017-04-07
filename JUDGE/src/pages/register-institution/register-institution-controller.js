@@ -6,8 +6,10 @@ class RegisterInstitutionController{
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
         this.$state = $state;
+        this.summitId = $scope.summitId;
         this.presenterInstitution = "";
         this.presenterRole = "";
+        this.posterCategoryId = "";
         this.keyParticipantFName = "";
         this.keyParticipantLName = "";
         this.keyParticipantDepartment = "";
@@ -96,6 +98,23 @@ class RegisterInstitutionController{
         }
     };
 
+    //Sets the category for the posters based off of the role
+    getPosterCategoryId() {
+
+        if(this.presenterRole === "1") {
+            this.posterCategoryId = "4";
+        }
+        else if(this.presenterRole === "2") {
+            this.posterCategoryId = "1";
+        }
+        else if(this.presenterRole === "3") {
+            this.posterCategoryId = "2";
+        }
+        else if(this.presenterRole === "4" || this.presenterRole === "5") {
+            this.posterCategoryId = "3";
+        }
+    }
+
     //Adds the entered key participant to the array
     addKeyParticipant() {
         this.keyParticipant = {
@@ -112,6 +131,16 @@ class RegisterInstitutionController{
     //Puts all of the information in the Registration Service and goes to the next page
     continue() {
 
+        this.poster = {
+            posterCategoryId: this.posterCategoryId,
+            summitId: this.summitId,
+            abstractId: 0,
+            presenterId: 0
+        };
+
+        this.registrationService.poster = this.poster;
+        this.registrationService.presenter.institutionId = this.presenterInstitution;
+        this.registrationService.presenter.roleId = this.presenterRole;
         this.registrationService.presenterInstitution = this.presenterInstitution;
         this.registrationService.presenterRole = this.presenterRole;
         this.registrationService.keyParticipants = angular.copy(this.keyParticipants);

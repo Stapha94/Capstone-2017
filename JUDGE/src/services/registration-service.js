@@ -62,14 +62,14 @@ class registrationService {
     }
 
     create() {
-        this.presenterService.create(this.makePresenter())
+        this.presenterService.create(this.presenter)
             .then((presenter) => {
                 _.forEach(this.keyParticipants, (keyParticipant) => {
                     keyParticipant.presenterId = presenter.presenterId;
                 });
                 this.keyParticipantService.create(this.keyParticipants)
                     .then(() => {
-                        this.posterAbstractService.create(this.makePosterAbstract())
+                        this.posterAbstractService.create(this.posterAbstract)
                             .then((posterAbstract) => {
                                 this.poster.presenterId = presenter.presenterId;
                                 this.poster.abstractId = posterAbstract.posterAbstractId;

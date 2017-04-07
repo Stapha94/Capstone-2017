@@ -9,6 +9,7 @@ class RegisterController {
         this.firstName = "";
         this.lastName = "";
         this.email = "";
+        this.suffix = "";
         this.emailConfirmation = "";
         this.presenter = {};
         this.$scope = $scope;
@@ -28,6 +29,12 @@ class RegisterController {
 
     };
 
+    verifyRecaptcha() {
+
+
+
+    };
+
     //Loads the data in the custom service and will move to the next page
     continue() {
 
@@ -35,16 +42,17 @@ class RegisterController {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
+            suffix: this.suffix,
             institutionId: 0,
             roleId: 0
         };
 
-        this.$scope.presenter = this.presenter;
+        this.registrationService.presenter = this.presenter;
 
         this.registrationService.presenterFirstName = this.presenterFirstName;
         this.registrationService.presenterLastName = this.presenterLastName;
         this.registrationService.presenterEmail = this.presenterEmail;
-        this.$state.go("register-confirmation");
+        this.$state.go("register-institution");
 
     };
 

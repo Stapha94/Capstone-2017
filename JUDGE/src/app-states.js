@@ -211,12 +211,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controller: 'registerInfoController',
             controllerAs: 'ctrl'
         })
-        .state('register-finish', {
-            url: '/register-finish',
-            templateUrl: 'JUDGE/src/pages/register/register-finish.html',
-            controller: 'registerController',
-            controllerAs: 'ctrl'
-        })
         
         // judge related states
 
