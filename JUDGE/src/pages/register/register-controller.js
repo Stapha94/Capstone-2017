@@ -1,10 +1,11 @@
 class RegisterController {
 
-    constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService) {
+    constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService, reCaptchaService) {
         this.notificationService = notificationService;
         this.presenterService = presenterService;
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
+        this.reCaptchaService = reCaptchaService;
         this.$state = $state;
         this.firstName = "";
         this.lastName = "";
@@ -30,8 +31,15 @@ class RegisterController {
     };
 
     verifyRecaptcha() {
-
-
+        this.grecaptchaResponse = grecaptcha.getResponse();
+        this.reCaptchaService.send({grecaptchaResponse: this.grecaptchaResponse})
+            .then(()  => {
+            this.verifyEmail();
+        })
+            .catch(() => {
+            grecaptcha.reset();
+            this.notificationService.error("Please complete the reCaptcha!")
+        });
 
     };
 
@@ -60,5 +68,5 @@ class RegisterController {
 
 }
 
-RegisterController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService'];
+RegisterController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'reCaptchaService'];
 app.controller('registerController', RegisterController);

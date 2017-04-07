@@ -532,3 +532,4 @@ $config['proxy_ips'] = '';
 |
  */
 $config['secret_key'] = $secret_key;
+$config['secret_recaptcha_key'] = $secret_recaptcha_key;

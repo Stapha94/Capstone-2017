@@ -1,8 +1,8 @@
 <div class="register-background">
     <div class="register-cont">
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
         <div class="row">
-            <form ng-submit="ctrl.verifyEmail()" class="col s12">
+            <form ng-submit="ctrl.verifyRecaptcha()" class="col s12">
                 <div class="row">
                     <div class="input-field col s4">
                         <input placeholder="First Name" id="presenterFirstName" ng-model="ctrl.firstName" type="text" class="validate" required>
