@@ -3,14 +3,15 @@ class Poster_model extends CI_Model {
 
         private $poster_id;
         private $award_id;
-        private $abstract_id;
+        private $poster_abstract_id;
         private $presenter_id;
         private $summit_id;
         private $score;
+        private $submission_date;
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'award_id', 'abstract_id', 'presenter_id', 'summit_id', 'score');
+        		$this->fields = array('poster_id', 'award_id', 'poster_abstract_id', 'presenter_id', 'summit_id', 'score', 'submission_date');
         		$this->filter = array(
         			'poster_id' => 'poster',
 					'category' => 'poster_category',
@@ -19,7 +20,8 @@ class Poster_model extends CI_Model {
 					'award' => 'award',
 					'poster_title' => 'poster_abstract',
 					'presenter_id' => 'poster',
-					'summit_id' => 'poster'
+					'summit_id' => 'poster',
+					'submission_date' => 'poster'
 				);
                 $this->name = 'poster';
                 parent::__construct();
@@ -53,7 +55,8 @@ class Poster_model extends CI_Model {
                 {$joins['s']}.summit_start,
                 {$joins['s']}.summit_end,
                 {$joins['s']}.registration_deadline,
-                score");
+                score,
+                submission_date");
 
             // Put any joins here
 

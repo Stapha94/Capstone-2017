@@ -103,8 +103,8 @@ $route['posters'] = 'poster';
 $route['posters/(.+)'] = 'poster';
 
 // PosterAbstract Routes
-$route['poster_abstract'] = 'poster_abstract';
-$route['poster_abstract/(.+)'] = 'poster_abstract';
+$route['poster_abstracts'] = 'poster_abstract';
+$route['poster_abstracts/(.+)'] = 'poster_abstract';
 
 // PosterCategory Routes
 $route['poster_categories'] = 'poster_category';

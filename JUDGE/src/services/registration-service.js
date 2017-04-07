@@ -66,16 +66,16 @@ class registrationService {
             .then((presenter) => {
                 _.forEach(this.keyParticipants, (keyParticipant) => {
                     keyParticipant.presenterId = presenter.presenterId;
+                    this.keyParticipantService.create(keyParticipant);
                 });
-                this.keyParticipantService.create(this.keyParticipants)
-                    .then(() => {
-                        this.posterAbstractService.create(this.posterAbstract)
-                            .then((posterAbstract) => {
-                                this.poster.presenterId = presenter.presenterId;
-                                this.poster.abstractId = posterAbstract.posterAbstractId;
-                                this.posterService.create(this.poster)
-                            });
-                    });
+                this.posterAbstractService.create(this.posterAbstract)
+                .then((posterAbstract) => {
+                    this.poster.presenterId = presenter.presenterId;
+                    this.poster.posterAbstractId = posterAbstract.posterAbstractId;
+                    this.poster.submissionDate = new Date();
+                    this.posterService.create(this.poster)
+                });
+
             });
     };
 
@@ -84,5 +84,5 @@ class registrationService {
     }
 }
 
-registrationService.$inject = ['$log', '$http', 'presenterService', 'posterCategoryService'];
+registrationService.$inject = ['$log', '$http', 'presenterService', 'posterCategoryService', 'keyParticipantService', 'posterAbstractService', 'posterService'];
 app.service('registrationService', registrationService);

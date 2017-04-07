@@ -2003,7 +2003,7 @@ abstract class REST_Controller extends \CI_Controller {
 			if($batch) {
 				$batch_entries = $this->post();
 				foreach ($batch_entries as $key => $value) {
-					foreach ($fields as $index => $field) {
+				    foreach ($fields as $index => $field) {
 						$item = $value[$field];
 						if (isset($item)) {
 							$data[$key][$field] = $item;

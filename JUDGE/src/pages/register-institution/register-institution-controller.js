@@ -6,7 +6,7 @@ class RegisterInstitutionController{
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
         this.$state = $state;
-        this.summitId = $scope.summitId;
+        this.summitId = localStorageService.get("summit").summitId;
         this.presenterInstitution = "";
         this.presenterRole = "";
         this.posterCategoryId = "";
@@ -132,9 +132,10 @@ class RegisterInstitutionController{
     continue() {
 
         this.poster = {
-            posterCategoryId: this.posterCategoryId,
+            //posterCategoryId: this.posterCategoryId,
             summitId: this.summitId,
-            abstractId: 0,
+            awardId: 1,
+            posterAbstractId: 0,
             presenterId: 0
         };
 
