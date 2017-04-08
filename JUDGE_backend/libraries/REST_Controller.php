@@ -1940,7 +1940,7 @@ abstract class REST_Controller extends \CI_Controller {
         }
     }
 
-	protected function sanitize_uri($params = array(), $fields) {
+	protected function sanitize_uri($params = array(), $fields, $no_auth = false) {
 		foreach($params as $column=>$value) {
 			if(!($column === 'create' || $column === 'update' || $column === 'update_password' || $column === 'update_pin' || $column === 'delete')) {
 				if (!in_array($column, $fields) && !array_key_exists($column, $fields)) {
@@ -1948,8 +1948,93 @@ abstract class REST_Controller extends \CI_Controller {
 				}
 			}
 		}
-		$auth = $this->authorize->get_auth();
-		return $auth;
+		if(!$no_auth) {
+			$auth = $this->authorize->get_auth();
+			return $auth;
+		} else {
+			return true;
+		}
+	}
+
+	protected function generate_unauthorized_get_response ($model = NULL, $safe_columns = NULL) {
+
+		$params = get_paramters();
+		$safe_uri = $this->sanitize_uri($params, $model->filter, true);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($safe_uri) {
+			$query = $model->get($params);
+			$this->response(prepare_for_frontend($query));
+		} else {
+			$this->response([], 404);
+		}
+	}
+
+	protected function generate_unauthorized_post_response ($model = NULL, $batch = FALSE) {
+
+		$params = get_paramters();
+		$safe_uri = $this->sanitize_uri($params, $model->fields, true);
+
+		if($model === NULL) {
+			$this->response([], 400);
+		}
+
+		if($safe_uri) {
+			$method = $this->uri->segment(2);
+			$data = array();
+			$fields = $model->fields;
+			if($batch) {
+				$batch_entries = $this->post();
+				foreach ($batch_entries as $key => $value) {
+					foreach ($fields as $index => $field) {
+						$item = $value[$field];
+						if (isset($item)) {
+							$data[$key][$field] = $item;
+						}
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response([], 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			} else {
+				foreach ($fields as $index => $field) {
+					$item = $this->post($field);
+					if (isset($item)) {
+						$data[$field] = $item;
+					}
+				}
+				if ($method === 'create') {
+					$query = $model->create($data);
+					if ($query) {
+						$this->response(prepare_for_frontend($query), 201);
+					} else {
+						$this->response([], 400);
+					}
+				} else if ($method === 'update') {
+					if ($model->update($data)) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
+				}
+			}
+		} else {
+			$this->response([], 404);
+		}
 	}
 
 	protected function generate_get_response ($model = NULL, $safe_columns = NULL) {
@@ -2003,7 +2088,7 @@ abstract class REST_Controller extends \CI_Controller {
 			if($batch) {
 				$batch_entries = $this->post();
 				foreach ($batch_entries as $key => $value) {
-					foreach ($fields as $index => $field) {
+				    foreach ($fields as $index => $field) {
 						$item = $value[$field];
 						if (isset($item)) {
 							$data[$key][$field] = $item;

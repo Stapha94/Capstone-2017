@@ -1,33 +1,40 @@
-<div class="container">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input placeholder="First Name" id="presenterFirstName" ng-model="ctrl.presenterFirstName" type="text" class="validate" required>
-                    <label for="presenterFirstName">First Name: </label>
+<div class="register-background">
+    <div class="register-cont">
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <div class="row">
+            <form ng-submit="ctrl.verifyRecaptcha()" class="col s12">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input placeholder="First Name" id="presenterFirstName" ng-model="ctrl.firstName" type="text" class="validate" required>
+                        <label class="active" for="presenterFirstName">First Name: </label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Last Name" id="presenterLastName" ng-model="ctrl.lastName" type="text" class="validate" required>
+                        <label class="active" for="presenterLastName">Last Name: </label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Suffix" id="presenterSuffix" ng-model="ctrl.suffix" type="text" class="validate">
+                        <label class="active" for="presenterSuffix">Suffix: </label>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <input placeholder="Last Name" id="presenterLastName" ng-model="ctrl.presenterLastName" type="text" class="validate" required>
-                    <label for="presenterLastName">Last Name: </label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Email" id="presenterEmail" ng-model="ctrl.email" type="email" class="validate" required>
+                        <label class="active" for="presenterEmail">Email: </label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input placeholder="Email" id="presenterEmail" ng-model="ctrl.presenterEmail" type="email" class="validate" required>
-                    <label for="presenterEmail">Email: </label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Confirm Email" id="presenterEmailConfirm" ng-model="ctrl.emailConfirmation" type="email" class="validate" required>
+                        <label class="active" for="presenterEmailConfirm">Confirm Email: </label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input placeholder="Confirm Email" id="presenterEmailConfirm" ng-model="ctrl.presenterEmailConfirmation" type="email" class="validate" required>
-                    <label for="presenterEmailConfirm">Confirm Email: </label>
+                <div class="g-recaptcha" data-theme="dark" data-sitekey="6LfmoxoUAAAAAJytRJOEjjs9uBLAwXI7HVTaDRCf"></div>
+                <div class="row pull-right">
+                    <button class="btn waves-effect green waves-light" type="submit">Submit</button>
+                    <a ui-sref='home.landing' class="waves-effect waves-light btn red">Cancel</a>
                 </div>
-            </div>
-            <div class="g-recaptcha" data-theme="dark" data-sitekey="6LfmoxoUAAAAAJytRJOEjjs9uBLAwXI7HVTaDRCf"></div>
-            <br>
-            <button ng-click="ctrl.verifyName()" class="btn waves-effect waves-light" type="submit">Submit</button>
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>

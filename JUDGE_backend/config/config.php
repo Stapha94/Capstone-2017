@@ -24,7 +24,7 @@ include_once ('secret.php');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8800/Capstone-2017/';
+$config['base_url'] = 'http://localhost:8800/';
 
 /*
 |--------------------------------------------------------------------------
@@ -532,3 +532,4 @@ $config['proxy_ips'] = '';
 |
  */
 $config['secret_key'] = $secret_key;
+$config['secret_recaptcha_key'] = $secret_recaptcha_key;

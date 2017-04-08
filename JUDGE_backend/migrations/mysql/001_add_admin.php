@@ -12,6 +12,8 @@ class Migration_Add_admin extends CI_Migration {
                 last_name   VARCHAR(50)  NOT NULL,
                 email       VARCHAR(255) NOT NULL,
                 password    VARCHAR(64)    NOT NULL,
+                reset_token	VARCHAR(64),
+                reset_expiration DATETIME,
                 active      TINYINT(1)     NOT NULL DEFAULT 1,
 
 				UNIQUE (email),

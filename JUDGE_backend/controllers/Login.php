@@ -7,6 +7,7 @@ class Login extends REST_Controller {
 
     public function index_get() {
         $this->response([]);
+		die();
     }
 
     public function index_post() {
@@ -62,6 +63,7 @@ class Login extends REST_Controller {
         } else {
             $this->response([], 401);
         }
+        die();
     }
 
 }

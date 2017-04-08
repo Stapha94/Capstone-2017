@@ -6,12 +6,12 @@ class Migration_Insert_roles extends CI_Migration {
 
     public function up()
     {
-        $sql = "INSERT INTO role (title)
-                VALUES ('Faculty Member'),
-                        ('CHH Employee'),
-                        ('Resident or Fellow'),
-                        ('Medical Student'),
-                        ('Pharmacy');";
+        $sql = "INSERT INTO role (title, poster_category_id)
+                VALUES ('Faculty Member', 4),
+                        ('CHH Employee', 1),
+                        ('Resident or Fellow', 2),
+                        ('Medical Student', 3),
+                        ('Pharmacy', 3);";
 
         $this->db->query($sql);
     }

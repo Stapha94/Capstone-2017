@@ -1,0 +1,22 @@
+<!-- Modal Structure -->
+<div id="view-judge-scores" class="modal modal-fixed-footer" material-modal>
+    <form ng-submit="ctrl.assign()">
+        <div class="modal-content">
+            <table class="bordered highlight">
+                <thead>
+                    <th>Judge</th>
+                    <th>Score</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="form in ctrl.forms">
+                        <td>{{form.judgeFirstName + ' ' + form.judgeLastName}}</th>
+                        <td>{{ form.total }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.closeViewScores()" class="modal-action modal-close waves-effect waves-green btn red ">Close</a>
+        </div>
+    </form>
+</div>

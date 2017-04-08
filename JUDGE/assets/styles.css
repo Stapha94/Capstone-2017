@@ -267,6 +267,29 @@ td a, td a:hover {
     border: 2px solid #00B140;
 }
 
+/** Registration **/
+.register-cont {
+    text-align: left;
+    width: 65%;
+    padding: 50px 50px 50px;
+    margin: auto;
+    background: white;
+}
+
+.register-background {
+    background: #ECECEC;
+    height: 1000px;
+    width: 100%;
+    padding: 150px 50px;
+}
+
+.register-background-extended {
+    background: #ECECEC;
+    height: 1200px;
+    width: 100%;
+    padding: 150px 50px;
+}
+
 /** Spacing **/
 .pull-right {
     float: right !important;

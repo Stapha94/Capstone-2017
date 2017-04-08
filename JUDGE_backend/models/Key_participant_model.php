@@ -29,6 +29,7 @@ class Key_participant_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
+				{$this->name}.presenter_id,
 				{$this->name}.first_name,
 				{$this->name}.last_name,
 				department,
@@ -51,13 +52,20 @@ class Key_participant_model extends CI_Model {
 		return $result;
 	}
 
-	public function create($data = array()) {
-		try {
-			return $this->db->insert_batch($this->name, $data);
-		} catch (Exception $e) {
-			return false;
-		}
-	}
+    public function create($data = array()) {
+        try {
+            if($this->db->insert($this->name, $data)) {
+                $key_participant_id = $this->db->insert_id();
+                $query = $this->db->get_where($this->name, array('key_participant_id' => $key_participant_id));
+                $result = $query->result();
+                return $result;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
 	public function update($data = array()) {
 		try {
@@ -71,7 +79,7 @@ class Key_participant_model extends CI_Model {
 		$joins = array(
 			'pr' => 'presenter',
 		);
-		$joins = array_merge($joins, $this->Presenter->joins());
+		$joins = array_merge($joins, $this->presenter->joins());
 		return $joins;
 	}
 

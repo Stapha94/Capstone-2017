@@ -6,11 +6,11 @@ class Migration_Insert_institutions extends CI_Migration {
 
     public function up()
     {
-        $sql = "INSERT INTO institution (title)
-                VALUES ('MUSOM'),
-                        ('CHH'),
-                        ('MUSOP'),
-                        ('MU Nursing');";
+        $sql = "INSERT INTO institution (title, judge_category_id)
+                VALUES ('MUSOM', 1),
+                        ('CHH', 2),
+                        ('MUSOP', 1),
+                        ('MU Nursing', 1);";
 
         $this->db->query($sql);
     }

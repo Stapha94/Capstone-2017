@@ -30,7 +30,7 @@ class Poster_abstract_model extends CI_Model {
 			objective,
 			methods,
 			results,
-			conclusions");
+			conclusion");
 
 		// Put any joins here
 

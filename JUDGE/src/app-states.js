@@ -142,7 +142,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/reporting',
             templateUrl: 'build/views/pages/admin-reporting/admin-reporting.html',
             controller: 'adminReportingController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminReportingController.resolve()
         })
         .state('home.admin.judges', {
             url: '/judges',
@@ -165,11 +166,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: AdminAssignPostersController.resolve()
         })
-        .state('home.admin.participants', {
-            url: '/participants',
+        .state('home.admin.presenters', {
+            url: '/presenters',
             templateUrl: 'build/views/pages/admin-participants/admin-participants.html',
             controller: 'adminParticipantsController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminParticipantsController.resolve()
         })
 
         // register related states
@@ -212,12 +214,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/register-info',
             templateUrl: 'build/views/pages/register-info/register-info.html',
             controller: 'registerInfoController',
-            controllerAs: 'ctrl'
-        })
-        .state('register-finish', {
-            url: '/register-finish',
-            templateUrl: 'build/views/pages/register/register-finish.html',
-            controller: 'registerController',
             controllerAs: 'ctrl'
         })
         
