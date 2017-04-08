@@ -152,6 +152,17 @@ class RegisterInstitutionController{
     //Closes the modal
     close() {
         angular.element(document.querySelector("#modal1")).modal('close');
+        this.keyParticipantFName = "";
+        this.keyParticipantLName = "";
+        this.keyParticipantDepartment = "";
+        this.keyParticipantInstitution = "";
+        this.keyParticipantRole = "";
+        this.keyParticipant = {};
+    }
+
+    delete(keyParticipant) {
+        _.remove(this.keyParticipants, keyParticipant);
+        this.notificationService.success("Key Participant Removed!");
     }
 
 

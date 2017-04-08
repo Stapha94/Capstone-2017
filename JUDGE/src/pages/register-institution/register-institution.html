@@ -33,6 +33,7 @@
                                          <th>Department</th>
                                          <th>Institution</th>
                                          <th>Role</th>
+                                         <th>Remove</th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -49,6 +50,7 @@
                                         <td ng-if="keyParticipant.roleId === '3'">Resident or Fellow</td>
                                         <td ng-if="keyParticipant.roleId === '4'">Medical Student</td>
                                         <td ng-if="keyParticipant.roleId === '5'">Pharmacy</td>
+                                        <td ng-click="ctrl.delete(keyParticipant)"><a class="waves-effect waves-red red btn">Delete</a></td>
                                     </tr>
                                  </tbody>
                              </table>
