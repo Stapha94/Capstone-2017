@@ -16,20 +16,18 @@ app.controller('adminParticipantsController', ['$scope','$state','presenterServi
             //var presenter = {firstName:'bob',lastName:'Greatest',suffix:'',email:'BobbyG@gmail.com',institutionId:1,roleId:1,abstractId:1,submissionDate:'10/10/2017',isRegistered:1};
             presenterService.create($scope.presenter)
                 .then((presenter) => {
-                    _.forEach($scope.keyParticipant, (keyParticipant) => {
+                    _.forEach($scope.keyParticipants, (keyParticipant) => {
                         keyParticipant.presenterId = presenter.presenterId;
+                        keyParticipantService.create($scope.keyParticipant)
                     });
-                    keyParticipantService.create($scope.keyParticipant)
-                        .then(() => {
                             posterAbstractService.create($scope.posterAbstract)
                                 .then((posterAbstract) => {
                                     $scope.poster.presenterId = presenter.presenterId;
                                     $scope.poster.abstractId = posterAbstract.posterAbstractId;
+                                    $scope.poster.submissionDate = new Date();
                                     $scope.posterService.create($scope.poster);
                                 })
                         });
-
-                });
         };
         presenterService.get()
             .then(function(data) {
