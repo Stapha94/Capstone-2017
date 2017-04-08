@@ -6,8 +6,10 @@ class RegisterInstitutionController{
         this.localStorageService = localStorageService;
         this.registrationService = registrationService;
         this.$state = $state;
+        this.summitId = localStorageService.get("summit").summitId;
         this.presenterInstitution = "";
         this.presenterRole = "";
+        this.posterCategoryId = "";
         this.keyParticipantFName = "";
         this.keyParticipantLName = "";
         this.keyParticipantDepartment = "";
@@ -17,20 +19,12 @@ class RegisterInstitutionController{
         this.roles = roles;
         this.keyParticipants = [];
         this.keyParticipant = {};
-        this.institutionExists = false;
-        this.roleExists = false;
-        this.keyParticipantFNameExists = false;
-        this.keyParticipantLNameExists = false;
-        this.keyParticipantDepartmentExists = false;
-        this.keyParticipantInstitutionExists = false;
-        this.keyParticipantRoleExists = false;
 
     }
 
     //Checks to see if the user chose an institution
     checkInstitutionExists() {
         if(this.presenterInstitution !== null) {
-            this.institutionExists = true;
             this.checkRoleExists();
         }
         else {
@@ -41,7 +35,6 @@ class RegisterInstitutionController{
     //Checks to see if the user chose a role
     checkRoleExists() {
         if(this.presenterRole !== null) {
-            this.roleExists = true;
             this.continue();
         }
         else {
@@ -52,7 +45,6 @@ class RegisterInstitutionController{
     //Checks to see if the user entered a first name for the key participant
     checkKeyParticipantFNameExists() {
         if(this.keyParticipantFName !== "") {
-            this.keyParticipantFNameExists = true;
             this.checkKeyParticipantLNameExists();
         }
         else {
@@ -63,7 +55,6 @@ class RegisterInstitutionController{
     //Checks to see if the user entered a last name for the key participant
     checkKeyParticipantLNameExists() {
         if(this.keyParticipantLName !== "") {
-            this.keyParticipantLNameExists = true;
             this.checkKeyParticipantInstitutionExists();
         }
         else {
@@ -74,7 +65,6 @@ class RegisterInstitutionController{
     //Checks to see if the user chose an institution for the key participant
     checkKeyParticipantInstitutionExists() {
         if(this.keyParticipantInstitution !== null) {
-            this.keyParticipantInstitutionExists = true;
             this.checkKeyParticipantDepartmentExists();
         }
         else {
@@ -84,9 +74,8 @@ class RegisterInstitutionController{
 
     //Checks to see if the user chose/entered a department for the key participant.  This is only needed for the School of Medicine and Cabell Huntington
     checkKeyParticipantDepartmentExists() {
-        if(this.keyParticipantInstitution === "MUSOM" || this.keyParticipantInstitution === "CHH") {
+        if(this.keyParticipantInstitution === "1" || this.keyParticipantInstitution === "2") {
             if(this.keyParticipantDepartment !== "") {
-                this.keyParticipantDepartmentExists = true;
                 this.checkKeyParticipantRoleExists();
             }
             else {
@@ -94,7 +83,6 @@ class RegisterInstitutionController{
             }
         }
         else {
-            this.keyParticipantDepartmentExists = true;
             this.keyParticipantDepartment = "N/A";
             this.checkKeyParticipantRoleExists();
         }
@@ -103,7 +91,6 @@ class RegisterInstitutionController{
     //Checks to see if the user chose a role for the key participant
     checkKeyParticipantRoleExists() {
         if(this.keyParticipantRole !== null) {
-            this.keyParticipantRoleExists == true;
             this.addKeyParticipant();
         }
         else {
@@ -111,14 +98,31 @@ class RegisterInstitutionController{
         }
     };
 
+    //Sets the category for the posters based off of the role
+    getPosterCategoryId() {
+
+        if(this.presenterRole === "1") {
+            this.posterCategoryId = "4";
+        }
+        else if(this.presenterRole === "2") {
+            this.posterCategoryId = "1";
+        }
+        else if(this.presenterRole === "3") {
+            this.posterCategoryId = "2";
+        }
+        else if(this.presenterRole === "4" || this.presenterRole === "5") {
+            this.posterCategoryId = "3";
+        }
+    }
+
     //Adds the entered key participant to the array
     addKeyParticipant() {
         this.keyParticipant = {
-            keyParticipantFName: this.keyParticipantFName,
-            keyParticipantLName: this.keyParticipantLName,
-            keyParticipantDepartment: this.keyParticipantDepartment,
-            keyParticipantInstitution: this.keyParticipantInstitution,
-            keyParticipantRole: this.keyParticipantRole
+            firstName: this.keyParticipantFName,
+            lastName: this.keyParticipantLName,
+            department: this.keyParticipantDepartment,
+            institutionId: this.keyParticipantInstitution,
+            roleId: this.keyParticipantRole
         };
         this.keyParticipants.push(this.keyParticipant);
         this.close();
@@ -126,22 +130,39 @@ class RegisterInstitutionController{
 
     //Puts all of the information in the Registration Service and goes to the next page
     continue() {
-        if(this.roleExists === true) {
-            this.registrationService.presenterInstitution = this.presenterInstitution;
-            this.registrationService.presenterRole = this.presenterRole;
-            this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
-            this.$state.go('register-info');
-        }
-        else {
-            this.notificationService.error("Please choose a role!");
-        }
 
+        this.poster = {
+            //posterCategoryId: this.posterCategoryId,
+            summitId: this.summitId,
+            awardId: 1,
+            posterAbstractId: 0,
+            presenterId: 0
+        };
+
+        this.registrationService.poster = this.poster;
+        this.registrationService.presenter.institutionId = this.presenterInstitution;
+        this.registrationService.presenter.roleId = this.presenterRole;
+        this.registrationService.presenterInstitution = this.presenterInstitution;
+        this.registrationService.presenterRole = this.presenterRole;
+        this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
+        this.$state.go('register-info');
 
     };
 
     //Closes the modal
     close() {
         angular.element(document.querySelector("#modal1")).modal('close');
+        this.keyParticipantFName = "";
+        this.keyParticipantLName = "";
+        this.keyParticipantDepartment = "";
+        this.keyParticipantInstitution = "";
+        this.keyParticipantRole = "";
+        this.keyParticipant = {};
+    }
+
+    delete(keyParticipant) {
+        _.remove(this.keyParticipants, keyParticipant);
+        this.notificationService.success("Key Participant Removed!");
     }
 
 

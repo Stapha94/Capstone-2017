@@ -1,26 +1,22 @@
-CREATE TABLE institution (
-    institution_id  INT(11) NOT NULL    AUTO_INCREMENT,
-    title           VARCHAR(255)    NOT NULL,
-    active          TINYINT(1)      NOT NULL DEFAULT 1;
-
-    PRIMARY KEY (institution_id)
-);
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_institution extends CI_Migration {
+class Migration_Add_role extends CI_Migration {
 
         public function up()
         {
-                $sql = "CREATE TABLE institution (
-                            institution_id  INT(11) NOT NULL    AUTO_INCREMENT,
+                $sql = "CREATE TABLE role (
+                            role_id         INT(11) NOT NULL    AUTO_INCREMENT,
+                            poster_category_id  INT(11) NOT NULL,
                             title           VARCHAR(50)    NOT NULL,
                             active          TINYINT(1)      NOT NULL DEFAULT 1,
                             
+                            FOREIGN KEY (poster_category_id) REFERENCES poster_category(poster_category_id),
+                            
                             UNIQUE (title),
 
-                            PRIMARY KEY (institution_id)
+                            PRIMARY KEY (role_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
                 $this->db->query($sql);
@@ -28,7 +24,7 @@ class Migration_Add_institution extends CI_Migration {
 
         public function down()
         {
-                $sql = "DROP TABLE institution;";
+                $sql = "DROP TABLE role;";
                 $this->db->query($sql);
         }
 }

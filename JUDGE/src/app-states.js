@@ -142,7 +142,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/reporting',
             templateUrl: 'build/views/pages/admin-reporting/admin-reporting.html',
             controller: 'adminReportingController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminReportingController.resolve()
         })
         .state('home.admin.judges', {
             url: '/judges',
@@ -212,12 +213,6 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/register-info',
             templateUrl: 'build/views/pages/register-info/register-info.html',
             controller: 'registerInfoController',
-            controllerAs: 'ctrl'
-        })
-        .state('register-finish', {
-            url: '/register-finish',
-            templateUrl: 'build/views/pages/register/register-finish.html',
-            controller: 'registerController',
             controllerAs: 'ctrl'
         })
         

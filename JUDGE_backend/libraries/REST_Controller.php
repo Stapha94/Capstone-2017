@@ -2003,7 +2003,7 @@ abstract class REST_Controller extends \CI_Controller {
 			if($batch) {
 				$batch_entries = $this->post();
 				foreach ($batch_entries as $key => $value) {
-					foreach ($fields as $index => $field) {
+				    foreach ($fields as $index => $field) {
 						$item = $value[$field];
 						if (isset($item)) {
 							$data[$key][$field] = $item;
@@ -2224,9 +2224,8 @@ abstract class REST_Controller extends \CI_Controller {
 		}
 	}
 
-	protected function generate_delete_response($model = NULL) {
-		$params = get_paramters();
-		$auth = $this->sanitize_uri($params, $model->fields);
+	protected function generate_delete_response($model = NULL, $id = 0) {
+		$auth = $this->authorize->get_auth();
 
 		if($model === NULL) {
 			$this->response([], 400);
@@ -2239,10 +2238,8 @@ abstract class REST_Controller extends \CI_Controller {
 		} else if($auth === 404) {
 			$this->response([], 404);
 		} else if($this->authorize->is_admin($auth)) {
-			$method = $this->uri->segment(2);
-			$id = $this->uri->segment(3);
 			$data['id'] = $id;
-			if ($method === 'delete') {
+			if ($id) {
 				$query = $model->delete($data);
 				if ($query) {
 					$this->response([], 202);
@@ -2251,7 +2248,7 @@ abstract class REST_Controller extends \CI_Controller {
 				}
 			}
 		} else {
-			$this->response([], 401);
+			$this->response([], 404);
 		}
 	}
 }

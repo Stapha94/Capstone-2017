@@ -8,18 +8,15 @@ class RegisterConfirmationController{
         this.authService = authService;
         this.$state = $state;
         this.presenterCode = "";
-        this.codeValidated = false;
 
     }
 
     validateCode() {
 
         if (this.presenterCode !== "") {
-            this.codeValidated = true;
             this.continue();
         }
         else {
-            this.codeValidated = false;
             this.notificationService.error("Please enter the code you received in your email!");
         }
 
@@ -27,10 +24,7 @@ class RegisterConfirmationController{
     };
 
     continue() {
-        if (this.codeValidated === true) {
-            this.$state.go('register-institution');
-
-        }
+        this.$state.go('register-institution');
 
     };
 
