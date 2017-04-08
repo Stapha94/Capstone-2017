@@ -32,7 +32,6 @@ class Login extends REST_Controller {
 		} else {
 			$this->response([], 401);
 		}
-		die();
 	}
 
     public function judge_post() {

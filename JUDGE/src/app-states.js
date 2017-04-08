@@ -166,11 +166,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: AdminAssignPostersController.resolve()
         })
-        .state('home.admin.participants', {
-            url: '/participants',
+        .state('home.admin.presenters', {
+            url: '/presenters',
             templateUrl: 'build/views/pages/admin-participants/admin-participants.html',
             controller: 'adminParticipantsController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminParticipantsController.resolve()
         })
 
         // register related states

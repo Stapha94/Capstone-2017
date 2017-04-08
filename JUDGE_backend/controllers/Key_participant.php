@@ -13,7 +13,7 @@ class Key_participant extends REST_Controller {
 
 	public function index_post()
 	{
-		$this->generate_post_response($this->key_participant);
+		$this->generate_unauthorized_post_response($this->key_participant);
 	}
 
 }

@@ -13,7 +13,7 @@ class Poster extends REST_Controller {
 
 	public function index_post()
 	{
-		$this->generate_post_response($this->poster);
+		$this->generate_unauthorized_post_response($this->poster);
 	}
 
 }

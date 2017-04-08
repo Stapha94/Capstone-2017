@@ -29,6 +29,7 @@ class Key_participant_model extends CI_Model {
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
+				{$this->name}.presenter_id,
 				{$this->name}.first_name,
 				{$this->name}.last_name,
 				department,
@@ -78,7 +79,7 @@ class Key_participant_model extends CI_Model {
 		$joins = array(
 			'pr' => 'presenter',
 		);
-		$joins = array_merge($joins, $this->Presenter->joins());
+		$joins = array_merge($joins, $this->presenter->joins());
 		return $joins;
 	}
 
