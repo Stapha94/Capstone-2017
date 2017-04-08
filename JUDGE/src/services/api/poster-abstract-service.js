@@ -1,6 +1,6 @@
 class PosterAbstractService extends BaseApiService {
     constructor($injector) {
-        super($injector, 'poster_abstracts', 'poster abstract');
+        super($injector, 'poster_abstract', 'poster abstract');
     }
 
     createAbstract(data) {

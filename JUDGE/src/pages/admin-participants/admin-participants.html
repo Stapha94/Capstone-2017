@@ -80,7 +80,20 @@
                     <!-- TAB TWO-->
                     <div id="tab2">
                         <p>{{ presenter.firstName }}</p>
-
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input placeholder="First Name" id="keyParticipantFirstName" ng-model="keyParticipant.firstName" type="text" class="validate" required>
+                                <label for="presenterFirstName">First Name: </label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input placeholder="Last Name" id="keyParticipantLastName" ng-model="keyParticipant.lastName" type="text" class="validate" required>
+                                <label for="presenterLastName">Last Name: </label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input placeholder="" id="keyParticipantDepartment" ng-model="keyParticipant.department" type="text" class="validate" required>
+                                <label for="presenterFirstName">Suffix: </label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="input-field col s6">
                                 <select id="institution" ng-model="presenter.institutionId" required>
