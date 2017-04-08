@@ -13,13 +13,12 @@ app.controller('adminParticipantsController', ['$scope','$state','presenterServi
         //$scope.data = data;
 
         $scope.submit = function () {
-            //var presenter = {firstName:'bob',lastName:'Greatest',suffix:'',email:'BobbyG@gmail.com',institutionId:1,roleId:1,abstractId:1,submissionDate:'10/10/2017',isRegistered:1};
             presenterService.create($scope.presenter)
-                .then((presenter) => {
+               .then((presenter) => {/*
                     _.forEach($scope.keyParticipants, (keyParticipant) => {
                         keyParticipant.presenterId = presenter.presenterId;
                         keyParticipantService.create($scope.keyParticipant)
-                    });
+                    });*/
                             posterAbstractService.create($scope.posterAbstract)
                                 .then((posterAbstract) => {
                                     $scope.poster.presenterId = presenter.presenterId;
