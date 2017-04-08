@@ -39,7 +39,7 @@ class Presenter_model extends CI_Model {
                 email,
                 {$joins['i']}.title AS institution,
                 {$joins['r']}.title AS role,
-                active");
+                {$this->name}.active");
 
 		// Put any joins here
 
