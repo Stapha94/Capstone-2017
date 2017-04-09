@@ -35,6 +35,8 @@ class Poster_model extends CI_Model {
             // All the select fields
 
             $this->db->select("{$this->name}_id,
+            	{$this->name}.presenter_id,
+            	{$this->name}.poster_abstract_id,
                 {$joins['pc']}.title AS category,
                 {$joins['aw']}.title AS award,
                 {$joins['pa']}.title AS poster_title,

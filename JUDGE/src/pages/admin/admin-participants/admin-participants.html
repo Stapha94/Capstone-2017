@@ -1,0 +1,34 @@
+<div class="wrap">
+    <add-poster-modal ctrl="ctrl"></add-poster-modal>
+    <abstract-modal abstract="ctrl.presenterAbstract"></abstract-modal>
+    <h5 class="page-title">Presenter Management</h5>
+    <div class="row pull-right">
+        <button data-target="add-participant" class="btn green">Add Presenter</button>
+    </div>
+    <table class="bordered highlight">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Presenter</th>
+            <th>Suffix</th>
+            <th>Institution</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Key Participants</th>
+            <th>Poster Abstract</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="presenter in ctrl.presenters">
+            <td>{{ presenter.presenterId }}</td>
+            <td>{{ presenter.firstName + ' ' + presenter.lastName }}</td>
+            <td>{{ presenter.suffix }}</td>
+            <td>{{ presenter.institution }}</td>
+            <td>{{ presenter.role }}</td>
+            <td>{{ presenter.email }}</TD>
+            <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
+            <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Poster</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

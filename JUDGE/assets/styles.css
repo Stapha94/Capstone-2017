@@ -393,3 +393,14 @@ table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.
     color: white;
     background-color: #00B140;
 }
+
+.welcome-message {
+    margin-right: 20px;
+}
+
+ul.management .item {
+    border: 1px solid dimgrey;
+    border-radius: 30px;
+    padding: 25px;
+    margin: 25px;
+}

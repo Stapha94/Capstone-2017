@@ -61,9 +61,8 @@ class Login extends REST_Controller {
             $data['status'] = 200;
             $this->response($data);
         } else {
-            $this->response([], 401);
-        }
-        die();
+			$this->response([], 401);
+		}
     }
 
 }

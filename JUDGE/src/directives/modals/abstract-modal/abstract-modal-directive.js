@@ -11,8 +11,8 @@ class AbstractModalDirective {
     }
 
     link(scope, element, attribute, controller) {
-        scope.$watch('abstract', () => {
-            controller.abstract = scope.abstract;
+        scope.$watch(() => { return scope.abstract}, (newVal, oldVal) => {
+            controller.abstract = newVal;
         });
     }
 
