@@ -3,7 +3,7 @@ class JudgeDashboardController {
     static resolve() {
         return {
                 forms: ['formService', '$stateParams', (formService, $stateParams) => {
-                    return formService.get({judgeId: $stateParams.judgeId})
+                    return formService.get({judgeId: $stateParams.judgeId, active: 1})
                         .then((data) => {
                             return data;
                         })
@@ -22,7 +22,6 @@ class JudgeDashboardController {
             { id: 'Pending' },
             { id: 'Complete' }
         ];
-        this.dividePosters();
     }
 
     setAbstract(poster) {
@@ -33,16 +32,6 @@ class JudgeDashboardController {
             results: poster.results,
             conclusion: poster.conclusion
         };
-    }
-
-    dividePosters() {
-        _.forEach(this.forms, (form) => {
-            if(isTrue(form.judged)) {
-                form.isScored = true;
-            } else {
-                form.isScored = false;
-            }
-        });
     }
 
 }

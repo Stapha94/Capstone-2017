@@ -21,7 +21,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { isScored: false }">
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '0' }">
                 <td>{{form.posterId}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.posterCategory}}</td>
@@ -45,7 +45,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { isScored: true }">
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '1' }">
                 <td>{{form.posterId}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.posterCategory}}</td>

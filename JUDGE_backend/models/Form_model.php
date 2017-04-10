@@ -18,7 +18,8 @@ class Form_model extends CI_Model {
 			'judge_id' => 'form',
 			'judge_category_id' => 'judge_category',
 			'summit_id' => 'summit',
-			'judged' => 'form'
+			'judged' => 'form',
+			'active' => 'presenter'
 			// This can be added as the need arises
 		);
 		$this->name = 'form';

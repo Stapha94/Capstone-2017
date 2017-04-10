@@ -2,6 +2,12 @@ class AdminJudgeInfoController {
 
     static resolve() {
         return {
+                summits: ['summitService', (summitService) => {
+                    return summitService.get()
+                        .then((data) => {
+                            return data;
+                        });
+                }],
                 judge: ['judgeService', '$stateParams', (judgeService, $stateParams) => {
                     return judgeService.get({judgeId: $stateParams.judgeId})
                         .then((data) => {
@@ -20,6 +26,12 @@ class AdminJudgeInfoController {
                             return data;
                         })
                 }],
+                formQuestions: ['formQuestionService', 'judge', (formQuestionService, judge) => {
+                    return formQuestionService.get({judgeId: judge.judgeId})
+                        .then((data) => {
+                            return data;
+                        })
+                }],
                 posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
                     return posterService.get({summitId: localStorageService.get('summit').summitId})
                         .then((data) => {
@@ -29,7 +41,7 @@ class AdminJudgeInfoController {
             }
     }
 
-    constructor($scope, judgeService, formService, judge, judgeCategories, forms, posters) {
+    constructor($scope, judgeService, formService, summits, judge, judgeCategories, forms, formQuestions, posters) {
         this.$scope = $scope;
         this.judgeService = judgeService;
         this.formService = formService;
@@ -37,7 +49,15 @@ class AdminJudgeInfoController {
         this.judge = angular.copy(this.original); // for setting things back to normal if they hit cancel
         this.judgeCategories = judgeCategories;
         this.forms = forms;
-        this.form = { judgeId: judge.judgeId, total: 0 };
+        this.formQuestions = formQuestions;
+        this.summits = summits;
+        this.summitId = summits[0].summitId;
+        if(forms[0] !== undefined) {
+            this.form = forms[0];
+        } else {
+            this.form = {};
+        }
+        this.singleFormQuestions = _.filter(this.formQuestions, {formId: this.form.formId});
         this.posters = _.differenceWith(posters, forms, (poster, form) => {
             return poster.posterId === form.posterId;
         });
@@ -96,7 +116,21 @@ class AdminJudgeInfoController {
         this.modal = this.modal ? false : true;
     }
 
+    setForm(form) {
+        this.form = form;
+        this.singleFormQuestions = _.filter(this.formQuestions, {formId: form.formId});
+    }
+
+    remove(form) {
+        if(form.judged === '0') {
+            this.formService.delete(form.formId)
+                .then(() => {
+                   _.remove(this.forms, form); 
+                });
+        }
+    }
+
 }
 
-AdminJudgeInfoController.$inject = ['$scope', 'judgeService', 'formService', 'judge', 'judgeCategories', 'forms', 'posters'];
+AdminJudgeInfoController.$inject = ['$scope', 'judgeService', 'formService', 'summits', 'judge', 'judgeCategories', 'forms', 'formQuestions', 'posters'];
 app.controller('adminJudgeInfoController', AdminJudgeInfoController);

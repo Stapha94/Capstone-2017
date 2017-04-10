@@ -1,6 +1,18 @@
 class LandingController {
 
-   constructor($scope, $state, authService, notificationService) {
+   constructor($scope, $state, localStorageService, authService, notificationService) {
+        var summit = localStorageService.get('summit');
+        if(summit === undefined) {
+            this.canRegister = false;
+        } else {
+            var deadline = new Date(summit.registrationDeadline).valueOf();
+            var today = new Date().valueOf();
+            if(deadline < today) {
+                this.canRegister = false;
+            } else {
+                this.canRegister = true;
+            }
+        }
         this.$scope = $scope;
         this.$state = $state;
         this.authService = authService;
@@ -25,5 +37,5 @@ class LandingController {
 
 }
 
-LandingController.$inject = ['$scope', '$state', 'authService', 'notificationService'];
+LandingController.$inject = ['$scope', '$state', 'localStorageService', 'authService', 'notificationService'];
 app.controller('landingController', LandingController);

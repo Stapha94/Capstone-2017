@@ -1,7 +1,15 @@
 <div class="wrap">
 
     <form ng-submit="ctrl.submit()">
-
+        <h5><strong>Does this poster capture my immediate attention enough to inspire further evaluation?</strong></h5>
+        <div class="switch">
+            <label>
+                No
+                <input type="checkbox" ng-model="ctrl.furtherEvaluation">
+                <span class="lever"></span>
+                Yes
+            </label>
+        </div>
         <table>
             <tbody>
                 <tr ng-repeat="questionSection in ctrl.questionSections">
@@ -23,7 +31,7 @@
                                 <tr ng-repeat="question in ctrl.formQuestions | filter: {section: questionSection.title}">
                                     <td class="question-info">{{question.description}}</td>
                                     <td ng-repeat="score in ctrl.scores">
-                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" required />
+                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" ng-disabled="!ctrl.furtherEvaluation" ng-required="!ctrl.furtherEvaluation" />
                                         <label for="{{'question' + question.questionId + score.label}}"></label>
                                     </td>
                                     <td class="pull-right">{{question.score}}</td>

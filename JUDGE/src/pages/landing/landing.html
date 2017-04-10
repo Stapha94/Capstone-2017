@@ -8,7 +8,7 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,<br>
                     when an unknown printer took a galley of type and scrambled it to make a type<br>
                     specimen book.It has survived not only five centuries</p>
-                <button ui-sref="register" class="btn">Register</button>
+                <button ng-if="ctrl.canRegister" ui-sref="register" class="btn">Register</button>
             </div>
             <div class="input-field col s5">
                 <div class="login-cont">

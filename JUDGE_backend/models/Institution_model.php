@@ -22,15 +22,18 @@ class Institution_model extends CI_Model {
 	public function get($params = array())
 	{
 		// Load foreign tables
+		$joins = $this->joins();
 
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
 			{$this->name}.judge_category_id,
-			title,
-			active");
+			{$joins['jc']}.title AS category,
+			{$this->name}.title,
+			{$this->name}.active");
 
 		// Put any joins here
+		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$this->name}.{$joins['jc']}_id");
 
 		// Where clauses here
 

@@ -9,7 +9,7 @@ class AdminAssignPostersController {
                     });
             }],
             posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
-                return posterService.get({summitId: parseInt(localStorageService.get('summit').summitId)})
+                return posterService.get({summitId: parseInt(localStorageService.get('summit').summitId), active: 1})
                     .then((data) => {
                         return data;
                     });

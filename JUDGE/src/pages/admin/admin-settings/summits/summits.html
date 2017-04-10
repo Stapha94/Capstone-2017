@@ -53,7 +53,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="summit in ctrl.models | filter: {active: 1}">
+                <tr ng-repeat="summit in ctrl.models | filter: {active: 0}">
                     <td><a ui-sref="home.admin.settings.summit({summitId: summit.summitId})">{{ summit.summitStart | date: 'mediumDate' }}</td>
                     <td>{{ summit.summitStart | date: 'shortTime'}}</td>
                     <td>{{ summit.summitEnd | date: 'shortTime' }}</td>

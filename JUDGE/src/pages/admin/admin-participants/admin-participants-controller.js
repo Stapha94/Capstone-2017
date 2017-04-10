@@ -2,6 +2,12 @@ class AdminParticipantsController {
 
     static resolve() {
         return {
+            summits: ['summitService', (summitService) => {
+                return summitService.get()
+                    .then((data) => {
+                        return data;
+                    });
+            }],
             presenters: ['presenterService', (presenterService) => {
                 return presenterService.get()
                     .then((data) => {
@@ -29,12 +35,14 @@ class AdminParticipantsController {
         }
     }
 
-    constructor($scope, $state, presenterService, posterAbstractService, posterService, keyParticipantService, presenters, abstracts, posters, keyParticipants, notificationService) {
+    constructor($scope, $state, presenterService, posterAbstractService, posterService, keyParticipantService, summits, presenters, abstracts, posters, keyParticipants, notificationService) {
         this.presenterService = presenterService;
         this.posterAbstractService = posterAbstractService;
         this.posterService = posterService;
         this.keyParticipantService = keyParticipantService;
         this.notificationService = notificationService;
+        this.summits = summits;
+        this.summitId = summits[0].summitId;
         this.presenters = presenters;
         this.abstracts = abstracts;
         this.posters = posters;
@@ -55,41 +63,19 @@ class AdminParticipantsController {
         this.presenterAbstract = _.find(this.abstracts, {posterAbstractId: this.presenterPoster.posterAbstractId});
     }
 
-    submit() {
-        this.presenterService.create(this.presenter)
-            .then((presenter) => {
-                _.forEach(this.keyParticipants, (keyParticipant) => {
-                    keyParticipant.presenterId = presenter.presenterId;
-                    this.keyParticipantService.create(this.keyParticipant)
-                });
-                this.posterAbstractService.create(this.posterAbstract)
-                    .then((posterAbstract) => {
-                        this.poster.presenterId = presenter.presenterId;
-                        this.poster.abstractId = posterAbstract.posterAbstractId;
-                        this.poster.submissionDate = new Date();
-                        this.posterService.create(this.poster);
-                });
-            });
+    activate(presenter) {
+        presenter.active = '1';
+        this.presenterService.update(presenter);
     }
 
-    goToKeyParticipants() {
-        if(this.presenter.email !== this.presenter.emailConfirm) {
-            this.notificationService.error('Emails do not match!');
-        } else {
-            angular.element(document.querySelectorAll('.disabled'))[0].removeClass('disabled');
-        }
-    }
-
-    cancel() {
-        this.presenter = {};
-        this.editedKeyParticipants = [];
-        this.posterAbstract = {};
-        this.poster = {};
+    deactivate(presenter) {
+        presenter.active = '0';
+        this.presenterService.update(presenter);
     }
 
 
 }
 
-AdminParticipantsController.$inject = ['$scope', '$state', 'presenterService', 'posterAbstractService', 'posterService', 'keyParticipantService', 'presenters', 'abstracts', 'posters', 'keyParticipants', 'notificationService'];
+AdminParticipantsController.$inject = ['$scope', '$state', 'presenterService', 'posterAbstractService', 'posterService', 'keyParticipantService', 'summits', 'presenters', 'abstracts', 'posters', 'keyParticipants', 'notificationService'];
 app.controller('adminParticipantsController',  AdminParticipantsController);
 

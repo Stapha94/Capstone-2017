@@ -21,7 +21,8 @@ class Poster_model extends CI_Model {
 					'poster_title' => 'poster_abstract',
 					'presenter_id' => 'poster',
 					'summit_id' => 'poster',
-					'submission_date' => 'poster'
+					'submission_date' => 'poster',
+					'active' => 'presenter'
 				);
                 $this->name = 'poster';
                 parent::__construct();

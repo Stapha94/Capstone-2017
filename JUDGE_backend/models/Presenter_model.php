@@ -19,7 +19,8 @@ class Presenter_model extends CI_Model {
 			'email' => 'presenter',
 			'institution' => 'institution',
 			'role' => 'role',
-			'active' => 'presenter'
+			'active' => 'presenter',
+			'summit_id' => 'poster'
 		);
 		$this->name = 'presenter';
 		parent::__construct();
@@ -32,19 +33,21 @@ class Presenter_model extends CI_Model {
 
 		// All the select fields
 
-		$this->db->select("{$this->name}_id,
+		$this->db->select("{$this->name}.{$this->name}_id,
                 first_name,
                 last_name,
                 suffix,
                 email,
                 {$joins['i']}.title AS institution,
                 {$joins['r']}.title AS role,
-                {$this->name}.active");
+                {$this->name}.active,
+                {$joins['po']}.summit_id");
 
 		// Put any joins here
 
 		$this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$this->name}.{$joins['i']}_id");
 		$this->db->join("{$joins['r']}", "{$joins['r']}.{$joins['r']}_id = {$this->name}.{$joins['r']}_id");
+		$this->db->join("{$joins['po']}", "{$joins['po']}.{$this->name}_id = {$this->name}.{$this->name}_id");
 
 		// Where clauses here
 
@@ -82,7 +85,8 @@ class Presenter_model extends CI_Model {
 	public function joins() {
 		$joins = array(
 			'i' => 'institution',
-			'r' => 'role'
+			'r' => 'role',
+			'po' => 'poster'
 		);
 		return $joins;
 	}

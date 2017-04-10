@@ -11,7 +11,10 @@ class RouteInterceptor {
             'home.admin.settings',
             'home.admin.reporting',
             'home.admin.judges',
-            'home.admin.participants'
+            'home.admin.presenters',
+            'home.admin.register',
+            'home.admin.register-institution',
+            'home.admin.register-info'
             // ADD OTHER STATES HERE
         ];
         this.judgeStates = [
@@ -19,6 +22,8 @@ class RouteInterceptor {
             'home.judge.dashboard',
             'home.judge.info',
             'home.judge.form'
+        ];
+        this.adminRegistrationStates = [
         ];
         this.registrationStates = [
             'register',
@@ -31,16 +36,26 @@ class RouteInterceptor {
 
     listenOnRoute() {
         this.$rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
+            // This ensures the registration process goes smoothly.
+            if(_.includes(this.registrationStates, toState.name)) {
+                if(toState.name === 'register-institution' && !toParams.valid) {
+                    event.preventDefault();
+                    this.$state.go('register');
+                } else if(toState.name === 'register-info' && !toParams.valid) {
+                    event.preventDefault();
+                    this.$state.go('register');
+                }
+            }
             // No user is logged in
             if(!this.authService.isLoggedIn) {
                 if(_.includes(this.judgeStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-judge attempted access to state: ' + toState.name);
-                    this.$state.go('home.judge-login'); // redirect to judge login
+                    this.$state.go('home.landing'); // redirect to judge login
                 } else if(_.includes(this.adminStates, toState.name)) {
                     event.preventDefault();
                     this.$log.warn('Non-admin attempted access to state: ' + toState.name);
-                    this.$state.go('home.login'); // redirect to judge login
+                    this.$state.go('home.landing'); // redirect to judge login
                 }
             } else {
                 // Judge is logged in
@@ -75,6 +90,13 @@ class RouteInterceptor {
                             toParams.adminId = this.authService.currentUser.id;
                             this.$state.go(toState.name, toParams);
                             
+                        }
+                        if(toState.name === 'home.admin.register-institution' && !toParams.valid) {
+                            event.preventDefault();
+                            this.$state.go('home.admin.register');
+                        } else if(toState.name === 'home.admin.register-info' && !toParams.valid) {
+                            event.preventDefault();
+                            this.$state.go('home.admin.register');
                         }
                     } else if(toState.name === 'home.landing') {
                         event.preventDefault();

@@ -1,0 +1,121 @@
+<div class="wrap">
+    <add-key-participant-modal ctrl="ctrl"></add-key-participant-modal>
+    <h5 class="page-title">Presenter Info</h5>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#Info">Info</a></li>
+                <li class="tab col s3"><a href="#KeyParticipants">Key Participants</a></li>
+                <li class="tab col s3"><a href="#PosterAbstract">Poster Abstract</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Info" class="input-field col s12">
+        <form ng-submit="ctrl.updatePresenter()">
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" name="first_name" id="first_name" ng-model="ctrl.presenter.firstName" placeholder="First Name" ng-disabled="!ctrl.canEdit" required>
+                        <label class="active" for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" name="last_name" id="last_name" ng-model="ctrl.presenter.lastName" placeholder="Last Name" ng-disabled="!ctrl.canEdit" required>
+                        <label class="active" for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" id="email" ng-model="ctrl.presenter.email" class="validate" placeholder="Email" ng-disabled="!ctrl.canEdit" required>
+                        <label class="active" for="email">Email</label>
+                    </div>
+                </div>
+                <input ng-if="!ctrl.isSelf" type="checkbox" name="active" ng-model="ctrl.presenter.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-disabled="!ctrl.canEdit" required />
+                <label ng-if="!ctrl.isSelf" for="active">Active</label>
+            </div>
+            <div class="row pull-right">
+                <a ng-if="!ctrl.canEdit" class="wave-effects wave-light btn" ng-click="ctrl.edit()">Edit</a>
+                <button type="submit" ng-if="ctrl.canEdit" class="waves-effect waves-light btn green ">Save</button>
+                <a ng-click="ctrl.cancel()" ng-if="ctrl.canEdit" class="waves-effect waves-light btn red ">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="KeyParticipants" class="input-field col s12">
+        <div class="row">
+            <div class="col 14 s12">
+                <h5 class="black-text"><u>Key Participants:</u></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Department</th>
+                            <th>Institution</th>
+                            <th>Role</th>
+                            <th>Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="keyParticipant in ctrl.keyParticipants">
+                        <td>{{keyParticipant.firstName}}</td>
+                        <td>{{keyParticipant.lastName}}</td>
+                        <td>{{keyParticipant.department}}</td>
+                        <td>{{keyParticipant.institution}}</td>
+                        <td>{{keyParticipant.role}}</td>
+                        <td ng-click="ctrl.deleteKeyParticipant(keyParticipant)"><a class="waves-effect waves-red red btn">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <button data-target="add-key-participant" class="btn green waves-effect waves-light">Add Key Participant</button>
+        </div>
+    </div>
+
+    <div id="PosterAbstract" class="input-field col s12">
+        <form ng-submit="ctrl.updatePosterAbstract()">
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="projectTitle" ng-model="ctrl.posterAbstract.title" type="text" class="validate" required>
+                        <label class="active" for="projectTitle">Project Title:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="objective" ng-model="ctrl.posterAbstract.objective" class="materialize-textarea" required></textarea>
+                        <label class="active" for="objective">Objective: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="method" ng-model="ctrl.posterAbstract.methods" class="materialize-textarea" required></textarea>
+                        <label class="active" for="method">Methods: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="result" ng-model="ctrl.posterAbstract.results" class="materialize-textarea" required></textarea>
+                        <label class="active" for="result">Results: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="conclusion" ng-model="ctrl.posterAbstract.conclusion" class="materialize-textarea" required></textarea>
+                        <label class="active" for="conclusion">Conclusion: </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row pull-right">
+                <button type="submit" class="waves-effect waves-light btn green ">Update</button>
+                <a ng-click="ctrl.cancelPosterAbstract()" class="waves-effect waves-light btn red ">Cancel</a>
+            </div>
+        </form>
+
+</div>

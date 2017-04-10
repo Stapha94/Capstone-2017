@@ -1,21 +1,4 @@
-class RegisterInstitutionController{
-
-    static resolve() {
-        return {
-            institutions: ['institutionService', (institutionService) => {
-                return institutionService.get({active: 1 })
-                    .then((data) => {
-                        return data;
-                    });
-            }],
-            roles: ['roleService', (roleService) => {
-                return roleService.get({active: 1 })
-                    .then((data) => {
-                        return data;
-                    });
-            }]
-        }
-    }
+class AdminRegisterInstitutionController{
 
     constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService, institutions, roles) {
         this.notificationService = notificationService;
@@ -172,7 +155,7 @@ class RegisterInstitutionController{
         this.registrationService.presenterInstitution = this.presenterInstitution;
         this.registrationService.presenterRole = this.presenterRole;
         this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
-        this.$state.go('register-info', {valid: true});
+        this.$state.go('home.admin.register-info', {valid: true});
 
     };
 
@@ -196,5 +179,5 @@ class RegisterInstitutionController{
 
 }
 
-RegisterInstitutionController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'institutions', 'roles'];
-app.controller('registerInstitutionController', RegisterInstitutionController);
+AdminRegisterInstitutionController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'institutions', 'roles'];
+app.controller('adminRegisterInstitutionController', AdminRegisterInstitutionController);

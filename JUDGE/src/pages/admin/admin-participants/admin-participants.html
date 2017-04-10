@@ -1,34 +1,80 @@
 <div class="wrap">
-    <add-poster-modal ctrl="ctrl"></add-poster-modal>
+    <view-key-participants-modal ctrl="ctrl"></view-key-participants-modal>
     <abstract-modal abstract="ctrl.presenterAbstract"></abstract-modal>
     <h5 class="page-title">Presenter Management</h5>
-    <div class="row pull-right">
-        <button data-target="add-participant" class="btn green">Add Presenter</button>
+    <div class="row">
+        <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
+            ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
+            <option value="" disabled selected>Select Summit</option>
+        </select>
+        <div class="pull-right">
+            <a ui-sref="home.admin.register" class="waves-effect waves-light btn green">Add Presenter</a>
+        </div>
     </div>
-    <table class="bordered highlight">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Presenter</th>
-            <th>Suffix</th>
-            <th>Institution</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Key Participants</th>
-            <th>Poster Abstract</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="presenter in ctrl.presenters">
-            <td>{{ presenter.presenterId }}</td>
-            <td>{{ presenter.firstName + ' ' + presenter.lastName }}</td>
-            <td>{{ presenter.suffix }}</td>
-            <td>{{ presenter.institution }}</td>
-            <td>{{ presenter.role }}</td>
-            <td>{{ presenter.email }}</TD>
-            <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
-            <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Poster</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col s9">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a class="active" href="#Active">Active</a></li>
+                <li class="tab col s3"><a href="#Inactive">Inactive</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Active" class="col s12">
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Presenter</th>
+                <th>Suffix</th>
+                <th>Institution</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Key Participants</th>
+                <th>Poster Abstract</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '1'} | filter: {summitId: ctrl.summitId }">
+                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
+                <td>{{ presenter.suffix }}</td>
+                <td>{{ presenter.institution }}</td>
+                <td>{{ presenter.role }}</td>
+                <td>{{ presenter.email }}</TD>
+                <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
+                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a ng-click="ctrl.deactivate(presenter)" class="waves-effect waves-light btn red">Deactivate</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Inactive" class="col s12">
+        <table class="bordered highlight">
+            <thead>
+            <tr>
+                <th>Presenter</th>
+                <th>Suffix</th>
+                <th>Institution</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Key Participants</th>
+                <th>Poster Abstract</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '0'} | filter: {summitId: ctrl.summitId }">
+                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
+                <td>{{ presenter.suffix }}</td>
+                <td>{{ presenter.institution }}</td>
+                <td>{{ presenter.role }}</td>
+                <td>{{ presenter.email }}</TD>
+                <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
+                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn red">Activate</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

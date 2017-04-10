@@ -41,15 +41,8 @@
                                         <td>{{keyParticipant.firstName}}</td>
                                         <td>{{keyParticipant.lastName}}</td>
                                         <td>{{keyParticipant.department}}</td>
-                                        <td ng-if="keyParticipant.institutionId === '1'">MUSOM</td>
-                                        <td ng-if="keyParticipant.institutionId === '2'">CHH</td>
-                                        <td ng-if="keyParticipant.institutionId === '3'">MUSOP</td>
-                                        <td ng-if="keyParticipant.institutionId === '4'">MU Nursing</td>
-                                        <td ng-if="keyParticipant.roleId === '1'">Faculty Member</td>
-                                        <td ng-if="keyParticipant.roleId === '2'">CHH Employee</td>
-                                        <td ng-if="keyParticipant.roleId === '3'">Resident or Fellow</td>
-                                        <td ng-if="keyParticipant.roleId === '4'">Medical Student</td>
-                                        <td ng-if="keyParticipant.roleId === '5'">Pharmacy</td>
+                                        <td>{{keyParticipant.institution}}</td>
+                                        <td>{{keyParticipant.role}}</td>
                                         <td ng-click="ctrl.delete(keyParticipant)"><a class="waves-effect waves-red red btn">Delete</a></td>
                                     </tr>
                                  </tbody>

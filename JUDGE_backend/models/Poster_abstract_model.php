@@ -13,6 +13,7 @@ class Poster_abstract_model extends CI_Model {
 		$this->fields = array('poster_abstract_id', 'title', 'objective', 'methods', 'results', 'conclusion');
 		$this->filter = array(
 			'poster_abstract_id' =>	'poster_abstract',
+			'poster_id' => 'poster',
 			'title' => 'poster_abstract'
 		);
 		$this->name = 'poster_abstract';
@@ -22,10 +23,11 @@ class Poster_abstract_model extends CI_Model {
 	public function get($params = array())
 	{
 		// Load foreign tables
-
+		$joins = $this->joins();
 		// All the select fields
 
-		$this->db->select("{$this->name}_id,
+		$this->db->select("{$this->name}.{$this->name}_id,
+			{$joins['po']}_id,
 			title,
 			objective,
 			methods,
@@ -33,6 +35,7 @@ class Poster_abstract_model extends CI_Model {
 			conclusion");
 
 		// Put any joins here
+		$this->db->join("{$joins['po']}", "{$joins['po']}.{$this->name}_id = {$this->name}.{$this->name}_id");
 
 		// Where clauses here
 
@@ -65,6 +68,15 @@ class Poster_abstract_model extends CI_Model {
 		} catch (Exception $e) {
 			return false;
 		}
+	}
+
+	public function joins()
+	{
+		$joins = array(
+			'po' => 'poster'
+		);
+
+		return $joins;
 	}
 
 }

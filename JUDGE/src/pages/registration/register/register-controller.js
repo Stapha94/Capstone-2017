@@ -1,6 +1,25 @@
 class RegisterController {
 
-    constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService, reCaptchaService) {
+    static resolve() {
+        return {
+            summit: ['summitService', (summitService) => {
+                return summitService.get({active: 1})
+                    .then((data) => {
+                        return data[0];
+                    });
+            }]
+        }
+    }
+
+    constructor($scope, $state, summit, presenterService, notificationService, localStorageService, registrationService, reCaptchaService) {
+        if(summit === undefined) {
+            $state.go('home.landing');
+        }
+        var deadline = new Date(summit.registrationDeadline).valueOf();
+        var today = new Date().valueOf();
+        if(deadline < today) {
+            $state.go('home.landing');
+        }
         this.notificationService = notificationService;
         this.presenterService = presenterService;
         this.localStorageService = localStorageService;
@@ -60,7 +79,7 @@ class RegisterController {
         this.registrationService.presenterFirstName = this.presenterFirstName;
         this.registrationService.presenterLastName = this.presenterLastName;
         this.registrationService.presenterEmail = this.presenterEmail;
-        this.$state.go("register-institution");
+        this.$state.go("register-institution", {valid: true});
 
     };
 
@@ -68,5 +87,5 @@ class RegisterController {
 
 }
 
-RegisterController.$inject = ['$scope', '$state', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'reCaptchaService'];
+RegisterController.$inject = ['$scope', '$state', 'summit', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'reCaptchaService'];
 app.controller('registerController', RegisterController);

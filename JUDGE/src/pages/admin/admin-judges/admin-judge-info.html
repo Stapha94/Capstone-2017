@@ -1,5 +1,5 @@
 <div class="wrap">
-    <assign-poster-modal ctrl="ctrl"></assign-poster-modal>
+    <view-form-modal form="ctrl.form" form-questions="ctrl.singleFormQuestions"></view-form-modal>
     <div class="row">
         <div class="col s12">
             <ul class="tabs" material-tabs>
@@ -14,22 +14,34 @@
     </div>
 
     <div id="Posters" class="col s12">
-        <div class="row pull-right">
-            <button data-target="assign-poster" ng-click="ctrl.setModal()" class="btn green">Assign Poster</button>
+        <div class="row">
+            <div class="input-field col s6">
+                <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
+                    ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
+                    <option value="" disabled selected>Select Summit</option>
+                </select>
+                <label for="judge">Select Summit</label>
+            </div>
+            <div class="pull-right">
+                <a ui-sref="home.admin.assign" class="waves-effect waves-light btn green">Assign Poster</a>
+            </div>
         </div>
         <table class="bordered highlight">
             <thead>
             <tr>
                 <th>Poster Title</th>
                 <th>Score</th>
-                <th>Unassign</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="form in ctrl.forms">
+            <tr ng-repeat="form in ctrl.forms | filter: {summitId: ctrl.summitId}">
                 <td>{{ form.posterTitle }}</td>
                 <td>{{ form.total }}</td>
-                <td><a ng-click="ctrl.deactivate(judge)">Remove</a></td>
+                <td>
+                    <a ng-if="form.judged === '0'" class="waves-effect waves-light btn red" ng-click="ctrl.remove(form)">Remove</a>
+                    <a ng-if="form.judged === '1'" class="waves-effect waves-light btn green" ng-click="ctrl.setForm(form)" data-target="view-judge-form">View Form</a>
+                </td>
             </tr>
             </tbody>
         </table>

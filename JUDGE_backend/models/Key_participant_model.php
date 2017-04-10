@@ -56,8 +56,7 @@ class Key_participant_model extends CI_Model {
         try {
             if($this->db->insert($this->name, $data)) {
                 $key_participant_id = $this->db->insert_id();
-                $query = $this->db->get_where($this->name, array('key_participant_id' => $key_participant_id));
-                $result = $query->result();
+                $result = $this->get(array('key_participant_id' => $key_participant_id));
                 return $result;
             } else {
                 return false;
@@ -70,6 +69,15 @@ class Key_participant_model extends CI_Model {
 	public function update($data = array()) {
 		try {
 			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function delete($data = array()) {
+		try {
+			$id = $data['id'];
+			return $this->db->delete($this->name, array("{$this->name}_id" => $id));
 		} catch (Exception $e) {
 			return false;
 		}

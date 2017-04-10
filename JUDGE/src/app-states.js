@@ -155,7 +155,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             resolve: QuestionSectionsController.resolve()
         })
         .state('home.admin.reporting', {
-            url: '/reporting/{summitId:[0-9]+}',
+            url: '/reporting?summitId',
             templateUrl: 'build/views/pages/admin/admin-reporting/admin-reporting.html',
             controller: 'adminReportingController',
             controllerAs: 'ctrl',
@@ -189,25 +189,26 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: AdminParticipantsController.resolve()
         })
-
-        // register related states
-        
-        .state('register', {
+        .state('home.admin.presenter', {
+            url: '/presenter/{presenterId:[0-9]+}',
+            templateUrl: 'build/views/pages/admin/admin-participants/admin-participant-info.html',
+            controller: 'adminPresenterInfoController',
+            controllerAs: 'ctrl',
+            resolve: AdminPresenterInfoController.resolve()
+        })
+        .state('home.admin.register', {
             url: '/register',
-            templateUrl: 'build/views/pages/registration/register/register.html',
-            controller: 'registerController',
+            templateUrl: 'build/views/pages/admin/admin-register/admin-register.html',
+            controller: 'adminRegisterController',
             controllerAs: 'ctrl'
         })
-        .state('register-confirmation', {
-            url: '/register-confirmation',
-            templateUrl: 'build/views/pages/registration/register-confirmation/register-confirmation.html',
-            controller: 'registerConfirmationController',
-            controllerAs: 'ctrl'
-        })
-        .state('register-institution', {
+        .state('home.admin.register-institution', {
             url: '/register-institution',
-            templateUrl: 'build/views/pages/registration/register-institution/register-institution.html',
-            controller: 'registerInstitutionController',
+            templateUrl: 'build/views/pages/admin/admin-register-institution/admin-register-institution.html',
+            params: {
+                valid: false
+            },
+            controller: 'adminRegisterInstitutionController',
             controllerAs: 'ctrl',
             resolve: {
                 institutions: ['institutionService', (institutionService) => {
@@ -226,9 +227,47 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 
             }
         })
+        .state('home.admin.register-info', {
+            url: '/register-info',
+            templateUrl: 'build/views/pages/admin/admin-register-info/admin-register-info.html',
+            params: {
+                valid: false
+            },
+            controller: 'adminRegisterInfoController',
+            controllerAs: 'ctrl'
+        })
+
+        // register related states
+        
+        .state('register', {
+            url: '/register',
+            templateUrl: 'build/views/pages/registration/register/register.html',
+            controller: 'registerController',
+            controllerAs: 'ctrl',
+            resolve: RegisterController.resolve()
+        })
+        .state('register-confirmation', {
+            url: '/register-confirmation',
+            templateUrl: 'build/views/pages/registration/register-confirmation/register-confirmation.html',
+            controller: 'registerConfirmationController',
+            controllerAs: 'ctrl'
+        })
+        .state('register-institution', {
+            url: '/register-institution',
+            templateUrl: 'build/views/pages/registration/register-institution/register-institution.html',
+            params: {
+                valid: false
+            },
+            controller: 'registerInstitutionController',
+            controllerAs: 'ctrl',
+            resolve: RegisterInstitutionController.resolve()
+        })
         .state('register-info', {
             url: '/register-info',
             templateUrl: 'build/views/pages/registration/register-info/register-info.html',
+            params: {
+                valid: false
+            },
             controller: 'registerInfoController',
             controllerAs: 'ctrl'
         })
