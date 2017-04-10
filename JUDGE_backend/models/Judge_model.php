@@ -76,6 +76,7 @@ class Judge_model extends CI_Model {
 	public function check_judge($email, $pin) {
 		$this->db->select('pin');
 		$this->db->where('active', 1);
+//		$this->db->where('judge_login_disabled', 0);
 		$this->db->limit(1);
 
 		$query = $this->db->get('summit');

@@ -2,14 +2,16 @@
 class Role_model extends CI_Model {
 
 	private $role_id;
+	private $poster_category_id;
 	private $title;
 	private $active;
 
 	public function __construct()
 	{
-		$this->fields = array('role_id', 'title', 'active');
+		$this->fields = array('role_id', 'poster_category_id', 'title', 'active');
 		$this->filter = array(
 			'role_id' => 'role',
+			'poster_category_id' => 'role',
 			'title' => 'role',
 			'active' => 'role'
 		);
@@ -20,14 +22,19 @@ class Role_model extends CI_Model {
 	public function get($params = array())
 	{
 		// Load foreign tables
+		$joins = $this->joins();
 
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
-			title,
-			active");
+			{$this->name}.poster_category_id,
+			{$joins['pc']}.title AS category,
+			{$this->name}.title,
+			{$this->name}.active");
 
 		// Put any joins here
+		$this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$this->name}.{$joins['pc']}_id");
+
 
 		// Where clauses here
 
@@ -60,6 +67,13 @@ class Role_model extends CI_Model {
 		} catch (Exception $e) {
 			return false;
 		}
+	}
+
+	public function joins() {
+		$joins = array(
+			'pc' => 'poster_category',
+		);
+		return $joins;
 	}
 
 }

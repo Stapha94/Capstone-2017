@@ -87,9 +87,7 @@ $route['key_participants'] = 'key_participant';
 $route['key_participants/(.+)'] = 'key_participant';
 
 //Login routes
-$route['authorize/check-pin'] = 'login/check_pin';
-$route['authorize/judge'] = 'login/judge';
-$route['authorize/admin'] = 'login/admin';
+$route['authorize'] = 'login';
 
 //Migration
 $route['migrate'] = 'migrate/recycle';
@@ -103,8 +101,8 @@ $route['posters'] = 'poster';
 $route['posters/(.+)'] = 'poster';
 
 // PosterAbstract Routes
-$route['poster_abstract'] = 'poster_abstract';
-$route['poster_abstract/(.+)'] = 'poster_abstract';
+$route['poster_abstracts'] = 'poster_abstract';
+$route['poster_abstracts/(.+)'] = 'poster_abstract';
 
 // PosterCategory Routes
 $route['poster_categories'] = 'poster_category';
@@ -122,6 +120,9 @@ $route['questions/(.+)'] = 'question';
 //QuestionSection Routes
 $route['question_sections'] = 'question_section';
 $route['question_sections/(.+)'] = 'question_section';
+
+// ReCaptcha Routes
+$route['recaptcha/send'] = 'recaptcha';
 
 // Role Routes
 $route['roles'] = 'role';

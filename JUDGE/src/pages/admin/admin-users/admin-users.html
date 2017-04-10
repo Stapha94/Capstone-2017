@@ -1,0 +1,49 @@
+<div class="wrap">
+    <h5 class="page-title">User Management</h5>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li class="tab col s3"><a href="#Judges">Judges</a></li>
+                <li class="tab col s3"><a href="#Presenters">Presenters</a></li>
+                <li class="tab col s3"><a href="#Admins">Admins</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div id="Admins" class="col s12">
+            <ul class="management">
+                <li class="item">
+                    <strong>Want to manage admins?</strong> You can edit their info, add new ones, and deactivate old admins.
+                    <div class="pull-right"><a ui-sref="home.admin.admins" class="waves-effect waves-light btn green">Go</a></div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="Judges" class="col s12">
+            <ul class="management">
+                <li class="item">
+                    <strong>Want to view all judges?</strong> You can edit their info, add new ones, deactivate old ones, and view any forms submitted by the judge.
+                    <div class="pull-right"><a ui-sref="home.admin.judges" class="waves-effect waves-light btn green">Go</a></div>
+                </li>
+                <li class="item">
+                    <strong>Need to assign some posters?</strong> You can easily assign all judges their posters here.
+                    <div class="pull-right"><a ui-sref="home.admin.assign" class="waves-effect waves-light btn green">Go</a></div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="Presenters" class="col s12">
+            <ul class="management">
+                <li class="item">
+                    <strong>Want to view all presenters?</strong> You can edit their info, deactivate invalid ones, and view their poster abstracts.
+                    <div class="pull-right"><a ui-sref="home.admin.presenters" class="waves-effect waves-light btn green">Go</a></div>
+                </li>
+                <li class="item">
+                    <strong>Need to manually add a presenter?</strong> Go through a special admin version of registration here.
+                    <div class="pull-right"><a ui-sref="home.admin.register" class="waves-effect waves-light btn green">Go</a></div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

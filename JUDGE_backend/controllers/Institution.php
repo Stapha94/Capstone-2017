@@ -8,7 +8,7 @@ class Institution extends REST_Controller {
 
 	public function index_get()
 	{
-		$this->generate_get_response($this->institution);
+		$this->generate_unauthorized_get_response($this->institution);
 	}
 
 	public function index_post()

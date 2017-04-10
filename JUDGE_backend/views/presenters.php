@@ -20,4 +20,5 @@
 $output = '{"presenters": [ '.$output.' ] }';
 
 echo($output);
+
 ?>

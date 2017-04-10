@@ -40,17 +40,19 @@
 
 .login-cont {
     text-align: center;
-    width: 40%;
-    padding: 50px 50px 50px;
+    width: 100%;
+    padding: 100px 100px 100px;
     margin: auto;
     background: white;
+    border: 1px solid black;
+    border-radius: 30px;
 }
 
 .background {
     background: #ECECEC;
-    height: 1000px;
     width: 100%;
-    padding: 150px 50px;
+    padding: 50px 50px;
+    margin-bottom: 100px;
 }
 
 .admin-btn {
@@ -265,6 +267,29 @@ td a, td a:hover {
     border: 2px solid #00B140;
 }
 
+/** Registration **/
+.register-cont {
+    text-align: left;
+    width: 65%;
+    padding: 50px 50px 50px;
+    margin: auto;
+    background: white;
+}
+
+.register-background {
+    background: #ECECEC;
+    height: 1000px;
+    width: 100%;
+    padding: 150px 50px;
+}
+
+.register-background-extended {
+    background: #ECECEC;
+    height: 1200px;
+    width: 100%;
+    padding: 150px 50px;
+}
+
 /** Spacing **/
 .pull-right {
     float: right !important;
@@ -367,4 +392,15 @@ table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
 table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
     color: white;
     background-color: #00B140;
+}
+
+.welcome-message {
+    margin-right: 20px;
+}
+
+ul.management .item {
+    border: 1px solid dimgrey;
+    border-radius: 30px;
+    padding: 25px;
+    margin: 25px;
 }
