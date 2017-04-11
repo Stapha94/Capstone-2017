@@ -10,6 +10,13 @@
                         <label class="active" for="title">Role</label>
                     </div>
                 </div>
+                <div class="input-field col s12">
+                    <select name="posterCategory" class="form-control" ng-model="ctrl.role.posterCategoryId" id="posterCategory" material-select
+                        ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="posterCategory">Select Category</label>
+                </div>
                 <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
                 <label for="active">Active</label>
             </div>
@@ -28,6 +35,13 @@
                         <input type="text" name="title" id="title" ng-model="ctrl.role.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
                         <label class="active" for="title">Role</label>
                     </div>
+                </div>
+                <div class="input-field col s12">
+                    <select name="posterCategory" class="form-control" ng-model="ctrl.role.posterCategoryId" id="posterCategory" material-select
+                        ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="posterCategory">Select Category</label>
                 </div>
                 <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
                 <label for="active">Active</label>

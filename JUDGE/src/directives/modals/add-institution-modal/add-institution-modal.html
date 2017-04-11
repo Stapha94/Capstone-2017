@@ -6,11 +6,18 @@
             <div class="input-field col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" name="title" id="title" ng-model="ctrl.institution.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
+                        <input type="text" name="title" id="title" ng-model="ctrl.institution.title" class="validate" placeholder="Title" ng-required="ctrl.modal" required>
                         <label class="active" for="title">Institution</label>
                     </div>
                 </div>
-                <input type="checkbox" name="active" ng-model="ctrl.institution.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <div class="input-field col s12">
+                    <select name="judgeCategory" class="form-control" ng-model="ctrl.institution.judgeCategoryId" id="judgeCategory" material-select
+                        ng-options="judgeCategory.judgeCategoryId as judgeCategory.title for judgeCategory in ctrl.judgeCategories" required>
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="judgeCategory">Select Category</label>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.institution.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal"  required/>
                 <label for="active">Active</label>
             </div>
         </div>
@@ -28,6 +35,13 @@
                         <input type="text" name="title" id="title" ng-model="ctrl.institution.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
                         <label class="active" for="title">Institution</label>
                     </div>
+                </div>
+                <div class="input-field col s12">
+                    <select name="judgeCategory" class="form-control" ng-model="ctrl.institution.judgeCategoryId" id="judgeCategory" material-select
+                        ng-options="judgeCategory.judgeCategoryId as judgeCategory.title for judgeCategory in ctrl.judgeCategories">
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="judgeCategory">Select Category</label>
                 </div>
                 <input type="checkbox" name="active" ng-model="ctrl.institution.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
                 <label for="active">Active</label>

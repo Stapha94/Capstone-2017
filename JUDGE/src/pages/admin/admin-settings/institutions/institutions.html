@@ -52,11 +52,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="institution in ctrl.institutions | filter: { active: 1 }">
+            <tr ng-repeat="institution in ctrl.institutions | filter: { active: 0 }">
                 <td>{{ institution.title }}</td>
                 <td>{{ institution.category }}</td>
                 <td><a class="btn" ng-click="ctrl.setEdit(institution)" data-target="add-institution">Edit</a></td>
-                <td><a class="btn red" ng-click="ctrl.activate(institution)">Activate</a></td>
+                <td><a class="btn green" ng-click="ctrl.activate(institution)">Activate</a></td>
             </tr>
             </tbody>
         </table>

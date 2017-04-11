@@ -11,10 +11,11 @@ class SummitsController extends BaseTableModelController {
             }
     }
 
-    constructor($filter, summitService, summits, notificationService, authService) {
+    constructor($filter, summitService, summits, notificationService, authService, localStorageService) {
         super(summitService, summits);
         this.notificationService = notificationService;
         this.adminId = authService.currentUser.id;
+        this.localStorageService = localStorageService;
         this.$filter = $filter;
     }
 
@@ -32,7 +33,19 @@ class SummitsController extends BaseTableModelController {
                 _.forEach(this.models, (model) => {
                     model.active = 0;
                 });
-                super.add();
+                this.service.create(this.model)
+                    .then((model) => {
+                        if(isTrue(model.active)) {
+                            this.localStorageService.set('summit', model);    
+                        }
+                        model.summitStart = new Date(model.summitStart);
+                        model.summitEnd = new Date(model.summitEnd);
+                        model.registrationDeadline = new Date(model.registrationDeadline);
+                        angular.element('.modal').modal('close');
+                        this.setModal();
+                        this.models.push(model);
+                        this.model = {active: 1};
+                    });
             }
         } else {
             this.notificationService.error('Please fill out all forms!');
@@ -74,7 +87,7 @@ class SummitsController extends BaseTableModelController {
         var date = new Date(this.registrationDeadline);
         var hours = this.deadlineTime.getHours();
         var minutes = this.deadlineTime.getMinutes();
-        return new Date(date.getFullYear(), date.getMonth()-1, date.getDate(), hours, minutes, 0);
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
     }
 
     valid() {
@@ -95,5 +108,5 @@ class SummitsController extends BaseTableModelController {
 
 }
 
-SummitsController.$inject = ['$filter', 'summitService', 'summits', 'notificationService', 'authService'];
+SummitsController.$inject = ['$filter', 'summitService', 'summits', 'notificationService', 'authService', 'localStorageService'];
 app.controller('summitsController', SummitsController);
