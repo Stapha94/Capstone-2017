@@ -7,13 +7,20 @@ class InstitutionsController {
                         .then((data) => {
                             return data;
                         })
+                }],
+                judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                    return judgeCategoryService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
                 }]
             }
     }
 
-    constructor(institutionService, institutions) {
+    constructor(institutionService, institutions, judgeCategories) {
         this.institutionService = institutionService;
         this.institutions = institutions;
+        this.judgeCategories = judgeCategories;
         this.institution = {active: '1'};
         this.modal = false;
         this.editModal = false;
@@ -25,6 +32,11 @@ class InstitutionsController {
             .then((institution) => {
                 angular.element('.modal').modal('close');
                 this.setModal();
+                _.forEach(this.judgeCategories, (judgeCategory) => {
+                    if(judgeCategory.judgeCategoryId === institution.judgeCategoryId) {
+                        institution.category = judgeCategory.title;
+                    }
+                });
                 this.institutions.push(institution);
                 this.institution = {active: '1'};
             });
@@ -32,9 +44,14 @@ class InstitutionsController {
 
     edit() {
         this.institutionService.update(this.institution)
-            .then((institution) => {
+            .then(() => {
                 angular.element('.modal').modal('close');
                 this.setModal();
+                _.forEach(this.judgeCategories, (judgeCategory) => {
+                    if(judgeCategory.judgeCategoryId === this.institution.judgeCategoryId) {
+                        this.institution.category = judgeCategory.title;
+                    }
+                });
                 this.institution = {active: '1'};
             });
 
@@ -66,20 +83,11 @@ class InstitutionsController {
         this.institution = angular.copy(this.original);
     }
 
-    edit() {
-        this.institutionService.update(this.institution)
-            .then(() => {
-                angular.element('.modal').modal('close');
-                this.setEditModal();
-                this.institution = { active: '1' };
-            })
-    }
-
     setEditModal() {
         this.editModal = this.editModal ? false : true;
     }
 
 }
 
-InstitutionsController.$inject = ['institutionService', 'institutions'];
+InstitutionsController.$inject = ['institutionService', 'institutions', 'judgeCategories'];
 app.controller('institutionsController', InstitutionsController);

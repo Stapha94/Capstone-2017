@@ -52,11 +52,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="role in ctrl.roles | filter: { active: 1 }">
+            <tr ng-repeat="role in ctrl.roles | filter: { active: 0 }">
                 <td>{{ role.title }}</td>
                 <td>{{ role.category }}</td>
                 <td><a class="btn" ng-click="ctrl.setEdit(role)" data-target="add-role">Edit</a></td>
-                <td><a class="btn red" ng-click="ctrl.activate(role)">Activate</a></td>
+                <td><a class="btn green" ng-click="ctrl.activate(role)">Activate</a></td>
             </tr>
             </tbody>
         </table>

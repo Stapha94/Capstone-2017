@@ -7,13 +7,20 @@ class RolesController {
                         .then((data) => {
                             return data;
                         })
+                }],
+                posterCategories: ['posterCategoryService', (posterCategoryService) => {
+                    return posterCategoryService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        })
                 }]
             }
     }
 
-    constructor(roleService, roles) {
+    constructor(roleService, roles, posterCategories) {
         this.roleService = roleService;
         this.roles = roles;
+        this.posterCategories = posterCategories;
         this.role = {active: '1'};
         this.modal = false;
         this.editModal = false;
@@ -25,16 +32,27 @@ class RolesController {
             .then((role) => {
                 angular.element('.modal').modal('close');
                 this.setModal();
+                _.forEach(this.posterCategories, (posterCategory) => {
+                    if(posterCategory.posterCategoryId === role.posterCategoryId) {
+                        role.category = posterCategory.title;
+                    }
+                });
                 this.roles.push(role);
                 this.role = {active: '1'};
             });
     }
 
     edit() {
+        var role = _.find(this.roles, {roleId: this.role.roleId});
         this.roleService.update(this.role)
-            .then((role) => {
+            .then(() => {
                 angular.element('.modal').modal('close');
                 this.setModal();
+                _.forEach(this.posterCategories, (posterCategory) => {
+                    if(posterCategory.posterCategoryId === role.posterCategoryId) {
+                        role.category = posterCategory.title;
+                    }
+                });
                 this.role = {active: '1'};
             });
 
@@ -66,20 +84,11 @@ class RolesController {
         this.role = angular.copy(this.original);
     }
 
-    edit() {
-        this.roleService.update(this.role)
-            .then(() => {
-                angular.element('.modal').modal('close');
-                this.setEditModal();
-                this.role = { active: '1' };
-            })
-    }
-
     setEditModal() {
         this.editModal = this.editModal ? false : true;
     }
 
 }
 
-RolesController.$inject = ['roleService', 'roles'];
+RolesController.$inject = ['roleService', 'roles', 'posterCategories'];
 app.controller('rolesController', RolesController);

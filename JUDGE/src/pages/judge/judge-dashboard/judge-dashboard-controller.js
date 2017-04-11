@@ -2,8 +2,8 @@ class JudgeDashboardController {
 
     static resolve() {
         return {
-                forms: ['formService', '$stateParams', (formService, $stateParams) => {
-                    return formService.get({judgeId: $stateParams.judgeId, active: 1})
+                forms: ['formService', '$stateParams', 'localStorageService', (formService, $stateParams, localStorageService) => {
+                    return formService.get({judgeId: $stateParams.judgeId, summitId: localStorageService.get('summit').summitId, active: 1})
                         .then((data) => {
                             return data;
                         })

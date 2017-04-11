@@ -31,7 +31,7 @@ class Poster_category_model extends CI_Model {
 
 		// Where clauses here
 
-		$this->get_join_where_clauses($this->filter, $params);
+		$this->get_where_clauses($this->filter, $params);
 
 		// Perform the query
 		$query = $this->db->get($this->name);
