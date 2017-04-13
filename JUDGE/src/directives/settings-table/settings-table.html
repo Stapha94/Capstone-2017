@@ -26,8 +26,8 @@
             <tbody>
             <tr ng-repeat="model in ctrl.models | filter: { active: 1 }">
                 <td>{{ model.title }}</td>
-                <td><a ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
-                <td><a ng-click="ctrl.deactivate(model)">Deactivate</a></td>
+                <td><a class="btn" ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
+                <td><a class="btn red" ng-click="ctrl.deactivate(model)">Deactivate</a></td>
             </tr>
             </tbody>
         </table>
@@ -51,8 +51,8 @@
             <tbody>
             <tr ng-repeat="model in ctrl.models | filter: { active: 0 }">
                 <td>{{ model.title }}</td>
-                <td><a ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
-                <td><a ng-click="ctrl.activate(model)">Activate</a></td>
+                <td><a class="btn" ng-click="ctrl.setEdit(model)" data-target="add-{{title}}">Edit</a></td>
+                <td><a class="btn green" ng-click="ctrl.activate(model)">Activate</a></td>
             </tr>
             </tbody>
         </table>

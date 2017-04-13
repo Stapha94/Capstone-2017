@@ -3,7 +3,7 @@ class BaseSiteTableModelController {
     constructor(service, models) {
         this.service = service;
         this.models = models;
-        this.model = {active: 1};
+        this.model = {active: '1'};
         this.modal = false;
         this.canEdit = false;
     }
@@ -29,7 +29,7 @@ class BaseSiteTableModelController {
     }
 
     cancel() {
-        this.model = {active: 1};
+        this.model = {active: '1'};
         this.setModal();
         this.canEdit = false;
     }

@@ -7,6 +7,7 @@ class Form_question_model extends CI_Model {
 		$this->filter = array(
 			'form_id' => 'form_question',
 			'question_id' => 'form_question',
+			'judge_id' => 'form',
 			'summit_id' => 'summit'
 		);
 		$this->name = 'form_question';

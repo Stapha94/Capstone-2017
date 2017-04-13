@@ -1,13 +1,44 @@
 <body>
     <div class="jumbo">
-        <div class="content">
-            <h4>Quality and Safety Summit</h4>
-            <hr align="left">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</br>
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</br>
-                when an unknown printer took a galley of type and scrambled it to make a type</br>
-                specimen book.It has survived not only five centuries</p>
-            <button ui-sref="register" class="btn">Register</button>
+        <div class="row">
+            <div class="col s5 content">
+                <h4>Quality and Safety Summit</h4>
+                <hr align="left">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br>
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,<br>
+                    when an unknown printer took a galley of type and scrambled it to make a type<br>
+                    specimen book.It has survived not only five centuries</p>
+                <button ng-if="ctrl.canRegister" ui-sref="register" class="btn">Register</button>
+            </div>
+            <div class="input-field col s5">
+                <div class="login-cont">
+                    <div class="row">
+                        <h4>Login</h4>
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input ng-model="ctrl.email" placeholder="Email" id="email" type="email" class="validate">
+                                    <label for="email"></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input ng-model="ctrl.password" placeholder="Password" id="password" type="password" class="validate">
+                                    <label for="password"></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6">
+                                    <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
+                                </div>
+                                <div class="col s6">
+                                    <a ui-sref="forgot-password">Forgot password?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="blurbs">

@@ -87,9 +87,7 @@ $route['key_participants'] = 'key_participant';
 $route['key_participants/(.+)'] = 'key_participant';
 
 //Login routes
-$route['authorize/check-pin'] = 'login/check_pin';
-$route['authorize/judge'] = 'login/judge';
-$route['authorize/admin'] = 'login/admin';
+$route['authorize'] = 'login';
 
 //Migration
 $route['migrate'] = 'migrate/recycle';

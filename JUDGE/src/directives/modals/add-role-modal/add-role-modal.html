@@ -1,0 +1,55 @@
+<!-- Modal Structure -->
+<div id="add-role" class="modal modal-fixed-footer" material-modal>
+    <form ng-if="!ctrl.canEdit" name="add-role-form" id="add-role-form" ng-submit="ctrl.add()">
+        <div class="modal-content">
+            <h5 class="page-title">Add Role</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="title" id="title" ng-model="ctrl.role.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
+                        <label class="active" for="title">Role</label>
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <select name="posterCategory" class="form-control" ng-model="ctrl.role.posterCategoryId" id="posterCategory" material-select
+                        ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="posterCategory">Select Category</label>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Add Role</a>
+        </div>
+    </form>
+    <form ng-if="ctrl.canEdit" name="add-role-form" id="add-role-form" ng-submit="ctrl.edit()">
+        <div class="modal-content">
+            <h5 class="page-title">Edit Role</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="title" id="title" ng-model="ctrl.role.title" class="validate" placeholder="Title" ng-required="ctrl.modal">
+                        <label class="active" for="title">Role</label>
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <select name="posterCategory" class="form-control" ng-model="ctrl.role.posterCategoryId" id="posterCategory" material-select
+                        ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
+                        <option value="" disabled selected>Select Category</option>
+                    </select>
+                    <label for="posterCategory">Select Category</label>
+                </div>
+                <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <label for="active">Active</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Edit Role</a>
+        </div>
+    </form>
+</div>

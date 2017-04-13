@@ -27,16 +27,6 @@ class registrationService {
 
     }
 
-    calculatePosterCategoryId() {
-        this.posterCategoryService.get({active: 1})
-            .then((posterCategories) => {
-                if(this.presenterInstitution === "CHH") {
-                    //this.posterCategoryId =
-                }
-            })
-
-    }
-
     makePresenter() {
         this.presenter = {
             firstName: this.presenterFirstName,

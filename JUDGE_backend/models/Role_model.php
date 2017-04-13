@@ -22,15 +22,19 @@ class Role_model extends CI_Model {
 	public function get($params = array())
 	{
 		// Load foreign tables
+		$joins = $this->joins();
 
 		// All the select fields
 
 		$this->db->select("{$this->name}_id,
 			{$this->name}.poster_category_id,
-			title,
-			active");
+			{$joins['pc']}.title AS category,
+			{$this->name}.title,
+			{$this->name}.active");
 
 		// Put any joins here
+		$this->db->join("{$joins['pc']}", "{$joins['pc']}.{$joins['pc']}_id = {$this->name}.{$joins['pc']}_id");
+
 
 		// Where clauses here
 

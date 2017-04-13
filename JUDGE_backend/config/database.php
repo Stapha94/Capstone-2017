@@ -95,14 +95,14 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-/**
-$db['heroku'] = array(
+
+$db['godaddy'] = array(
 	'dsn'	=> '',
-	'hostname' => $heroku_server['host'],
-	'username' => $heroku_server['username'],
-	'password' => $heroku_server['password'],
-	'database' => $heroku_server['db'],
-	'dbdriver' => 'postgre',
+	'hostname' => $godaddy_server['host'],
+	'username' => $godaddy_server['username'],
+	'password' => $godaddy_server['password'],
+	'database' => $godaddy_server['db'],
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -117,4 +117,3 @@ $db['heroku'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
- */

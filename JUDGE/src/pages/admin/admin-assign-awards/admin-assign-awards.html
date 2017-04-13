@@ -1,0 +1,53 @@
+<div class="wrap">
+    <h5 class="page-title">Assign Awards</h5>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" material-tabs>
+                <li ng-repeat="judgeCategory in ctrl.judgeCategories" class="tab col s3"><a href="#{{judgeCategory.title}}">{{judgeCategory.title}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-repeat="judgeCategory in ctrl.judgeCategories" id="{{judgeCategory.title}}" class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <select name="judge" class="form-control" ng-model="ctrl.judgeId" id="judge" title="Judge" material-select
+                    ng-options="judge.judgeId as judge.email for judge in ctrl.judges">
+                    <option value="" disabled selected>Select Judge</option>
+                </select>
+                <label for="judge">Select Judge</label>
+            </div>
+        </div>
+        <div ng-if="ctrl.awardSelected()" class="row">
+            <div class="input-field col s5 offset-s4">
+                <h6 style="text-align: center;"><strong>Select a Poster</strong></h6>
+                <table class="unassigned-posters bordered highlight">
+                    <thead>
+                        <tr>
+                            <th>Poster Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters">
+                            <td>{{poster.posterTitle}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="input-field col s5">
+                <h6 style="text-align: center;"><strong>Assigned Posters</strong></h6>
+                <table class="assigned-posters bordered highlight">
+                    <thead>
+                        <tr>
+                            <th>Poster Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-click="ctrl.selectForm(form, $event)" ng-repeat="form in ctrl.forms | filter: {judgeId: ctrl.judgeId }">
+                            <td>{{form.posterTitle}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
