@@ -44,6 +44,7 @@ var paths = {
     styles: [
       'node_modules/materialize-css/dist/css/materialize.min.css',
       'node_modules/angular-loading-bar/build/loading-bar.min.css',
+      'node_modules/ng-table/bundles/ng-table.min.css',
       'JUDGE/assets/styles.css'
     ],
     images: 'JUDGE/assets/img/*.{png,gif,jpg,jpeg}',
@@ -67,6 +68,7 @@ var paths = {
        'node_modules/angular-loading-bar/build/loading-bar.min.js',
        'node_modules/lodash/lodash.min.js',
        'node_modules/materialize-css/dist/js/materialize.min.js',
+       'node_modules/ng-table/bundles/ng-table.min.js',
        'node_modules/pdfmake/build/pdfmake.min.js',
        'node_modules/pdfmake/build/vfs_fonts.js'
     ],

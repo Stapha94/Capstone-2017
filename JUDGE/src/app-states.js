@@ -161,6 +161,13 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             controllerAs: 'ctrl',
             resolve: AdminReportingController.resolve()
         })
+      /*  .state('home.admin.awards', {
+            url: '/awards?summitId',
+            templateUrl: 'build/views/pages/admin/admin-awards/admin-awards.html',
+            controller: 'adminAwardsController',
+            controllerAs: 'ctrl',
+            resolve: AdminAwardsController.resolve()
+        })*/
         .state('home.admin.judges', {
             url: '/judges',
             templateUrl: 'build/views/pages/admin/admin-judges/admin-judges.html',

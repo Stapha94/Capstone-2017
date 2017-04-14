@@ -21,7 +21,7 @@
     </div>
 
     <div id="Active" class="col s12">
-        <table class="bordered highlight">
+        <table ng-table="ctrl.tableActiveParams" class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '1'} | filter: {summitId: ctrl.summitId }">
+            <tr ng-repeat="presenter in $data">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>
@@ -50,7 +50,7 @@
     </div>
 
     <div id="Inactive" class="col s12">
-        <table class="bordered highlight">
+        <table ng-table="ctrl.tableInactiveParams" class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
@@ -64,7 +64,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '0'} | filter: {summitId: ctrl.summitId }">
+            <tr ng-repeat="presenter in $data">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>

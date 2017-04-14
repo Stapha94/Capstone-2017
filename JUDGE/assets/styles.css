@@ -404,3 +404,19 @@ ul.management .item {
     padding: 25px;
     margin: 25px;
 }
+
+.scroll {
+  border: 0;
+  border-collapse: collapse;
+}    
+.scroll thead tr:after {
+  overflow-y: scroll;
+  visibility: hidden;
+  height: 0;
+}        
+.scroll tbody {
+  overflow-y: auto;
+}
+.pagination li.active {
+    background-color: #00B140;
+}
