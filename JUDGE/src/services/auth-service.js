@@ -40,13 +40,11 @@ class AuthService {
         var url = this.baseUrl + 'authorize';
         this.$http.post(url, {email: email, password: password})
             .then((response) => {
-                this.$log.info('Login for user ' + email + ' successful!');
                 this.currentUser = response.data.user[0];
                 this.authToken = response.data.token.jwt;
                 deferred.resolve(response.data.user[0]);
             })
             .catch((error) => {
-                this.$log.error('Login for user ' + email + ' failed!');
                 this.currentUser = null;
                 this.authToken = null;
                 deferred.reject(error);
