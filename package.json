@@ -1,7 +1,7 @@
 {
-  "name": "Judge",
+  "name": "judge",
   "version": "0.0.1",
-  "description": "QSS Judge Evalution Application",
+  "description": "QSS Poster Evalution Application",
   "author": {
     "name": "Gabe Hoverman, Mark Adkins, and Paul Fox"
   },
@@ -25,7 +25,6 @@
     "jquery": "3.1.1",
     "lodash": "4.17.4",
     "materialize-css": "0.98.0",
-    "ng-table": "3.0.1",
     "pdfmake": "0.1.27",
     "run-sequence": "1.2.2"
   }

@@ -21,7 +21,7 @@
     </div>
 
     <div id="Active" class="col s12">
-        <table ng-table="ctrl.tableActiveParams" class="bordered highlight">
+        <table class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in $data">
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '1' } | filter: { summitId: ctrl.summitId }">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>
@@ -50,7 +50,7 @@
     </div>
 
     <div id="Inactive" class="col s12">
-        <table ng-table="ctrl.tableInactiveParams" class="bordered highlight">
+        <table class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
@@ -64,7 +64,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in $data">
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '0' } | filter: { summitId: ctrl.summitId }">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>
@@ -72,7 +72,7 @@
                 <td>{{ presenter.email }}</TD>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
                 <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
-                <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn red">Activate</a></td>
+                <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn green">Activate</a></td>
             </tr>
             </tbody>
         </table>

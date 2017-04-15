@@ -39,6 +39,7 @@ class Poster_model extends CI_Model {
             	{$this->name}.presenter_id,
             	{$this->name}.poster_abstract_id,
                 {$joins['pc']}.title AS category,
+                {$this->name}.award_id,
                 {$joins['aw']}.title AS award,
                 {$joins['pa']}.title AS poster_title,
                 {$joins['pa']}.objective,

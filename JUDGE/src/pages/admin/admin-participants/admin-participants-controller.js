@@ -35,7 +35,7 @@ class AdminParticipantsController {
         }
     }
 
-    constructor($scope, $state, NgTableParams, presenterService, posterAbstractService, posterService, keyParticipantService, summits, presenters, abstracts, posters, keyParticipants, notificationService) {
+    constructor($scope, $state, presenterService, posterAbstractService, posterService, keyParticipantService, summits, presenters, abstracts, posters, keyParticipants, notificationService) {
         this.presenterService = presenterService;
         this.posterAbstractService = posterAbstractService;
         this.posterService = posterService;
@@ -52,29 +52,6 @@ class AdminParticipantsController {
         this.editedKeyParticipants = [];
         this.posterAbstract = {};
         this.poster = {};
-        this.NgTableParams = NgTableParams;
-        this.tableActiveParams = this.loadTableParams('1');
-        this.tableInactiveParams = this.loadTableParams('0');
-        $scope.$watch(() => {return this.summitId}, (newVal, oldVal) => {
-            this.tableActiveParams.filter({active: '1', summitId: newVal} );
-            this.tableActiveParams.reload();
-            this.tableInactiveParams.filter({active: '0', summitId: newVal} );
-            this.tableInactiveParams.reload();
-        })
-    }
-
-    loadTableParams(active) {
-        var params = {
-            count: 2,
-            filter: { active: active,  summitId: this.summitId }
-        }
-        var settings = {
-            counts: [],
-            paginationMaxBlocks: 13,
-            paginationMinBlocks: 1,
-            dataset: this.presenters
-        };
-        return new this.NgTableParams(params, settings);
     }
 
     getKeyParticipants(presenter) {
@@ -107,6 +84,6 @@ class AdminParticipantsController {
 
 }
 
-AdminParticipantsController.$inject = ['$scope', '$state', 'NgTableParams', 'presenterService', 'posterAbstractService', 'posterService', 'keyParticipantService', 'summits', 'presenters', 'abstracts', 'posters', 'keyParticipants', 'notificationService'];
+AdminParticipantsController.$inject = ['$scope', '$state', 'presenterService', 'posterAbstractService', 'posterService', 'keyParticipantService', 'summits', 'presenters', 'abstracts', 'posters', 'keyParticipants', 'notificationService'];
 app.controller('adminParticipantsController',  AdminParticipantsController);
 

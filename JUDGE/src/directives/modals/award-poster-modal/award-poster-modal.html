@@ -1,0 +1,31 @@
+<!-- Modal Structure -->
+<div id="assign-award" class="modal modal-fixed-footer" material-modal>
+    <form ng-submit="ctrl.assign()">
+        <div class="modal-content">
+            <h5 class="page-title">Award Poster</h5>
+            <div class="input-field col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <table class="unassigned-posters bordered highlight">
+                            <thead>
+                                <tr>
+                                    <th>Poster Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | filter: {summitId: ctrl.summitId} | filter: {posterCategoryId: ctrl.posterCategoryId}">
+                                    <td ng-if="poster.awardId === ctrl.awardId" class="active">{{poster.posterTitle}}</td>
+                                    <td ng-if="poster.awardId !== ctrl.awardId">{{poster.posterTitle}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn green ">Award Poster</a>
+        </div>
+    </form>
+</div>
