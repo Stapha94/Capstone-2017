@@ -84,6 +84,30 @@ class Summit_model extends CI_Model {
 		}
 	}
 
+	// For pin updating
+	public function update_pin($data = array()) {
+		try {
+			$this->db->select('pin');
+			$this->db->where('summit_id', $data['summit_id']);
+
+			$query = $this->db->get('summit');
+			$result = $query->result();
+
+			$hash = $result[0]->pin;
+
+			if(password_verify($data['old_pin'], $hash)) {
+				$pin = password_hash($data['new_pin'], PASSWORD_BCRYPT);
+				$this->db->set('pin', $pin);
+				$this->db->where('summit_id', $data['summit_id']);
+				return $this->db->update($this->name);
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function joins() {
 		$joins = array(
 			'ad' => 'admin'

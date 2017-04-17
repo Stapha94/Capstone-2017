@@ -42,7 +42,8 @@
                 <td>{{ presenter.role }}</td>
                 <td>{{ presenter.email }}</TD>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
-                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a>
+                    <a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
                 <td><a ng-click="ctrl.deactivate(presenter)" class="waves-effect waves-light btn red">Deactivate</a></td>
             </tr>
             </tbody>
