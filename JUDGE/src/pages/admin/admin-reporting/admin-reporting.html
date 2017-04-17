@@ -32,7 +32,8 @@
                     <th>Category</th>
                     <th>Department</th>
                     <th>Status</th>
-                    <th>Publication</th>
+                    <th>Poster #</th>
+                    <th>Title</th>
                     <th>Judge Scores</th>
                     <th>Question Performance</th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td>{{ poster.role }}</td>
                     <td>{{ poster.institution }}</td>
                     <td>{{ poster.score }}</td>
+                    <td>{{ poster.category + ' ' + poster.posterNumber}}</td>
                     <td>{{ poster.posterTitle }}</td>
                     <td><a ng-click="ctrl.viewScores(poster)" data-target="view-judge-scores" class="waves-effect waves-light btn">View Scores</a></td>
                     <td><a ng-click="ctrl.viewPerformance(poster)" data-target="view-poster-performance" class="waves-effect waves-light btn">View Performance</a></td>

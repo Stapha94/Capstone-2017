@@ -11,15 +11,17 @@ class Form_model extends CI_Model {
 	public function __construct()
 	{
 		// These are for filtering the data.
-		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'judged', 'comments');
+		$this->fields = array('form_id', 'poster_id', 'judge_id', 'award_recommendation_id', 'further_evaluation', 'total', 'judged', 'comments');
 		$this->filter = array(
 			'form_id' => 'form',
 			'poster_id' => 'form',
 			'judge_id' => 'form',
+			'poster_number' => 'poster',
 			'judge_category_id' => 'judge_category',
 			'summit_id' => 'poster',
 			'judged' => 'form',
-			'active' => 'presenter'
+			'active' => 'presenter',
+			'award_recommendation_id' => 'form'
 			// This can be added as the need arises
 		);
 		$this->name = 'form';
@@ -36,6 +38,7 @@ class Form_model extends CI_Model {
 		$this->db->select("{$this->name}.{$this->name}_id,
 				{$this->name}.judge_id,
 				{$this->name}.poster_id,
+				{$joins['po']}.poster_number,
 				{$joins['j']}.first_name AS {$joins['j']}_first_name,
 				{$joins['j']}.last_name AS {$joins['j']}_last_name,
 				{$joins['j']}.email AS {$joins['j']}_email,
@@ -59,6 +62,8 @@ class Form_model extends CI_Model {
 				{$joins['po']}.submission_date,
 				{$joins['po']}.score AS {$joins['po']}_score,
 				{$joins['po']}.summit_id,
+				award_recommendation_id,
+				further_evaluation,
 				judged,
                 total,
                 comments");

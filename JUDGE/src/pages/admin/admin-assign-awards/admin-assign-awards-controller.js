@@ -81,16 +81,16 @@ class AdminAssignAwardsController {
 
     selectPoster(poster, e) {
         if(poster === this.selectedPoster) {
-            var element = angular.element(e.target);
+            var element = angular.element(e.target.parentElement);
             element.removeClass('active');
             this.selectedPoster = angular.copy(this.originalSelectedPoster);
         } else {
-            var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody td.active'));
+            var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody tr.active'));
             _.forEach(elements, (element) => {
                 element = angular.element(element);
                 element.removeClass('active');
             });
-            var element = angular.element(e.target);
+            var element = angular.element(e.target.parentElement);
             element.addClass('active');
             this.selectedPoster = poster;
         }

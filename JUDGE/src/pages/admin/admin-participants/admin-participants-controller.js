@@ -65,19 +65,11 @@ class AdminParticipantsController {
 
     activate(presenter) {
         presenter.active = '1';
-        this.tableActiveParams.settings({dataset: this.presenters});
-        this.tableActiveParams.reload();
-        this.tableInactiveParams.settings({dataset: this.presenters});
-        this.tableInactiveParams.reload();
         this.presenterService.update(presenter);
     }
 
     deactivate(presenter) {
         presenter.active = '0';
-        this.tableActiveParams.settings({dataset: this.presenters});
-        this.tableActiveParams.reload();
-        this.tableInactiveParams.settings({dataset: this.presenters});
-        this.tableInactiveParams.reload();
         this.presenterService.update(presenter);
     }
 

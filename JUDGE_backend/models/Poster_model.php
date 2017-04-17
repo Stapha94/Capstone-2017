@@ -2,6 +2,8 @@
 class Poster_model extends CI_Model {
 
         private $poster_id;
+		private $poster_number;
+		private $poster_category_id;
         private $award_id;
         private $poster_abstract_id;
         private $presenter_id;
@@ -11,9 +13,10 @@ class Poster_model extends CI_Model {
 
         public function __construct()
         {
-        		$this->fields = array('poster_id', 'award_id', 'poster_abstract_id', 'presenter_id', 'summit_id', 'score', 'submission_date');
+        		$this->fields = array('poster_id', 'poster_number', 'poster_category_id', 'award_id', 'poster_abstract_id', 'presenter_id', 'summit_id', 'score', 'submission_date');
         		$this->filter = array(
         			'poster_id' => 'poster',
+					'poster_number' => 'poster',
 					'category' => 'poster_category',
 					'judge_category_id' => 'institution',
 					'poster_category_id' => 'role',
@@ -37,6 +40,7 @@ class Poster_model extends CI_Model {
 
             $this->db->select("{$this->name}_id,
             	{$this->name}.presenter_id,
+            	{$this->name}.poster_number,
             	{$this->name}.poster_abstract_id,
                 {$joins['pc']}.title AS category,
                 {$this->name}.award_id,
@@ -97,6 +101,9 @@ class Poster_model extends CI_Model {
 
 	public function create($data = array()) {
 		try {
+			// Get the count of posters using the current poster_category_id
+			// increment by one
+			// assign to poster_number
 			if($this->db->insert($this->name, $data)) {
 				$poster_id = $this->db->insert_id();
 				$query = $this->db->get_where($this->name, array('poster_id' => $poster_id));

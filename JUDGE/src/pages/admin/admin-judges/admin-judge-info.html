@@ -29,6 +29,7 @@
         <table class="bordered highlight">
             <thead>
             <tr>
+                <th>Poster #</th>
                 <th>Poster Title</th>
                 <th>Score</th>
                 <th>Status</th>
@@ -36,6 +37,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="form in ctrl.forms | filter: {summitId: ctrl.summitId}">
+                <td>{{ form.posterCategory + ' ' + form.posterNumber }}
                 <td>{{ form.posterTitle }}</td>
                 <td>{{ form.total }}</td>
                 <td>

@@ -3,9 +3,9 @@
     <abstract-modal abstract="ctrl.presenterAbstract"></abstract-modal>
     <h5 class="page-title">Presenter Management</h5>
     <div class="row">
-        <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
-            ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
-            <option value="" disabled selected>Select Summit</option>
+        <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+            <option value="" disabled>Select Summit</option>
+            <option ng-repeat="summit in ctrl.summits" value="{{summit.summitId}}">{{summit.summitStart | date: 'mediumDate'}}</option>
         </select>
         <div class="pull-right">
             <a ui-sref="home.admin.register" class="waves-effect waves-light btn green">Add Presenter</a>

@@ -2,11 +2,17 @@ class JudgeFormController {
 
     static resolve() {
         return {
+                awards: ['awardService', (awardService) => {
+                    return awardService.get({active: 1})
+                        .then((data) => {
+                            return data;
+                        });
+                }],
                 form: ['formService', '$stateParams', (formService, $stateParams) => {
                     return formService.get({formId: $stateParams.formId})
                         .then((data) => {
                             return data[0];
-                        })
+                        });
                 }],
                 formQuestions: ['form', 'formQuestionService', (form, formQuestionService) => {
                     if(form.formId) {
@@ -22,18 +28,19 @@ class JudgeFormController {
                     return questionSectionService.get({active: 1})
                         .then((data) => {
                             return data;
-                        })
+                        });
                 }],
                 questions: ['questionService', (questionService) => {
                     return questionService.get({active: 1})
                         .then((data) => {
                             return data;
-                        })
+                        });
                 }]
             }
     }
 
-    constructor($scope, $state, form, formQuestions, questions, questionSections, formService, formQuestionService, notificationService) {
+    constructor($scope, $state, awards, form, formQuestions, questions, questionSections, formService, formQuestionService, notificationService) {
+        this.awards = awards;
         this.questions = questions;
         this.questionSections = questionSections;
         this.originalForm = form;
@@ -110,5 +117,5 @@ class JudgeFormController {
 
 }
 
-JudgeFormController.$inject = ['$scope', '$state', 'form', 'formQuestions', 'questions', 'questionSections', 'formService', 'formQuestionService', 'notificationService'];
+JudgeFormController.$inject = ['$scope', '$state', 'awards', 'form', 'formQuestions', 'questions', 'questionSections', 'formService', 'formQuestionService', 'notificationService'];
 app.controller('judgeFormController', JudgeFormController);

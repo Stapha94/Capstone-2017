@@ -60,7 +60,7 @@ class registrationService {
                 });
                 this.posterAbstractService.create(this.posterAbstract)
                 .then((posterAbstract) => {
-                    this.poster.presenterId = presenter.presenterId;
+                    this.poster.presenterId = presenter.presenterId; 
                     this.poster.posterAbstractId = posterAbstract.posterAbstractId;
                     this.poster.submissionDate = new Date();
                     this.posterService.create(this.poster)

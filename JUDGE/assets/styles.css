@@ -389,7 +389,7 @@ table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
     cursor: pointer;
 }
 
-table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
+table.unassigned-posters tbody tr.active, table.assigned-posters tbody tr.active  {
     color: white;
     background-color: #00B140;
 }
