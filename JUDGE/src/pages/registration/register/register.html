@@ -2,7 +2,12 @@
     <div class="register-cont">
         <script src="https://www.google.com/recaptcha/api.js"></script>
         <div class="row">
+
             <form ng-submit="ctrl.verifyRecaptcha()" class="col s12">
+                <div class="row">
+                    <h5>Registration Step 1 of 3: Enter Basic Information</h5>
+                    <h7>WARNING: Nothing will save until submitted on step 3!</h7>
+                </div>
                 <div class="row">
                     <div class="input-field col s4">
                         <input placeholder="First Name" id="presenterFirstName" ng-model="ctrl.firstName" type="text" class="validate" required>
