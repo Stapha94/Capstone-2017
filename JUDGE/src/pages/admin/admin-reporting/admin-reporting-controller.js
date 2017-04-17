@@ -75,7 +75,7 @@ class AdminReportingController {
             var sum = 0;
             var numOfForms = 0;
             _.forEach(posterForms, (form) => {
-                sum += form.total;
+                sum += parseInt(form.total);
                 numOfForms++;
             });
             numOfForms = numOfForms === 0 ? 1 : numOfForms;

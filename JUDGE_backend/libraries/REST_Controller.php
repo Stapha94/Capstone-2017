@@ -2201,7 +2201,16 @@ abstract class REST_Controller extends \CI_Controller {
 						$this->response([], 400);
 					}
 				} else if($method === 'update_pin') {
+					$data['old_pin'] = $this->post('old_pin');
+					$data['new_pin'] = $this->post('new_pin');
+					$data['summit_id'] = $this->post('summit_id');
 
+					$query = $model->update_pin($data);
+					if($query) {
+						$this->response([], 200);
+					} else {
+						$this->response([], 400);
+					}
 				} else {
 					foreach ($fields as $index => $field) {
 						$item = $this->post($field);

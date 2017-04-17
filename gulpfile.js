@@ -61,14 +61,14 @@ var paths = {
     ],
     dependencies: [
        'node_modules/jquery/dist/jquery.min.js',
-       'node_modules/jquery-ui/jquery-ui.min.js',
        'node_modules/angular/angular.js',
-       'node_modules/angular-dragdrop/src/angular-dragdrop.min.js',
        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
        'node_modules/angular-ui-router/release/angular-ui-router.min.js',
        'node_modules/angular-loading-bar/build/loading-bar.min.js',
        'node_modules/lodash/lodash.min.js',
-       'node_modules/materialize-css/dist/js/materialize.min.js'
+       'node_modules/materialize-css/dist/js/materialize.min.js',
+       'node_modules/pdfmake/build/pdfmake.min.js',
+       'node_modules/pdfmake/build/vfs_fonts.js'
     ],
     html: 'app.html',
     templates: 'JUDGE/src/**/*.html'

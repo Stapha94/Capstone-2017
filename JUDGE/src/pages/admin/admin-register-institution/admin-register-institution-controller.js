@@ -141,8 +141,14 @@ class AdminRegisterInstitutionController{
     //Puts all of the information in the Registration Service and goes to the next page
     continue() {
 
+        _.forEach(this.roles, (role) => {
+            if(this.presenterRole === role.roleId) {
+                this.posterCategoryId = role.posterCategoryId;
+            }
+        });
+
         this.poster = {
-            //posterCategoryId: this.posterCategoryId,
+            posterCategoryId: this.posterCategoryId,
             summitId: this.summitId,
             awardId: 1,
             posterAbstractId: 0,

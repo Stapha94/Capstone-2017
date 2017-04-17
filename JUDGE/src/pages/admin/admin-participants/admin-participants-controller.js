@@ -54,6 +54,37 @@ class AdminParticipantsController {
         this.poster = {};
     }
 
+    downloadAbstract(presenter) {
+        this.getPoster(presenter);
+        var name = this.presenterAbstract.title+'.pdf';
+        var abstractDoc = {
+            header: function(currentPage, pageCount) { 
+                return { text: currentPage.toString() + ' of ' + pageCount, alignment: 'right', margin: [2, 2, 5, 0]}; 
+            },
+            background: { text: this.presenterAbstract.title, bold: true, margin: [5, 2, 2, 0]},
+            content: [
+                { text: this.presenterAbstract.title, style: 'header'},
+                { text: 'Objective', style: 'header'},
+                this.presenterAbstract.objective,
+                { text: 'Methods', style: 'header'},
+                this.presenterAbstract.methods,
+                { text: 'Results', style: 'header'},
+                this.presenterAbstract.results,
+                { text: 'Conclusion', style: 'header'},
+                this.presenterAbstract.conclusion
+            ],
+
+            styles: {
+                header: {
+                    fontSize: 22,
+                    bold: true,
+                    margin: [5, 10]
+                }
+            }
+        };
+        pdfMake.createPdf(abstractDoc).download(name);
+    }
+
     getKeyParticipants(presenter) {
         this.presenterKeyParticipants = _.filter(this.keyParticipants, {presenterId: presenter.presenterId});
     }

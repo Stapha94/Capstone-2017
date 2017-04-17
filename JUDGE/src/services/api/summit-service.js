@@ -15,6 +15,24 @@ class SummitService extends BaseApiService {
             })
     }
 
+    updatePin(object) {
+        var deferred = this.$q.defer();
+
+        var backendSafeObject = this.sanitizeObject(object);
+
+        var url = this.baseUrl + this.serviceUrl + '/update_pin';
+        this.$http.post(url, backendSafeObject)
+            .then((response) => {
+                this.notificationService.success('Successfully updated pin!');
+                deferred.resolve(response.data[0]);
+            })
+            .catch((error) => {
+                this.notificationService.error('Failed to update pin! Make sure the old pin was correct!');
+                deferred.reject(error);
+            })
+        return deferred.promise;
+    }
+
     delete(object) {
         super.update(object);
     }
