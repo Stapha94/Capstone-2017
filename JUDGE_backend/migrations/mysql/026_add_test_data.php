@@ -10,12 +10,12 @@ class Migration_Add_test_data extends CI_Migration {
     	$pin = password_hash('1234', PASSWORD_BCRYPT);
 
         $sql = "INSERT INTO admin (email, first_name, last_name, password)
-                VALUES ('admin@test.com', 'Mark', 'Adkins', '{$hash}');";
+                VALUES ('adkins1065@marshall.edu', 'Mark', 'Adkins', '{$hash}');";
 
         $this->db->query($sql);
 
         $sql = "INSERT INTO summit(created_by_admin_id, summit_start, summit_end, registration_deadline, pin)
-                VALUES (1, NOW(), '2018-12-31 23:59:59', '2018-12-31 23:59:59', '{$pin}');";
+                VALUES (1, '2017-4-18 08:00', '2017-4-18 10:30', '2017-4-17 4:00', '{$pin}');";
 
         $this->db->query($sql);
     }
