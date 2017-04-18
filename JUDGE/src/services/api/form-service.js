@@ -1,4 +1,10 @@
 class FormService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        FormService.instance = new FormService($injector);
+        return FormService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'forms', 'form');
     }
@@ -24,4 +30,4 @@ class FormService extends BaseApiService {
 }
 
 FormService.$inject = ['$injector'];
-app.factory('formService', FormService);
+app.factory('formService', FormService.serviceFactory);

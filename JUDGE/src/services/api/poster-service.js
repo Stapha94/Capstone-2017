@@ -1,4 +1,10 @@
 class PosterService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        PosterService.instance = new PosterService($injector);
+        return PosterService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'posters', 'poster');
     }
@@ -19,4 +25,4 @@ class PosterService extends BaseApiService {
 }
 
 PosterService.$inject = ['$injector'];
-app.factory('posterService', PosterService);
+app.factory('posterService', PosterService.serviceFactory);

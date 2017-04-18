@@ -1,4 +1,10 @@
 class RoleService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        RoleService.instance = new RoleService($injector);
+        return RoleService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'roles', 'role');
     }
@@ -10,4 +16,4 @@ class RoleService extends BaseApiService {
 }
 
 RoleService.$inject = ['$injector'];
-app.factory('roleService', RoleService);
+app.factory('roleService', RoleService.serviceFactory);
