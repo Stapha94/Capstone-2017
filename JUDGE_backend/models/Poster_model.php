@@ -104,6 +104,9 @@ class Poster_model extends CI_Model {
 			// Get the count of posters using the current poster_category_id
 			// increment by one
 			// assign to poster_number
+			$this->db->where('poster_category_id', $data['poster_category_id']);
+			$number = $this->db->count_all_results('poster') + 1;
+			$data['poster_number'] = $number;
 			if($this->db->insert($this->name, $data)) {
 				$poster_id = $this->db->insert_id();
 				$query = $this->db->get_where($this->name, array('poster_id' => $poster_id));
