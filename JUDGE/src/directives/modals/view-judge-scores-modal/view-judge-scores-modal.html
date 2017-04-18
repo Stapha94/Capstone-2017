@@ -5,11 +5,13 @@
             <table class="bordered highlight">
                 <thead>
                     <th>Judge</th>
+                    <th>Recommended Award</th>
                     <th>Score</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="form in ctrl.forms">
                         <td>{{form.judgeFirstName + ' ' + form.judgeLastName}}</th>
+                        <td>{{ form.recommendedAward }}</td>
                         <td>{{ form.total }}</td>
                     </tr>
                 </tbody>

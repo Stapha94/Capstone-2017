@@ -16,9 +16,9 @@
     <div id="Posters" class="col s12">
         <div class="row">
             <div class="input-field col s6">
-                <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
-                    ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
-                    <option value="" disabled selected>Select Summit</option>
+                <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+                    <option value="" disabled>Select Summit</option>
+                    <option ng-repeat="summit in ctrl.summits" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
                 </select>
                 <label for="judge">Select Summit</label>
             </div>
