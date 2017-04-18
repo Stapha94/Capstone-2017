@@ -48,7 +48,7 @@ class AdminJudgeInfoController {
         this.original = judge;
         this.judge = angular.copy(this.original); // for setting things back to normal if they hit cancel
         this.judgeCategories = judgeCategories;
-        this.forms = forms;
+        this.forms = _.orderBy(forms, (form) => {return form.total}, ['desc']);
         this.formQuestions = formQuestions;
         this.summits = summits;
         this.summitId = summits[0].summitId;
