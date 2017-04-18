@@ -1,4 +1,10 @@
 class SummitService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        SummitService.instance = new SummitService($injector);
+        return SummitService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'summits', 'summit');
     }
@@ -40,4 +46,4 @@ class SummitService extends BaseApiService {
 }
 
 SummitService.$inject = ['$injector'];
-app.factory('summitService', SummitService);
+app.factory('summitService', SummitService.serviceFactory);

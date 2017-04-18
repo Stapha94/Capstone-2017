@@ -1,4 +1,10 @@
 class KeyParticipantService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        KeyParticipantService.instance = new KeyParticipantService($injector);
+        return KeyParticipantService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'key_participants', 'key participant');
     }
@@ -24,4 +30,4 @@ class KeyParticipantService extends BaseApiService {
 }
 
 KeyParticipantService.$inject = ['$injector'];
-app.factory('keyParticipantService', KeyParticipantService);
+app.factory('keyParticipantService', KeyParticipantService.serviceFactory);
