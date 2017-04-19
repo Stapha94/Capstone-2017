@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="form in ctrl.forms | filter: {summitId: ctrl.summitId}">
+            <tr ng-repeat="form in ctrl.forms | filter: {summitId: ctrl.summitId} | orderBy: ['posterCategory', 'posterNumber']">
                 <td>{{ form.posterCategory + ' ' + form.posterNumber }}
                 <td>{{ form.posterTitle }}</td>
                 <td>{{ form.total }}</td>

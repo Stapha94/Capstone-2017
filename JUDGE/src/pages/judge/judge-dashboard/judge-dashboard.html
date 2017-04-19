@@ -21,7 +21,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { judged: '0' }">
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '0' } | orderBy: ['posterCategory', 'posterNumber']">
                 <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.posterCategory}}</td>
@@ -48,7 +48,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { judged: '1' }">
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '1' } | orderBy: ['-total']">
                 <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.total}}</td>

@@ -16,4 +16,4 @@ class PosterCategoryService extends BaseApiService {
 }
 
 PosterCategoryService.$inject = ['$injector'];
-app.factory('posterCategoryService', PosterCategoryService.instance);
+app.factory('posterCategoryService', PosterCategoryService.serviceFactory);
