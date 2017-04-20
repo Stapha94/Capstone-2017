@@ -29,17 +29,6 @@ class JudgeDashboardController {
             { id: 'Pending' },
             { id: 'Complete' }
         ];
-        this.setAwards();
-    }
-
-    setAwards() {
-        _.forEach(this.forms, (poster) => {
-            _.forEach(this.awards, (award) => {
-                if(poster.awardRecommendationId === award.awardId) {
-                    poster.recommendedAward = award.title;
-                }
-            });
-        });
     }
 
     setAbstract(poster) {

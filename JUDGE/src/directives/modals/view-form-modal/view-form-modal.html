@@ -5,7 +5,7 @@
             <div class="switch">
                 <label>
                     No
-                    <input type="checkbox" ng-model="ctrl.furtherEvaluation" disabled>
+                    <input type="checkbox" ng-model="ctrl.form.furtherEvaluation" ng-true-value="'1'" ng-false-value="'0'" disabled>
                     <span class="lever"></span>
                     Yes
                 </label>
@@ -56,6 +56,12 @@
 
             <div class="row comment-box">
                 <div class="input-field col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="award_recommendation" ng-model="ctrl.form.recommendedAward" disabled>
+                            <label class="active" for="award_recommendation"><h5>Recommended Award</h5></label>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..." disabled></textarea>

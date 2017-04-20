@@ -6,6 +6,7 @@
 //            PLUGIN REFERENCES
 //=============================================
 var gulp = require('gulp');
+var babel = require('gulp-babel');
 var del = require('del');
 var fs = require('fs');
 var path = require('path');
@@ -105,6 +106,7 @@ gulp.task('compileDependencies', function() {
 
 gulp.task('compileScripts', function() {
     return gulp.src(paths.app.scripts)
+                .pipe(babel())
                 .pipe(concat('judge.js'))
                 .pipe(gulp.dest(paths.build.dist.basePath));
 });

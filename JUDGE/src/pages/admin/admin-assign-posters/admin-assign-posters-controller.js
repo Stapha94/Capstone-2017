@@ -53,7 +53,6 @@ class AdminAssignPostersController {
             this.formService.create(newForm)
                 .then((form) => {
                     this.forms.push(form);
-                    this.originalPosters = angular.copy(this.posters);
                     this.originalForms = angular.copy(this.forms);
                     _.pull(this.selectedPosters, selected);
                 })

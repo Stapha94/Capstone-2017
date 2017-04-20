@@ -1,5 +1,10 @@
 class AuthService {
 
+    static serviceFactory($http, $log, $state, $q, localStorageService, CONFIG) {
+        AuthService.instance = new AuthService($http, $log, $state, $q, localStorageService, CONFIG);
+        return AuthService.instance;
+    }
+
     constructor($http, $log, $state, $q, localStorageService, CONFIG) {
         this.$http = $http;
         this.$log = $log;
@@ -82,9 +87,7 @@ class AuthService {
         return this.currentUser !== null || this.authToken !== null;
     }
 
-
-
 }
 
 AuthService.$inject = ['$http', '$log', '$state', '$q', 'localStorageService', 'CONFIG'];
-app.factory('authService', AuthService);
+app.factory('authService', AuthService.serviceFactory);

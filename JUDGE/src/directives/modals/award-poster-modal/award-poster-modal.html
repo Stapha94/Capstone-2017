@@ -14,7 +14,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | filter: {summitId: ctrl.summitId} | filter: {posterCategoryId: ctrl.posterCategoryId}">
+                                <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | filter: {summitId: ctrl.summitId} | filter: {posterCategoryId: ctrl.posterCategoryId} | orderBy: ['category', 'posterNumber']">
                                     <td ng-if="poster.awardId === ctrl.awardId" class="active">{{poster.category + ' ' + poster.posterNumber}}</td>
                                     <td ng-if="poster.awardId !== ctrl.awardId">{{poster.category + ' ' + poster.posterNumber}}</td>
                                     <td ng-if="poster.awardId === ctrl.awardId" class="active">{{poster.posterTitle}}</td>

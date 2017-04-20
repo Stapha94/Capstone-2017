@@ -1,4 +1,10 @@
 class SummitService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        SummitService.instance = new SummitService($injector);
+        return SummitService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'summits', 'summit');
     }
@@ -7,9 +13,10 @@ class SummitService extends BaseApiService {
         return super.get(params)
             .then((summits) => {
                 _.forEach(summits, (summit) => {
-                    summit.summitStart = new Date(summit.summitStart);
-                    summit.summitEnd = new Date(summit.summitEnd);
-                    summit.registrationDeadline = new Date(summit.registrationDeadline);
+                    // Thanks IE
+                    summit.summitStart = new Date(summit.summitStart.replace(/ /, 'T') + 'Z');
+                    summit.summitEnd = new Date(summit.summitEnd.replace(/ /, 'T') + 'Z');
+                    summit.registrationDeadline = new Date(summit.registrationDeadline.replace(/ /, 'T') + 'Z');
                 })
                 return summits;
             })
@@ -40,4 +47,4 @@ class SummitService extends BaseApiService {
 }
 
 SummitService.$inject = ['$injector'];
-app.factory('summitService', SummitService);
+app.factory('summitService', SummitService.serviceFactory);
