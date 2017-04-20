@@ -14,7 +14,7 @@
             <a ng-click="ctrl.generateReport()" class="waves-effect waves-light btn">Generate Report</a>
         </div>
         <div ng-if="ctrl.reportGenerated" class="input-field col s4">
-            <a class="waves-effect waves-light btn">Download Full Report</a>
+            <a ng-click="ctrl.download()" class="waves-effect waves-light btn">Download Full Report</a>
         </div>
     </div>
     <div ng-if="ctrl.reportGenerated" class="row">
@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="poster in ctrl.posters | filter: { judgeCategoryId: judgeCategory.judgeCategoryId } | filter: { summitId: ctrl.summitId } | orderBy: { score }">
+                <tr ng-repeat="poster in ctrl.posters | filter: { judgeCategoryId: judgeCategory.judgeCategoryId } | filter: { summitId: ctrl.summitId } | orderBy: ['-score']">
                     <td>{{ ctrl.getLeadAuthor(poster) }}</td>
                     <td>{{ poster.role }}</td>
                     <td>{{ poster.institution }}</td>

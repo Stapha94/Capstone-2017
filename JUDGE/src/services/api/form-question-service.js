@@ -12,4 +12,4 @@ class FormQuestionService extends BaseApiService {
 }
 
 FormQuestionService.$inject = ['$injector'];
-app.factory('formQuestionService', FormQuestionService.instance);
+app.factory('formQuestionService', FormQuestionService.serviceFactory);

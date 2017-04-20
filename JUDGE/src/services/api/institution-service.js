@@ -16,4 +16,4 @@ class InstitutionService extends BaseApiService {
 }
 
 InstitutionService.$inject = ['$injector'];
-app.factory('institutionService', InstitutionService);
+app.factory('institutionService', InstitutionService.serviceFactory);

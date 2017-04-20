@@ -29,7 +29,6 @@ class JudgeDashboardController {
             { id: 'Pending' },
             { id: 'Complete' }
         ];
-        this.forms = _.orderBy(this.forms, (form) => {return form.total}, ['desc']);
     }
 
     setAbstract(poster) {
