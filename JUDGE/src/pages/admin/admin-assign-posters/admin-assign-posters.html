@@ -2,9 +2,9 @@
     <h5 class="page-title">Assign Posters</h5>
     <div class="row">
         <div class="input-field col s6">
-            <select name="judge" class="form-control" ng-model="ctrl.judgeId" id="judge" title="Judge" material-select
-                ng-options="judge.judgeId as judge.email for judge in ctrl.judges">
+            <select name="judge" class="form-control" ng-model="ctrl.judgeId" id="judge" title="Judge" material-select>
                 <option value="" disabled selected>Select Judge</option>
+                <option ng-repeat="judge in ctrl.judges" ng-value="judge.judgeId">{{judge.firstName + ' ' + judge.lastName}}</option>
             </select>
             <label for="judge">Select Judge</label>
         </div>
@@ -15,11 +15,13 @@
             <table class="unassigned-posters bordered highlight">
                 <thead>
                     <tr>
+                        <th>Poster #</th>
                         <th>Poster Title</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters">
+                    <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | orderBy: ['category', 'posterNumber']">
+                        <td>{{poster.category + ' ' + poster.posterNumber}}</td>
                         <td>{{poster.posterTitle}}</td>
                     </tr>
                 </tbody>
@@ -34,11 +36,13 @@
             <table class="assigned-posters bordered highlight">
                 <thead>
                     <tr>
+                        <th>Poster #</th>
                         <th>Poster Title</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-click="ctrl.selectForm(form, $event)" ng-repeat="form in ctrl.forms | filter: {judgeId: ctrl.judgeId }">
+                    <tr ng-click="ctrl.selectForm(form, $event)" ng-repeat="form in ctrl.forms | filter: {judgeId: ctrl.judgeId } | orderBy: ['posterCategory', 'posterNumber']">
+                        <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                         <td>{{form.posterTitle}}</td>
                     </tr>
                 </tbody>

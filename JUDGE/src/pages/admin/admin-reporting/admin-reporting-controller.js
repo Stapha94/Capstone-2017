@@ -48,8 +48,10 @@ class AdminReportingController {
         }
     }
 
-    constructor(posterService, summit, summits, posters, forms, formQuestions, questions, judgeCategories) {
+    constructor($filter, posterService, summit, summits, posters, forms, formQuestions, questions, judgeCategories, reportService) {
+        this.$filter = $filter;
         this.posterService = posterService;
+        this.summit = summit;
         this.summitId = summit.summitId;
         this.summits = summits;
         this.originalPosters = posters;
@@ -62,6 +64,7 @@ class AdminReportingController {
         this.questions = angular.copy(this.originalQuestions);
         this.judgeCategories = judgeCategories;
         this.reportGenerated = false;
+        this.reportService = reportService;
     }
 
     changeSummit() {
@@ -75,7 +78,7 @@ class AdminReportingController {
             var sum = 0;
             var numOfForms = 0;
             _.forEach(posterForms, (form) => {
-                sum += form.total;
+                sum += parseInt(form.total);
                 numOfForms++;
             });
             numOfForms = numOfForms === 0 ? 1 : numOfForms;
@@ -111,6 +114,24 @@ class AdminReportingController {
         });
     }
 
+    // This is explicitly for the downloaded report
+    calculatePerformance(poster) {
+        var formQuestions = _.filter(this.formQuestions, (question) => { return question.posterId === poster.posterId });
+        var index = 1;
+        _.forEach(this.questions, (question) => {
+            var sum = 0;
+            var numOfForms = 0;
+            this.formQuestionPerForms = _.filter(formQuestions, { questionId: question.questionId });
+            _.forEach(this.formQuestionPerForms, (formQuestion) => {
+                sum += parseInt(formQuestion.score); // Backend returns ints as strings
+                numOfForms++;
+            });
+            numOfForms = numOfForms === 0 ? 1 : numOfForms;
+            poster['question'+index] = sum/numOfForms;
+            index++;
+        });
+    }
+
     closeViewScores() {
         this.forms = angular.copy(this.originalForms);
     }
@@ -120,7 +141,46 @@ class AdminReportingController {
         this.questions = angular.copy(this.originalQuestions);
     }
 
+    download() {
+        var summitDate = this.$filter('date')(this.summit.summitStart, 'mediumDate');
+        var fileName = summitDate.replace(/,/g, "").replace(/ /g, "_") + '.csv';
+        var generatedPosters = _.filter(this.posters, {summitId: this.summitId});
+        generatedPosters = _.orderBy(generatedPosters, (poster) => {return poster.score}, ['desc']);
+        var data = [];
+        var headers = {
+            posterNumber: 'Poster #',
+            leadAuthor: 'Lead Author',
+            category: 'Category',
+            department: 'Department',
+            title: 'Title',
+            score: 'Score'
+        };
+        var index = 1;
+        _.forEach(this.questions, (question) => {
+            headers['question'+index] = question.description;
+            index++;
+        })
+        data.push(headers);
+        _.forEach(generatedPosters, (poster) => {
+            var item = {};
+            item.posterNumber = poster.category + ' ' + poster.posterNumber;
+            item.leadAuthor = this.getLeadAuthor(poster);
+            item.category = poster.role;
+            item.department = poster.institution;
+            item.title = poster.posterTitle;
+            item.score = poster.score;
+            this.calculatePerformance(poster);
+            index = 1;
+            _.forEach(this.questions, (question) => {
+                item['question'+index] = poster['question'+index];
+                index++;
+            })
+            data.push(item);
+        });
+        this.reportService.generate(data, fileName);
+    }
+
 }
 
-AdminReportingController.$inject = ['posterService', 'summit', 'summits', 'posters', 'forms', 'formQuestions', 'questions', 'judgeCategories']
+AdminReportingController.$inject = ['$filter', 'posterService', 'summit', 'summits', 'posters', 'forms', 'formQuestions', 'questions', 'judgeCategories', 'reportService'];
 app.controller('adminReportingController', AdminReportingController);

@@ -4,9 +4,9 @@
     <h5 class="page-title">Reports</h5>
     <div class="row">
         <div class="input-field col s6">
-            <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
-                ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
-                <option value="" disabled selected>Select Summit</option>
+            <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+                <option value="" disabled>Select Summit</option>
+                <option ng-repeat="summit in ctrl.summits" ng-value="summit.summitId">{{summit.summitStart | date: 'mediumDate'}}</option>
             </select>
             <label for="judge">Select Summit</label>
         </div>
@@ -14,7 +14,7 @@
             <a ng-click="ctrl.generateReport()" class="waves-effect waves-light btn">Generate Report</a>
         </div>
         <div ng-if="ctrl.reportGenerated" class="input-field col s4">
-            <a class="waves-effect waves-light btn">Download Full Report</a>
+            <a ng-click="ctrl.download()" class="waves-effect waves-light btn">Download Full Report</a>
         </div>
     </div>
     <div ng-if="ctrl.reportGenerated" class="row">
@@ -31,18 +31,20 @@
                     <th>Lead Author</th>
                     <th>Category</th>
                     <th>Department</th>
-                    <th>Status</th>
-                    <th>Publication</th>
+                    <th>Score</th>
+                    <th>Poster #</th>
+                    <th>Title</th>
                     <th>Judge Scores</th>
                     <th>Question Performance</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="poster in ctrl.posters | filter: { judgeCategoryId: judgeCategory.judgeCategoryId } | filter: { summitId: ctrl.summitId } | orderBy: { score }">
+                <tr ng-repeat="poster in ctrl.posters | filter: { judgeCategoryId: judgeCategory.judgeCategoryId } | filter: { summitId: ctrl.summitId } | orderBy: ['-score']">
                     <td>{{ ctrl.getLeadAuthor(poster) }}</td>
                     <td>{{ poster.role }}</td>
                     <td>{{ poster.institution }}</td>
                     <td>{{ poster.score }}</td>
+                    <td>{{ poster.category + ' ' + poster.posterNumber}}</td>
                     <td>{{ poster.posterTitle }}</td>
                     <td><a ng-click="ctrl.viewScores(poster)" data-target="view-judge-scores" class="waves-effect waves-light btn">View Scores</a></td>
                     <td><a ng-click="ctrl.viewPerformance(poster)" data-target="view-poster-performance" class="waves-effect waves-light btn">View Performance</a></td>

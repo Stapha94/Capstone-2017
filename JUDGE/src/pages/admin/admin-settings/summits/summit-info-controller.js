@@ -121,8 +121,8 @@ class SummitInfoController {
         } else if(this.newPin.length < 4) {
             this.notificationService.error('Pin must be 4 digits!');
         } else {
-            var password = { summitId: this.original.summitId, newPin: this.newPin, oldPin: this.oldPin };
-            this.summitService.updatePassword(pin)
+            var pin = { summitId: this.original.summitId, newPin: this.newPin, oldPin: this.oldPin };
+            this.summitService.updatePin(pin)
                 .then((data) => {
                     this.resetPinFields();
                 })

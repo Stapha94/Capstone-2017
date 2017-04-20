@@ -5,7 +5,7 @@
         <div class="switch">
             <label>
                 No
-                <input type="checkbox" ng-model="ctrl.furtherEvaluation">
+                <input type="checkbox" ng-model="ctrl.form.furtherEvaluation" ng-true-value="'1'" ng-false-value="'0'">
                 <span class="lever"></span>
                 Yes
             </label>
@@ -14,7 +14,7 @@
             <tbody>
                 <tr ng-repeat="questionSection in ctrl.questionSections">
                     <td>
-                        <table class="bordered highlight judge-form">
+                        <table class="bordered highlight scroll judge-form">
                             <thead>
                                 <tr>
                                     <th class="question-info" data-field="question">{{questionSection.title}}</th>
@@ -31,7 +31,7 @@
                                 <tr ng-repeat="question in ctrl.formQuestions | filter: {section: questionSection.title}">
                                     <td class="question-info">{{question.description}}</td>
                                     <td ng-repeat="score in ctrl.scores">
-                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" ng-disabled="!ctrl.furtherEvaluation" ng-required="!ctrl.furtherEvaluation" />
+                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" />
                                         <label for="{{'question' + question.questionId + score.label}}"></label>
                                     </td>
                                     <td class="pull-right">{{question.score}}</td>
@@ -56,6 +56,14 @@
 
         <div class="row comment-box">
             <div class="input-field col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="award_recommendation" ng-model="ctrl.form.awardRecommendationId" material-select>
+                            <option ng-repeat="award in ctrl.awards" ng-value="award.awardId">{{award.title}}</option>
+                        </select>
+                        <label for="award_recommendation"><h5>Recommended Award</h5></label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>

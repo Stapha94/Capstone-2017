@@ -53,7 +53,6 @@ class AdminAssignPostersController {
             this.formService.create(newForm)
                 .then((form) => {
                     this.forms.push(form);
-                    this.originalPosters = angular.copy(this.posters);
                     this.originalForms = angular.copy(this.forms);
                     _.pull(this.selectedPosters, selected);
                 })
@@ -115,7 +114,7 @@ class AdminAssignPostersController {
     }
 
     select(e) {
-        var element = angular.element(e.target);
+        var element = angular.element(e.target.parentElement); // This is a little hacky; preferably, this should be in a directive, but oh well
         if(element.hasClass('active')) {
             element.removeClass('active');
         } else {
@@ -124,15 +123,17 @@ class AdminAssignPostersController {
     }
 
     removeActivePosters() {
-      var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody td.active'));
+      var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody tr.active'));
       _.forEach(elements, (element) => {
+          element = angular.element(element);
           element.removeClass('active');
       });
     }
 
     removeActiveForms() {
-      var elements = angular.element(document.querySelectorAll('table.assigned-posters tbody td.active'));
+      var elements = angular.element(document.querySelectorAll('table.assigned-posters tbody tr.active'));
       _.forEach(elements, (element) => {
+          element = angular.element(element);
           element.removeClass('active');
       });
     }

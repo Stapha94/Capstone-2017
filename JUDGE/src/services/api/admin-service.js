@@ -1,4 +1,10 @@
 class AdminService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        AdminService.instance = new AdminService($injector);
+        return AdminService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'admins', 'admin');
     }
@@ -28,4 +34,4 @@ class AdminService extends BaseApiService {
 }
 
 AdminService.$inject = ['$injector'];
-app.factory('adminService', AdminService);
+app.factory('adminService', AdminService.serviceFactory);

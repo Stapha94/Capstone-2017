@@ -1,4 +1,10 @@
 class JudgeService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        JudgeService.instance = new JudgeService($injector);
+        return JudgeService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'judges', 'judge');
     }
@@ -10,4 +16,4 @@ class JudgeService extends BaseApiService {
 }
 
 JudgeService.$inject = ['$injector'];
-app.factory('judgeService', JudgeService);
+app.factory('judgeService', JudgeService.serviceFactory);

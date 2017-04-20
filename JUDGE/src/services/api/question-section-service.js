@@ -1,4 +1,10 @@
 class QuestionSectionService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        QuestionSectionService.instance = new QuestionSectionService($injector);
+        return QuestionSectionService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'question_sections', 'question section');
     }
@@ -10,4 +16,4 @@ class QuestionSectionService extends BaseApiService {
 }
 
 QuestionSectionService.$inject = ['$injector'];
-app.factory('questionSectionService', QuestionSectionService);
+app.factory('questionSectionService', QuestionSectionService.serviceFactory);

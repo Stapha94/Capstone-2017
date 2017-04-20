@@ -14,11 +14,6 @@ class ViewFormModalController {
     }
 
     setup() {
-        if(this.form.total !== '0' && this.form.judged === '1') {
-            this.furtherEvaluation = true;
-        } else {
-            this.furtherEvaluation = false;
-        }
         this.sections = [];
         _.forEach(this.formQuestions, (formQuestion) => {
             if(!_.find(this.sections, { title: formQuestion.section })) {

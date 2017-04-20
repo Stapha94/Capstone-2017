@@ -311,11 +311,11 @@ th button.table-btn {
 }
 
 /** Override Disabled Settings **/
-input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=time]:disabled {
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
     color: inherit;
 }
 
-input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=time]:disabled+label {
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
     color: #00B140;
 }
 
@@ -389,7 +389,7 @@ table.unassigned-posters tbody tr td, table.assigned-posters tbody tr td {
     cursor: pointer;
 }
 
-table.unassigned-posters tbody tr td.active, table.assigned-posters tbody tr td.active  {
+table.unassigned-posters tbody tr.active, table.assigned-posters tbody tr.active  {
     color: white;
     background-color: #00B140;
 }
@@ -403,4 +403,20 @@ ul.management .item {
     border-radius: 30px;
     padding: 25px;
     margin: 25px;
+}
+
+.scroll {
+  border: 0;
+  border-collapse: collapse;
+}    
+.scroll thead tr:after {
+  overflow-y: scroll;
+  visibility: hidden;
+  height: 0;
+}        
+.scroll tbody {
+  overflow-y: auto;
+}
+.pagination li.active {
+    background-color: #00B140;
 }

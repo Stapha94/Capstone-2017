@@ -1,4 +1,10 @@
 class ReCaptchaService {
+
+    static serviceFactory($injector) {
+        ReCaptchaService.instance = new ReCaptchaService($injector);
+        return ReCaptchaService.instance;
+    }
+
     constructor($injector) {
         this.$log = $injector.get('$log');
         this.$http = $injector.get('$http');
@@ -55,4 +61,4 @@ class ReCaptchaService {
 
 }
 
-app.factory('reCaptchaService', ReCaptchaService);
+app.factory('reCaptchaService', ReCaptchaService.serviceFactory);
