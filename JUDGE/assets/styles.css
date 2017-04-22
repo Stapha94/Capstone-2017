@@ -259,6 +259,10 @@ td a, td a:hover {
     margin-top: 2rem;
 }
 
+.award-box {
+    margin-top: 3rem;
+}
+
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
     background-color: #00B140;
 }
@@ -321,6 +325,10 @@ input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=em
 
 .select-wrapper input.select-dropdown:disabled {
     color: inherit;
+}
+
+.select-wrapper+label {
+    top: 0.8rem;
 }
 
 .box-container {
@@ -422,19 +430,9 @@ ul.management .item {
 }
 
 /** Fixed Headers **/
-table.fixed-headers thead, table.fixed-headers tbody {
+div.scrollable {
     display: block;
     width: 100%;
-}
-
-table.fixed-headers tbody {
-    overflow: auto;
-}
-
-table.fixed-headers thead {
-    border: none;
-}
-
-table.fixed-headers tr {
-    width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 }
