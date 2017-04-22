@@ -436,3 +436,7 @@ div.scrollable {
     overflow: hidden;
     overflow-y: scroll;
 }
+
+td.fixed-header {
+    padding-bottom: 0;
+}
