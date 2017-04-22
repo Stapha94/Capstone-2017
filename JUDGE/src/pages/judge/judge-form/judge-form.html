@@ -14,7 +14,7 @@
             <tbody>
                 <tr ng-repeat="questionSection in ctrl.questionSections">
                     <td>
-                        <table class="bordered highlight scroll judge-form">
+                        <table class="bordered highlight scroll judge-form fixed-headers" fixed-headers>
                             <thead>
                                 <tr>
                                     <th class="question-info" data-field="question">{{questionSection.title}}</th>
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <table class="bordered highlight judge-form">
+                        <table class="bordered highlight judge-form fixed-headers" fixed-headers>
                             <tbody>
                                 <tr>
                                     <td class="pull-right"><strong>TOTAL SCORE: &nbsp</strong>{{ctrl.form.total}}</td>
@@ -61,7 +61,7 @@
                         <select id="award_recommendation" ng-model="ctrl.form.awardRecommendationId" material-select>
                             <option ng-repeat="award in ctrl.awards" ng-value="award.awardId">{{award.title}}</option>
                         </select>
-                        <label for="award_recommendation"><h5>Recommended Award</h5></label>
+                        <label class="active" for="award_recommendation"><h5>Recommended Award</h5></label>
                     </div>
                 </div>
                 <div class="row">

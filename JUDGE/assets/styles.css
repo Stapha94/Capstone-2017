@@ -420,3 +420,21 @@ ul.management .item {
 .pagination li.active {
     background-color: #00B140;
 }
+
+/** Fixed Headers **/
+table.fixed-headers thead, table.fixed-headers tbody {
+    display: block;
+    width: 100%;
+}
+
+table.fixed-headers tbody {
+    overflow: auto;
+}
+
+table.fixed-headers thead {
+    border: none;
+}
+
+table.fixed-headers tr {
+    width: 100%;
+}
