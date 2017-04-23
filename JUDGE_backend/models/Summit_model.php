@@ -78,6 +78,14 @@ class Summit_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
+			if(intval($data['active']) === 1) {
+				// Since only one summit can be active at a time, we need to deactivate the current active one.
+				$temp['active'] = 0;
+				//If the query fails, return false
+				if(!$this->db->update('summit', $temp)) {
+					return false;
+				}
+			}
 			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
 		} catch (Exception $e) {
 			return false;

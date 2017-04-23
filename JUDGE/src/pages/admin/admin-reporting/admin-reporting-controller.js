@@ -15,20 +15,20 @@ class AdminReportingController {
                     return localStorageService.get('summit');
                 }
             }],
-            posters: ['posterService', 'summit', (posterService, summit) => {
+            posters: ['posterService', (posterService) => {
                 return posterService.get()
                     .then((data) => {
                         return data;
                     })
             }],
-            forms: ['formService', 'summit', (formService, summit) => {
-                return formService.get({summitId: summit.summitId})
+            forms: ['formService', (formService) => {
+                return formService.get()
                     .then((data) => {
                         return data;
                     });
             }],
-            formQuestions: ['formQuestionService', 'summit', (formQuestionService, summit) => {
-                return formQuestionService.get({summitId: summit.summitId})
+            formQuestions: ['formQuestionService', (formQuestionService) => {
+                return formQuestionService.get()
                     .then((data) => {
                         return data;
                     });
@@ -52,7 +52,7 @@ class AdminReportingController {
         this.$filter = $filter;
         this.posterService = posterService;
         this.summit = summit;
-        this.summitId = summit.summitId;
+        this.summitId = summit === undefined ? undefined : summit.summitId;
         this.summits = summits;
         this.originalPosters = posters;
         this.posters = angular.copy(this.originalPosters);
@@ -160,7 +160,8 @@ class AdminReportingController {
     }
 
     download() {
-        var summitDate = this.$filter('date')(this.summit.summitStart, 'mediumDate');
+        var summit = _.filter(this.summits, {summitId: this.summitId})[0];
+        var summitDate = this.$filter('date')(summit.summitStart, 'mediumDate');
         var fileName = summitDate.replace(/,/g, "").replace(/ /g, "_") + '.csv';
         var generatedPosters = _.filter(this.posters, {summitId: this.summitId});
         generatedPosters = _.orderBy(generatedPosters, (poster) => {return poster.score}, ['desc']);

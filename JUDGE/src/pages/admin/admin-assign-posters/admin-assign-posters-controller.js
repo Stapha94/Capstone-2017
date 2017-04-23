@@ -9,13 +9,15 @@ class AdminAssignPostersController {
                     });
             }],
             posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
-                return posterService.get({summitId: parseInt(localStorageService.get('summit').summitId), active: 1})
+                var summitId = localStorageService.get('summit') === undefined ? 0 : localStorageService.get('summit').summitId;
+                return posterService.get({summitId: summitId, active: 1})
                     .then((data) => {
                         return data;
                     });
             }],
             forms: ['formService', 'localStorageService', (formService, localStorageService) => {
-                return formService.get({summitId: parseInt(localStorageService.get('summit').summitId)})
+                var summitId = localStorageService.get('summit') === undefined ? 0 : localStorageService.get('summit').summitId;
+                return formService.get({summitId: summitId})
                     .then((data) => {
                         return data;
                     });
