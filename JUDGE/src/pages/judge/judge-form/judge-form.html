@@ -74,7 +74,7 @@
                     <label class="active" for="poster_category"><h5>Poster Category</h5></label>
                 </div>
                 <div class="input-field col s6">
-                    <select id="award_recommendation" ng-model="ctrl.form.awardRecommendationId" material-select>
+                    <select class="custom-select" id="award_recommendation" ng-model="ctrl.form.awardRecommendationId" material-select>
                         <option ng-repeat="award in ctrl.awards" ng-value="award.awardId">{{award.title}}</option>
                     </select>
                     <label class="active" for="award_recommendation"><h5>Recommended Award</h5></label>
