@@ -315,6 +315,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: 'build/views/pages/judge/judge-form/judge-form.html',
             controller: 'judgeFormController',
             controllerAs: 'ctrl',
+            hideSide: true,
             resolve: JudgeFormController.resolve()
         });
     
