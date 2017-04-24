@@ -16,6 +16,12 @@
     color: white;
 }
 
+.qss-cont {
+    margin-top: 200px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
 .content .btn {
     background: white;
     color: #222222;
@@ -34,6 +40,10 @@
     background: #eee;
     text-align: center;
     height: 200px;
+}
+
+.blurb {
+    margin-top: 30px;
 }
 
 /**** ADMIN LOGIN ****/
@@ -439,4 +449,39 @@ div.scrollable {
 
 td.fixed-header {
     padding-bottom: 0;
+}
+
+/* Landing Page Media Queries */
+
+@media (max-width: 1100px) {
+    .login-cont {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 780px) {
+
+    .jumbo .row .s5 {
+        width: 100%;
+        padding: 0 5%;
+    }
+
+    .login-cont {
+        padding: 0;
+        width: 100%;
+        margin: auto;
+    }
+
+    .input-field, .col {
+        width: 100%;
+    }
+
+    .qss-cont {
+        display: block;
+        margin: 50px 0;
+    }
+
+    .blurbs {
+        display: none;
+    }
 }
