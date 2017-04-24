@@ -7,7 +7,8 @@ class LocalStorageService {
     get(key) {
         this.$log.debug('Getting: ' + key);
         var json = this.localStorage.getItem(key);
-        return angular.fromJson(json);
+        // If the item is undefined, return undefined
+        return json === 'undefined' ? undefined : angular.fromJson(json);
     }
 
     set(key, item) {

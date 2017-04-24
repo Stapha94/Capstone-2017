@@ -24,6 +24,7 @@
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Registration Deadline</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                     <td>{{ summit.summitStart | date: 'shortTime'}}</td>
                     <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
                     <td>{{ summit.registrationDeadline | date: 'medium' }}</td>
+                    <td><a ng-click="ctrl.deactivate(summit)" class="waves-effect waves-light btn red">Deactivate</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -50,6 +52,7 @@
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Registration Deadline</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,6 +61,7 @@
                     <td>{{ summit.summitStart | date: 'shortTime'}}</td>
                     <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
                     <td>{{ summit.registrationDeadline | date: 'medium' }}</td>
+                    <td><a ng-click="ctrl.activate(summit)" class="waves-effect waves-light btn green">Activate</a></td>
                 </tr>
                 </tbody>
             </table>

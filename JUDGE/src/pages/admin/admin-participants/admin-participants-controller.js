@@ -52,6 +52,12 @@ class AdminParticipantsController {
         this.editedKeyParticipants = [];
         this.posterAbstract = {};
         this.poster = {};
+        this.activeSummit = false;
+        _.forEach(this.summits, (summit) => {
+            if(isTrue(summit.active)) {
+                this.activeSummit = true;
+            }
+        });
     }
 
     downloadAbstract(presenter) {

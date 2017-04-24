@@ -26,14 +26,6 @@ class FixedHeadersDirective {
                 if(tables[0].offsetWidth === tables[2].offsetWidth) {
                     clearInterval(interval);
                 }
-/*                _.forEach(headers, (header) => {
-                    if(header.offsetWidth < body[index].offsetWidth) {
-                        header.style.width = body[index].offsetWidth+'px';
-                    } else {
-                        body[index].style.width = header.offsetWidth+'px';
-                    }
-                    index++;
-                })*/
             }
         }, 1000);
     }
