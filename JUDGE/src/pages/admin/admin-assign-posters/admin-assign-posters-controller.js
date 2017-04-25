@@ -9,13 +9,27 @@ class AdminAssignPostersController {
                     });
             }],
             posters: ['posterService', 'localStorageService', (posterService, localStorageService) => {
-                return posterService.get({summitId: parseInt(localStorageService.get('summit').summitId), active: 1})
+                var summitId = localStorageService.get('summit') === undefined ? 0 : localStorageService.get('summit').summitId;
+                return posterService.get({summitId: summitId, active: 1})
                     .then((data) => {
                         return data;
                     });
             }],
             forms: ['formService', 'localStorageService', (formService, localStorageService) => {
-                return formService.get({summitId: parseInt(localStorageService.get('summit').summitId)})
+                var summitId = localStorageService.get('summit') === undefined ? 0 : localStorageService.get('summit').summitId;
+                return formService.get({summitId: summitId})
+                    .then((data) => {
+                        return data;
+                    });
+            }],
+            judgeCategories: ['judgeCategoryService', (judgeCategoryService) => {
+                return judgeCategoryService.get({active: 1})
+                    .then((data) => {
+                        return data;
+                    });
+            }],
+            posterCategories: ['posterCategoryService', (posterCategoryService) => {
+                return posterCategoryService.get({active: 1})
                     .then((data) => {
                         return data;
                     });
@@ -23,7 +37,7 @@ class AdminAssignPostersController {
         }
     }
 
-    constructor($scope, formService, judges, posters, forms, notificationService) {
+    constructor($scope, formService, judges, posters, forms, judgeCategories, posterCategories, notificationService) {
         this.formService = formService;
         this.notificationService = notificationService;
         this.judges = judges;
@@ -31,25 +45,30 @@ class AdminAssignPostersController {
         this.posters = angular.copy(this.originalPosters);
         this.originalForms = forms;
         this.forms = angular.copy(this.originalForms);
-        this.judgeId = '';
+        this.judgeCategories = judgeCategories;
+        this.posterCategories = posterCategories;
         this.selectedPosters = [];
         this.selectedForms = [];
         this.removedPosters = [];
-        // Filter unassigned posters
-        $scope.$watch(() => { return this.judgeId }, (newVal, oldVal) => {
-            this.posters = angular.copy(this.originalPosters);
-            this.removedPosters = _.remove(this.posters, (poster) => {
-                var form = _.find(this.originalForms, {judgeId: newVal, posterId: poster.posterId})
-                return form ? true : false;
-            })
-        }, true);
+        _.forEach(this.judgeCategories, (judgeCategory) => {
+            judgeCategory.judgeId = '';
+            judgeCategory.posterCategoryId = '';
+            // Filter unassigned posters
+            $scope.$watch(() => { return judgeCategory.judgeId }, (newVal, oldVal) => {
+                this.posters = angular.copy(this.originalPosters);
+                this.removedPosters = _.remove(this.posters, (poster) => {
+                    var form = _.find(this.originalForms, {judgeId: newVal, posterId: poster.posterId})
+                    return form ? true : false;
+                })
+            }, true);
+        });
     }
 
-    assign() {
+    assign(judgeCategory) {
         _.forEach(this.selectedPosters, (selected) => {
             _.pull(this.posters, selected);
             this.removedPosters.push(selected);
-            var newForm = { judgeId: this.judgeId, posterId: selected.posterId};
+            var newForm = { judgeId: judgeCategory.judgeId, posterId: selected.posterId};
             this.formService.create(newForm)
                 .then((form) => {
                     this.forms.push(form);
@@ -64,7 +83,7 @@ class AdminAssignPostersController {
         });
     }
 
-    unassign() {
+    unassign(judgeCategory) {
         _.pullAll(this.forms, this.selectedForms);
         _.forEach(this.selectedForms, (form) => {
             this.formService.delete(form.formId)
@@ -85,8 +104,9 @@ class AdminAssignPostersController {
         });
     }
 
-    judgeSelected() {
-        return this.judgeId !== null && this.judgeId !== undefined && this.judgeId !== '';
+    selected(judgeCategory) {
+        return ( judgeCategory.judgeId !== null && judgeCategory.judgeId !== undefined && judgeCategory.judgeId !== '' &&
+                judgeCategory.posterCategoryId !== null && judgeCategory.posterCategoryId !== undefined && judgeCategory.posterCategoryId !== '');
     }
 
     selectPoster(poster, e) {
@@ -97,6 +117,23 @@ class AdminAssignPostersController {
             this.selectedPosters.push(poster);
         }
         this.select(e);
+    }
+
+    selectAllPosters(posterCategoryId) {
+        var posters = _.filter(this.posters, {posterCategoryId: posterCategoryId});
+        if(posters.length === this.selectedPosters.length) {
+            _.forEach(posters, (poster) => {
+
+            }); 
+        } else {
+            _.forEach(posters, (poster) => {
+                if(poster.posterCategoryId === posterCategoryId) {
+                    if(_.find(this.selectedPosters)) {
+                        
+                    }
+                }
+            });
+        }
     }
 
     selectForm(form, e) {
@@ -122,6 +159,11 @@ class AdminAssignPostersController {
         }
     }
 
+    reset() {
+        this.selectedPosters = [];
+        this.selectedForms = [];
+    }
+
     removeActivePosters() {
       var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody tr.active'));
       _.forEach(elements, (element) => {
@@ -140,5 +182,5 @@ class AdminAssignPostersController {
 
 }
 
-AdminAssignPostersController.$inject = ['$scope', 'formService', 'judges', 'posters', 'forms', 'notificationService'];
+AdminAssignPostersController.$inject = ['$scope', 'formService', 'judges', 'posters', 'forms', 'judgeCategories', 'posterCategories', 'notificationService'];
 app.controller('adminAssignPostersController', AdminAssignPostersController);

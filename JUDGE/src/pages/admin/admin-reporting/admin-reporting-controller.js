@@ -15,20 +15,20 @@ class AdminReportingController {
                     return localStorageService.get('summit');
                 }
             }],
-            posters: ['posterService', 'summit', (posterService, summit) => {
+            posters: ['posterService', (posterService) => {
                 return posterService.get()
                     .then((data) => {
                         return data;
                     })
             }],
-            forms: ['formService', 'summit', (formService, summit) => {
-                return formService.get({summitId: summit.summitId})
+            forms: ['formService', (formService) => {
+                return formService.get()
                     .then((data) => {
                         return data;
                     });
             }],
-            formQuestions: ['formQuestionService', 'summit', (formQuestionService, summit) => {
-                return formQuestionService.get({summitId: summit.summitId})
+            formQuestions: ['formQuestionService', (formQuestionService) => {
+                return formQuestionService.get()
                     .then((data) => {
                         return data;
                     });
@@ -52,7 +52,7 @@ class AdminReportingController {
         this.$filter = $filter;
         this.posterService = posterService;
         this.summit = summit;
-        this.summitId = summit.summitId;
+        this.summitId = summit === undefined ? undefined : summit.summitId;
         this.summits = summits;
         this.originalPosters = posters;
         this.posters = angular.copy(this.originalPosters);
@@ -65,6 +65,7 @@ class AdminReportingController {
         this.judgeCategories = judgeCategories;
         this.reportGenerated = false;
         this.reportService = reportService;
+        this.posterForms = [];
     }
 
     changeSummit() {
@@ -72,7 +73,7 @@ class AdminReportingController {
     }
 
     generateReport() {
-        this.posters = _.filter(this.originalPosters, { summitId: this.summitId });
+        this.posters = _.filter(this.originalPosters, { summitId: this.summitId, active: '1' });
         _.forEach(this.posters, (poster) => {
             var posterForms = _.filter(this.forms, (form) => { return poster.posterId === form.posterId && isTrue(form.judged) });
             var sum = 0;
@@ -95,17 +96,17 @@ class AdminReportingController {
     }
 
     viewScores(poster) {
-        this.forms = _.remove(this.forms, (form) => { return poster.posterId === form.posterId && isTrue(form.judged) });
+        this.posterForms = _.filter(this.forms, (form) => { return poster.posterId === form.posterId && isTrue(form.judged) });
     }
 
     // This retrieves the average performance for each question
     viewPerformance(poster) {
-        this.formQuestions = _.remove(this.formQuestions, (question) => { return question.posterId === poster.posterId });
+        this.posterFormQuestions = _.filter(this.formQuestions, (question) => { return question.posterId === poster.posterId });
         _.forEach(this.questions, (question) => {
             var sum = 0;
             var numOfForms = 0;
-            this.formQuestionPerForms = _.filter(this.formQuestions, { questionId: question.questionId });
-            _.forEach(this.formQuestionPerForms, (formQuestion) => {
+            this.posterFormQuestionPerForms = _.filter(this.posterFormQuestions, { questionId: question.questionId });
+            _.forEach(this.posterFormQuestionPerForms, (formQuestion) => {
                 sum += parseInt(formQuestion.score); // Backend returns ints as strings
                 numOfForms++;
             });
@@ -127,9 +128,26 @@ class AdminReportingController {
                 numOfForms++;
             });
             numOfForms = numOfForms === 0 ? 1 : numOfForms;
-            poster['question'+index] = sum/numOfForms;
+            poster['question'+index] = this.$filter('number')(sum/numOfForms, 2); // Filters to 2 decimal places
             index++;
         });
+    }
+
+    // Calculates the status based on the forms.
+    // Returns pending if even one form is unaccounted for. Returns complete, otherwise.
+    getStatus(poster) {
+        var forms = _.filter(this.forms, {posterId: poster.posterId});
+        var complete = true;
+        var unassigned = false;
+        if(forms.length === 0) {
+            unassigned = true;
+        }
+        _.forEach(forms, (form) => {
+            if(!isTrue(form.judged)) {
+                complete = false;
+            }
+        });
+        return unassigned ? 'Unassigned' : complete ? 'Complete' : 'Pending';
     }
 
     closeViewScores() {
@@ -142,7 +160,8 @@ class AdminReportingController {
     }
 
     download() {
-        var summitDate = this.$filter('date')(this.summit.summitStart, 'mediumDate');
+        var summit = _.filter(this.summits, {summitId: this.summitId})[0];
+        var summitDate = this.$filter('date')(summit.summitStart, 'mediumDate');
         var fileName = summitDate.replace(/,/g, "").replace(/ /g, "_") + '.csv';
         var generatedPosters = _.filter(this.posters, {summitId: this.summitId});
         generatedPosters = _.orderBy(generatedPosters, (poster) => {return poster.score}, ['desc']);
@@ -153,6 +172,7 @@ class AdminReportingController {
             category: 'Category',
             department: 'Department',
             title: 'Title',
+            status: 'Status',
             score: 'Score'
         };
         var index = 1;
@@ -168,7 +188,8 @@ class AdminReportingController {
             item.category = poster.role;
             item.department = poster.institution;
             item.title = poster.posterTitle;
-            item.score = poster.score;
+            item.status = this.getStatus(poster);
+            item.score = this.$filter('number')(poster.score, 2); // Filters to 2 decimal places
             this.calculatePerformance(poster);
             index = 1;
             _.forEach(this.questions, (question) => {

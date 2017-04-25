@@ -31,6 +31,7 @@
                     <th>Lead Author</th>
                     <th>Category</th>
                     <th>Department</th>
+                    <th>Status</th>
                     <th>Score</th>
                     <th>Poster #</th>
                     <th>Title</th>
@@ -43,7 +44,8 @@
                     <td>{{ ctrl.getLeadAuthor(poster) }}</td>
                     <td>{{ poster.role }}</td>
                     <td>{{ poster.institution }}</td>
-                    <td>{{ poster.score }}</td>
+                    <td>{{ ctrl.getStatus(poster) }}</td>
+                    <td>{{ poster.score | number:2 }}</td>
                     <td>{{ poster.category + ' ' + poster.posterNumber}}</td>
                     <td>{{ poster.posterTitle }}</td>
                     <td><a ng-click="ctrl.viewScores(poster)" data-target="view-judge-scores" class="waves-effect waves-light btn">View Scores</a></td>

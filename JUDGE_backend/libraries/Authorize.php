@@ -38,7 +38,7 @@ class Authorize {
         $token_id = base64_encode(openssl_random_pseudo_bytes(32)); //mcrypt_create_iv has been deprecated
         $issued_at = time();
         $not_before = $issued_at;
-        $expire = $not_before + 3600;
+        $expire = $not_before + 18000;
         $server_name = config_item('base_url');
 
         //Create the token

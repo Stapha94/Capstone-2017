@@ -10,7 +10,7 @@
                 <tbody>
                     <tr ng-repeat="question in ctrl.questions">
                         <td>{{question.description}}</th>
-                        <td>{{ question.average }}</td>
+                        <td>{{ question.average | number:2 }}</td>
                     </tr>
                 </tbody>
             </table>

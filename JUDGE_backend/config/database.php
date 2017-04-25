@@ -95,7 +95,7 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
+/*
 $db['godaddy'] = array(
 	'dsn'	=> '',
 	'hostname' => $godaddy_server['host'],
@@ -117,3 +117,4 @@ $db['godaddy'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+**/
