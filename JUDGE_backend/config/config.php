@@ -532,3 +532,13 @@ $config['proxy_ips'] = '';
 |
  */
 $config['secret_key'] = $secret_key;
+
+/*
+|-----------------------------------------------------------------------------
+| Secret Key for reCaptcha
+|-----------------------------------------------------------------------------
+|
+| This is the key for the reCaptcha server
+|
+ */
+$config['recaptcha_key'] = $secret_recaptcha_key;
