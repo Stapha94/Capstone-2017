@@ -70,17 +70,11 @@ class RegisterInstitutionController{
 
     //Checks to see if the user chose/entered a department for the key participant.  This is only needed for the School of Medicine and Cabell Huntington
     checkKeyParticipantDepartmentExists() {
-        if(this.keyParticipantInstitution === "1" || this.keyParticipantInstitution === "2") {
-            if(this.keyParticipantDepartment !== null && this.keyParticipantDepartment !== "") {
-                this.checkKeyParticipantRoleExists();
-            }
-            else {
-                this.notificationService.error("Please enter/choose a department!");
-            }
+        if(this.keyParticipantDepartment !== null && this.keyParticipantDepartment !== "") {
+            this.checkKeyParticipantRoleExists();
         }
         else {
-            this.keyParticipantDepartment = "N/A";
-            this.checkKeyParticipantRoleExists();
+            this.notificationService.error("Please enter/choose a department!");
         }
     };
 

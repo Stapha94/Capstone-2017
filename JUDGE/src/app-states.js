@@ -218,22 +218,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             },
             controller: 'adminRegisterInstitutionController',
             controllerAs: 'ctrl',
-            resolve: {
-                institutions: ['institutionService', (institutionService) => {
-                    return institutionService.get({active: 1 })
-                        .then((data) => {
-                            return data;
-                        });
-                }],
-
-                roles: ['roleService', (roleService) => {
-                    return roleService.get({active: 1 })
-                        .then((data) => {
-                            return data;
-                        });
-                }]
-
-            }
+            resolve: AdminRegisterInstitutionController.resolve()
         })
         .state('home.admin.register-info', {
             url: '/register-info',
