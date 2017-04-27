@@ -207,7 +207,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/register',
             templateUrl: 'build/views/pages/admin/admin-register/admin-register.html',
             controller: 'adminRegisterController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminRegisterController.resolve()
         })
         .state('home.admin.register-institution', {
             url: '/register-institution',

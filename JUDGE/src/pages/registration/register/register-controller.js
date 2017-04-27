@@ -67,7 +67,7 @@ class RegisterController {
 
     //Checks to see if the user chose an institution
     checkInstitutionExists() {
-        if(this.presenterInstitution !== null && this.presenterInstitution != "") {
+        if(this.presenterInstitution !== null && this.presenterInstitution !== "") {
             this.checkRoleExists();
         }
         else {
@@ -77,7 +77,7 @@ class RegisterController {
 
     //Checks to see if the user chose a role
     checkRoleExists() {
-        if(this.presenterRole !== null && this.presenterRole != "") {
+        if(this.presenterRole !== null && this.presenterRole !== "") {
             this.verifyRecaptcha();
         }
         else {
@@ -87,14 +87,19 @@ class RegisterController {
 
     verifyRecaptcha() {
         this.grecaptchaResponse = grecaptcha.getResponse();
-        this.reCaptchaService.send({grecaptchaResponse: this.grecaptchaResponse})
-            .then(()  => {
-            this.continue();
-        })
-            .catch(() => {
-            grecaptcha.reset();
-            this.notificationService.error("Please complete the reCaptcha!")
-        });
+        if(this.grecaptchaResponse !== ""){
+            this.reCaptchaService.send({grecaptchaResponse: this.grecaptchaResponse})
+                .then(()  => {
+                    this.continue();
+                })
+                .catch(() => {
+                    grecaptcha.reset();
+                    this.notificationService.error("Please complete the reCaptcha!");
+                });
+        }
+        else{
+            this.notificationService.error("Please complete the reCaptcha!");
+        }
 
     };
 
@@ -111,12 +116,6 @@ class RegisterController {
         };
 
         this.registrationService.presenter = this.presenter;
-
-        this.registrationService.presenterFirstName = this.firstName;
-        this.registrationService.presenterLastName = this.lastName;
-        this.registrationService.presenterEmail = this.email;
-        this.registrationService.presenterInstitution = this.presenterInstitution;
-        this.registrationService.presenterRole = this.presenterRole;
         this.$state.go("register-institution", {valid: true});
 
     };

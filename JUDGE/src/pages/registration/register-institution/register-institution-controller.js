@@ -38,26 +38,6 @@ class RegisterInstitutionController{
 
     }
 
-    //Checks to see if the user chose an institution
-    checkInstitutionExists() {
-        if(this.presenterInstitution !== null) {
-            this.checkRoleExists();
-        }
-        else {
-            this.notificationService.error("Please choose an institution!");
-        }
-    };
-
-    //Checks to see if the user chose a role
-    checkRoleExists() {
-        if(this.presenterRole !== null) {
-            this.continue();
-        }
-        else {
-            this.notificationService.error("Please choose a role!");
-        }
-    };
-
     //Checks to see if the user entered a first name for the key participant
     checkKeyParticipantFNameExists() {
         if(this.keyParticipantFName !== "") {
@@ -114,23 +94,6 @@ class RegisterInstitutionController{
         }
     };
 
-    //Sets the category for the posters based off of the role
-    getPosterCategoryId() {
-
-        if(this.presenterRole === "1") {
-            this.posterCategoryId = "4";
-        }
-        else if(this.presenterRole === "2") {
-            this.posterCategoryId = "1";
-        }
-        else if(this.presenterRole === "3") {
-            this.posterCategoryId = "2";
-        }
-        else if(this.presenterRole === "4" || this.presenterRole === "5") {
-            this.posterCategoryId = "3";
-        }
-    }
-
     //Adds the entered key participant to the array
     addKeyParticipant() {
         this.keyParticipant = {
@@ -172,8 +135,6 @@ class RegisterInstitutionController{
         };
 
         this.registrationService.poster = this.poster;
-        this.registrationService.presenterInstitution = this.presenterInstitution;
-        this.registrationService.presenterRole = this.presenterRole;
         this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
         this.$state.go('register-info', {valid: true});
 
@@ -188,16 +149,16 @@ class RegisterInstitutionController{
         this.keyParticipantInstitution = "";
         this.keyParticipantRole = "";
         this.keyParticipant = {};
-    }
+    };
 
     reset() {
 
-    }
+    };
 
     delete(keyParticipant) {
         _.remove(this.keyParticipants, keyParticipant);
         this.notificationService.success("Key Participant Removed!");
-    }
+    };
 
 
 
