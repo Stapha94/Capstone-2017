@@ -24,8 +24,6 @@ class RegisterInstitutionController{
         this.registrationService = registrationService;
         this.$state = $state;
         this.summitId = localStorageService.get("summit").summitId;
-        this.presenterInstitution = "";
-        this.presenterRole = "";
         this.posterCategoryId = "";
         this.keyParticipantFName = "";
         this.keyParticipantLName = "";
@@ -160,7 +158,7 @@ class RegisterInstitutionController{
     continue() {
 
         _.forEach(this.roles, (role) => {
-            if(this.presenterRole === role.roleId) {
+            if(this.registrationService.presenter.roleId === role.roleId) {
                 this.posterCategoryId = role.posterCategoryId;
             }
         });
@@ -174,8 +172,6 @@ class RegisterInstitutionController{
         };
 
         this.registrationService.poster = this.poster;
-        this.registrationService.presenter.institutionId = this.presenterInstitution;
-        this.registrationService.presenter.roleId = this.presenterRole;
         this.registrationService.presenterInstitution = this.presenterInstitution;
         this.registrationService.presenterRole = this.presenterRole;
         this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
@@ -192,6 +188,10 @@ class RegisterInstitutionController{
         this.keyParticipantInstitution = "";
         this.keyParticipantRole = "";
         this.keyParticipant = {};
+    }
+
+    reset() {
+
     }
 
     delete(keyParticipant) {
