@@ -5,10 +5,12 @@ class NotificationService {
     }
 
     success(message) {
+        this.$log.info(message);
         Materialize.toast(message, 4000, 'success');
     }
 
     error(message) {
+        this.$log.error(message);
         Materialize.toast(message, 4000, 'error');
     }
 

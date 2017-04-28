@@ -530,14 +530,14 @@ $config['proxy_ips'] = '';
 | This simply sets a secret key for authentication to the API service.
 |
  */
-$config['secret_key'] = [SECRET_ENCRYPTION_KEY];
+$config['secret_key'] = [SECRET_KEY];
 
 /*
 |-----------------------------------------------------------------------------
-| Secret Key for ReCaptcha
+| Secret Key for reCaptcha
 |-----------------------------------------------------------------------------
 |
-| This simply sets a secret key for authentication to the API service.
+| This is the key for the reCaptcha server
 |
  */
-$config['secret_recaptcha_key'] = $secret_recaptcha_key;
+$config['recaptcha_key'] = [RECAPTCHA_KEY];

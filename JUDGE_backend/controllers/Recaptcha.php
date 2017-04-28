@@ -18,7 +18,7 @@ class Recaptcha extends REST_Controller {
          try {
 
                 $url = 'https://www.google.com/recaptcha/api/siteverify';
-                $data = ['secret'   => $this->config->item('secret_recaptcha_key'),
+                $data = ['secret'   => config_item('recaptcha_key'),
                          'response' => $this->post('grecaptcha_response'),
                          'remoteip' => $_SERVER['REMOTE_ADDR']];
 
