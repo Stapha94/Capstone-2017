@@ -12,17 +12,17 @@
         <table class="bordered highlight poster-select">
             <thead>
                 <tr>
-                    <th data-field="posterId">Poster ID</th>
-                    <th data-field="firstName">Poster Title</th>
-                    <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
+                    <th>Poster #</th>
+                    <th>Poster Title</th>
+                    <th>Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
                     <th>Abstract</th>
                     <th>Judge</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { judged: '0' }">
-                <td>{{form.posterId}}</td>
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '0' } | orderBy: ['posterCategory', 'posterNumber']">
+                <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.posterCategory}}</td>
                 <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a>
@@ -37,18 +37,22 @@
         <table class="bordered highlight poster-select">
             <thead>
                 <tr>
-                    <th data-field="posterId">Poster ID</th>
-                    <th data-field="firstName">Poster Title</th>
-                    <th data-field="category">Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
+                    <th>Poster #</th>
+                    <th>Poster Title</th>
+                    <th>Score</th>
+                    <th>Recommended Award</th>
+                    <th>Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
                     <th>Abstract</th>
                     <th>Judge</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr ng-repeat="form in ctrl.forms | filter: { judged: '1' }">
-                <td>{{form.posterId}}</td>
+                <tr ng-repeat="form in ctrl.forms | filter: { judged: '1' } | orderBy: ['-total']">
+                <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                 <td>{{form.posterTitle}}</td>
+                <td>{{form.total}}</td>
+                <td>{{form.recommendedAward}}</td>
                 <td>{{form.posterCategory}}</td>
                 <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a></td>
                 <td><a class="waves-effect waves-light btn green" ui-sref="home.judge.form({formId: form.formId})">Judge Poster</a></td>

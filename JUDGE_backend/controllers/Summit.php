@@ -14,7 +14,7 @@ class Summit extends REST_Controller {
 
 	public function index_post()
 	{
-		$this->generate_post_response($this->summit);
+		$this->generate_admin_post_response($this->summit);
 	}
 
 }

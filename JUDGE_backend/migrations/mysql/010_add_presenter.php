@@ -19,8 +19,6 @@ class Migration_Add_presenter extends CI_Migration {
                             FOREIGN KEY (institution_id) REFERENCES institution(institution_id),
 
                             FOREIGN KEY (role_id) REFERENCES role(role_id),
-                            
-                            UNIQUE (email, active),
 
                             PRIMARY KEY (presenter_id)
                         ) CHARACTER SET utf8 COLLATE utf8_general_ci;";

@@ -11,12 +11,13 @@ class SummitsController extends BaseTableModelController {
             }
     }
 
-    constructor($filter, summitService, summits, notificationService, authService, localStorageService) {
+    constructor($scope, $filter, summitService, summits, notificationService, authService, localStorageService) {
         super(summitService, summits);
         this.notificationService = notificationService;
         this.adminId = authService.currentUser.id;
         this.localStorageService = localStorageService;
         this.$filter = $filter;
+        this.adminScope = $scope.$parent.$parent; // This is awful, but you gotta do what you gotta do. This should be changed when it can.
     }
 
     add() {
@@ -30,13 +31,14 @@ class SummitsController extends BaseTableModelController {
                 this.model.registrationDeadline = this.$filter('date')(this.parseRegistrationDeadline(), 'yyyy-MM-dd HH:mm:ss');
                 this.model.judgeLoginDisabled = 1;
                 this.model.createdByAdminId = this.adminId;
-                _.forEach(this.models, (model) => {
-                    model.active = 0;
-                });
                 this.service.create(this.model)
                     .then((model) => {
                         if(isTrue(model.active)) {
                             this.localStorageService.set('summit', model);    
+                            this.adminScope.summitId = model.summitId;
+                            _.forEach(this.models, (summit) => {
+                                summit.active = 0;
+                            });
                         }
                         model.summitStart = new Date(model.summitStart);
                         model.summitEnd = new Date(model.summitEnd);
@@ -106,7 +108,22 @@ class SummitsController extends BaseTableModelController {
         return valid;
     }
 
+    activate(summit) {
+        this.localStorageService.set('summit', summit);
+        this.adminScope.summitId = summit.summitId;
+        _.forEach(this.models, (summit) => {
+            summit.active = 0;
+        });
+        super.activate(summit);
+    }
+
+    deactivate(summit) {
+        this.localStorageService.set('summit', undefined);
+        this.adminScope.summitId = undefined;
+        super.deactivate(summit);
+    }
+
 }
 
-SummitsController.$inject = ['$filter', 'summitService', 'summits', 'notificationService', 'authService', 'localStorageService'];
+SummitsController.$inject = ['$scope', '$filter', 'summitService', 'summits', 'notificationService', 'authService', 'localStorageService'];
 app.controller('summitsController', SummitsController);

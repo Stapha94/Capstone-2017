@@ -19,6 +19,7 @@ class AdminRegisterInstitutionController{
         this.roles = roles;
         this.keyParticipants = [];
         this.keyParticipant = {};
+        this.musomDepartments = ["Family Medicine", "MED/PEDS", "Surgery", "Orthopaedics", "OBGYN", "Psychiatry", "Neurology", "Pediatrics", "Cardiology", "Endocrinology", "Hematology/Oncology", "Nephrology", "Pulmonary", "Sports Medicine"];
 
     }
 
@@ -64,7 +65,7 @@ class AdminRegisterInstitutionController{
 
     //Checks to see if the user chose an institution for the key participant
     checkKeyParticipantInstitutionExists() {
-        if(this.keyParticipantInstitution !== null) {
+        if(this.keyParticipantInstitution !== null && this.keyParticipantInstitution !== "") {
             this.checkKeyParticipantDepartmentExists();
         }
         else {
@@ -75,7 +76,7 @@ class AdminRegisterInstitutionController{
     //Checks to see if the user chose/entered a department for the key participant.  This is only needed for the School of Medicine and Cabell Huntington
     checkKeyParticipantDepartmentExists() {
         if(this.keyParticipantInstitution === "1" || this.keyParticipantInstitution === "2") {
-            if(this.keyParticipantDepartment !== "") {
+            if(this.keyParticipantDepartment !== null && this.keyParticipantDepartment !== "") {
                 this.checkKeyParticipantRoleExists();
             }
             else {
@@ -141,8 +142,14 @@ class AdminRegisterInstitutionController{
     //Puts all of the information in the Registration Service and goes to the next page
     continue() {
 
+        _.forEach(this.roles, (role) => {
+            if(this.presenterRole === role.roleId) {
+                this.posterCategoryId = role.posterCategoryId;
+            }
+        });
+
         this.poster = {
-            //posterCategoryId: this.posterCategoryId,
+            posterCategoryId: this.posterCategoryId,
             summitId: this.summitId,
             awardId: 1,
             posterAbstractId: 0,

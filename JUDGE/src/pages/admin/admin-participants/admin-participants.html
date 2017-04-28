@@ -3,12 +3,12 @@
     <abstract-modal abstract="ctrl.presenterAbstract"></abstract-modal>
     <h5 class="page-title">Presenter Management</h5>
     <div class="row">
-        <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select
-            ng-options="summit.summitId as summit.summitStart for summit in ctrl.summits">
-            <option value="" disabled selected>Select Summit</option>
+        <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+            <option value="" disabled>Select Summit</option>
+            <option ng-repeat="summit in ctrl.summits" value="{{summit.summitId}}">{{summit.summitStart | date: 'mediumDate'}}</option>
         </select>
         <div class="pull-right">
-            <a ui-sref="home.admin.register" class="waves-effect waves-light btn green">Add Presenter</a>
+            <a ng-if="ctrl.activeSummit" ui-sref="home.admin.register" class="waves-effect waves-light btn green">Add Presenter</a>
         </div>
     </div>
     <div class="row">
@@ -31,11 +31,12 @@
                 <th>Email</th>
                 <th>Key Participants</th>
                 <th>Poster Abstract</th>
+                <th>&nbsp;</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '1'} | filter: {summitId: ctrl.summitId }">
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '1' } | filter: { summitId: ctrl.summitId }">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>
@@ -43,6 +44,7 @@
                 <td>{{ presenter.email }}</TD>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
                 <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
                 <td><a ng-click="ctrl.deactivate(presenter)" class="waves-effect waves-light btn red">Deactivate</a></td>
             </tr>
             </tbody>
@@ -60,11 +62,12 @@
                 <th>Email</th>
                 <th>Key Participants</th>
                 <th>Poster Abstract</th>
+                <th>&nbsp;</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: {active: '0'} | filter: {summitId: ctrl.summitId }">
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '0' } | filter: { summitId: ctrl.summitId }">
                 <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
                 <td>{{ presenter.suffix }}</td>
                 <td>{{ presenter.institution }}</td>
@@ -72,7 +75,8 @@
                 <td>{{ presenter.email }}</TD>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
                 <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
-                <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn red">Activate</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
+                <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn green">Activate</a></td>
             </tr>
             </tbody>
         </table>

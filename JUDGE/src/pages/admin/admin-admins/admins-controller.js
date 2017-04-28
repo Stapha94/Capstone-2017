@@ -24,6 +24,8 @@ class AdminsController extends BaseTableModelController {
             this.notificationService.error('Passwords must match!');
         } else {
             super.add();
+            this.confirmEmail = '';
+            this.confirmPassword = '';
         }
     }
 

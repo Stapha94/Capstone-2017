@@ -1,74 +1,97 @@
-<div class="wrap">
-
-    <form ng-submit="ctrl.submit()">
-        <h5><strong>Does this poster capture my immediate attention enough to inspire further evaluation?</strong></h5>
-        <div class="switch">
-            <label>
-                No
-                <input type="checkbox" ng-model="ctrl.furtherEvaluation">
-                <span class="lever"></span>
-                Yes
-            </label>
-        </div>
-        <table>
-            <tbody>
-                <tr ng-repeat="questionSection in ctrl.questionSections">
-                    <td>
-                        <table class="bordered highlight judge-form">
-                            <thead>
-                                <tr>
-                                    <th class="question-info" data-field="question">{{questionSection.title}}</th>
-                                    <th data-field="poor">Poor</th>
-                                    <th data-field="adequate">Adequate</th>
-                                    <th data-field="fair">Fair</th>
-                                    <th data-field="good">Good</th>
-                                    <th data-field="excellent">Excellent</th>
-                                    <th class="pull-right" data-field="totals">TOTALS</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="question in ctrl.formQuestions | filter: {section: questionSection.title}">
-                                    <td class="question-info">{{question.description}}</td>
-                                    <td ng-repeat="score in ctrl.scores">
-                                        <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" ng-disabled="!ctrl.furtherEvaluation" ng-required="!ctrl.furtherEvaluation" />
-                                        <label for="{{'question' + question.questionId + score.label}}"></label>
-                                    </td>
-                                    <td class="pull-right">{{question.score}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+<form ng-submit="ctrl.submit()">
+    <h5><strong>Does this poster capture my immediate attention enough to inspire further evaluation?</strong></h5>
+    <div class="switch">
+        <label>
+            No
+            <input type="checkbox" ng-model="ctrl.form.furtherEvaluation" ng-true-value="'1'" ng-false-value="'0'">
+            <span class="lever"></span>
+            Yes
+        </label>
+    </div>
+    <div fixed-headers>
+        <table class="bordered highlight judge-form">
+            <thead>
                 <tr>
-                    <td>
-                        <table class="bordered highlight judge-form">
-                            <tbody>
-                                <tr>
-                                    <td class="pull-right"><strong>TOTAL SCORE: &nbsp</strong>{{ctrl.form.total}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
+                    <th class="question-info" data-field="question">Question/Section</th>
+                    <th data-field="poor">Poor</th>
+                    <th data-field="adequate">Adequate</th>
+                    <th data-field="fair">Fair</th>
+                    <th data-field="good">Good</th>
+                    <th data-field="excellent">Excellent</th>
+                    <th class="pull-right" data-field="totals">TOTALS</th>                        
+                </tr>
+            </thead>
+        </table>
+        <div class="scrollable">
+            <table>
+                <tbody>
+                    <tr ng-repeat="questionSection in ctrl.questionSections">
+                        <td>
+                            <table class="bordered highlight scroll judge-form">
+                                <thead>
+                                    <tr>
+                                        <th class="question-info" data-field="question">{{questionSection.title}}</th>
+                                        <th data-field="poor">Poor</th>
+                                        <th data-field="adequate">Adequate</th>
+                                        <th data-field="fair">Fair</th>
+                                        <th data-field="good">Good</th>
+                                        <th data-field="excellent">Excellent</th>
+                                        <th class="pull-right" data-field="totals">TOTALS</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="question in ctrl.formQuestions | filter: {section: questionSection.title}">
+                                        <td class="question-info">{{question.description}}</td>
+                                        <td ng-repeat="score in ctrl.scores">
+                                            <input ng-click="ctrl.sum()" name="{{'question ' + question.questionId}}" ng-model="question.score" type="radio" id="{{'question' + question.questionId + score.label}}" ng-value="score.id" />
+                                            <label for="{{'question' + question.questionId + score.label}}"></label>
+                                        </td>
+                                        <td class="pull-right">{{question.score}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table class="bordered highlight judge-form">
+            <tbody>
+                <tr>
+                    <td class="pull-right"><strong>TOTAL SCORE: &nbsp</strong>{{ctrl.form.total}}</td>
                 </tr>
             </tbody>
         </table>
+    </div>
 
-        <div class="row comment-box">
-            <div class="input-field col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>
-                        <label class="active" for="comments"><h5>Comments</h5></label>
-                    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <div class="row award-box">
+                <div class="input-field col s3">
+                    <!-- Remind the judge of the category when recommending a reward -->
+                    <input id="poster_category" ng-model="ctrl.form.posterCategory" disabled>
+                    <label class="active" for="poster_category"><h5>Poster Category</h5></label>
+                </div>
+                <div class="input-field col s6">
+                    <select class="custom-select" id="award_recommendation" ng-model="ctrl.form.awardRecommendationId" material-select>
+                        <option ng-repeat="award in ctrl.awards" ng-value="award.awardId">{{award.title}}</option>
+                    </select>
+                    <label class="active" for="award_recommendation"><h5>Recommended Award</h5></label>
+                </div>
+            </div>
+            <div class="row comment-box">
+                <div class="input-field col s12">
+                    <textarea id="comments" class="materialize-textarea" ng-model="ctrl.form.comments" placeholder="Leave any comments here..."></textarea>
+                    <label class="active" for="comments"><h5>Comments</h5></label>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row pull-right">
-            <button type="submit" class="waves-effect waves-light btn green">Submit</button>
-            <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn red">Cancel</a>
-        </div>
+    <div class="row pull-right">
+        <button type="submit" class="waves-effect waves-light btn green">Submit</button>
+        <a ng-click="ctrl.cancel()" class="waves-effect waves-light btn red">Cancel</a>
+    </div>
 
-    </form>
-</div>
+</form>

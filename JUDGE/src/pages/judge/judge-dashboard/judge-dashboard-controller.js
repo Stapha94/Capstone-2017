@@ -8,15 +8,22 @@ class JudgeDashboardController {
                             return data;
                         })
                 }],
+                awards: ['awardService', (awardService) => {
+                    return awardService.get()
+                        .then((data) => {
+                            return data;
+                        })
+                }]
             }
     }
 
-    constructor($scope, $state, $stateParams, forms) {
+    constructor($scope, $state, $stateParams, forms, awards) {
         this.active = $stateParams.tab;
         this.$scope = $scope;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.forms = forms;
+        this.awards = awards;
         this.abstract = {};
         this.tabs = [
             { id: 'Pending' },
@@ -66,5 +73,5 @@ class JudgeDashboardController {
 
 }
 
-JudgeDashboardController.$inject = ['$scope', '$state', '$stateParams', 'forms'];
+JudgeDashboardController.$inject = ['$scope', '$state', '$stateParams', 'forms', 'awards'];
 app.controller('judgeDashboardController', JudgeDashboardController);

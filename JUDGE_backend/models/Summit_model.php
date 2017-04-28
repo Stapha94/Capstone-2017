@@ -78,7 +78,39 @@ class Summit_model extends CI_Model {
 
 	public function update($data = array()) {
 		try {
+			if(intval($data['active']) === 1) {
+				// Since only one summit can be active at a time, we need to deactivate the current active one.
+				$temp['active'] = 0;
+				//If the query fails, return false
+				if(!$this->db->update('summit', $temp)) {
+					return false;
+				}
+			}
 			return $this->db->update($this->name, $data, array("{$this->name}_id" => intval($data["{$this->name}_id"])));
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	// For pin updating
+	public function update_pin($data = array()) {
+		try {
+			$this->db->select('pin');
+			$this->db->where('summit_id', $data['summit_id']);
+
+			$query = $this->db->get('summit');
+			$result = $query->result();
+
+			$hash = $result[0]->pin;
+
+			if(password_verify($data['old_pin'], $hash)) {
+				$pin = password_hash($data['new_pin'], PASSWORD_BCRYPT);
+				$this->db->set('pin', $pin);
+				$this->db->where('summit_id', $data['summit_id']);
+				return $this->db->update($this->name);
+			} else {
+				return false;
+			}
 		} catch (Exception $e) {
 			return false;
 		}

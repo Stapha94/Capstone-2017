@@ -21,7 +21,7 @@ class InstitutionsController {
         this.institutionService = institutionService;
         this.institutions = institutions;
         this.judgeCategories = judgeCategories;
-        this.institution = {active: '1'};
+        this.institution = {judgeCategoryId: '', active: '1'};
         this.modal = false;
         this.editModal = false;
         this.canEdit = false;
@@ -38,7 +38,7 @@ class InstitutionsController {
                     }
                 });
                 this.institutions.push(institution);
-                this.institution = {active: '1'};
+                this.institution = {judgeCategory: '', active: '1'};
             });
     }
 
@@ -52,7 +52,7 @@ class InstitutionsController {
                         this.institution.category = judgeCategory.title;
                     }
                 });
-                this.institution = {active: '1'};
+                this.institution = {judgeCategoryId: '', active: '1'};
             });
 
     }

@@ -1,4 +1,10 @@
 class InstitutionService extends BaseApiService {
+
+    static serviceFactory($injector) {
+        InstitutionService.instance = new InstitutionService($injector);
+        return InstitutionService.instance;
+    }
+
     constructor($injector) {
         super($injector, 'institutions', 'institution');
     }
@@ -10,4 +16,4 @@ class InstitutionService extends BaseApiService {
 }
 
 InstitutionService.$inject = ['$injector'];
-app.factory('institutionService', InstitutionService);
+app.factory('institutionService', InstitutionService.serviceFactory);

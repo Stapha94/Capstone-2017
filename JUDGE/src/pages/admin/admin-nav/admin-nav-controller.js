@@ -8,17 +8,17 @@ class AdminNavController {
                             return data[0];
                         })
                 }],
-                summitId: ['summit', (summit) => {
-                    return summit.summitId;
+                summit: ['localStorageService', (localStorageService) => {
+                    return localStorageService.get('summit');
                 }]
             }
     }
 
-    constructor($scope, $stateParams, $state, admin, summitId, authService) {
+    constructor($scope, $stateParams, $state, admin, summit, authService) {
         $scope.navbar = { hideNav: false };
         this.authService = authService;
         this.admin = admin;
-        $scope.summitId = summitId;
+        $scope.summitId = summit === undefined ? null : summit.summitId;
     }
 
     logout() {
@@ -26,5 +26,5 @@ class AdminNavController {
     }
 }
 
-AdminNavController.$inject = ['$scope', '$stateParams', '$state', 'admin', 'summitId', 'authService'];
+AdminNavController.$inject = ['$scope', '$stateParams', '$state', 'admin', 'summit', 'authService'];
 app.controller('adminNavController', AdminNavController);

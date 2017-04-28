@@ -11,15 +11,17 @@ class Form_model extends CI_Model {
 	public function __construct()
 	{
 		// These are for filtering the data.
-		$this->fields = array('form_id', 'poster_id', 'judge_id', 'total', 'judged', 'comments');
+		$this->fields = array('form_id', 'poster_id', 'judge_id', 'award_recommendation_id', 'further_evaluation', 'total', 'judged', 'comments');
 		$this->filter = array(
 			'form_id' => 'form',
 			'poster_id' => 'form',
 			'judge_id' => 'form',
+			'poster_number' => 'poster',
 			'judge_category_id' => 'judge_category',
 			'summit_id' => 'poster',
 			'judged' => 'form',
-			'active' => 'presenter'
+			'active' => 'presenter',
+			'award_recommendation_id' => 'form'
 			// This can be added as the need arises
 		);
 		$this->name = 'form';
@@ -36,6 +38,7 @@ class Form_model extends CI_Model {
 		$this->db->select("{$this->name}.{$this->name}_id,
 				{$this->name}.judge_id,
 				{$this->name}.poster_id,
+				{$joins['po']}.poster_number,
 				{$joins['j']}.first_name AS {$joins['j']}_first_name,
 				{$joins['j']}.last_name AS {$joins['j']}_last_name,
 				{$joins['j']}.email AS {$joins['j']}_email,
@@ -43,7 +46,7 @@ class Form_model extends CI_Model {
 				{$joins['j']}.active,
 				{$joins['s']}.{$joins['s']}_id,
 				{$joins['pc']}.title AS {$joins['po']}_category,
-				{$joins['aw']}.title AS award,
+				{$joins['aw']}.title AS recommended_award,
 				{$joins['pr']}.first_name AS {$joins['pr']}_first_name,
 				{$joins['pr']}.last_name AS {$joins['pr']}_last_name,
 				{$joins['pr']}.suffix,
@@ -59,6 +62,8 @@ class Form_model extends CI_Model {
 				{$joins['po']}.submission_date,
 				{$joins['po']}.score AS {$joins['po']}_score,
 				{$joins['po']}.summit_id,
+				award_recommendation_id,
+				further_evaluation,
 				judged,
                 total,
                 comments");
@@ -67,7 +72,7 @@ class Form_model extends CI_Model {
 		$this->db->join("{$joins['j']}", "{$joins['j']}.{$joins['j']}_id = {$this->name}.{$joins['j']}_id");
 		$this->db->join("{$joins['jc']}", "{$joins['jc']}.{$joins['jc']}_id = {$joins['j']}.{$joins['jc']}_id");
 		$this->db->join("{$joins['po']}", "{$joins['po']}.{$joins['po']}_id = {$this->name}.{$joins['po']}_id");
-		$this->db->join("{$joins['aw']}", "{$joins['aw']}.{$joins['aw']}_id = {$joins['po']}.{$joins['aw']}_id");
+		$this->db->join("{$joins['aw']}", "{$joins['aw']}.{$joins['aw']}_id = {$this->name}.{$joins['aw']}_recommendation_id");
 		$this->db->join("{$joins['pa']}", "{$joins['pa']}.{$joins['pa']}_id = {$joins['po']}.{$joins['pa']}_id");
 		$this->db->join("{$joins['pr']}", "{$joins['pr']}.{$joins['pr']}_id = {$joins['po']}.{$joins['pr']}_id");
 		$this->db->join("{$joins['i']}", "{$joins['i']}.{$joins['i']}_id = {$joins['pr']}.{$joins['i']}_id");

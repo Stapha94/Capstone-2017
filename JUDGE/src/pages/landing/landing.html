@@ -1,13 +1,14 @@
 <body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
     <div class="jumbo">
         <div class="row">
-            <div class="col s5 content">
+            <div class="col s5 content qss-cont">
                 <h4>Quality and Safety Summit</h4>
                 <hr align="left">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br>
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,<br>
-                    when an unknown printer took a galley of type and scrambled it to make a type<br>
-                    specimen book.It has survived not only five centuries</p>
+                <p>The Quality and Safety Summit is an annual event hosted by the Marshall Univeristy<br>
+                School of Medicine that seeks to innovate quality and safety in all medical<br>
+                practices. If you have a submission, please click register below!</p>
                 <button ng-if="ctrl.canRegister" ui-sref="register" class="btn">Register</button>
             </div>
             <div class="input-field col s5">
@@ -31,9 +32,6 @@
                                 <div class="col s6">
                                     <button ng-click="ctrl.login()" class="btn admin-btn">Login</button>
                                 </div>
-                                <div class="col s6">
-                                    <a ui-sref="forgot-password">Forgot password?</a>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -43,14 +41,14 @@
     </div>
     <div class="blurbs">
         <div class="row">
-            <div class="col blurb">
-                <h5>Logo</h5>
+            <div class="col blurb s4">
+                <img width="300px" src="/JUDGE/assets/img/MUSOM.png">
             </div>
-            <div class="col blurb">
-                <h5>Logo</h5>
+            <div class="col blurb s4">
+                <img width="200px" src="/judge/assets/img/chh_logo.png">
             </div>
-            <div class="col blurb">
-                <h5>Logo</h5>
+            <div class="col blurb s4">
+                <img width="300px" src="/JUDGE/assets/img/MUSOM.png">
             </div>
 
         </div>

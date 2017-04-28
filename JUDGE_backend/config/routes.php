@@ -124,6 +124,9 @@ $route['question_sections/(.+)'] = 'question_section';
 // ReCaptcha Routes
 $route['recaptcha/send'] = 'recaptcha';
 
+// Report Routes
+$route['report/download'] = 'report';
+
 // Role Routes
 $route['roles'] = 'role';
 $route['roles/(.+)'] = 'role';
