@@ -1,5 +1,4 @@
 <?php
-include('secret.php');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
@@ -71,15 +70,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'godaddy';
+$active_group = 'production';
 $query_builder = TRUE;
 
 $db['local'] = array(
 	'dsn'	=> '',
-	'hostname' => $server['host'],
-	'username' => $server['username'],
-	'password' => $server['password'],
-	'database' => $server['db'],
+	'hostname' => [LOCAL_HOST],
+	'username' => [LOCAL_USERNAME],
+	'password' => [LOCAL_PASWORD],
+	'database' => [LOCAL_DATABASE],
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -95,13 +94,13 @@ $db['local'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-/*
-$db['godaddy'] = array(
+
+$db['production'] = array(
 	'dsn'	=> '',
-	'hostname' => $godaddy_server['host'],
-	'username' => $godaddy_server['username'],
-	'password' => $godaddy_server['password'],
-	'database' => $godaddy_server['db'],
+	'hostname' => [PRODUCTION_HOST],
+	'username' => [PRODUCTION_USERNAME],
+	'password' => [PRODUCTION_PASWORD],
+	'database' => [PRODUCTION_DATABASE],
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -117,4 +116,3 @@ $db['godaddy'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-**/
