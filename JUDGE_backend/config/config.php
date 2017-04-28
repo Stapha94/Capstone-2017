@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-include_once ('secret.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +23,7 @@ include_once ('secret.php');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8800/';
+$config['base_url'] = '[PRODUCTION_URL]';
 
 /*
 |--------------------------------------------------------------------------
@@ -531,5 +530,14 @@ $config['proxy_ips'] = '';
 | This simply sets a secret key for authentication to the API service.
 |
  */
-$config['secret_key'] = $secret_key;
+$config['secret_key'] = [SECRET_ENCRYPTION_KEY];
+
+/*
+|-----------------------------------------------------------------------------
+| Secret Key for ReCaptcha
+|-----------------------------------------------------------------------------
+|
+| This simply sets a secret key for authentication to the API service.
+|
+ */
 $config['secret_recaptcha_key'] = $secret_recaptcha_key;
