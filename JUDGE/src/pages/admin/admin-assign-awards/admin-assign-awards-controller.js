@@ -32,7 +32,8 @@ class AdminAssignAwardsController {
     constructor(posterService, summits, posterCategories, posters, awards) {
         this.posterService = posterService;
         this.summits = summits;
-        this.summitId = summits.length > 0 ? summits[0].summitId : undefined;
+        var activeSummit = _.filter(summits, {'active': '1'});
+        this.summitId = activeSummit.length > 0 ? activeSummit[0].summitId : undefined;
         this.posterCategories = posterCategories;
         this.posterCategoryId = posterCategories.length > 0 ? posterCategories[0].posterCategoryId : undefined;
         this.posters = posters;

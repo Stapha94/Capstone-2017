@@ -2,22 +2,22 @@
     <award-poster-modal ctrl="ctrl"></award-poster-modal>
     <h5 class="page-title">Assign Awards</h5>
     <div class="row">
+        <div class="input-field col s6">
+            <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="summit" material-select>
+                <option value="" disabled>Select Summit</option>
+                <option ng-repeat="summit in ctrl.summits | orderBy: 'summitStart'" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
+            </select>
+            <label for="summit">Select Summit</label>
+        </div>
+    </div>
+    <div ng-if="ctrl.summitId" class="row">
         <div class="col s12">
             <ul class="tabs" material-tabs>
                 <li ng-repeat="posterCategory in ctrl.posterCategories" class="tab col s3"><a ng-click="ctrl.setCategory(posterCategory)" href="#{{posterCategory.title}}">{{posterCategory.title}}</a></li>
             </ul>
         </div>
     </div>
-    <div ng-repeat="posterCategory in ctrl.posterCategories" id="{{posterCategory.title}}" class="col s12">
-        <div class="row">
-            <div class="input-field col s6">
-                <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="summit" material-select>
-                    <option value="" disabled>Select Summit</option>
-                    <option ng-repeat="summit in ctrl.summits" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
-                </select>
-                <label for="summit">Select Summit</label>
-            </div>
-        </div>
+    <div ng-if="ctrl.summitId" ng-repeat="posterCategory in ctrl.posterCategories" id="{{posterCategory.title}}" class="col s12">
         <div class="row">
             <div class="col s12">
                 <table class="bordered highlight">
@@ -34,7 +34,6 @@
                             <td>{{award.title}}</td>
                             <td><div ng-repeat="poster in ctrl.posters | filter: { awardId: award.awardId } | filter: {posterCategoryId: posterCategory.posterCategoryId } | filter: {summitId: ctrl.summitId }">{{poster.category + ' ' + poster.posterNumber}}</div></td> 
                             <td><div ng-repeat="poster in ctrl.posters | filter: { awardId: award.awardId } | filter: {posterCategoryId: posterCategory.posterCategoryId } | filter: {summitId: ctrl.summitId }">{{poster.posterTitle}}</div></td>
-                            </div>
                             <td><a class="waves-effect waves-light btn green" ng-click="ctrl.setAward(award)" data-target="assign-award">Award Poster</a></td>
                         </tr>
                     </tbody>
