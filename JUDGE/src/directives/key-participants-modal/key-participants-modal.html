@@ -23,9 +23,9 @@
                     <option ng-repeat="department in ctrl.musomDepartments" value="{{department}}">{{department}}</option>
                 </select>
             </div>
-            <div ng-show="ctrl.keyParticipantInstitution === '2'" class="input-field col s4 ng-hide">
-                <input placeholder="Department" id="keyParticipantDepartmentCHH" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate">
-                <label class="active" for="keyParticipantDepartmentCHH">Department</label>
+            <div ng-show="ctrl.keyParticipantInstitution !== '1' && ctrl.keyParticipantInstitution !==null && ctrl.keyParticipantInstitution !==''" class="input-field col s4 ng-hide">
+                <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate">
+                <label class="active" for="keyParticipantDepartment">Department</label>
             </div>
             <div class="input-field col s4">
                 <select material-select id="keyParticipantRole" ng-model="ctrl.keyParticipantRole">

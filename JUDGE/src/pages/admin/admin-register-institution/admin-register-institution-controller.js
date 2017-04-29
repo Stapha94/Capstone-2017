@@ -1,5 +1,22 @@
 class AdminRegisterInstitutionController{
 
+    static resolve() {
+        return {
+            institutions: ['institutionService', (institutionService) => {
+                return institutionService.get({active: 1 })
+                    .then((data) => {
+                        return data;
+                    });
+            }],
+            roles: ['roleService', (roleService) => {
+                return roleService.get({active: 1 })
+                    .then((data) => {
+                        return data;
+                    });
+            }]
+        }
+    };
+
     constructor($scope, $state, presenterService, notificationService, localStorageService, registrationService, institutions, roles) {
         this.notificationService = notificationService;
         this.presenterService = presenterService;
@@ -7,8 +24,6 @@ class AdminRegisterInstitutionController{
         this.registrationService = registrationService;
         this.$state = $state;
         this.summitId = localStorageService.get("summit").summitId;
-        this.presenterInstitution = "";
-        this.presenterRole = "";
         this.posterCategoryId = "";
         this.keyParticipantFName = "";
         this.keyParticipantLName = "";
@@ -22,26 +37,6 @@ class AdminRegisterInstitutionController{
         this.musomDepartments = ["Family Medicine", "MED/PEDS", "Surgery", "Orthopaedics", "OBGYN", "Psychiatry", "Neurology", "Pediatrics", "Cardiology", "Endocrinology", "Hematology/Oncology", "Nephrology", "Pulmonary", "Sports Medicine"];
 
     }
-
-    //Checks to see if the user chose an institution
-    checkInstitutionExists() {
-        if(this.presenterInstitution !== null) {
-            this.checkRoleExists();
-        }
-        else {
-            this.notificationService.error("Please choose an institution!");
-        }
-    };
-
-    //Checks to see if the user chose a role
-    checkRoleExists() {
-        if(this.presenterRole !== null) {
-            this.continue();
-        }
-        else {
-            this.notificationService.error("Please choose a role!");
-        }
-    };
 
     //Checks to see if the user entered a first name for the key participant
     checkKeyParticipantFNameExists() {
@@ -75,17 +70,11 @@ class AdminRegisterInstitutionController{
 
     //Checks to see if the user chose/entered a department for the key participant.  This is only needed for the School of Medicine and Cabell Huntington
     checkKeyParticipantDepartmentExists() {
-        if(this.keyParticipantInstitution === "1" || this.keyParticipantInstitution === "2") {
-            if(this.keyParticipantDepartment !== null && this.keyParticipantDepartment !== "") {
-                this.checkKeyParticipantRoleExists();
-            }
-            else {
-                this.notificationService.error("Please enter/choose a department!");
-            }
+        if(this.keyParticipantDepartment !== null && this.keyParticipantDepartment !== "") {
+            this.checkKeyParticipantRoleExists();
         }
         else {
-            this.keyParticipantDepartment = "N/A";
-            this.checkKeyParticipantRoleExists();
+            this.notificationService.error("Please enter/choose a department!");
         }
     };
 
@@ -98,23 +87,6 @@ class AdminRegisterInstitutionController{
             this.notificationService.error("Please choose a role!");
         }
     };
-
-    //Sets the category for the posters based off of the role
-    getPosterCategoryId() {
-
-        if(this.presenterRole === "1") {
-            this.posterCategoryId = "4";
-        }
-        else if(this.presenterRole === "2") {
-            this.posterCategoryId = "1";
-        }
-        else if(this.presenterRole === "3") {
-            this.posterCategoryId = "2";
-        }
-        else if(this.presenterRole === "4" || this.presenterRole === "5") {
-            this.posterCategoryId = "3";
-        }
-    }
 
     //Adds the entered key participant to the array
     addKeyParticipant() {
@@ -143,7 +115,7 @@ class AdminRegisterInstitutionController{
     continue() {
 
         _.forEach(this.roles, (role) => {
-            if(this.presenterRole === role.roleId) {
+            if(this.registrationService.presenter.roleId === role.roleId) {
                 this.posterCategoryId = role.posterCategoryId;
             }
         });
@@ -157,14 +129,14 @@ class AdminRegisterInstitutionController{
         };
 
         this.registrationService.poster = this.poster;
-        this.registrationService.presenter.institutionId = this.presenterInstitution;
-        this.registrationService.presenter.roleId = this.presenterRole;
-        this.registrationService.presenterInstitution = this.presenterInstitution;
-        this.registrationService.presenterRole = this.presenterRole;
         this.registrationService.keyParticipants = angular.copy(this.keyParticipants);
         this.$state.go('home.admin.register-info', {valid: true});
 
     };
+
+    reset() {
+
+    }
 
     //Closes the modal
     close() {

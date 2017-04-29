@@ -5,23 +5,10 @@
             <div class="input-field col s12">
                 <form>
                     <div class="row">
-                        <h5>Registration Step 2 of 3: Select Institution and Add Key Participants</h5>
+                        <h5>Registration Step 2 of 3: Add Key Participants</h5>
                         <h7>WARNING: Nothing will save until submitted on step 3!</h7>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <select material-select id="institution" ng-model="ctrl.presenterInstitution">
-                                <option value="" disabled selected>Choose Your Institution</option>
-                                <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s6">
-                            <select material-select id="role" ng-model="ctrl.presenterRole">
-                                <option value="" disabled selected>Choose Your Role</option>
-                                <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div class="col 14 s12">
                             <h5 class="black-text"><u>Key Participants:</u></h5>
@@ -57,7 +44,7 @@
                         <button data-target="modal1" class="btn green waves-effect waves-light">Add Presenter</button>
                     </div>
                     <div class="row pull-right">
-                        <button ng-click="ctrl.checkInstitutionExists()" class="btn waves-effect green waves-light" type="submit">Submit</button>
+                        <button ng-click="ctrl.continue()" class="btn waves-effect green waves-light" type="submit">Submit</button>
                         <a ui-sref='home.landing' class="waves-effect waves-light btn red">Cancel</a>
                     </div>
                 </form>

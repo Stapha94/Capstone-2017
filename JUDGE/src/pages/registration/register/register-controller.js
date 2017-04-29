@@ -7,11 +7,23 @@ class RegisterController {
                     .then((data) => {
                         return data[0];
                     });
+            }],
+            institutions: ['institutionService', (institutionService) => {
+                return institutionService.get({active: 1 })
+                    .then((data) => {
+                        return data;
+                    });
+            }],
+            roles: ['roleService', (roleService) => {
+                return roleService.get({active: 1 })
+                    .then((data) => {
+                        return data;
+                    });
             }]
         }
     }
 
-    constructor($scope, $state, summit, presenterService, notificationService, localStorageService, registrationService, reCaptchaService) {
+    constructor($scope, $state, summit, presenterService, notificationService, localStorageService, registrationService, reCaptchaService, institutions, roles) {
         if(summit === undefined) {
             $state.go('home.landing');
         }
@@ -26,11 +38,15 @@ class RegisterController {
         this.registrationService = registrationService;
         this.reCaptchaService = reCaptchaService;
         this.$state = $state;
+        this.institutions = institutions;
+        this.roles = roles;
         this.firstName = "";
         this.lastName = "";
         this.email = "";
         this.suffix = "";
         this.emailConfirmation = "";
+        this.presenterInstitution = "";
+        this.presenterRole = "";
         this.presenter = {};
         this.$scope = $scope;
 
@@ -40,7 +56,7 @@ class RegisterController {
     //Makes sure that the registrant entered the same email for both email fields
     verifyEmail() {
         if(this.email === this.emailConfirmation) {
-            this.continue();
+            this.checkInstitutionExists();
         }
         else{
             this.notificationService.error("Email and Email Confirmation must match!");
@@ -49,16 +65,41 @@ class RegisterController {
 
     };
 
+    //Checks to see if the user chose an institution
+    checkInstitutionExists() {
+        if(this.presenterInstitution !== null && this.presenterInstitution !== "") {
+            this.checkRoleExists();
+        }
+        else {
+            this.notificationService.error("Please choose an institution!");
+        }
+    };
+
+    //Checks to see if the user chose a role
+    checkRoleExists() {
+        if(this.presenterRole !== null && this.presenterRole !== "") {
+            this.verifyRecaptcha();
+        }
+        else {
+            this.notificationService.error("Please choose a role!");
+        }
+    };
+
     verifyRecaptcha() {
         this.grecaptchaResponse = grecaptcha.getResponse();
-        this.reCaptchaService.send({grecaptchaResponse: this.grecaptchaResponse})
-            .then(()  => {
-            this.verifyEmail();
-        })
-            .catch(() => {
-            grecaptcha.reset();
-            this.notificationService.error("Please complete the reCaptcha!")
-        });
+        if(this.grecaptchaResponse !== ""){
+            this.reCaptchaService.send({grecaptchaResponse: this.grecaptchaResponse})
+                .then(()  => {
+                    this.continue();
+                })
+                .catch(() => {
+                    grecaptcha.reset();
+                    this.notificationService.error("Please complete the reCaptcha!");
+                });
+        }
+        else{
+            this.notificationService.error("Please complete the reCaptcha!");
+        }
 
     };
 
@@ -70,15 +111,11 @@ class RegisterController {
             lastName: this.lastName,
             email: this.email,
             suffix: this.suffix,
-            institutionId: 0,
-            roleId: 0
+            institutionId: this.presenterInstitution,
+            roleId: this.presenterRole
         };
 
         this.registrationService.presenter = this.presenter;
-
-        this.registrationService.presenterFirstName = this.presenterFirstName;
-        this.registrationService.presenterLastName = this.presenterLastName;
-        this.registrationService.presenterEmail = this.presenterEmail;
         this.$state.go("register-institution", {valid: true});
 
     };
@@ -87,5 +124,5 @@ class RegisterController {
 
 }
 
-RegisterController.$inject = ['$scope', '$state', 'summit', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'reCaptchaService'];
+RegisterController.$inject = ['$scope', '$state', 'summit', 'presenterService', 'notificationService', 'localStorageService', 'registrationService', 'reCaptchaService', 'institutions', 'roles'];
 app.controller('registerController', RegisterController);
