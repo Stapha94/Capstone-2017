@@ -63,15 +63,43 @@ class AdminAssignAwardsController {
                     this.selectedPoster = angular.copy(this.originalSelectedPoster);
                     angular.element('.modal').modal('close');
                 });
+        } else { // If the selected poster is blank
+            _.forEach(this.posters, (poster) => {
+                // If a poster already has the award
+                if(poster.awardId === this.awardId && poster.summitId === this.summitId && poster.posterCategoryId === this.posterCategoryId) {
+                    poster.awardId = '1';
+                    this.posterService.update(poster)
+                        .then(() => {
+                            angular.element('.modal').modal('close');
+                        });
+                }
+            });
         }
+    }
+
+    cancel() {
+        this.selectedPoster = angular.copy(this.originalSelectedPoster);
+        var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody tr.active'));
+        _.forEach(elements, (element) => {
+            element = angular.element(element);
+            element.removeClass('active');
+        });
     }
 
     setAward(award) {
         this.awardId = award.awardId;
+        var elements = angular.element(document.querySelectorAll('table.unassigned-posters tbody tr.active'));
+        _.forEach(elements, (element) => {
+            element = angular.element(element);
+            element.removeClass('active');
+        });
         _.forEach(this.posters, (poster) => {
             // If a poster already has the award
             if(poster.awardId === this.awardId && poster.summitId === this.summitId && poster.posterCategoryId === this.posterCategoryId) {
                 this.selectedPoster = poster;
+                var element = angular.element(document.querySelector('#poster' + this.selectedPoster.posterId));
+                element.addClass('active');
+            } else {
             }
         });
     }
