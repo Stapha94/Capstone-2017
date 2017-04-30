@@ -325,11 +325,11 @@ th button.table-btn {
 }
 
 /** Override Disabled Settings **/
-input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=date]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
     color: inherit;
 }
 
-input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=date]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
     color: #00B140;
 }
 

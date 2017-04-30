@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="summit in ctrl.models | filter: {active: 1}">
+                <tr ng-repeat="summit in ctrl.models | filter: {active: 1} | orderBy: ['-summitId', '-summitStart']">
                     <td><a ui-sref="home.admin.summit.info({summitId: summit.summitId})">{{ summit.summitStart | date: 'mediumDate' }}</td>
                     <td>{{ summit.summitStart | date: 'shortTime'}}</td>
                     <td>{{ summit.summitEnd | date: 'shortTime' }}</td>
@@ -56,7 +56,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="summit in ctrl.models | filter: {active: 0}">
+                <tr ng-repeat="summit in ctrl.models | filter: {active: 0} | orderBy: ['-summitId', '-summitStart']">
                     <td><a ui-sref="home.admin.summit.info({summitId: summit.summitId})">{{ summit.summitStart | date: 'mediumDate' }}</td>
                     <td>{{ summit.summitStart | date: 'shortTime'}}</td>
                     <td>{{ summit.summitEnd | date: 'shortTime' }}</td>

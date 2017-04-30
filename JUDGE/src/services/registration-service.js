@@ -1,5 +1,5 @@
 class registrationService {
-    constructor($log, $http, presenterService, posterCategoryService, keyParticipantService, posterAbstractService, posterService) {
+    constructor($log, $filter, $http, presenterService, posterCategoryService, keyParticipantService, posterAbstractService, posterService) {
         this.presenterFirstName = "";
         this.presenterLastName = "";
         this.presenterSuffix = "";
@@ -74,5 +74,5 @@ class registrationService {
     }
 }
 
-registrationService.$inject = ['$log', '$http', 'presenterService', 'posterCategoryService', 'keyParticipantService', 'posterAbstractService', 'posterService'];
+registrationService.$inject = ['$log', '$filter', '$http', 'presenterService', 'posterCategoryService', 'keyParticipantService', 'posterAbstractService', 'posterService'];
 app.service('registrationService', registrationService);

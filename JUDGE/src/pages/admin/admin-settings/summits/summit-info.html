@@ -14,7 +14,7 @@
             <div class="input-field col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input material-datepicker name="summit-date" id="summit-date" ng-model="ctrl.summitDate" required ng-disabled="!ctrl.canEdit">
+                        <input type="date" name="summit-date" id="summit-date" ng-model="ctrl.summitDate" required ng-disabled="!ctrl.canEdit">
                         <label class="active" for="summit-date">Summit Date</label>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s9">
-                        <input material-datepicker name="registration-deadline" id="registration-deadline" ng-model="ctrl.registrationDeadline" required ng-disabled="!ctrl.canEdit">
+                        <input type="date" name="registration-deadline" id="registration-deadline" ng-model="ctrl.registrationDeadline" required ng-disabled="!ctrl.canEdit">
                         <label class="active" for="registration-deadline">Registration Deadline</label>
                     </div>
                     <div class="input-field col s3">
@@ -45,7 +45,7 @@
                     <div class="switch">
                         <label>
                             No
-                            <input type="checkbox" ng-true-value="'0'" ng-false-value="'1'" ng-model="ctrl.summit.judgeLoginDisabled" required ng-disabled="!ctrl.canEdit"/>
+                            <input type="checkbox" ng-true-value="'0'" ng-false-value="'1'" ng-model="ctrl.summit.judgeLoginDisabled" ng-disabled="!ctrl.canEdit"/>
                             <span class="lever"></span>
                             Yes
                         </label>
