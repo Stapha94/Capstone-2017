@@ -33,9 +33,14 @@ class RegisterInfoController{
         this.registrationService.projectResults = this.projectResults;
         this.registrationService.projectConclusion = this.projectConclusion;
         this.registrationService.summitId = this.summitId;
-        this.registrationService.create();
-        this.$state.go('home.landing');
-        this.notificationService.success("Thank you for registering!");
+        this.registrationService.create()
+            .then(() => {
+                this.$state.go('home.landing');
+                this.notificationService.success("Thank you for registering!");
+            })
+            .catch(() => {
+                this.notificationService.error('Something went wrong! Please try again later!');
+            });
 
 
     }

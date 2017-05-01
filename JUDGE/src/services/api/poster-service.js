@@ -9,6 +9,17 @@ class PosterService extends BaseApiService {
         super($injector, 'posters', 'poster');
     }
 
+    get(params) {
+        return super.get(params)
+            .then((posters) => {
+                _.forEach(posters, (poster) => {
+                    // Thanks IE
+                    poster.submissionDate = new Date(poster.submissionDate.replace(/ /, 'T') + 'Z');
+                })
+                return posters;
+            })
+    }
+
 }
 
 PosterService.$inject = ['$injector'];
