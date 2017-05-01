@@ -498,3 +498,9 @@ td .btn{
         display: none;
     }
 }
+
+/* Helps with line breaks */
+/* Based on: http://stackoverflow.com/questions/16910653/keep-line-breaks-from-textarea */
+.whitespace {
+    white-space: pre-wrap;
+}
