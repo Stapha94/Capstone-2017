@@ -30,6 +30,7 @@ class AdminRegisterInstitutionController{
         this.keyParticipantDepartment = "";
         this.keyParticipantInstitution = "";
         this.keyParticipantRole = "";
+        this.oldInstitution = '';
         this.institutions = institutions;
         this.roles = roles;
         this.keyParticipants = [];
@@ -134,8 +135,32 @@ class AdminRegisterInstitutionController{
 
     };
 
+    // Resets the select fields.
+    // Based on: http://stackoverflow.com/questions/37399188/jquery-materialize-changing-select-option-back-to-disabled-select-on-clear
     reset() {
+        var selects = angular.element(document.querySelectorAll('select'));
+        _.forEach(selects, (select) => {
+            select = angular.element(select);
+            select.val('None'); //Different approach here required for some reason
+            select.material_select();
+        })
+    }
 
+    // Resets the department when the institution is changed
+    resetDepartment() {
+        if(this.keyParticipantInstitution === '1') {
+            this.keyParticipantDepartment = "";
+            var departmentSelect = angular.element('#keyParticipantDepartmentMUSOM');
+            departmentSelect.val('None');
+            departmentSelect.material_select();
+            this.oldInstitution = this.keyParticipantInstitution;
+        } else {
+            // Only reset it if changing from the dropwdown
+            if(this.oldInstitution === '1') {
+                this.keyParticipantDepartment = "";
+                this.oldInstitution = this.keyParticipantInstitution;
+            }
+        }
     }
 
     //Closes the modal
@@ -147,6 +172,7 @@ class AdminRegisterInstitutionController{
         this.keyParticipantInstitution = "";
         this.keyParticipantRole = "";
         this.keyParticipant = {};
+        this.reset();
     }
 
     delete(keyParticipant) {
