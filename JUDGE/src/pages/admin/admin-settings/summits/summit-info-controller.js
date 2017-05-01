@@ -19,10 +19,10 @@ class SummitInfoController {
         this.original = summit;
         this.$filter = $filter;
         this.summit = angular.copy(this.original); // for setting things back to normal if they hit cancel
-        this.summitDate = this.$filter('date')(this.summit.summitStart, 'd MMM, y');
+        this.summitDate = summit.summitStart;
         this.startTime = this.summit.summitStart;
         this.endTime = this.summit.summitEnd;
-        this.registrationDeadline = this.$filter('date')(this.summit.registrationDeadline, 'd MMM, y');
+        this.registrationDeadline = summit.registrationDeadline;
         this.deadlineTime = this.summit.registrationDeadline;
         this.canEdit = false;
     }
@@ -34,43 +34,44 @@ class SummitInfoController {
     save() {
         if(this.valid()) {
             if(!(this.summitDate instanceof Date)) {
-                this.summitDate = new Date(this.summitDate);
+                this.summitDate = new Date(this.summitDate.replace(/ /, 'T') + 'Z');
             }
             if(!(this.registrationDeadline instanceof Date)) {
-                this.registrationDeadline = new Date(this.registrationDeadline);
+                this.registrationDeadline = new Date(this.registrationDeadline.replace(/ /, 'T') + 'Z');
             }
-            this.summit.summitStart = this.$filter('date')(new Date(this.summitDate.getFullYear(), this.summitDate.getMonth(), this.summitDate.getDate(), this.startTime.getHours(), this.startTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss');
-            this.summit.summitEnd = this.$filter('date')(new Date(this.summitDate.getFullYear(), this.summitDate.getMonth(), this.summitDate.getDate(), this.endTime.getHours(), this.endTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss');
-            this.summit.registrationDeadline = this.$filter('date')(new Date(this.registrationDeadline.getFullYear(), this.registrationDeadline.getMonth(), this.registrationDeadline.getDate(), this.deadlineTime.getHours(), this.deadlineTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss');
+            // Change the format correctly to save to the database
+            this.summit.summitStart = this.$filter('date')(new Date(this.summitDate.getFullYear(), this.summitDate.getMonth(), this.summitDate.getDate(), this.startTime.getHours(), this.startTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss', '+0000');
+            this.summit.summitEnd = this.$filter('date')(new Date(this.summitDate.getFullYear(), this.summitDate.getMonth(), this.summitDate.getDate(), this.endTime.getHours(), this.endTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss', '+0000');
+            this.summit.registrationDeadline = this.$filter('date')(new Date(this.registrationDeadline.getFullYear(), this.registrationDeadline.getMonth(), this.registrationDeadline.getDate(), this.deadlineTime.getHours(), this.deadlineTime.getMinutes(), 0), 'yyyy-MM-dd HH:mm:ss', '+0000');
             this.summitService.update(this.summit)
                 .then(() => {
                     if(isTrue(this.summit.active)) {
                         this.localStorageService.set('summit', this.summit);
                     }
                     this.canEdit = false;
-                    this.original = angular.copy(this.summit);
                     if(!(this.summit.summitStart instanceof Date)) {
-                        this.summit.summitStart = new Date(this.summit.summitStart);
+                        this.summit.summitStart = new Date(this.summit.summitStart.replace(/ /, 'T') + 'Z');
                     }
                     if(!(this.summit.summitEnd instanceof Date)) {
-                        this.summit.summitEnd = new Date(this.summit.summitEnd);
+                        this.summit.summitEnd = new Date(this.summit.summitEnd.replace(/ /, 'T') + 'Z');
                     }
                     if(!(this.summit.registrationDeadline instanceof Date)) {
-                        this.summit.registrationDeadline = new Date(this.summit.registrationDeadline);
+                        this.summit.registrationDeadline = new Date(this.summit.registrationDeadline.replace(/ /, 'T') + 'Z');
                     }
-                    this.summitDate = this.$filter('date')(this.summit.summitStart, 'd MMM, y');
+                    this.original = angular.copy(this.summit);
+                    this.summitDate = this.summit.summitStart;
                     this.startTime = this.summit.summitStart;
                     this.endTime = this.summit.summitEnd;
-                    this.registrationDeadline = this.$filter('date')(this.summit.registrationDeadline, 'd MMM, y');
+                    this.registrationDeadline = this.summit.registrationDeadline;
                     this.deadlineTime = this.summit.registrationDeadline;
                 })
                 .catch((error) => {
                     this.canEdit = false;
                     this.summit = angular.copy(this.original);
-                    this.summitDate = this.$filter('date')(this.summit.summitStart, 'd MMM, y');
+                    this.summitDate = this.summit.summitStart;
                     this.startTime = this.summit.summitStart;
                     this.endTime = this.summit.summitEnd;
-                    this.registrationDeadline = this.$filter('date')(this.summit.registrationDeadline, 'd MMM, y');
+                    this.registrationDeadline = this.summit.registrationDeadline;
                     this.deadlineTime = this.summit.registrationDeadline;
                 })
         } else {
@@ -80,20 +81,20 @@ class SummitInfoController {
 
     cancel() {
         this.canEdit = false;
+        this.summit = angular.copy(this.original);
         if(!(this.summit.summitStart instanceof Date)) {
-            this.summit.summitStart = new Date(this.summit.summitStart);
+            this.summit.summitStart = new Date(this.summit.summitStart.replace(/ /, 'T') + 'Z');
         }
         if(!(this.summit.summitEnd instanceof Date)) {
-            this.summit.summitEnd = new Date(this.summit.summitEnd);
+            this.summit.summitEnd = new Date(this.summit.summitEnd.replace(/ /, 'T') + 'Z');
         }
         if(!(this.summit.registrationDeadline instanceof Date)) {
-            this.summit.registrationDeadline = new Date(this.summit.registrationDeadline);
+            this.summit.registrationDeadline = new Date(this.summit.registrationDeadline.replace(/ /, 'T') + 'Z');
         }
-        this.summit = angular.copy(this.original);
-        this.summitDate = this.$filter('date')(this.summit.summitStart, 'd MMM, y');
+        this.summitDate = this.summit.summitStart;
         this.startTime = this.summit.summitStart;
         this.endTime = this.summit.summitEnd;
-        this.registrationDeadline = this.$filter('date')(this.summit.registrationDeadline, 'd MMM, y');
+        this.registrationDeadline = this.summit.registrationDeadline;
         this.deadlineTime = this.summit.registrationDeadline;
     }
 

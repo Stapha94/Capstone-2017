@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs" material-tabs>
-                <li ng-repeat="judgeCategory in ctrl.judgeCategories" class="tab col s3"><a href="#{{judgeCategory.title}}">{{judgeCategory.title}}</a></li>
+                <li ng-repeat="judgeCategory in ctrl.judgeCategories" class="tab col s3"><a ng-click="ctrl.changeCategory(judgeCategory)" href="#{{judgeCategory.title}}">{{judgeCategory.title}}</a></li>
             </ul>
         </div>
     </div>
@@ -32,9 +32,6 @@
                     <div class="col s4 offset-s4">
                         <h6 style="text-align: center;"><strong>All Posters</strong></h6>
                     </div>
-                    <!--div class="col s4">
-                        <a class="waves-effect waves-light btn green">Select All</a>
-                    </div-->
                 </div>
                 <table class="unassigned-posters bordered highlight">
                     <thead>
@@ -60,21 +57,20 @@
                     <div class="col s4 offset-s4">
                         <h6 style="text-align: center;"><strong>Assigned Posters</strong></h6>
                     </div>
-                    <!--div class="col s4">
-                        <a class="waves-effect waves-light btn green">Select All</a>
-                    </div-->
                 </div>
                 <table class="assigned-posters bordered highlight">
                     <thead>
                         <tr>
                             <th>Poster #</th>
                             <th>Poster Title</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-click="ctrl.selectForm(form, $event)" ng-repeat="form in ctrl.forms | filter: {judgeId: judgeCategory.judgeId } | orderBy: ['posterCategory', 'posterNumber']">
                             <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                             <td>{{form.posterTitle}}</td>
+                            <td>{{ ctrl.getStatus(form) }}</td>
                         </tr>
                     </tbody>
                 </table>

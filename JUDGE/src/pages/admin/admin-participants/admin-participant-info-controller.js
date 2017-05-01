@@ -53,13 +53,43 @@ class AdminPresenterInfoController {
         this.posterAbstract = angular.copy(this.originalPosterAbstract);
         this.keyParticipants = keyParticipants;
         this.keyParticipant = {presenterId: this.presenter.presenterId};
+        this.oldInstitution = '';
         this.institutions = institutions;
         this.roles = roles;
         this.canEdit = false;
+        this.musomDepartments = ["Family Medicine", "MED/PEDS", "Surgery", "Orthopaedics", "OBGYN", "Psychiatry", "Neurology", "Pediatrics", "Cardiology", "Endocrinology", "Hematology/Oncology", "Nephrology", "Pulmonary", "Sports Medicine"];
     }
 
     edit() {
         this.canEdit = true;
+    }
+
+    // Resets the select fields.
+    // Based on: http://stackoverflow.com/questions/37399188/jquery-materialize-changing-select-option-back-to-disabled-select-on-clear
+    reset() {
+        var selects = angular.element(document.querySelectorAll('select'));
+        _.forEach(selects, (select) => {
+            select = angular.element(select);
+            select.val('None'); //Different approach here required for some reason
+            select.material_select();
+        })
+    }
+
+    // Resets the department when the institution is changed
+    resetDepartment() {
+        if(this.keyParticipant.institutionId === '1') {
+            this.keyParticipant.department = "";
+            var departmentSelect = angular.element('#keyParticipantDepartmentMUSOM');
+            departmentSelect.val('None');
+            departmentSelect.material_select();
+            this.oldInstitution = this.keyParticipant.institutionId;
+        } else {
+            // Only reset it if changing from the dropwdown
+            if(this.oldInstitution === '1') {
+                this.keyParticipant.department = "";
+                this.oldInstitution = this.keyParticipant.institutionId;
+            }
+        }
     }
 
     updatePresenter() {
@@ -84,11 +114,13 @@ class AdminPresenterInfoController {
             .then((keyParticipant) => {
                 this.keyParticipants.push(keyParticipant);
                 this.keyParticipant = {presenterId: this.presenter.presenterId};
+                this.reset();
             });
     }
 
     cancelKeyParticipant() {
         this.keyParticipant = {presenterId: this.presenter.presenterId};
+        this.reset();
     }
 
     deleteKeyParticipant(keyParticipant) {

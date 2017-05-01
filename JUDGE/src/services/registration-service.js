@@ -1,5 +1,5 @@
 class registrationService {
-    constructor($log, $http, presenterService, posterCategoryService, keyParticipantService, posterAbstractService, posterService) {
+    constructor($log, $q, $http, presenterService, posterCategoryService, keyParticipantService, posterAbstractService, posterService) {
         this.presenterFirstName = "";
         this.presenterLastName = "";
         this.presenterSuffix = "";
@@ -19,6 +19,7 @@ class registrationService {
         this.poster = {};
         this.$http = $http;
         this.$log = $log;
+        this.$q = $q;
         this.presenterService = presenterService;
         this.posterCategoryService = posterCategoryService;
         this.keyParticipantService = keyParticipantService;
@@ -52,6 +53,8 @@ class registrationService {
     }
 
     create() {
+        var deferred = this.$q.defer();
+
         this.presenterService.create(this.presenter)
             .then((presenter) => {
                 _.forEach(this.keyParticipants, (keyParticipant) => {
@@ -64,9 +67,17 @@ class registrationService {
                     this.poster.posterAbstractId = posterAbstract.posterAbstractId;
                     this.poster.submissionDate = new Date();
                     this.posterService.create(this.poster)
+                    .then((poster) => {
+                        deferred.resolve();
+                    })
                 });
 
+            })
+            .catch(() => {
+                deferred.reject();
             });
+        
+        return deferred.promise;
     };
 
     email() {
@@ -74,5 +85,5 @@ class registrationService {
     }
 }
 
-registrationService.$inject = ['$log', '$http', 'presenterService', 'posterCategoryService', 'keyParticipantService', 'posterAbstractService', 'posterService'];
+registrationService.$inject = ['$log', '$q', '$http', 'presenterService', 'posterCategoryService', 'keyParticipantService', 'posterAbstractService', 'posterService'];
 app.service('registrationService', registrationService);

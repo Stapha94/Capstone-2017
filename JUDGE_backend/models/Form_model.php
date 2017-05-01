@@ -135,28 +135,5 @@ class Form_model extends CI_Model {
 		return $joins;
 	}
 
-	public function generate_report_forms($params = array()) {
-		$forms = [];
-		if(count($params) > 0) {
-			$query = $this->get($params);
-			$result = $query->result();
-
-			foreach($result as $key=>$value) {
-				$suffix = $value->suffix;
-				if (isset($suffix)) {
-					$full_name = $value->presenter_first_name . ' ' . $value->presenter_last_name . ' ' . $value->suffix;
-				} else {
-					$full_name = $value->presenter_first_name . ' ' . $value->presenter_last_name . ' ' . $value->suffix;
-				}
-				$forms[$key]['author'] = $full_name;
-				$forms[$key]['category'] = $value->role;
-				$forms[$key]['department'] = $value->department;
-				$forms[$key]['status'] = $value->poster_score;
-				$forms[$key]['publication'] = $value->publication;
-			}
-		}
-		return $forms;
-	}
-
 }
 ?>

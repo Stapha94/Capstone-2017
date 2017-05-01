@@ -34,10 +34,14 @@ class AdminRegisterInfoController {
         this.registrationService.projectResults = this.projectResults;
         this.registrationService.projectConclusion = this.projectConclusion;
         this.registrationService.summitId = this.summitId;
-        this.registrationService.create();
-        this.$timeout(() => {this.$state.go('home.admin.presenters');
-        }, 20);
-        this.notificationService.success("Thank you for registering!");
+        this.registrationService.create()
+            .then(() => {
+                this.$state.go('home.admin.presenters');
+                this.notificationService.success("Thank you for registering!");
+            })
+            .catch(() => {
+                this.notificationService.error('Something went wrong! Please try again later!');
+            });
 
 
     }

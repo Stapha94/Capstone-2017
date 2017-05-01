@@ -325,11 +325,11 @@ th button.table-btn {
 }
 
 /** Override Disabled Settings **/
-input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=date]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
     color: inherit;
 }
 
-input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=date]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
     color: #00B140;
 }
 
@@ -451,11 +451,24 @@ td.fixed-header {
     padding-bottom: 0;
 }
 
+/* Button fixing */
+
+td .btn{
+    padding: 0 5%;
+    font-size: 10pt;
+    min-width: 140px;
+}
+
 /* Landing Page Media Queries */
 
 @media (max-width: 1100px) {
     .login-cont {
         padding: 50px;
+    }
+
+    td .btn{
+        font-size: 8pt;
+        padding: 0;
     }
 }
 
@@ -484,4 +497,10 @@ td.fixed-header {
     .blurbs {
         display: none;
     }
+}
+
+/* Helps with line breaks */
+/* Based on: http://stackoverflow.com/questions/16910653/keep-line-breaks-from-textarea */
+.whitespace {
+    white-space: pre-wrap;
 }

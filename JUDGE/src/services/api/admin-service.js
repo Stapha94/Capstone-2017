@@ -27,6 +27,24 @@ class AdminService extends BaseApiService {
         return deferred.promise;
     }
 
+        updateOtherAdminPassword(object) {
+        var deferred = this.$q.defer();
+
+        var backendSafeObject = this.sanitizeObject(object);
+
+        var url = this.baseUrl + this.serviceUrl + '/update_other_admin_password';
+        this.$http.post(url, backendSafeObject)
+            .then((response) => {
+                this.notificationService.success('Successfully updated password!');
+                deferred.resolve(response.data[0]);
+            })
+            .catch((error) => {
+                this.notificationService.error('Failed to update password!');
+                deferred.reject(error);
+            })
+        return deferred.promise;
+    }
+
     delete(object) {
         super.update(object);
     }

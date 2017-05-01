@@ -25,10 +25,10 @@ class SummitsController extends BaseTableModelController {
             if(this.model.pin !== this.confirmPin) {
                 this.notificationService.error('Pins do not match!');
             } else {
-                var summitDate = this.parseSummitDate();
-                this.model.summitStart = this.$filter('date')(this.parseStartDate(summitDate), 'yyyy-MM-dd HH:mm:ss');
-                this.model.summitEnd = this.$filter('date')(this.parseEndDate(summitDate), 'yyyy-MM-dd HH:mm:ss');
-                this.model.registrationDeadline = this.$filter('date')(this.parseRegistrationDeadline(), 'yyyy-MM-dd HH:mm:ss');
+                // The db saves in UTC time, so we need to convert before saving
+                this.model.summitStart = this.$filter('date')(this.parseStartDate(this.summitDate), 'yyyy-MM-dd HH:mm:ss', '+0000');
+                this.model.summitEnd = this.$filter('date')(this.parseEndDate(this.summitDate), 'yyyy-MM-dd HH:mm:ss', '+0000');
+                this.model.registrationDeadline = this.$filter('date')(this.parseRegistrationDeadline(), 'yyyy-MM-dd HH:mm:ss', '+0000');
                 this.model.judgeLoginDisabled = 1;
                 this.model.createdByAdminId = this.adminId;
                 this.service.create(this.model)
@@ -40,13 +40,15 @@ class SummitsController extends BaseTableModelController {
                                 summit.active = 0;
                             });
                         }
-                        model.summitStart = new Date(model.summitStart);
-                        model.summitEnd = new Date(model.summitEnd);
-                        model.registrationDeadline = new Date(model.registrationDeadline);
+                        // Thanks timezones, thanks IE
+                        model.summitStart = new Date(model.summitStart.replace(/ /, 'T') + 'Z');
+                        model.summitEnd = new Date(model.summitEnd.replace(/ /, 'T') + 'Z');
+                        model.registrationDeadline = new Date(model.registrationDeadline.replace(/ /, 'T') + 'Z');
                         angular.element('.modal').modal('close');
                         this.setModal();
                         this.models.push(model);
                         this.model = {active: 1};
+                        this.confirmPin = null;
                     });
             }
         } else {
@@ -60,33 +62,24 @@ class SummitsController extends BaseTableModelController {
         this.endTime = null;
         this.registrationDeadline = null;
         this.deadlineTime = null;
+        this.confirmPin = null;
         super.cancel();
-    }
-
-    parseSummitDate() {
-        var summitDate = new Date(this.summitDate);
-        return {
-            summitDate: summitDate,
-            year: summitDate.getFullYear(),
-            month: summitDate.getMonth()-1,
-            date: summitDate.getDate()
-        }
     }
 
     parseStartDate(summitDate) {
         var startHours = this.startTime.getHours();
         var startMinutes = this.startTime.getMinutes();
-        return new Date(summitDate.year, summitDate.month, summitDate.date, startHours, startMinutes, 0);
+        return new Date(summitDate.getFullYear(), summitDate.getMonth(), summitDate.getDate(), startHours, startMinutes, 0);
     }
 
     parseEndDate(summitDate) {
         var endHours = this.endTime.getHours();
         var endMinutes = this.endTime.getMinutes();
-        return new Date(summitDate.year, summitDate.month, summitDate.date, endHours, endMinutes, 0);
+        return new Date(summitDate.getFullYear(), summitDate.getMonth(), summitDate.getDate(), endHours, endMinutes, 0);
     }
 
     parseRegistrationDeadline() {
-        var date = new Date(this.registrationDeadline);
+        var date = this.registrationDeadline;
         var hours = this.deadlineTime.getHours();
         var minutes = this.deadlineTime.getMinutes();
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);

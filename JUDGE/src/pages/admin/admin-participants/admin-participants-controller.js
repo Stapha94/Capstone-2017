@@ -42,7 +42,8 @@ class AdminParticipantsController {
         this.keyParticipantService = keyParticipantService;
         this.notificationService = notificationService;
         this.summits = summits;
-        this.summitId = summits[0].summitId;
+        var activeSummit = _.filter(this.summits, {active: '1'})[0];
+        this.summitId = activeSummit ? activeSummit.summitId : undefined;
         this.presenters = presenters;
         this.abstracts = abstracts;
         this.posters = posters;
@@ -58,6 +59,19 @@ class AdminParticipantsController {
                 this.activeSummit = true;
             }
         });
+        // Adds the submission date to the presenter. Oversight on our part.
+        _.forEach(this.presenters, (presenter) => {
+            var poster = _.filter(this.posters, {presenterId: presenter.presenterId })[0];
+            if(poster) {
+                presenter.submissionDate = poster.submissionDate;
+            } 
+        });
+    }
+
+    getFullName(presenter) {
+        return presenter.suffix === null || presenter.suffix === undefined || presenter.suffix === '' ? 
+            presenter.firstName + ' ' + presenter.lastName : 
+            presenter.firstName + ' ' + presenter.lastName + ', ' + presenter.suffix;
     }
 
     downloadAbstract(presenter) {
@@ -65,26 +79,31 @@ class AdminParticipantsController {
         var name = this.presenterAbstract.title+'.pdf';
         var abstractDoc = {
             header: function(currentPage, pageCount) { 
-                return { text: currentPage.toString() + ' of ' + pageCount, alignment: 'right', margin: [2, 2, 5, 0]}; 
+                return { text: currentPage.toString() + ' of ' + pageCount, alignment: 'right', margin: [2, 2, 5, 0]};
             },
-            background: { text: this.presenterAbstract.title, bold: true, margin: [5, 2, 2, 0]},
+            background: { },
             content: [
-                { text: this.presenterAbstract.title, style: 'header'},
-                { text: 'Objective', style: 'header'},
+                { text: this.presenterAbstract.title, style: 'header', alignment: 'center'},
+                { text: 'Objective', style: 'subheader'},
                 this.presenterAbstract.objective,
-                { text: 'Methods', style: 'header'},
+                { text: 'Methods', style: 'subheader'},
                 this.presenterAbstract.methods,
-                { text: 'Results', style: 'header'},
+                { text: 'Results', style: 'subheader'},
                 this.presenterAbstract.results,
-                { text: 'Conclusion', style: 'header'},
+                { text: 'Conclusion', style: 'subheader'},
                 this.presenterAbstract.conclusion
             ],
 
             styles: {
                 header: {
+                    fontSize: 28,
+                    bold: true,
+                    margin: [0, 10]
+                },
+                subheader: {
                     fontSize: 22,
                     bold: true,
-                    margin: [5, 10]
+                    margin: [0,25,0,5]
                 }
             }
         };

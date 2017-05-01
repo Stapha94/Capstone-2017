@@ -32,6 +32,20 @@
                     <label class="active" for="presenterEmailConfirm">Confirm Email: </label>
                 </div>
             </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select material-select id="institution" ng-model="ctrl.presenterInstitution">
+                        <option value="" disabled selected>Choose Your Institution</option>
+                        <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
+                    </select>
+                </div>
+                <div class="input-field col s6">
+                    <select material-select id="role" ng-model="ctrl.presenterRole">
+                        <option value="" disabled selected>Choose Your Role</option>
+                        <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
+                    </select>
+                </div>
+            </div>
             <div class="row pull-right">
                 <button class="btn waves-effect green waves-light" type="submit">Submit</button>
                 <a ui-sref='home.admin.presenters' class="waves-effect waves-light btn red">Cancel</a>

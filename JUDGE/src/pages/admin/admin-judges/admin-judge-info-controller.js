@@ -51,7 +51,8 @@ class AdminJudgeInfoController {
         this.forms = _.orderBy(forms, (form) => {return form.total}, ['desc']);
         this.formQuestions = formQuestions;
         this.summits = summits;
-        this.summitId = summits[0].summitId;
+        var activeSummit = _.filter(summits, {active: '1'})[0];
+        this.summitId = activeSummit ? activeSummit.summitId : undefined;
         if(forms[0] !== undefined) {
             this.form = forms[0];
         } else {

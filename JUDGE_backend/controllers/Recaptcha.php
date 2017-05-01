@@ -17,8 +17,10 @@ class Recaptcha extends REST_Controller {
         // Based on code here: http://stackoverflow.com/questions/27274157/new-google-recaptcha-with-checkbox-server-side-php
          try {
 
+         		$key = config_item('recaptcha_key');
+
                 $url = 'https://www.google.com/recaptcha/api/siteverify';
-                $data = ['secret'   => config_item('recaptcha_key'),
+                $data = ['secret'   => $key,
                          'response' => $this->post('grecaptcha_response'),
                          'remoteip' => $_SERVER['REMOTE_ADDR']];
 

@@ -5,13 +5,13 @@
     <div class="row">
         <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
             <option value="" disabled>Select Summit</option>
-            <option ng-repeat="summit in ctrl.summits" value="{{summit.summitId}}">{{summit.summitStart | date: 'mediumDate'}}</option>
+            <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" value="{{summit.summitId}}">{{summit.summitStart | date: 'mediumDate'}}</option>
         </select>
         <div class="pull-right">
             <a ng-if="ctrl.activeSummit" ui-sref="home.admin.register" class="waves-effect waves-light btn green">Add Presenter</a>
         </div>
     </div>
-    <div class="row">
+    <div ng-if="ctrl.summitId" class="row">
         <div class="col s9">
             <ul class="tabs" material-tabs>
                 <li class="tab col s3"><a class="active" href="#Active">Active</a></li>
@@ -20,59 +20,62 @@
         </div>
     </div>
 
-    <div id="Active" class="col s12">
+    <div ng-if="ctrl.summitId" id="Active" class="col s12">
         <table class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
-                <th>Suffix</th>
                 <th>Institution</th>
                 <th>Role</th>
                 <th>Email</th>
+                <th>Submission Date</th>
                 <th>Key Participants</th>
                 <th>Poster Abstract</th>
+                <th>&nbsp;</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '1' } | filter: { summitId: ctrl.summitId }">
-                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
-                <td>{{ presenter.suffix }}</td>
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '1' } | filter: { summitId: ctrl.summitId } | orderBy: '-submissionDate'">
+                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ ctrl.getFullName(presenter) }}</a></td>
                 <td>{{ presenter.institution }}</td>
                 <td>{{ presenter.role }}</td>
                 <td>{{ presenter.email }}</TD>
+                <td>{{ presenter.submissionDate | date: 'medium'}}</td>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
-                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a>
-                    <a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
+                <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
                 <td><a ng-click="ctrl.deactivate(presenter)" class="waves-effect waves-light btn red">Deactivate</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div id="Inactive" class="col s12">
+    <div ng-if="ctrl.summitId" id="Inactive" class="col s12">
         <table class="bordered highlight">
             <thead>
             <tr>
                 <th>Presenter</th>
-                <th>Suffix</th>
                 <th>Institution</th>
                 <th>Role</th>
                 <th>Email</th>
+                <th>Submission Date</th>
                 <th>Key Participants</th>
                 <th>Poster Abstract</th>
+                <th>&nbsp;</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '0' } | filter: { summitId: ctrl.summitId }">
-                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ presenter.firstName + ' ' + presenter.lastName }}</a></td>
-                <td>{{ presenter.suffix }}</td>
+            <tr ng-repeat="presenter in ctrl.presenters | filter: { active: '0' } | filter: { summitId: ctrl.summitId } | orderBy: '-submissionDate'">
+                <td><a ui-sref="home.admin.presenter({presenterId: presenter.presenterId})">{{ ctrl.getFullName(presenter) }}</a></td>
                 <td>{{ presenter.institution }}</td>
                 <td>{{ presenter.role }}</td>
                 <td>{{ presenter.email }}</TD>
+                <td>{{ presenter.submissionDate | date: 'medium'}}</td>
                 <td><a ng-click="ctrl.getKeyParticipants(presenter)" data-target="view-key-participants" class="waves-effect waves-light btn green">View Key Participants</a></td>
                 <td><a ng-click="ctrl.getPoster(presenter)" data-target="view-abstract" class="waves-effect waves-light btn green">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(presenter)">Download Abstract</a></td>
                 <td><a ng-click="ctrl.activate(presenter)" class="waves-effect waves-light btn green">Activate</a></td>
             </tr>
             </tbody>
