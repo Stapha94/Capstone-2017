@@ -7,7 +7,7 @@
                 <option value="" disabled>Select Summit</option>
                 <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
             </select>
-            <label for="summit">Select Summit</label>
+            <label class="active" for="summit">Select Summit</label>
         </div>
     </div>
     <div ng-if="ctrl.summitId" class="row">

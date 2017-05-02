@@ -15,7 +15,7 @@
                         ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
                         <option value="" disabled selected>Select Category</option>
                     </select>
-                    <label for="posterCategory">Select Category</label>
+                    <label class="active" for="posterCategory">Select Category</label>
                 </div>
                 <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" />
                 <label for="active">Active</label>
@@ -41,7 +41,7 @@
                         ng-options="posterCategory.posterCategoryId as posterCategory.title for posterCategory in ctrl.posterCategories" required>
                         <option value="" disabled selected>Select Category</option>
                     </select>
-                    <label for="posterCategory">Select Category</label>
+                    <label class="active" for="posterCategory">Select Category</label>
                 </div>
                 <input type="checkbox" name="active" ng-model="ctrl.role.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" />
                 <label for="active">Active</label>
