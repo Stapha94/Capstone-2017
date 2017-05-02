@@ -12,14 +12,14 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select name="section" class="form-control" ng-model="ctrl.model.questionSectionId" id="add-section" title="Section" material-select
+                        <select name="section"  ng-model="ctrl.model.questionSectionId" id="add-section" title="Section" class="browser-default"
                          ng-options="questionSection.questionSectionId as questionSection.title for questionSection in ctrl.questionSections">
                             <option value="" disabled selected>Section</option>
                         </select>
                         <label class="active" for "section">Section</label>
                     </div>
                 </div>
-                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" required />
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" />
                 <label for="active">Active</label>
             </div>
         </div>
@@ -40,14 +40,14 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select name="section" class="form-control" ng-model="ctrl.model.questionSectionId" id="edit-section" title="Section" material-select
+                        <select name="section"  ng-model="ctrl.model.questionSectionId" id="edit-section" title="Section" class="browser-default"
                          ng-options="questionSection.questionSectionId as questionSection.title for questionSection in ctrl.questionSections">
                             <option value="" disabled selected>Section</option>
                         </select>
                         <label class="active" for "section">Section</label>
                     </div>
                 </div>
-                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" />
                 <label for="active">Active</label>
             </div>
         </div>

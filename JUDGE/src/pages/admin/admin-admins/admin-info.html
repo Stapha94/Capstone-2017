@@ -28,7 +28,7 @@
                         <label class="active" for="email">Email</label>
                     </div>
                 </div>
-                <input ng-if="!ctrl.isSelf" type="checkbox" name="active" ng-model="ctrl.admin.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-disabled="!ctrl.canEdit" required />
+                <input ng-if="!ctrl.isSelf" type="checkbox" name="active" ng-model="ctrl.admin.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-disabled="!ctrl.canEdit" />
                 <label ng-if="!ctrl.isSelf" for="active">Active</label>
             </div>
             <div class="row pull-right">

@@ -12,14 +12,14 @@
 
         <div class="row">
             <div class="input-field col s6">
-                <select name="judge" class="form-control" ng-model="judgeCategory.judgeId" id="judge" title="Judge" ng-change="ctrl.reset()" material-select>
+                <select name="judge"  ng-model="judgeCategory.judgeId" id="judge" title="Judge" ng-change="ctrl.reset()" class="browser-default">
                     <option value="" disabled selected>Select Judge</option>
                     <option ng-repeat="judge in ctrl.judges | filter: {judgeCategoryId: judgeCategory.judgeCategoryId}" ng-value="judge.judgeId">{{judge.firstName + ' ' + judge.lastName}}</option>
                 </select>
                 <label for="judge">Select Judge</label>
             </div>
             <div class="input-field col s6">
-                <select name="posterCategory" class="form-control" ng-model="judgeCategory.posterCategoryId" id="posterCategory" title="PosterCategory" material-select>
+                <select name="posterCategory"  ng-model="judgeCategory.posterCategoryId" id="posterCategory" title="PosterCategory" class="browser-default">
                     <option value="" disabled selected>Select Poster Category</option>
                     <option ng-repeat="posterCategory in ctrl.posterCategories" ng-value="posterCategory.posterCategoryId">{{posterCategory.title}}</option>
                 </select>

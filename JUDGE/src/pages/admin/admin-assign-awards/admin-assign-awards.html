@@ -3,7 +3,7 @@
     <h5 class="page-title">Assign Awards</h5>
     <div class="row">
         <div class="input-field col s6">
-            <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="summit" material-select>
+            <select name="summit"  ng-model="ctrl.summitId" id="summit" title="summit" class="browser-default">
                 <option value="" disabled>Select Summit</option>
                 <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
             </select>
