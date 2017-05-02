@@ -66,8 +66,8 @@ class RolesController {
         var selects = angular.element(document.querySelectorAll('select'));
         _.forEach(selects, (select) => {
             select = angular.element(select);
-            select.val('None'); //Different approach here required for some reason
-            select.material_select();
+            //select.val('None'); //Different approach here required for some reason
+            //select.material_select();
         })
     }
 

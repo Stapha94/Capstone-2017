@@ -337,10 +337,6 @@ input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=em
     color: inherit;
 }
 
-.custom-select .select-wrapper+label {
-    top: 0.8rem;
-}
-
 .box-container {
     border: 1px solid lightgrey;
     margin: 50px;

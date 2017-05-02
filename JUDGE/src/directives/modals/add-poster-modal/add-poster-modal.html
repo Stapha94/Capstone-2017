@@ -71,17 +71,17 @@
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <select ng-options="institution.title as institution.institutionId for institution in ctrl.institutions" material-select id="institution" ng-model="ctrl.presenter.institutionId" required>
+                <select ng-options="institution.title as institution.institutionId for institution in ctrl.institutions" class="browser-default" id="institution" ng-model="ctrl.presenter.institutionId" required>
                     <option value="" disabled selected>Choose Your Institution</option>
                 </select>
             </div>
             <div class="input-field col s6">
-                <select ng-options="role.title as role.roleId for role in ctrl.roles" material-select id="role" ng-model="ctrl.presenter.roleId" required>
+                <select ng-options="role.title as role.roleId for role in ctrl.roles" class="browser-default" id="role" ng-model="ctrl.presenter.roleId" required>
                     <option value="" disabled selected>Choose Your Role</option>
                 </select>
             </div>
             <div class="input-field col s6">
-                <input type="checkbox" name="active" ng-model="ctrl.presenter.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <input type="checkbox" name="active" ng-model="ctrl.presenter.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" />
                 <label for="active">Active</label>
             </div>
         </div>

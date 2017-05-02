@@ -16,11 +16,11 @@
     <div id="Posters" class="col s12">
         <div class="row">
             <div class="input-field col s6">
-                <select name="summit" ng-change="ctrl.changeSummit()" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+                <select name="summit" ng-change="ctrl.changeSummit()"  ng-model="ctrl.summitId" id="summit" title="Summit" class="browser-default">
                     <option value="" disabled>Select Summit</option>
                     <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" ng-value="summit.summitId">{{ summit.summitStart | date: 'mediumDate'}}</option> 
                 </select>
-                <label for="judge">Select Summit</label>
+                <label class="active" for="judge">Select Summit</label>
             </div>
             <div class="pull-right">
                 <a ui-sref="home.admin.assign" class="waves-effect waves-light btn green">Assign Poster</a>

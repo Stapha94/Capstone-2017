@@ -30,8 +30,8 @@ class QuestionsController extends BaseSiteTableModelController {
         _.forEach(selects, (select) => {
             if(select.id !== 'section') {
                 select = angular.element(select);
-                select.val('None'); //Different approach here required for some reason
-                select.material_select();
+                //select.val('None'); //Different approach here required for some reason
+                //select.material_select();
             }
         })
     }

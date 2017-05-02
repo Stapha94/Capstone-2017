@@ -141,8 +141,8 @@ class AdminRegisterInstitutionController{
         var selects = angular.element(document.querySelectorAll('select'));
         _.forEach(selects, (select) => {
             select = angular.element(select);
-            select.val('None'); //Different approach here required for some reason
-            select.material_select();
+            //select.val('None'); //Different approach here required for some reason
+            //select.material_select();
         })
     }
 
@@ -151,8 +151,8 @@ class AdminRegisterInstitutionController{
         if(this.keyParticipantInstitution === '1') {
             this.keyParticipantDepartment = "";
             var departmentSelect = angular.element('#keyParticipantDepartmentMUSOM');
-            departmentSelect.val('None');
-            departmentSelect.material_select();
+            //departmentSelect.val('None');
+            //departmentSelect.material_select();
             this.oldInstitution = this.keyParticipantInstitution;
         } else {
             // Only reset it if changing from the dropwdown

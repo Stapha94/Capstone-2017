@@ -3,7 +3,7 @@
     <abstract-modal abstract="ctrl.presenterAbstract"></abstract-modal>
     <h5 class="page-title">Presenter Management</h5>
     <div class="row">
-        <select name="summit" class="form-control" ng-model="ctrl.summitId" id="summit" title="Summit" material-select>
+        <select name="summit"  ng-model="ctrl.summitId" id="summit" title="Summit" class="browser-default">
             <option value="" disabled>Select Summit</option>
             <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" value="{{summit.summitId}}">{{summit.summitStart | date: 'mediumDate'}}</option>
         </select>
