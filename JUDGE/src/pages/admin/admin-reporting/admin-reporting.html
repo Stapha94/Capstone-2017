@@ -8,7 +8,7 @@
                 <option value="" disabled>Select Summit</option>
                 <option ng-repeat="summit in ctrl.summits | orderBy: '-summitStart'" ng-value="summit.summitId">{{summit.summitStart | date: 'mediumDate'}}</option>
             </select>
-            <label for="judge">Select Summit</label>
+            <label class="active" for="judge">Select Summit</label>
         </div>
         <div ng-if="!ctrl.reportGenerated" class="input-field col s4">
             <a ng-click="ctrl.generateReport()" class="waves-effect waves-light btn">Generate Report</a>
