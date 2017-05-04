@@ -28,7 +28,7 @@
                         <label class="active" for="email">Email</label>
                     </div>
                 </div>
-                <input ng-if="!ctrl.isSelf" type="checkbox" name="active" ng-model="ctrl.admin.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-disabled="!ctrl.canEdit" required />
+                <input ng-if="!ctrl.isSelf" type="checkbox" name="active" ng-model="ctrl.admin.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="active" ng-disabled="!ctrl.canEdit" />
                 <label ng-if="!ctrl.isSelf" for="active">Active</label>
             </div>
             <div class="row pull-right">
@@ -42,7 +42,7 @@
     <div id="Password" class="input-field col s12">
         <form ng-submit="ctrl.updatePassword()">
             <div class="input-field col s12">
-                    <div class="input-field col s12">
+                    <div ng-if="ctrl.isSelf" class="input-field col s12">
                         <input type="password" maxlength="20" name="oldPassword" id="oldPassword" ng-model="ctrl.oldPassword" class="validate" placeholder="Old Password" required>
                         <label class="active" for="password">Old Password</label>
                     </div>

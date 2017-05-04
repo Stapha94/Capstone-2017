@@ -14,7 +14,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | filter: {summitId: ctrl.summitId} | filter: {posterCategoryId: ctrl.posterCategoryId} | orderBy: ['category', 'posterNumber']">
+                                <tr ng-click="ctrl.selectPoster(poster, $event)" ng-repeat="poster in ctrl.posters | filter: {summitId: ctrl.summitId} | filter: {posterCategoryId: ctrl.posterCategoryId} | orderBy: ['category', 'posterNumber']" id="poster{{poster.posterId}}">
                                     <td ng-if="poster.awardId === ctrl.awardId" class="active">{{poster.category + ' ' + poster.posterNumber}}</td>
                                     <td ng-if="poster.awardId !== ctrl.awardId">{{poster.category + ' ' + poster.posterNumber}}</td>
                                     <td ng-if="poster.awardId === ctrl.awardId" class="active">{{poster.posterTitle}}</td>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
+            <a ng-click="ctrl.cancel()" class="modal-action modal-close waves-effect waves-green btn red ">Cancel</a>
             <button type="submit" class="modal-action waves-effect waves-green btn green ">Award Poster</a>
         </div>
     </form>

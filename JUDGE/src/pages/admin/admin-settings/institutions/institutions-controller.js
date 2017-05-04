@@ -31,6 +31,7 @@ class InstitutionsController {
         this.institutionService.create(this.institution)
             .then((institution) => {
                 angular.element('.modal').modal('close');
+                this.reset();
                 this.setModal();
                 _.forEach(this.judgeCategories, (judgeCategory) => {
                     if(judgeCategory.judgeCategoryId === institution.judgeCategoryId) {
@@ -46,6 +47,7 @@ class InstitutionsController {
         this.institutionService.update(this.institution)
             .then(() => {
                 angular.element('.modal').modal('close');
+                this.reset();
                 this.setModal();
                 _.forEach(this.judgeCategories, (judgeCategory) => {
                     if(judgeCategory.judgeCategoryId === this.institution.judgeCategoryId) {
@@ -59,8 +61,20 @@ class InstitutionsController {
 
     cancel() {
         this.institution = {active: '1'};
+        this.reset();
         this.setModal();
         this.canEdit = false;
+    }
+
+    // Resets the select fields.
+    // Based on: http://stackoverflow.com/questions/37399188/jquery-materialize-changing-select-option-back-to-disabled-select-on-clear
+    reset() {
+        var selects = angular.element(document.querySelectorAll('select'));
+        _.forEach(selects, (select) => {
+            select = angular.element(select);
+            //select.val('None'); //Different approach here required for some reason
+            //select.material_select();
+        })
     }
 
     activate(institution) {

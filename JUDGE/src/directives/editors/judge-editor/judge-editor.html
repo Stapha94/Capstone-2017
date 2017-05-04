@@ -18,7 +18,7 @@
         </div>
         <div class="row" ng-if="ctrl.user.isAdmin">
             <div class="input-field col s12">
-                <select ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.canEdit" ng-show="ctrl.canEdit && ctrl.user.isAdmin" ng-required="ctrl.canEdit && ctrl.user.isAdmin">
+                <select class="browser-default" ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" condition="ctrl.canEdit" ng-show="ctrl.canEdit && ctrl.user.isAdmin" ng-required="ctrl.canEdit && ctrl.user.isAdmin">
                     <option ng-repeat="judgeCategory in ctrl.judgeCategories" value="{{judgeCategory.judgeCategoryId}}">{{judgeCategory.title}}</option>
                 </select>
                 <input id="category" ng-model="ctrl.judge.category" disabled ng-if="!ctrl.canEdit || ctrl.user.isJudge">
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="row" ng-if="ctrl.user.isAdmin">
-            <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="filled-in-box" ng-disabled="!ctrl.canEdit || !ctrl.user.isAdmin"  ng-required="ctrl.user.IsAdmin"/>
+            <input type="checkbox" ng-model="ctrl.judge.active" ng-true-value="'1'" ng-false-value="'0'" class="filled-in" id="filled-in-box" ng-disabled="!ctrl.canEdit || !ctrl.user.isAdmin"/>
             <label for="filled-in-box">Active</label>
         </div>
 

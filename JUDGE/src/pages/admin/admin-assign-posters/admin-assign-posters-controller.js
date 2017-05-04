@@ -62,6 +62,22 @@ class AdminAssignPostersController {
                 })
             }, true);
         });
+        this.judgeCategory = this.judgeCategories.length > 0 ? this.judgeCategories[0] : undefined;
+        $scope.$watch(() => { return this.judgeCategory }, (newVal, oldVal) => {
+            this.posters = angular.copy(this.originalPosters);
+            this.removedPosters = _.remove(this.posters, (poster) => {
+                var form = _.find(this.originalForms, {judgeId: newVal.judgeId, posterId: poster.posterId})
+                return form ? true : false;
+            })
+        }, true);
+    }
+
+    getStatus(form) {
+        return form.judged === '1' ? 'Judged' : 'Blank';
+    }
+
+    changeCategory(judgeCategory) {
+        this.judgeCategory = judgeCategory;
     }
 
     assign(judgeCategory) {
@@ -91,7 +107,6 @@ class AdminAssignPostersController {
                     var newPoster = _.remove(this.removedPosters, {posterId: form.posterId});
                     if(newPoster.length === 1) {
                         this.posters.push(newPoster[0]);
-                        this.originalPosters = angular.copy(this.posters);
                         this.originalForms = angular.copy(this.forms);
                         _.pull(this.selectedForms, form);
                     }

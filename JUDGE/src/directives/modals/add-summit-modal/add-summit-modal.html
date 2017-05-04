@@ -6,7 +6,7 @@
             <div class="input-field col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input material-datepicker name="summit-date" id="summit-date" ng-model="$parent.ctrl.summitDate" ng-required="ctrl.modal">
+                        <input type="date" name="summit-date" id="summit-date" ng-model="$parent.ctrl.summitDate" ng-required="ctrl.modal">
                         <label class="active" for="summit-date">Summit Date</label>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s9">
-                        <input material-datepicker name="registration-deadline" id="registration-deadline" ng-model="$parent.ctrl.registrationDeadline" ng-required="ctrl.modal">
+                        <input type="date" name="registration-deadline" id="registration-deadline" ng-model="$parent.ctrl.registrationDeadline" ng-required="ctrl.modal">
                         <label class="active" for="registration-deadline">Registration Deadline</label>
                     </div>
                     <div class="input-field col s3">
@@ -40,7 +40,7 @@
                         <label class="active" for="confirm-pin">Confirm Pin</label>
                     </div>
                 </div>                
-                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <input type="checkbox" name="active" ng-model="ctrl.model.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" />
                 <label for="active">Active</label>
             </div>
         </div>

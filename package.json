@@ -26,7 +26,7 @@
     "gulp-util": "3.0.8",
     "jquery": "1.12.4",
     "lodash": "4.17.4",
-    "materialize-css": "0.98.0",
+    "materialize-css": "0.98.2",
     "pdfmake": "0.1.27",
     "run-sequence": "1.2.2"
   },

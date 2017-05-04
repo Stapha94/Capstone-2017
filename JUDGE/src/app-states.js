@@ -207,7 +207,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/register',
             templateUrl: 'build/views/pages/admin/admin-register/admin-register.html',
             controller: 'adminRegisterController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: AdminRegisterController.resolve()
         })
         .state('home.admin.register-institution', {
             url: '/register-institution',
@@ -217,22 +218,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             },
             controller: 'adminRegisterInstitutionController',
             controllerAs: 'ctrl',
-            resolve: {
-                institutions: ['institutionService', (institutionService) => {
-                    return institutionService.get({active: 1 })
-                        .then((data) => {
-                            return data;
-                        });
-                }],
-
-                roles: ['roleService', (roleService) => {
-                    return roleService.get({active: 1 })
-                        .then((data) => {
-                            return data;
-                        });
-                }]
-
-            }
+            resolve: AdminRegisterInstitutionController.resolve()
         })
         .state('home.admin.register-info', {
             url: '/register-info',

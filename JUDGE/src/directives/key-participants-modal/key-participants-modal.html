@@ -12,23 +12,23 @@
         </div>
         <div class="row">
             <div class="input-field col s4">
-                <select material-select id="keyParticipantInstitution" ng-model="ctrl.keyParticipantInstitution">
+                <select class="browser-default" id="keyParticipantInstitution" ng-model="ctrl.keyParticipantInstitution" ng-change="ctrl.resetDepartment()">
                     <option value="" disabled selected>Choose Your Institution</option>
                     <option ng-repeat="institution in ctrl.institutions" value="{{institution.institutionId}}">{{institution.title}}</option>
                 </select>
             </div>
             <div ng-show="ctrl.keyParticipantInstitution === '1'" class="input-field col s4 ng-hide">
-                <select material-select id="keyParticipantDepartmentMUSOM" ng-model="ctrl.keyParticipantDepartment">
+                <select class="browser-default" id="keyParticipantDepartmentMUSOM" ng-model="ctrl.keyParticipantDepartment">
                     <option value="" disabled selected>Choose Your Department</option>
                     <option ng-repeat="department in ctrl.musomDepartments" value="{{department}}">{{department}}</option>
                 </select>
             </div>
-            <div ng-show="ctrl.keyParticipantInstitution === '2'" class="input-field col s4 ng-hide">
-                <input placeholder="Department" id="keyParticipantDepartmentCHH" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate">
-                <label class="active" for="keyParticipantDepartmentCHH">Department</label>
+            <div ng-show="ctrl.keyParticipantInstitution !== '1' && ctrl.keyParticipantInstitution !==null && ctrl.keyParticipantInstitution !==''" class="input-field col s4 ng-hide">
+                <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipantDepartment" type="text" class="validate">
+                <label class="active" for="keyParticipantDepartment">Department</label>
             </div>
             <div class="input-field col s4">
-                <select material-select id="keyParticipantRole" ng-model="ctrl.keyParticipantRole">
+                <select class="browser-default" id="keyParticipantRole" ng-model="ctrl.keyParticipantRole">
                     <option value="" disabled selected>Choose Your Role</option>
                     <option ng-repeat="role in ctrl.roles" value="{{role.roleId}}">{{role.title}}</option>
                 </select>

@@ -3,7 +3,7 @@
     <h5 class="page-title">Judges</h5>
     <div class="row">
         <div class="col s6">
-            <select name="category" class="form-control" ng-model="ctrl.category" id="category" title="Category" material-select
+            <select name="category"  ng-model="ctrl.category" id="category" title="Category" class="browser-default"
                 ng-options="judgeCategory.judgeCategoryId as judgeCategory.title for judgeCategory in ctrl.judgeCategories">
             </select>
         </div>
@@ -51,7 +51,7 @@
             <tr ng-repeat="judge in ctrl.judges | filter:{active:0} | filter:{judgeCategoryId: ctrl.category}">
                 <td><a ui-sref="home.admin.judge({judgeId: judge.judgeId})">{{ judge.email }}</a></td>
                 <td>{{ judge.firstName + ' ' + judge.lastName }}</td>
-                <td><a class="waves-effect waves-light btn red" ng-click="ctrl.activate(judge)">Activate</a></td>
+                <td><a class="waves-effect waves-light btn green" ng-click="ctrl.activate(judge)">Activate</a></td>
             </tr>
         </table>
     </div>

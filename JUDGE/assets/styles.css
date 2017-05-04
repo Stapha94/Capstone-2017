@@ -166,7 +166,7 @@ td a.btn:visited, td a.btn:hover {
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 992px) {
     .wrap {
         margin: 0;
         width: 100%;
@@ -325,20 +325,16 @@ th button.table-btn {
 }
 
 /** Override Disabled Settings **/
-input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
+input:not([type]):disabled, input[type=text]:disabled, input[type=email]:disabled, input[type=date]:disabled, input[type=time]:disabled, textarea.materialize-textarea:disabled {
     color: inherit;
 }
 
-input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
+input:not([type]):disabled+label, input[type=text]:disabled+label, input[type=email]:disabled+label, input[type=date]:disabled+label, input[type=time]:disabled+label, textarea.materialize-textarea:disabled+label {
     color: #00B140;
 }
 
 .select-wrapper input.select-dropdown:disabled {
     color: inherit;
-}
-
-.custom-select .select-wrapper+label {
-    top: 0.8rem;
 }
 
 .box-container {
@@ -497,4 +493,10 @@ td .btn{
     .blurbs {
         display: none;
     }
+}
+
+/* Helps with line breaks */
+/* Based on: http://stackoverflow.com/questions/16910653/keep-line-breaks-from-textarea */
+.whitespace {
+    white-space: pre-wrap;
 }

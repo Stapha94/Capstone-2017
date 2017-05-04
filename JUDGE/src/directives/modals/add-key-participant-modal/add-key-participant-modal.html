@@ -2,28 +2,34 @@
     <form ng-submit="ctrl.addKeyParticipant()">
         <div class="modal-content">
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s6">
                     <input placeholder="First Name" id="keyParticipantFName" ng-model="ctrl.keyParticipant.firstName" type="text" class="validate" required>
                     <label class="active" for="keyParticipantFName">First Name:</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s6">
                     <input placeholder="Last Name" id="keyParticipantLName" ng-model="ctrl.keyParticipant.lastName" type="text" class="validate" required>
                     <label class="active" for="keyParticipantLName">Last Name:</label>
                 </div>
-                <div class="input-field col s4">
-                    <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipant.department" type="text" class="validate" required>
-                    <label class="active" for="keyParticipantDepartment">Department</label>
-                </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
-                    <select material-select id="keyParticipantInstitution" ng-model="ctrl.keyParticipant.institutionId"
+                <div class="input-field col s4">
+                    <select class="browser-default" id="keyParticipantInstitution" ng-model="ctrl.keyParticipant.institutionId" ng-change="ctrl.resetDepartment()"
                         ng-options="institution.institutionId as institution.title for institution in ctrl.institutions" required>
                         <option value="" disabled selected>Choose Your Institution</option>
                     </select>
                 </div>
-                <div class="input-field col s6">
-                    <select material-select id="keyParticipantRole" ng-model="ctrl.keyParticipant.roleId"
+                <div ng-show="ctrl.keyParticipant.institutionId === '1'" class="input-field col s4 ng-hide">
+                    <select class="browser-default" id="keyParticipantDepartmentMUSOM" ng-model="ctrl.keyParticipant.department">
+                        <option value="" disabled selected>Choose Your Department</option>
+                        <option ng-repeat="department in ctrl.musomDepartments" value="{{department}}">{{department}}</option>
+                    </select>
+                </div>
+                <div ng-show="ctrl.keyParticipant.institutionId !== '1' && ctrl.keyParticipant.institutionId !==null && ctrl.keyParticipant.institutionId !==undefined && ctrl.keyParticipant.institutionId !==''" class="input-field col s4 ng-hide">
+                    <input placeholder="Department" id="keyParticipantDepartment" ng-model="ctrl.keyParticipant.department" type="text" class="validate">
+                    <label class="active" for="keyParticipantDepartment">Department</label>
+                </div>
+                <div class="input-field col s4">
+                    <select class="browser-default" id="keyParticipantRole" ng-model="ctrl.keyParticipant.roleId"
                         ng-options="role.roleId as role.title for role in ctrl.roles" required>
                         <option value="" disabled selected>Choose Your Role</option>
                     </select>

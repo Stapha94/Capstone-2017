@@ -42,7 +42,8 @@ class AdminParticipantsController {
         this.keyParticipantService = keyParticipantService;
         this.notificationService = notificationService;
         this.summits = summits;
-        this.summitId = summits[0].summitId;
+        var activeSummit = _.filter(this.summits, {active: '1'})[0];
+        this.summitId = activeSummit ? activeSummit.summitId : undefined;
         this.presenters = presenters;
         this.abstracts = abstracts;
         this.posters = posters;
@@ -58,6 +59,19 @@ class AdminParticipantsController {
                 this.activeSummit = true;
             }
         });
+        // Adds the submission date to the presenter. Oversight on our part.
+        _.forEach(this.presenters, (presenter) => {
+            var poster = _.filter(this.posters, {presenterId: presenter.presenterId })[0];
+            if(poster) {
+                presenter.submissionDate = poster.submissionDate;
+            } 
+        });
+    }
+
+    getFullName(presenter) {
+        return presenter.suffix === null || presenter.suffix === undefined || presenter.suffix === '' ? 
+            presenter.firstName + ' ' + presenter.lastName : 
+            presenter.firstName + ' ' + presenter.lastName + ', ' + presenter.suffix;
     }
 
     downloadAbstract(presenter) {

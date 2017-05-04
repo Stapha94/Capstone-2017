@@ -22,14 +22,14 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select name="category" class="form-control" ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" material-select condition="ctrl.modal" ng-show="ctrl.modal" ng-required="ctrl.modal"
+                        <select name="category"  ng-model="ctrl.judge.judgeCategoryId" id="category" title="Category" class="browser-default" condition="ctrl.modal" ng-show="ctrl.modal" ng-required="ctrl.modal"
                             ng-options="judgeCategory.judgeCategoryId as judgeCategory.title for judgeCategory in ctrl.judgeCategories">
                             <option value="" disabled>Category</option>
                         </select>
                         <label class="active" for="category">Category</label>
                     </div>
                 </div>
-                <input type="checkbox" name="active" ng-model="ctrl.judge.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" ng-required="ctrl.modal" />
+                <input type="checkbox" name="active" ng-model="ctrl.judge.active" ng-true-value="1" ng-false-value="0" class="filled-in" id="active" />
                 <label for="active">Active</label>
             </div>
         </div>

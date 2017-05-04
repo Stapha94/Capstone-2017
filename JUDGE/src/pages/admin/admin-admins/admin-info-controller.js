@@ -57,9 +57,18 @@ class AdminInfoController {
             this.notificationService.error('Please set a new password!');
         } else if(this.newPassword.length < 8) {
             this.notificationService.error('Please make password at least 8 characters long!');
-        } else {
+        } else if(this.isSelf) {
             var password = { adminId: this.original.adminId, newPassword: this.newPassword, oldPassword: this.oldPassword };
             this.adminService.updatePassword(password)
+                .then((data) => {
+                    this.resetPasswordFields();
+                })
+                .catch((error) => {
+                    this.resetPasswordFields();
+                });
+        } else {
+            var password = { adminId: this.original.adminId, newPassword: this.newPassword };
+            this.adminService.updateOtherAdminPassword(password)
                 .then((data) => {
                     this.resetPasswordFields();
                 })

@@ -12,6 +12,7 @@ class BaseSiteTableModelController {
         this.service.create(this.model)
             .then((model) => {
                 angular.element('.modal').modal('close');
+                this.reset();
                 this.setModal();
                 this.models.push(model);
                 this.model = {active: '1'};
@@ -22,6 +23,7 @@ class BaseSiteTableModelController {
         this.service.update(this.model)
             .then((model) => {
                 angular.element('.modal').modal('close');
+                this.reset();
                 this.setModal();
                 this.model = {active: '1'};
             });
@@ -30,6 +32,7 @@ class BaseSiteTableModelController {
 
     cancel() {
         this.model = {active: '1'};
+        this.reset();
         this.setModal();
         this.canEdit = false;
     }
@@ -52,6 +55,10 @@ class BaseSiteTableModelController {
         this.canEdit = true;
         this.original = model;
         this.model = angular.copy(this.original);
+    }
+
+    reset() {
+        return false; // This is to keep other pages without selects from breaking
     }
 
 }

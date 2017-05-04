@@ -6,11 +6,11 @@
             <div class="input-field col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <select ng-model="ctrl.form.posterId" id="poster" title="Poster" material-select ng-if="ctrl.modal" ng-required="ctrl.modal"
+                        <select ng-model="ctrl.form.posterId" id="poster" title="Poster" class="browser-default" ng-if="ctrl.modal" ng-required="ctrl.modal"
                             ng-options="poster.posterId as poster.posterTitle for poster in ctrl.posters">
                             <option value="" disabled>Poster</option>
                         </select>
-                        <label for="poster">Poster</label>
+                        <label class="active" for="poster">Poster</label>
                     </div>
                 </div>
             </div>
