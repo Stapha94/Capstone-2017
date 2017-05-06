@@ -47,24 +47,29 @@ class JudgeDashboardController {
             header: function(currentPage, pageCount) { 
                 return { text: currentPage.toString() + ' of ' + pageCount, alignment: 'right', margin: [2, 2, 5, 0]}; 
             },
-            background: { text: poster.posterTitle, bold: true, margin: [5, 2, 2, 0]},
+            background: { },
             content: [
-                { text: poster.posterTitle, style: 'header'},
-                { text: 'Objective', style: 'header'},
+                { text: poster.posterTitle, style: 'header', alignment: 'center'},
+                { text: 'Objective', style: 'subheader'},
                 poster.objective,
-                { text: 'Methods', style: 'header'},
+                { text: 'Methods', style: 'subheader'},
                 poster.methods,
-                { text: 'Results', style: 'header'},
+                { text: 'Results', style: 'subheader'},
                 poster.results,
-                { text: 'Conclusion', style: 'header'},
+                { text: 'Conclusion', style: 'subheader'},
                 poster.conclusion
             ],
 
             styles: {
                 header: {
+                    fontSize: 28,
+                    bold: true,
+                    margin: [0, 10]
+                },
+                subheader: {
                     fontSize: 22,
                     bold: true,
-                    margin: [5, 10]
+                    margin: [0,25,0,5]
                 }
             }
         };

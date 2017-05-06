@@ -16,6 +16,7 @@
                     <th>Poster Title</th>
                     <th>Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
                     <th>Abstract</th>
+                    <th>&nbsp;</th>
                     <th>Judge</th>
                 </tr>
             </thead>
@@ -25,8 +26,8 @@
                 <td>{{form.posterCategory + ' ' + form.posterNumber}}</td>
                 <td>{{form.posterTitle}}</td>
                 <td>{{form.posterCategory}}</td>
-                <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a>
-                    <a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(form)">Download Abstract</a></td>
+                <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(form)">Download Abstract</a></td>
                 <td><a class="waves-effect waves-light btn green" ui-sref="home.judge.form({formId: form.formId})">Judge Poster</a></td>
                 </tr>
             </tbody>
@@ -43,6 +44,7 @@
                     <th>Recommended Award</th>
                     <th>Category</th><!-- we'll probably put an ng-if here later depending on the judge -->
                     <th>Abstract</th>
+                    <th>&nbsp;</th>
                     <th>Judge</th>
                 </tr>
             </thead>
@@ -55,6 +57,7 @@
                 <td>{{form.recommendedAward}}</td>
                 <td>{{form.posterCategory}}</td>
                 <td><a class="waves-effect waves-light btn green" data-target="view-abstract" ng-click="ctrl.setAbstract(form)">View Abstract</a></td>
+                <td><a class="waves-effect waves-light btn" ng-click="ctrl.downloadAbstract(form)">Download Abstract</a></td>
                 <td><a class="waves-effect waves-light btn green" ui-sref="home.judge.form({formId: form.formId})">Judge Poster</a></td>
                 </tr>
             </tbody>

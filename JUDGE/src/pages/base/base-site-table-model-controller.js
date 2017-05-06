@@ -22,6 +22,17 @@ class BaseSiteTableModelController {
     edit() {
         this.service.update(this.model)
             .then((model) => {
+                _.forEach(this.models, (item) => {
+                    if(angular.equals(item, this.original)) {
+                        // This iterates through each key for the model and applies the new update
+                        // This is crucial to making the UI updates
+                        _.forEach(item, (value, key) => {
+                             if(this.model[key]) {
+                                 item[key] = this.model[key];
+                             }
+                        })
+                    }
+                });
                 angular.element('.modal').modal('close');
                 this.reset();
                 this.setModal();
@@ -31,10 +42,10 @@ class BaseSiteTableModelController {
     }
 
     cancel() {
-        this.model = {active: '1'};
         this.reset();
         this.setModal();
         this.canEdit = false;
+        this.model = {active: '1'};
     }
 
     activate(model) {
