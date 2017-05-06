@@ -47,14 +47,27 @@ class RolesController {
         var role = _.find(this.roles, {roleId: this.role.roleId});
         this.roleService.update(this.role)
             .then(() => {
+                _.forEach(this.roles, (role) => {
+                    if(angular.equals(role, this.original)) {
+                        // This iterates through each key for the model and applies the new update
+                        // This is crucial to making the UI updates
+                        _.forEach(role, (value, key) => {
+                             if(this.role[key]) {
+                                 role[key] = this.role[key];
+                             }
+                             if(key === 'posterCategoryId') {
+                                _.forEach(this.posterCategories, (posterCategory) => {
+                                    if(posterCategory.posterCategoryId === role.posterCategoryId) {
+                                        role.category = posterCategory.title;
+                                    }
+                                });
+                             }
+                        })
+                    }
+                });
                 angular.element('.modal').modal('close');
                 this.reset();
                 this.setModal();
-                _.forEach(this.posterCategories, (posterCategory) => {
-                    if(posterCategory.posterCategoryId === role.posterCategoryId) {
-                        role.category = posterCategory.title;
-                    }
-                });
                 this.role = {active: '1'};
             });
 
@@ -72,7 +85,6 @@ class RolesController {
     }
 
     cancel() {
-        this.role = {active: '1'};
         this.reset();
         this.setModal();
         this.canEdit = false;

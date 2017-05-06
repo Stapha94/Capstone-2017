@@ -46,14 +46,27 @@ class InstitutionsController {
     edit() {
         this.institutionService.update(this.institution)
             .then(() => {
+                _.forEach(this.institutions, (institution) => {
+                    if(angular.equals(institution, this.original)) {
+                        // This iterates through each key for the model and applies the new update
+                        // This is crucial to making the UI updates
+                        _.forEach(institution, (value, key) => {
+                             if(this.institution[key]) {
+                                 institution[key] = this.institution[key];
+                             }
+                             if(key === 'judgeCategoryId') {
+                                _.forEach(this.judgeCategories, (judgeCategory) => {
+                                    if(judgeCategory.judgeCategoryId === institution.judgeCategoryId) {
+                                        institution.category = judgeCategory.title;
+                                    }
+                                });
+                             }
+                        })
+                    }
+                });
                 angular.element('.modal').modal('close');
                 this.reset();
                 this.setModal();
-                _.forEach(this.judgeCategories, (judgeCategory) => {
-                    if(judgeCategory.judgeCategoryId === this.institution.judgeCategoryId) {
-                        this.institution.category = judgeCategory.title;
-                    }
-                });
                 this.institution = {judgeCategoryId: '', active: '1'};
             });
 
